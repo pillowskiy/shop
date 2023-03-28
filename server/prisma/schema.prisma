@@ -16,10 +16,92 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  email     String  @unique
-  name      String  @unique
-  password  String
-  phone     String?
+  email    String  @unique
+  name     String  @unique
+  password String
+  phone    String?
 
-  avatarURL String  @default("https://www.univ.kiev.ua/img/kobzar.jpg") @map("avatar_url")
+  avatarURL String @default("https://www.univ.kiev.ua/img/kobzar.jpg") @map("avatar_url")
+
+  orders  Order[]
+  reviews Review[]
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name        String   @unique
+  slug        String   @unique
+  description String
+  price       Int
+  image       String[]
+  category    String
+  quantity    Int
+  sold        Int
+
+  order_items OrderItem[]
+  reviews      Review[]
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name String @unique
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  rating Int
+  text   String
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @map("user_id")
+
+  product   Product? @relation(fields: [productId], references: [id])
+  productId Int?     @map("product_id")
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  status OrderStatus
+  items  OrderItem[]
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @map("user_id")
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+model OrderItem {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  quantity Int
+  price    Int
+
+  order   Order? @relation(fields: [orderId], references: [id])
+  orderId Int?   @map("order_id")
+
+  product   Product? @relation(fields: [productId], references: [id])
+  productId Int?     @map("product_id")
 }
