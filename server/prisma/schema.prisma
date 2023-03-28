@@ -21,5 +21,5 @@ model User {
   password  String
   phone     String?
 
-  avatarURL String  @default("/uploads/avatar.png") @map("avatar_url")
+  avatarURL String  @default("https://www.univ.kiev.ua/img/kobzar.jpg") @map("avatar_url")
 }
