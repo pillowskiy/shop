@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from './../prisma.service';
 import { userSelect, productSelect } from './partials/prisma.partials';
 import { UserDto } from './dto/user.dto';
+import { hash } from 'argon2';
 
 @Injectable()
 export class UserService {
@@ -46,7 +47,7 @@ export class UserService {
 
     return this.prisma.user.update({
       where: { id: userId },
-      data: UserDto.toJSON(dto),
+      data: { ...dto, password: dto.password && (await hash(dto.password)) },
     });
   }
 

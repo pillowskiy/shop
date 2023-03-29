@@ -10,6 +10,6 @@ export const productSelect = {
   id: true,
   name: true,
   price: true,
-  image: true,
+  images: true,
   slug: true,
 };

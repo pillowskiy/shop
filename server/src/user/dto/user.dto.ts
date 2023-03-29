@@ -1,14 +1,6 @@
 import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class UserDto {
-  static toJSON(dto: UserDto) {
-    return {
-      email: dto.email,
-      name: dto.name,
-      avatarURL: dto.avatarURL,
-      phone: dto.phone,
-    };
-  }
   @IsEmail()
   public email: string;
 
