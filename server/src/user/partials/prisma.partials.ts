@@ -5,3 +5,11 @@ export const userSelect = {
   avatarURL: true,
   phone: true,
 };
+
+export const productSelect = {
+  id: true,
+  name: true,
+  price: true,
+  image: true,
+  slug: true,
+};

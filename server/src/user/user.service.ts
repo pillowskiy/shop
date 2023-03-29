@@ -1,7 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from './../prisma.service';
-import { userSelect } from './partials/prisma.partials';
+import { userSelect, productSelect } from './partials/prisma.partials';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
@@ -14,15 +15,7 @@ export class UserService {
       where: { id: userId },
       select: {
         ...userSelect,
-        favorites: {
-          select: {
-            id: true,
-            name: true,
-            price: true,
-            image: true,
-            slug: true,
-          },
-        },
+        favorites: { select: productSelect },
         ...selectObject,
       },
     });
@@ -32,5 +25,28 @@ export class UserService {
     }
 
     return user;
+  }
+
+  public async updateProfile(userId: number, dto: UserDto) {
+    const isInitialUser = await this.prisma.user
+      .findUnique({
+        where: { email: dto.email },
+        select: {
+          ...userSelect,
+          favorites: { select: productSelect },
+        },
+      })
+      .then((user) => user.id === userId);
+
+    if (!isInitialUser) {
+      throw new BadRequestException(
+        'The final value does not match the initial value',
+      );
+    }
+
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: dto.toJSON(),
+    });
   }
 }
