@@ -1,6 +1,14 @@
 import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class UserDto {
+  static toJSON(dto: UserDto) {
+    return {
+      email: dto.email,
+      name: dto.name,
+      avatarURL: dto.avatarURL,
+      phone: dto.phone,
+    };
+  }
   @IsEmail()
   public email: string;
 
@@ -18,13 +26,4 @@ export class UserDto {
   @IsOptional()
   @IsString()
   public phone?: string;
-
-  public toJSON() {
-    return {
-      email: this.email,
-      name: this.name,
-      avatarURL: this.avatarURL,
-      phone: this.phone,
-    };
-  }
 }

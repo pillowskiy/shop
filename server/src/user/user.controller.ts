@@ -3,6 +3,8 @@ import {
   Controller,
   Get,
   HttpCode,
+  Param,
+  Patch,
   Put,
   UsePipes,
   ValidationPipe,
@@ -28,5 +30,15 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   public updateProfile(@User('id') userId: number, @Body() userDto: UserDto) {
     return this.userService.updateProfile(userId, userDto);
+  }
+
+  @Patch('profile/products/favorite/:productId')
+  @Auth()
+  @HttpCode(200)
+  public toggleFavoriteProduct(
+    @User('id') userId: number,
+    @Param('productId') productId: string,
+  ) {
+    this.userService.toggleFavoriteProduct(userId, +productId);
   }
 }

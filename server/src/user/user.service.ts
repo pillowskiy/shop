@@ -36,7 +36,7 @@ export class UserService {
           favorites: { select: productSelect },
         },
       })
-      .then((user) => user.id === userId);
+      .then((user) => user && user.id === userId);
 
     if (!isInitialUser) {
       throw new BadRequestException(
@@ -46,7 +46,23 @@ export class UserService {
 
     return this.prisma.user.update({
       where: { id: userId },
-      data: dto.toJSON(),
+      data: UserDto.toJSON(dto),
+    });
+  }
+
+  public async toggleFavoriteProduct(userId: number, productId: number) {
+    const userData = await this.getProfileById(userId);
+    const isFavorite = userData.favorites.some(
+      (product) => product.id === productId,
+    );
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        favorites: {
+          [isFavorite ? 'disconnect' : 'connect']: { id: productId },
+        },
+      },
     });
   }
 }
