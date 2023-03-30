@@ -1,21 +1,11 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import slugify from 'src/utils/slugify';
 const prisma = new PrismaClient();
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max) + 1;
-}
-
-function slugify(string: string) {
-  return string
-    .toString()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9 ]/g, '')
-    .replace(/\s+/g, '-');
 }
 
 const createProduct = async (count: number) => {
@@ -30,7 +20,7 @@ const createProduct = async (count: number) => {
         description: faker.commerce.productDescription(),
         price: +faker.commerce.price(),
         images: Array.from({ length: randomInt(6) }, () =>
-          faker.image.imageUrl(),
+          faker.image.imageUrl(500, 500, slugify(categoryName), true),
         ),
         quantity: randomInt(100),
         sold: randomInt(10000),
