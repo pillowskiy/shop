@@ -39,6 +39,6 @@ export class UserController {
     @User('id') userId: number,
     @Param('productId') productId: string,
   ) {
-    this.userService.toggleFavoriteProduct(userId, +productId);
+    return this.userService.toggleFavoriteProduct(userId, +productId);
   }
 }

@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  NotFoundException,
+  Injectable,
+  BadRequestException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from './../prisma.service';
 import { userSelect, productSelect } from './prisma.partials';
@@ -22,7 +26,7 @@ export class UserService {
     });
 
     if (!user) {
-      throw new BadRequestException('User not found');
+      throw new NotFoundException('User not found');
     }
 
     return user;
@@ -57,13 +61,17 @@ export class UserService {
       (product) => product.id === productId,
     );
 
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        favorites: {
-          [isFavorite ? 'disconnect' : 'connect']: { id: productId },
+    return this.prisma.user
+      .update({
+        where: { id: userId },
+        data: {
+          favorites: {
+            [isFavorite ? 'disconnect' : 'connect']: { id: productId },
+          },
         },
-      },
-    });
+      })
+      .catch(() => {
+        throw new NotFoundException('Product not found');
+      });
   }
 }

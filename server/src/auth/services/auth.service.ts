@@ -2,8 +2,8 @@ import {
   BadRequestException,
   Injectable,
   UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
-import { NotFoundException } from '@nestjs/common/exceptions';
 import { hash, verify } from 'argon2';
 import { PrismaService } from '../../prisma.service';
 import { UserDto, JwtRefreshTokenDto } from '../dto';
@@ -44,7 +44,7 @@ export class AuthService {
     });
 
     if (!userData) {
-      throw new BadRequestException('User not found');
+      throw new NotFoundException('User not found');
     }
 
     const tokens = await this.token.generate(userData.id);
