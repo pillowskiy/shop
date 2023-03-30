@@ -10,7 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Auth } from 'src/decorators/auth.decorator';
 import { CategoryService } from './category.service';
 import { CategoryDto } from './dto/category.dto';
 
