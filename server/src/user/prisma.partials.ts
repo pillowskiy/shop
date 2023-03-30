@@ -1,4 +1,6 @@
-export const userSelect = {
+import { Prisma } from '@prisma/client';
+
+export const userSelect: Prisma.UserSelect = {
   id: true,
   email: true,
   name: true,
@@ -6,7 +8,7 @@ export const userSelect = {
   phone: true,
 };
 
-export const productSelect = {
+export const productSelect: Prisma.ProductSelect = {
   id: true,
   name: true,
   price: true,
