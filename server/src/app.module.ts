@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
 import { ReviewModule } from './review/review.module';
 import { StatisticModule } from './statistic/statistic.module';
+import { PaginationModule } from './pagination/pagination.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { StatisticModule } from './statistic/statistic.module';
     CategoryModule,
     ReviewModule,
     StatisticModule,
+    PaginationModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
