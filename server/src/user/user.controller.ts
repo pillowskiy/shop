@@ -25,9 +25,9 @@ export class UserController {
   }
 
   @Put('profile')
+  @UsePipes(new ValidationPipe())
   @Auth()
   @HttpCode(200)
-  @UsePipes(new ValidationPipe())
   public updateProfile(@User('id') userId: number, @Body() userDto: UserDto) {
     return this.userService.updateProfile(userId, userDto);
   }

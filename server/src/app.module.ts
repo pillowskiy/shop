@@ -9,6 +9,7 @@ import { CategoryModule } from './category/category.module';
 import { ReviewModule } from './review/review.module';
 import { StatisticModule } from './statistic/statistic.module';
 import { PaginationModule } from './pagination/pagination.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { PaginationModule } from './pagination/pagination.module';
     ReviewModule,
     StatisticModule,
     PaginationModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
