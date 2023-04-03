@@ -10,6 +10,7 @@ import { ReviewModule } from './review/review.module';
 import { StatisticModule } from './statistic/statistic.module';
 import { PaginationModule } from './pagination/pagination.module';
 import { OrderModule } from './order/order.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { OrderModule } from './order/order.module';
     StatisticModule,
     PaginationModule,
     OrderModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
