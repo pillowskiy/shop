@@ -22,7 +22,7 @@ $api.interceptors.response.use(resConfig => resConfig, async (err) => {
       `${baseURL}/auth/refresh`, {
       withCredentials: true,
     });
-    localStorage.setItem('token', response.data.accessToken);
+    localStorage.setItem('accessToken', response.data.accessToken);
     return $api.request(err.config);
   }
   throw err;
