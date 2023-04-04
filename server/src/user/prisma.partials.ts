@@ -6,6 +6,9 @@ export const userSelect: Prisma.UserSelect = {
   name: true,
   avatarURL: true,
   phone: true,
+  password: false,
+  orders: false,
+  favorites: false,
 };
 
 export const productSelect: Prisma.ProductSelect = {

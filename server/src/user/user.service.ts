@@ -52,6 +52,7 @@ export class UserService {
     return this.prisma.user.update({
       where: { id: userId },
       data: { ...dto, password: dto.password && (await hash(dto.password)) },
+      select: userSelect,
     });
   }
 
@@ -68,6 +69,10 @@ export class UserService {
           favorites: {
             [isFavorite ? 'disconnect' : 'connect']: { id: productId },
           },
+        },
+        select: {
+          ...userSelect,
+          favorites: { select: productSelect },
         },
       })
       .catch(() => {
