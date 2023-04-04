@@ -7,5 +7,5 @@ export class PaginationDto {
 
   @IsOptional()
   @IsPositive()
-  perPage: number;
+  perPage?: number;
 }
