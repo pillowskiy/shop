@@ -2,9 +2,10 @@ import AuthService from "@/services/auth.service";
 import { IInitialState } from "@/types";
 import * as actions from "./user.actions";
 import { createSlice } from "@reduxjs/toolkit";
+import { getLocalStorage } from "@/utils/localStorage";
 
 const initialState: IInitialState = {
-  user: AuthService.getUserFromStorage(),
+  user: getLocalStorage('user'),
   isLoading: false,
 };
 
