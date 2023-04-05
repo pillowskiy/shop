@@ -23,3 +23,8 @@ export interface IAuth {
 export interface IAuthResponse extends ITokens {
   user: IUser;
 }
+
+export interface IStat {
+  name: string;
+  value: number;
+}
