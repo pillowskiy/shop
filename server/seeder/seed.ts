@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
-import slugify from 'src/utils/slugify';
+import slugify from '../src/utils/slugify';
 const prisma = new PrismaClient();
 
 function randomInt(max: number) {

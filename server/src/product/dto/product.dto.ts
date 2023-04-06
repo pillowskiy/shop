@@ -18,7 +18,7 @@ export class ProductDto {
 
   @IsOptional()
   @IsString()
-  description?: string;
+  public description?: string;
 
   @IsString({ each: true })
   @ArrayMinSize(1)

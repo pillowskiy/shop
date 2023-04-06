@@ -6,7 +6,7 @@ import { Auth } from 'src/decorators/auth.decorator';
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
-  @Get('/user/:id')
+  @Get('/:id')
   @Auth()
   public async getUserOrders(@Param('id') userId: string) {
     return this.orderService.getUserOrders(+userId);

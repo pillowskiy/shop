@@ -18,13 +18,13 @@ export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
   @Get(':id')
-  public getAll(@Param('id') id: string) {
-    return this.reviewService.getAll(+id);
+  public getAll(@Param('id') productId: string) {
+    return this.reviewService.getAll(+productId);
   }
 
   @Get('/avg/:id')
-  public getAvgRating(@Param('id') id: string) {
-    return this.reviewService.getAvgRating(+id);
+  public getAvgRating(@Param('id') productId: string) {
+    return this.reviewService.getAvgRating(+productId);
   }
 
   @Post('/:id')

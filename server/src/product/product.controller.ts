@@ -27,7 +27,7 @@ export class ProductController {
     return this.productService.getProducts(dto);
   }
 
-  @Get(':id')
+  @Get('/id/:id')
   public async getProductById(@Param('id') productId: string) {
     return this.productService.getProductById(+productId);
   }

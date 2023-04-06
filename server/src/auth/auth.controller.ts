@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  HttpCode,
   Post,
   UsePipes,
   ValidationPipe,
@@ -14,18 +16,20 @@ export class AuthController {
 
   @UsePipes(new ValidationPipe())
   @Post('login')
+  @HttpCode(200)
   async login(@Body() dto: UserDto) {
     return this.authService.login(dto);
   }
 
   @UsePipes(new ValidationPipe())
   @Post('register')
+  @HttpCode(200)
   async register(@Body() dto: UserDto) {
     return this.authService.register(dto);
   }
 
   @UsePipes(new ValidationPipe())
-  @Post('refresh')
+  @Get('refresh')
   async refresh(@Body() dto: JwtRefreshTokenDto) {
     return this.authService.refresh(dto);
   }
