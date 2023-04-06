@@ -5,9 +5,11 @@ const tailWindColors = require('tailwindcss/colors')
 const colors = {
   transparent: tailWindColors.transparent,
   black: '#141414',
-  primary: '#FFC700',
-  background: '#595959',
-  white: '#FDFDFD',
+  primary: '#FCC700',
+  red: '#D13237',
+  blue: '#046F90',
+  background: '#F4F4F4',
+  white: '#FFFFFF',
   light: '#F4F4F4',
 }
 
