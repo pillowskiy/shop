@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 body {
-  @apply text-base text-black
+  @apply text-base text-black bg-background;
+  font-family: 'Kharkiv-Tone';
+}
+
+@font-face {
+  font-family: "Kharkiv-Tone";
+  src: url("../fonts/Kharkiv-Tone.ttf");
 }
 
 .disabled {
