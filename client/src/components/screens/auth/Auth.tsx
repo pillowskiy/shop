@@ -4,16 +4,24 @@ import Button from '@/components/ui/button/Button';
 import Input from '@/components/ui/input/Input';
 import { useAuth } from '@/hooks/useAuth';
 import { useUserActions } from '@/hooks/useUserActions';
-import { IRegister } from '@/types';
-import { FC, useState } from 'react';
+import type { IRegister } from '@/types';
+import { type FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import Image from 'next/image';
+
 import * as constants from './constants';
+import { Modal } from '@/components/ui/popup/Modal';
+import Anchor from '@/components/ui/anchor/Anchor';
+
+import GoogleLogo from '@/assets/images/google.svg';
+import Logo from '@/assets/images/logo.svg';
 
 const Auth: FC = () => {
-  const { isLoading } = useAuth();
   const action = useUserActions();
+  const { isLoading } = useAuth();
   const [type, setType] = useState<'login' | 'register'>('login');
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const {
     register,
@@ -31,12 +39,9 @@ const Auth: FC = () => {
 
   return (
     <Meta title={'Authorization'}>
-      <section className="flex justify-between h-screen">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="round-2xl m-auto bg-white p-8 shadow rounded-xl"
-        >
-          <Heading className="mb-4 text-center capitalize" scale={'3xl'}>
+      <Modal active={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="h-full">
+          <Heading className="my-4 text-center uppercase" scale={'3xl'}>
             {type}
           </Heading>
           <Input
@@ -47,9 +52,10 @@ const Auth: FC = () => {
                 message: 'Please enter a valid email',
               },
             })}
+            className="mb-6"
             error={errors.email?.message}
             placeholder="your_email@gmail.com"
-            title="Email id or mobile number"
+            title="Email id or mobile number:"
             type="email"
           />
           <Input
@@ -60,17 +66,20 @@ const Auth: FC = () => {
                 message: 'Please enter a valid password',
               },
             })}
+            className="mb-6"
             error={errors.password?.message}
-            title="Password"
+            title="Password:"
             type="password"
           />
-          <div className="py-1 cursor-pointer">
-            <a className="text-xs text-blue hover:border-b hover:border-blue transition-all">Forgot password?</a>
+          <div className="flex w-full justify-between text-center gap-2">
+            <Button type="submit">Sign in</Button>
+            <Button color="light" iconURL={GoogleLogo}>
+              Google
+            </Button>
           </div>
-          <Button type="submit">Sign in</Button>
-          <Button color="light" className="ml-4">Google</Button>
+          <Anchor href="/">Create an account</Anchor>
         </form>
-      </section>
+      </Modal>
     </Meta>
   );
 };
