@@ -22,13 +22,17 @@
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
     "react-redux": "^8.0.5",
     "react-simple-star-rating": "^5.1.7",
+    "react-transition-group": "^4.4.5",
     "redux-persist": "^6.0.0",
     "typescript": "5.0.3"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.3",
+    "@types/react-transition-group": "^4.4.5",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "prettier": "^2.8.7",

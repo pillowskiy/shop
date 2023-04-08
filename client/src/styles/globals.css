@@ -7,6 +7,18 @@ body {
   font-family: 'Kharkiv-Tone';
 }
 
+:root {
+  --black: #141414;
+  --primary: #FCC700;
+  --red: #D13237;
+  --blue: #046F90;
+  --white: #FFFFFF;
+  --background: #F4F4F4;
+  --light: #F4F4F4;
+
+  --modal-index: 99;
+}
+
 @font-face {
   font-family: "Kharkiv-Tone";
   src: url("../fonts/Kharkiv-Tone.ttf");
