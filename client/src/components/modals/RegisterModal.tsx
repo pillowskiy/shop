@@ -1,40 +1,27 @@
-import Heading from '@/components/ui/Heading';
-import Button from '@/components/ui/button/Button';
-import Input from '@/components/ui/input/Input';
-import { Modal } from '@/components/ui/popup/Modal';
+import { Heading, Button, Input, Anchor, Modal } from '@/components/ui';
 
 import type { IRegister } from '@/types';
 import type { FC } from 'react';
+import type { LoginModalProps } from './types';
 
 import { useUserActions } from '@/hooks/useUserActions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import * as patterns from '@/utils/patterns';
-
-import type { LoginModalProps } from './types';
-import Anchor from '../ui/anchor/Anchor';
 import { AuthModalState } from '../screens/auth/types';
+import { registerInput } from '@/utils/registerInput';
 
-const LoginModal: FC<LoginModalProps> = ({
-  isOpen,
-  onClose,
-  setType,
-}) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<IRegister>({
+export const RegisterModal: FC<LoginModalProps> = ({ isOpen, onClose, setType }) => {
+  const { register, handleSubmit, formState, reset } = useForm<IRegister>({
     mode: 'onChange',
   });
+  const { errors } = formState;
 
   const action = useUserActions();
   const onSubmit: SubmitHandler<IRegister> = async (data: IRegister) => {
     action.register(data);
     reset();
   };
-  
+
   return (
     <Modal active={isOpen} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)} className="h-full">
@@ -42,14 +29,7 @@ const LoginModal: FC<LoginModalProps> = ({
           Create Account
         </Heading>
         <Input
-          {...register('username', {
-            required: 'This field is required',
-            pattern: {
-              value: patterns.username,
-              message: 'Please enter a valid username',
-            },
-          })}
-          className="mb-6"
+          {...registerInput('username', register)}
           error={errors.username?.message}
           placeholder="Username:"
           type="text"
@@ -57,14 +37,7 @@ const LoginModal: FC<LoginModalProps> = ({
           Enter your username
         </Input>
         <Input
-          {...register('email', {
-            required: 'This field is required',
-            pattern: {
-              value: patterns.email,
-              message: 'Please enter a valid email',
-            },
-          })}
-          className="mb-6"
+          {...registerInput('email', register)}
           error={errors.email?.message}
           placeholder="Email:"
           type="email"
@@ -72,21 +45,14 @@ const LoginModal: FC<LoginModalProps> = ({
           Enter your email address
         </Input>
         <Input
-          {...register('password', {
-            required: 'This field is required',
-            pattern: {
-              value: patterns.password,
-              message: 'Please enter a valid password',
-            },
-          })}
-          className="mb-6"
+          {...registerInput('password', register)}
           error={errors.password?.message}
           placeholder="Password:"
           type="password"
         >
           Enter your password
         </Input>
-        <div className="w-full text-center mt-4">
+        <div className="w-full text-center">
           <Button type="submit">Continue</Button>
           <br />
           <Anchor onClick={() => setType(AuthModalState.LOGIN)}>Sign in</Anchor>
@@ -95,5 +61,3 @@ const LoginModal: FC<LoginModalProps> = ({
     </Modal>
   );
 };
-
-export default LoginModal;
