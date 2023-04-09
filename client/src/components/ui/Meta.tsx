@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import type { FC, PropsWithChildren } from 'react';
 
-interface IProps {
+interface MetaProps {
   title: string;
   description?: string;
   image?: string;
@@ -10,12 +10,12 @@ interface IProps {
 
 export const titleMerge = (title: string) => `${title} | Shop`;
 
-const Meta: FC<PropsWithChildren<IProps>> = ({
+export const Meta: FC<PropsWithChildren<MetaProps>> = ({
   children,
   image,
   title,
   description,
-}: PropsWithChildren<IProps>) => {
+}) => {
   const { asPath } = useRouter();
   const currentUrl = `${process.env.APP_URL}${asPath}`;
 
@@ -45,5 +45,3 @@ const Meta: FC<PropsWithChildren<IProps>> = ({
     </>
   );
 };
-
-export default Meta;

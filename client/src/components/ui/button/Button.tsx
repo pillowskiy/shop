@@ -3,13 +3,13 @@ import classNames from 'clsx';
 import styles from './styles.module.css';
 import Image from 'next/image';
 
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'light';
   iconURL?: string;
   children: string
 }
 
-const Button: FC<IButtonProps> = ({
+export const Button: FC<ButtonProps> = ({
   children,
   iconURL,
   className,
@@ -26,5 +26,3 @@ const Button: FC<IButtonProps> = ({
     </button>
   );
 };
-
-export default Button;

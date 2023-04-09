@@ -1,9 +1,11 @@
-import Meta from '@/components/ui/Meta';
+import { type FC, useState } from 'react';
+
+import { Meta } from '@/components/ui';
+import { RegisterModal, LoginModal } from '@/components/modals';
+
 import { useAuth } from '@/hooks/useAuth';
 import { useUserActions } from '@/hooks/useUserActions';
-import { type FC, useState } from 'react';
-import LoginModal from '@/components/modals/LoginModal';
-import RegisterModal from '@/components/modals/RegisterModal';
+
 import { AuthModalState } from './types';
 
 const Auth: FC = () => {

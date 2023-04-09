@@ -2,7 +2,7 @@ import classNames from 'clsx';
 import { forwardRef } from 'react';
 import type { InputProps } from './types';
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ children, className, error, placeholder, Icon, ...props }, ref) => {
     return (
       <div className={classNames('mb-2', className)}>
@@ -13,9 +13,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             placeholder={children}
             className={classNames(
-              'w-full rounded px-2 py-2 text-base outline-none border border-black focus:border-primary transition-all',
+              'w-full mb-6 rounded px-2 py-2 text-base outline-none border border-black transition-all',
               {
                 'border-red': !!error,
+                'focus:border-primary': !error,
               },
             )}
           />
@@ -26,5 +27,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 );
 Input.displayName = 'Input';
-
-export default Input;

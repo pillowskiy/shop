@@ -1,12 +1,12 @@
 import type { FC, PropsWithChildren } from 'react';
 import classNames from 'clsx';
 
-interface IHeadingProps {
+interface HeadingProps {
   className?: string;
   scale?: '3xl' | '2xl' | '1xl'
 }
 
-const Heading: FC<PropsWithChildren<IHeadingProps>> = ({
+export const Heading: FC<PropsWithChildren<HeadingProps>> = ({
   children,
   scale = '3xl',
   className,
@@ -15,5 +15,3 @@ const Heading: FC<PropsWithChildren<IHeadingProps>> = ({
     <h1 className={classNames(`text-${scale} font-bold`, className)}>{children}</h1>
   );
 };
-
-export default Heading;

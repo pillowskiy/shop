@@ -1,9 +1,9 @@
 import Layout from "./layout";
 import { useMount } from "@/hooks/useMount";
-import type { IModalLayoutParams } from "./types";
+import type { ModalLayoutProps } from "./types";
 import type { FC, PropsWithChildren } from "react";
 
-export const Modal: FC<PropsWithChildren<IModalLayoutParams>> = ({
+export const Modal: FC<PropsWithChildren<ModalLayoutProps>> = ({
   active,
   onClose,
   children,

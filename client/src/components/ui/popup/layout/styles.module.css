@@ -21,12 +21,12 @@
   background: var(--white);
   border-radius: 1rem;
   color: var(--black);
-  padding: 6rem 4rem;
+  padding: 4rem 2rem;
 }
 
 .content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
