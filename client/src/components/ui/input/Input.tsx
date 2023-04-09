@@ -1,17 +1,17 @@
 import classNames from 'clsx';
 import { forwardRef } from 'react';
-import type { IInputProps } from './types';
+import type { InputProps } from './types';
 
-const Input = forwardRef<HTMLInputElement, IInputProps>(
-  ({ children, className, error, title, Icon, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ children, className, error, placeholder, Icon, ...props }, ref) => {
     return (
       <div className={classNames('mb-2', className)}>
         <label htmlFor="">
-          {Icon && <Icon className="ml-2" />}
-          <span className='block mt-2'>{title}</span>
+          <span className='block mt-2'>{placeholder}</span>
           <input
             {...props}
             ref={ref}
+            placeholder={children}
             className={classNames(
               'w-full rounded px-2 py-2 text-base outline-none border border-black focus:border-primary transition-all',
               {
@@ -20,7 +20,7 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
             )}
           />
         </label>
-        {error && <div className="text-xs text-red">{error}</div>}
+        {error && <div className="text-xs text-red mt-0.5">{error}</div>}
       </div>
     );
   },

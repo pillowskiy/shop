@@ -1,8 +1,8 @@
 import type { InputHTMLAttributes } from 'react';
 import type { IconType } from 'react-icons';
 
-export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  children: string;
   Icon?: IconType;
-  title: string;
   error?: string;
 }
