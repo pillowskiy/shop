@@ -9,14 +9,23 @@ export const NavBar: FC = () => {
     <nav className={styles.navbar}>
       <ul className={styles.items}>
         <li className={styles.item}>
-          <Image src={icons.market} alt="market" className={styles.icon}/>
+          <Image
+            src="/images/logo.svg"
+            alt="logo"
+            className={styles.logo}
+            width={256}
+            height={64}
+          />
+        </li>
+        <li className={styles.item}>
+          <Image src={icons.market} alt="market" className={styles.icon} />
           <div className={styles.boi}>
             <h4>Market</h4>
           </div>
         </li>
 
         <li className={styles.item}>
-          <Image src={icons.list} alt="list" className={styles.icon}/>
+          <Image src={icons.list} alt="list" className={styles.icon} />
 
           <div className={styles.boi}>
             <h4>Favorites</h4>
@@ -24,7 +33,11 @@ export const NavBar: FC = () => {
         </li>
 
         <li className={styles.item}>
-          <Image src={icons.headphones} alt="headphones" className={styles.icon}/>
+          <Image
+            src={icons.headphones}
+            alt="headphones"
+            className={styles.icon}
+          />
 
           <div className={styles.boi}>
             <h4>Cart</h4>
@@ -32,15 +45,19 @@ export const NavBar: FC = () => {
         </li>
 
         <li className={styles.item}>
-          <Image src={icons.monitor} alt="monitor" className={styles.icon}/>
+          <Image src={icons.monitor} alt="monitor" className={styles.icon} />
 
           <div className={styles.boi}>
             <h4>Language</h4>
           </div>
         </li>
-      
+
         <li className={styles.item}>
-          <img src="https://cdn.discordapp.com/attachments/920046675047890975/1095019238198095992/image.png" alt="monitor" className={styles.icon}/>
+          <img
+            src="https://cdn.discordapp.com/attachments/920046675047890975/1095019238198095992/image.png"
+            alt="profile"
+            className={styles.icon}
+          />
 
           <div className={styles.boi}>
             <h4>Some Text</h4>
