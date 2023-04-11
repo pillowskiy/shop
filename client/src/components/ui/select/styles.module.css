@@ -1,0 +1,35 @@
+.select {
+  padding: 0 1rem;
+  user-select: none;
+}
+
+.button .icon {
+  position: absolute;
+  user-select: none;
+}
+
+.content {
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+  position: absolute;
+  background-color: var(--white);
+  width: inherit;
+  height: max-content;
+  border-radius: .25rem;
+}
+
+.content:before {
+  content: '';
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--white);
+
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(45deg);
+  left: 50%;
+  z-index: -1;
+}
+
+.option:hover {
+  background-color: var(--light);
+}

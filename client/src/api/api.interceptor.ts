@@ -1,3 +1,4 @@
+import AuthService from "@/services/auth.service";
 import axios from "axios";
 
 const baseURL = process.env.API_URL;
@@ -8,7 +9,7 @@ export const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
   const { headers } = config;
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = AuthService.getAccessToken();
   if (headers && accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -22,7 +23,7 @@ $api.interceptors.response.use(resConfig => resConfig, async (err) => {
       `${baseURL}/auth/refresh`, {
       withCredentials: true,
     });
-    localStorage.setItem('accessToken', response.data.accessToken);
+    AuthService.saveToStorage(response.data);
     return $api.request(err.config);
   }
   throw err;
