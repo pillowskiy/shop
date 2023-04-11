@@ -1,0 +1,37 @@
+.navbar {
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+
+  z-index: var(--querybar-index);
+
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.section {
+  display: flex;
+  
+  width: max-content;
+  cursor: pointer;
+  padding: .5rem 2rem;
+  background-color: var(--white);
+  border-radius: 0 0 2rem 2rem;
+}
+
+.input {
+  outline: none;
+  width: 20vw;
+}
+
+.bordered::before {
+  content: '';
+  transform: translateX(-400%);
+  position: absolute;
+  width: 2px;
+  height: 1.5rem;
+  background-color: var(--black);
+  opacity: .4;
+}

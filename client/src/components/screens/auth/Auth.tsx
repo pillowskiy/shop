@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useUserActions } from '@/hooks/useUserActions';
 
 import { AuthModalState } from './types';
+import { NavBar, QueryBar } from '@/components/bars';
 
 const Auth: FC = () => {
   const action = useUserActions();
@@ -17,6 +18,8 @@ const Auth: FC = () => {
 
   return (
     <Meta title={'Authorization'}>
+      <NavBar />
+      <QueryBar />
       {type === AuthModalState.LOGIN ? (
         <LoginModal
           isOpen={type === AuthModalState.LOGIN}
