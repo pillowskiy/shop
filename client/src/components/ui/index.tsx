@@ -1,6 +1,7 @@
 export { Anchor } from './anchor/Anchor';
 export { Button } from './button/Button';
 export { Input } from './input/Input';
+export { Select } from './select/Select';
 export { Modal } from './popup/Modal';
 export { Heading } from './Heading';
 export { Meta } from './Meta';

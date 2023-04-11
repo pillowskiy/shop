@@ -6,6 +6,8 @@
   border-radius: inherit;
   border-right: 3px solid var(--light);
   background-color: var(--white);
+
+  z-index: var(--navbar-index);
 }
 
 .logo {
