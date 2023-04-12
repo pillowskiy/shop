@@ -17,6 +17,8 @@ body {
   --light: #F4F4F4;
 
   --modal-index: 99;
+  --navbar-index: 98;
+  --querybar-index: 97;
 }
 
 @font-face {
@@ -29,4 +31,18 @@ body {
   cursor: not-allowed;
   text-decoration: none;
   opacity: 0.5;
+}
+
+mark {
+  background-color: var(--primary);
+  color: var(--black);
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: none;
+  box-shadow: none;
 }
