@@ -2,9 +2,9 @@ import type { FC, HTMLAttributes } from 'react';
 import classNames from 'clsx';
 import { Anchor } from '@/components/ui';
 
-interface QueryContentProps extends HTMLAttributes<HTMLDivElement> {}
+interface QuerySuggestProps extends HTMLAttributes<HTMLDivElement> {}
 
-export const SearchSuggest: FC<QueryContentProps> = ({
+export const QuerySuggest: FC<QuerySuggestProps> = ({
   className,
   ...props
 }) => {

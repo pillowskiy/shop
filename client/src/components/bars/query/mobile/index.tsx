@@ -2,7 +2,7 @@ import { useState, type FC } from 'react';
 import styles from './styles.module.css';
 import classNames from 'clsx';
 import { Anchor } from '@/components/ui';
-import { SearchSuggest } from '../layout/SearchSuggest';
+import { QuerySuggest } from '../layout/QuerySuggest';
 
 const QueryBar: FC = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -30,7 +30,7 @@ const QueryBar: FC = () => {
           className={styles.input}
           onFocus={() => setIsFocused(!isFocused)}
         />
-        {isFocused && <SearchSuggest className={styles.content} />}
+        {isFocused && <QuerySuggest className={styles.content} />}
       </div>
 
       <i
