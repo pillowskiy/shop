@@ -1,9 +1,8 @@
 .navbar {
-  top: 0;
-  left: 0;
-
   width: 100vw;
   height: 3rem;
+
+  float: right;
 
   padding: 0.25rem 1rem;
 
@@ -14,16 +13,6 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-}
-
-.section {
-  display: flex;
-
-  width: max-content;
-  cursor: pointer;
-  padding: 0.5rem 2rem;
-  background-color: var(--white);
-  border-radius: 0 0 2rem 2rem;
 }
 
 .container {
@@ -72,4 +61,10 @@
   height: max-content;
   background-color: var(--light);
   margin-top: 1rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .navbar {
+    width: calc(100vw - 7rem);
+  }
 }

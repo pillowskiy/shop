@@ -2,6 +2,7 @@ import { type FC, useState } from 'react';
 import styles from './styles.module.css';
 import { Anchor, Select } from '@/components/ui';
 import classNames from 'clsx';
+import { SearchSuggest } from '../layout/SearchSuggest';
 
 const languageOptions = [
   {
@@ -15,7 +16,8 @@ const languageOptions = [
 ];
 
 const QueryBar: FC = () => {
-  const [language, setLanguage] = useState<number>(-1);
+  const [language, setLanguage] = useState(-1);
+  const [isFocused, setIsFocused] = useState(true);
 
   return (
     <header className={styles.navbar}>
@@ -36,6 +38,7 @@ const QueryBar: FC = () => {
             search
           </i>
         </div>
+        {isFocused && <SearchSuggest className={styles.content} />}
       </section>
       <section className={styles.section}>
         <i className="material-icons-round text-black opacity-60">language</i>

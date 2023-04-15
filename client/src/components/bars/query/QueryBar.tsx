@@ -4,6 +4,6 @@ import mobile from 'is-mobile';
 export const QueryBar = dynamic(() => {
   console.log("Rendered QueryBar");
   return mobile() ?
-    import('./QueryBarMobile'):
-    import('./QueryBarDesktop');
+    import('./mobile'):
+    import('./desktop');
 }, { ssr: false });
