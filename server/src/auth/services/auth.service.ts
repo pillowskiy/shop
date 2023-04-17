@@ -71,6 +71,10 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
+    // ------- TEMP --------
+    delete userData.password;
+    // ------- TEMP --------
+
     return userData;
   }
 }

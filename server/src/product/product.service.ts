@@ -161,6 +161,7 @@ export class ProductService {
           connect: { id: categoryId },
         },
       },
+      select: productFullestSelect,
     });
   }
 

@@ -12,6 +12,7 @@ export const productSelect: Prisma.ProductSelect = {
   category: {
     select: {
       name: true,
+      slug: true,
     },
   },
 };
