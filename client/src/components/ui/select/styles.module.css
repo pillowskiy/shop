@@ -3,14 +3,18 @@
   user-select: none;
 }
 
-.button .icon {
+.select {
+  padding: 0.25rem 1rem .25rem 0;
+}
+
+.icon {
   position: absolute;
-  user-select: none;
 }
 
 .content {
-  margin-top: 1.5rem;
-  padding: 0.5rem;
+  margin-top: 3rem;
+
+  padding: 0.25rem;
   position: absolute;
   background-color: var(--white);
   width: inherit;
@@ -30,6 +34,29 @@
   z-index: -1;
 }
 
+.option {
+  padding: 0.25rem 1rem;
+  display: flex;
+}
+
 .option:hover {
   background-color: var(--light);
+}
+
+.image {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+}
+
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  .content {
+    position: fixed;
+
+    height: max-content;
+    width: 100vw;
+    bottom: 0;
+    z-index: var(--modal-index);
+  }
 }
