@@ -8,6 +8,7 @@ import { hash, verify } from 'argon2';
 import { PrismaService } from '../../prisma.service';
 import { UserDto, JwtRefreshTokenDto } from '../dto';
 import { TokenService } from './token.service';
+import { userSelect } from '../prisma.partials';
 
 @Injectable()
 export class AuthService {
@@ -58,8 +59,8 @@ export class AuthService {
   private async validateUser({ email, name, password }: UserDto) {
     const userData = (
       await Promise.all([
-        this.prisma.user.findUnique({ where: { email } }),
-        this.prisma.user.findUnique({ where: { name } }),
+        this.prisma.user.findUnique({ where: { email }, select: userSelect }),
+        this.prisma.user.findUnique({ where: { name }, select: userSelect }),
       ])
     ).find((user) => user);
     if (!userData) {
@@ -70,10 +71,6 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid password');
     }
-
-    // ------- TEMP --------
-    delete userData.password;
-    // ------- TEMP --------
 
     return userData;
   }
