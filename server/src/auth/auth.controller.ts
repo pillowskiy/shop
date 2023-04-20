@@ -8,7 +8,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './services/auth.service';
-import { UserDto, JwtRefreshTokenDto } from './dto';
+import { UserDto, JwtRefreshTokenDto, LoginDto } from './dto';
 
 @Controller('auth')
 export class AuthController {
@@ -17,7 +17,7 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @Post('login')
   @HttpCode(200)
-  async login(@Body() dto: UserDto) {
+  async login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
 

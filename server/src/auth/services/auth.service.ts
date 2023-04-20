@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { hash, verify } from 'argon2';
 import { PrismaService } from '../../prisma.service';
-import { UserDto, JwtRefreshTokenDto } from '../dto';
+import { UserDto, JwtRefreshTokenDto, LoginDto } from '../dto';
 import { TokenService } from './token.service';
 import { userSelect } from '../prisma.partials';
 
@@ -42,6 +42,7 @@ export class AuthService {
     const userId = await this.token.validate(dto);
     const userData = await this.prisma.user.findUnique({
       where: { id: userId },
+      select: userSelect,
     });
 
     if (!userData) {
@@ -51,18 +52,16 @@ export class AuthService {
     const tokens = await this.token.generate(userData.id);
     return { user: userData, ...tokens };
   }
-  public async login(dto: UserDto) {
+  public async login(dto: LoginDto) {
     const user = await this.validateUser(dto);
     const tokens = await this.token.generate(user.id);
     return { user, ...tokens };
   }
-  private async validateUser({ email, name, password }: UserDto) {
-    const userData = (
-      await Promise.all([
-        this.prisma.user.findUnique({ where: { email }, select: userSelect }),
-        this.prisma.user.findUnique({ where: { name }, select: userSelect }),
-      ])
-    ).find((user) => user);
+  private async validateUser({ email, name, password }: LoginDto) {
+    const userData = await this.prisma.user.findFirst({
+      where: { OR: [{ name }, { email }] },
+    });
+
     if (!userData) {
       throw new NotFoundException('User not found!');
     }
@@ -72,6 +71,8 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
+    // TEMP =(
+    delete userData.password;
     return userData;
   }
 }
