@@ -16,6 +16,7 @@ import { FilterDto } from './dto/filter.dto';
 import { Auth } from 'src/decorators/auth.decorator';
 import { ProductDto } from './dto/product.dto';
 import { User } from 'src/decorators/user.decorator';
+import { NumParam } from 'src/decorators/param.decorator';
 
 @Controller('products')
 export class ProductController {
@@ -28,8 +29,8 @@ export class ProductController {
   }
 
   @Get('/id/:id')
-  public async getProductById(@Param('id') productId: string) {
-    return this.productService.getProductById(+productId);
+  public async getProductById(@NumParam('id') productId: number) {
+    return this.productService.getProductById(productId);
   }
 
   @Get('/slug/:slug')
@@ -43,8 +44,8 @@ export class ProductController {
   }
 
   @Get('/similar/:id')
-  public async getSimilar(@Param('id') productId: string) {
-    return this.productService.getSimilar(+productId);
+  public async getSimilar(@NumParam('id') productId: number) {
+    return this.productService.getSimilar(productId);
   }
 
   @UsePipes(new ValidationPipe())
@@ -60,17 +61,17 @@ export class ProductController {
   @Auth()
   @Put(':id')
   public async updateProduct(
-    @Param('id') productId: string,
+    @NumParam('id') productId: number,
     @User('id') userId: string,
     @Body() dto: ProductDto,
   ) {
-    return this.productService.update(+productId, +userId, dto);
+    return this.productService.update(productId, +userId, dto);
   }
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Delete(':id')
-  public async deleteProduct(@Param('id') productId: string) {
-    return this.productService.delete(+productId);
+  public async deleteProduct(@NumParam('id') productId: number) {
+    return this.productService.delete(productId);
   }
 }

@@ -1,6 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Auth } from 'src/decorators/auth.decorator';
+import { NumParam } from 'src/decorators/param.decorator';
 
 @Controller('orders')
 export class OrderController {
@@ -8,7 +9,7 @@ export class OrderController {
 
   @Get('/:id')
   @Auth()
-  public async getUserOrders(@Param('id') userId: string) {
-    return this.orderService.getUserOrders(+userId);
+  public async getUserOrders(@NumParam('id') userId: number) {
+    return this.orderService.getUserOrders(userId);
   }
 }

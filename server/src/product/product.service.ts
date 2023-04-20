@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -63,9 +62,6 @@ export class ProductService {
     };
   }
   public async getProductById(productId: number) {
-    if (isNaN(productId)) {
-      throw new BadRequestException('Invalid product id');
-    }
     return this.getProductByQuery({ id: productId }, productFullestSelect);
   }
   public async getProductByQuery(
@@ -129,10 +125,6 @@ export class ProductService {
     return id;
   }
   public async update(productId: number, userId: number, dto: ProductDto) {
-    if (isNaN(productId)) {
-      throw new BadRequestException('Invalid product id');
-    }
-
     const { categoryId, ...data } = dto;
 
     const isCategoryExist = await this.categoryService.getCategoryByQuery({
@@ -166,9 +158,6 @@ export class ProductService {
   }
 
   public delete(productId: number) {
-    if (isNaN(productId)) {
-      throw new BadRequestException('Invalid product id');
-    }
     return this.prisma.product.delete({
       where: { id: productId },
     });

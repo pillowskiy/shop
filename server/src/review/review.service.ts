@@ -2,19 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { ReviewDto } from './dto/review.dto';
 import { reviewSelect } from './prisma.partials';
-import {
-  BadRequestException,
-  NotFoundException,
-} from '@nestjs/common/exceptions';
+import { NotFoundException } from '@nestjs/common/exceptions';
 
 @Injectable()
 export class ReviewService {
   constructor(private readonly prisma: PrismaService) {}
 
   public async getAvgRating(productId: number) {
-    if (isNaN(productId)) {
-      throw new BadRequestException('Invalid product id');
-    }
     const data = await this.prisma.review.aggregate({
       where: { productId },
       _avg: { rating: true },
@@ -22,9 +16,6 @@ export class ReviewService {
     return data._avg.rating || 0;
   }
   public getAll(productId: number) {
-    if (isNaN(productId)) {
-      throw new BadRequestException('Invalid product id');
-    }
     return this.prisma.review.findMany({
       where: { productId },
       orderBy: { createdAt: 'desc' },
