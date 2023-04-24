@@ -1,7 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Auth } from 'src/decorators/auth.decorator';
-import { NumParam } from 'src/decorators/param.decorator';
 
 @Controller('orders')
 export class OrderController {
@@ -9,7 +8,7 @@ export class OrderController {
 
   @Get('/:id')
   @Auth()
-  public async getUserOrders(@NumParam('id') userId: number) {
+  public async getUserOrders(@Param('id', ParseIntPipe) userId: number) {
     return this.orderService.getUserOrders(userId);
   }
 }

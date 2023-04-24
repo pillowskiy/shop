@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   UsePipes,
@@ -23,8 +24,8 @@ export class CategoryController {
     return this.categoryService.getAll();
   }
   @Get('/id/:id')
-  public getCategoryById(@Param('id') id: string) {
-    return this.categoryService.getCategoryByQuery({ id: +id });
+  public getCategoryById(@Param('id', ParseIntPipe) id: number) {
+    return this.categoryService.getCategoryByQuery({ id });
   }
   @Get('/slug/:slug')
   public getCategoryBySlug(@Param('slug') slug: string) {
@@ -39,8 +40,8 @@ export class CategoryController {
   @Delete(':id')
   @Auth()
   @HttpCode(200)
-  public deleteCategory(@Param('id') id: string) {
-    return this.categoryService.delete(+id);
+  public deleteCategory(@Param('id', ParseIntPipe) id: number) {
+    return this.categoryService.delete(id);
   }
 
   @Put(':id')
@@ -48,9 +49,9 @@ export class CategoryController {
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   public updateCategory(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() category: CategoryDto,
   ) {
-    return this.categoryService.update(+id, category);
+    return this.categoryService.update(id, category);
   }
 }

@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -16,7 +17,6 @@ import { FilterDto } from './dto/filter.dto';
 import { Auth } from 'src/decorators/auth.decorator';
 import { ProductDto } from './dto/product.dto';
 import { User } from 'src/decorators/user.decorator';
-import { NumParam } from 'src/decorators/param.decorator';
 
 @Controller('products')
 export class ProductController {
@@ -29,7 +29,7 @@ export class ProductController {
   }
 
   @Get('/id/:id')
-  public async getProductById(@NumParam('id') productId: number) {
+  public async getProductById(@Param('id', ParseIntPipe) productId: number) {
     return this.productService.getProductById(productId);
   }
 
@@ -44,7 +44,7 @@ export class ProductController {
   }
 
   @Get('/similar/:id')
-  public async getSimilar(@NumParam('id') productId: number) {
+  public async getSimilar(@Param('id', ParseIntPipe) productId: number) {
     return this.productService.getSimilar(productId);
   }
 
@@ -61,7 +61,7 @@ export class ProductController {
   @Auth()
   @Put(':id')
   public async updateProduct(
-    @NumParam('id') productId: number,
+    @Param('id', ParseIntPipe) productId: number,
     @User('id') userId: string,
     @Body() dto: ProductDto,
   ) {
@@ -71,7 +71,7 @@ export class ProductController {
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Delete(':id')
-  public async deleteProduct(@NumParam('id') productId: number) {
+  public async deleteProduct(@Param('id', ParseIntPipe) productId: number) {
     return this.productService.delete(productId);
   }
 }
