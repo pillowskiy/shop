@@ -158,7 +158,17 @@ export class ProductService {
     });
   }
 
-  public delete(productId: number) {
+  public async delete(executor: PrismaUser, productId: number) {
+    const product = await this.getProductById(productId);
+    if (!product) {
+      throw new NotFoundException(`Cannot find product with id ${productId}`);
+    }
+    if (
+      product.userId !== executor.id &&
+      matchRoles(['Admin'], executor.roles)
+    ) {
+      throw new ForbiddenException('You are not allowed to do this action');
+    }
     return this.prisma.product.delete({
       where: { id: productId },
     });

@@ -25,17 +25,17 @@ export class UserController {
     return this.userService.getProfileById(userId);
   }
 
-  @Put('profile')
   @UsePipes(new ValidationPipe())
   @Auth()
   @HttpCode(200)
+  @Put('profile')
   public updateProfile(@User() user: PrismaUser, @Body() userDto: UserDto) {
     return this.userService.updateProfile(user, userDto);
   }
 
-  @Patch('profile/products/favorite/:productId')
   @Auth()
   @HttpCode(200)
+  @Patch('profile/products/favorite/:productId')
   public toggleFavoriteProduct(
     @User('id') userId: number,
     @Param('productId') productId: string,

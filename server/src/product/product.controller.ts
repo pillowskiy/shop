@@ -50,16 +50,16 @@ export class ProductController {
   }
 
   @UsePipes(new ValidationPipe())
-  @HttpCode(200)
   @Auth()
+  @HttpCode(200)
   @Post()
   public async createProduct(@User('id') userId: string) {
     return this.productService.create(+userId);
   }
 
   @UsePipes(new ValidationPipe())
-  @HttpCode(200)
   @Auth()
+  @HttpCode(200)
   @Put(':id')
   public async updateProduct(
     @Param('id', ParseIntPipe) productId: number,
@@ -70,9 +70,13 @@ export class ProductController {
   }
 
   @UsePipes(new ValidationPipe())
+  @Auth()
   @HttpCode(200)
   @Delete(':id')
-  public async deleteProduct(@Param('id', ParseIntPipe) productId: number) {
-    return this.productService.delete(productId);
+  public async deleteProduct(
+    @User() user: PrismaUser,
+    @Param('id', ParseIntPipe) productId: number,
+  ) {
+    return this.productService.delete(user, productId);
   }
 }

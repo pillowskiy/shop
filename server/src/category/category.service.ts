@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma.service';
 import { CategoryDto } from './dto/category.dto';
 import { categorySelect } from './prisma.partials';
 import slugify from 'src/utils/slugify';
-import { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 
 @Injectable()
 export class CategoryService {
@@ -22,7 +22,10 @@ export class CategoryService {
     return category;
   }
   public async delete(categoryId: number) {
-    await this.getCategoryByQuery({ id: categoryId });
+    const category = await this.getCategoryByQuery({ id: categoryId });
+    if (!category) {
+      throw new NotFoundException(`Cannot find category with id ${categoryId}`);
+    }
     return this.prisma.category.delete({
       where: { id: categoryId },
       select: categorySelect,
