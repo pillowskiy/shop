@@ -17,11 +17,11 @@ export class AuthService {
     private readonly token: TokenService,
   ) {}
   public async register(dto: UserDto) {
-    const existUser = await Promise.all([
-      this.prisma.user.findUnique({ where: { email: dto.email } }),
-      this.prisma.user.findUnique({ where: { name: dto.name } }),
-    ]);
-    if (existUser.some((user) => user)) {
+    const { name, email, password } = dto;
+    const userData = await this.prisma.user.findFirst({
+      where: { OR: [{ name }, { email }] },
+    });
+    if (userData) {
       throw new BadRequestException(
         'A user with that name or email already exists',
       );
@@ -29,9 +29,9 @@ export class AuthService {
 
     const user = await this.prisma.user.create({
       data: {
-        email: dto.email,
-        name: dto.name,
-        password: await hash(dto.password),
+        email,
+        name,
+        password: await hash(password),
       },
     });
 
