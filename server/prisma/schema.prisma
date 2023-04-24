@@ -18,9 +18,17 @@ model User {
   phone     String?
   avatarURL String  @default("https://www.univ.kiev.ua/img/kobzar.jpg") @map("avatar_url")
 
+  roles     Role[]  @default([User])
   orders    Order[]
   favorites Product[]
   reviews   Review[]
+}
+
+enum Role {
+  User
+  Helper
+  Admin
+  Owner
 }
 
 model Product {
