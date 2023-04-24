@@ -3,11 +3,12 @@ import {
   Injectable,
   BadRequestException,
 } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import type { Prisma, User as PrismaUser } from '@prisma/client';
 import { PrismaService } from './../prisma.service';
 import { userSelect, productSelect } from './prisma.partials';
 import { UserDto } from './dto/user.dto';
 import { hash } from 'argon2';
+import { matchRoles } from 'src/utils/Util';
 
 @Injectable()
 export class UserService {
@@ -32,25 +33,24 @@ export class UserService {
     return user;
   }
 
-  public async updateProfile(userId: number, dto: UserDto) {
+  public async updateProfile(user: PrismaUser, dto: UserDto) {
     const isInitialUser = await this.prisma.user
       .findUnique({
         where: { email: dto.email },
         select: {
           ...userSelect,
-          favorites: { select: productSelect },
         },
       })
-      .then((user) => user && user.id === userId);
+      .then((user) => user && user.id === user.id);
 
-    if (!isInitialUser) {
+    if (!isInitialUser && !matchRoles(['Admin'], user.roles)) {
       throw new BadRequestException(
         'The final value does not match the initial value',
       );
     }
 
     return this.prisma.user.update({
-      where: { id: userId },
+      where: { id: user.id },
       data: { ...dto, password: dto.password && (await hash(dto.password)) },
       select: userSelect,
     });

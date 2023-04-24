@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import type { Prisma, User as PrismaUser } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { productFullestSelect, productSelect } from './prisma.partials';
 import { ProductDto } from './dto/product.dto';
@@ -11,6 +11,7 @@ import slugify from 'src/utils/slugify';
 import { FilterDto, ProductSort } from './dto/filter.dto';
 import { PaginationService } from 'src/pagination/pagination.service';
 import { CategoryService } from 'src/category/category.service';
+import { matchRoles } from 'src/utils/Util';
 
 @Injectable()
 export class ProductService {
@@ -124,7 +125,7 @@ export class ProductService {
     });
     return id;
   }
-  public async update(productId: number, userId: number, dto: ProductDto) {
+  public async update(productId: number, user: PrismaUser, dto: ProductDto) {
     const { categoryId, ...data } = dto;
 
     const isCategoryExist = await this.categoryService.getCategoryByQuery({
@@ -140,7 +141,7 @@ export class ProductService {
       { userId: true },
     );
 
-    if (userId !== product.userId) {
+    if (user.id !== product.userId && !matchRoles(['Admin'], user.roles)) {
       throw new ForbiddenException('You are not allowed to do this action');
     }
 

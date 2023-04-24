@@ -9,4 +9,5 @@ export const userSelect: Prisma.UserSelect = {
   password: false,
   orders: false,
   favorites: false,
+  roles: true,
 };

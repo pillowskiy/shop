@@ -17,6 +17,7 @@ import { FilterDto } from './dto/filter.dto';
 import { Auth } from 'src/decorators/auth.decorator';
 import { ProductDto } from './dto/product.dto';
 import { User } from 'src/decorators/user.decorator';
+import type { User as PrismaUser } from '@prisma/client';
 
 @Controller('products')
 export class ProductController {
@@ -62,10 +63,10 @@ export class ProductController {
   @Put(':id')
   public async updateProduct(
     @Param('id', ParseIntPipe) productId: number,
-    @User('id') userId: string,
+    @User() user: PrismaUser,
     @Body() dto: ProductDto,
   ) {
-    return this.productService.update(productId, +userId, dto);
+    return this.productService.update(productId, user, dto);
   }
 
   @UsePipes(new ValidationPipe())

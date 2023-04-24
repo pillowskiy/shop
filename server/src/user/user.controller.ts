@@ -13,6 +13,7 @@ import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
 import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
+import type { User as PrismaUser } from '@prisma/client';
 
 @Controller('users')
 export class UserController {
@@ -28,8 +29,8 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   @Auth()
   @HttpCode(200)
-  public updateProfile(@User('id') userId: number, @Body() userDto: UserDto) {
-    return this.userService.updateProfile(userId, userDto);
+  public updateProfile(@User() user: PrismaUser, @Body() userDto: UserDto) {
+    return this.userService.updateProfile(user, userDto);
   }
 
   @Patch('profile/products/favorite/:productId')
