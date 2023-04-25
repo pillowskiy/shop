@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { hash, verify } from 'argon2';
 import { PrismaService } from '../../prisma.service';
-import { UserDto, JwtRefreshTokenDto, LoginDto } from '../dto';
+import { CreateUserDto, JwtRefreshTokenDto, LoginDto } from '../dto';
 import { TokenService } from './token.service';
 import { userSelect } from '../prisma.partials';
 
@@ -16,7 +16,7 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly token: TokenService,
   ) {}
-  public async register(dto: UserDto) {
+  public async register(dto: CreateUserDto) {
     const { name, email, password } = dto;
     const userData = await this.prisma.user.findFirst({
       where: { OR: [{ name }, { email }] },
