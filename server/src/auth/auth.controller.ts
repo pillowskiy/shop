@@ -16,7 +16,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthResponseType } from './auth.swagger';
+import { auth } from 'src/config/docs';
 
 @ApiBearerAuth()
 @ApiTags('auth')
@@ -24,9 +24,9 @@ import { AuthResponseType } from './auth.swagger';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiOperation({ summary: 'Login to system' })
-  @ApiBody({ type: LoginDto })
-  @ApiResponse({ status: 200, type: AuthResponseType })
+  @ApiOperation(auth.login.operation)
+  @ApiBody(auth.login.body)
+  @ApiResponse(auth.login.response)
   @UsePipes(new ValidationPipe())
   @Post('login')
   @HttpCode(200)
@@ -34,9 +34,9 @@ export class AuthController {
     return this.authService.login(dto);
   }
 
-  @ApiOperation({ summary: 'Register new user in our service' })
-  @ApiBody({ type: CreateUserDto })
-  @ApiResponse({ status: 200, type: AuthResponseType })
+  @ApiOperation(auth.register.operation)
+  @ApiBody(auth.register.body)
+  @ApiResponse(auth.register.response)
   @UsePipes(new ValidationPipe())
   @Post('register')
   @HttpCode(200)
@@ -44,9 +44,9 @@ export class AuthController {
     return this.authService.register(dto);
   }
 
-  @ApiOperation({ summary: 'Refresh jwt tokens from refresh' })
-  @ApiBody({ type: JwtRefreshTokenDto })
-  @ApiResponse({ status: 200, type: AuthResponseType })
+  @ApiOperation(auth.refresh.operation)
+  @ApiBody(auth.refresh.body)
+  @ApiResponse(auth.refresh.response)
   @UsePipes(new ValidationPipe())
   @Get('refresh')
   async refresh(@Body() dto: JwtRefreshTokenDto) {
