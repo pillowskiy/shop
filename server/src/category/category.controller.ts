@@ -16,53 +16,44 @@ import { CategoryService } from './category.service';
 import { CategoryDto } from './dto/category.dto';
 import { Roles, Role } from 'src/decorators/roles.decorator';
 import {
+  ApiBody,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { CategoryResponseType } from './category.swagger';
+import { category } from 'src/config/docs';
 
 @ApiTags('categories')
 @Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @ApiOperation({ summary: 'Get all categories' })
-  @ApiOkResponse({ status: 200, type: [CategoryResponseType] })
+  @ApiOperation(category.all.operation)
+  @ApiOkResponse(category.all.response)
   @Get()
   public getCategories() {
     return this.categoryService.getAll();
   }
 
-  @ApiOperation({ summary: 'Get category by id' })
-  @ApiParam({ name: 'id', type: 'number' })
-  @ApiOkResponse({ status: 200, type: CategoryResponseType })
+  @ApiOperation(category.byId.operation)
+  @ApiParam(category.byId.param)
+  @ApiOkResponse(category.byId.response)
   @Get('/id/:id')
   public getCategoryById(@Param('id', ParseIntPipe) id: number) {
     return this.categoryService.getCategoryByQuery({ id });
   }
 
-  @ApiOperation({ summary: 'Get category by slug' })
-  @ApiParam({ name: 'slug', type: 'string' })
-  @ApiOkResponse({ status: 200, type: CategoryResponseType })
+  @ApiOperation(category.bySlug.operation)
+  @ApiParam(category.bySlug.param)
+  @ApiOkResponse(category.bySlug.response)
   @Get('/slug/:slug')
   public getCategoryBySlug(@Param('slug') slug: string) {
     return this.categoryService.getCategoryByQuery({ slug });
   }
 
-  @ApiOperation({ summary: 'Create category (only for admins)' })
-  @ApiOkResponse({
-    status: 200,
-    schema: {
-      type: 'Object',
-      example: {
-        id: 1,
-        name: '',
-        slug: '',
-      },
-    },
-  })
+  @ApiOperation(category.create.operation)
+  @ApiOkResponse(category.create.response)
   @Roles(Role.Admin)
   @Auth()
   @HttpCode(200)
@@ -71,9 +62,9 @@ export class CategoryController {
     return this.categoryService.create();
   }
 
-  @ApiOperation({ summary: 'Delete category by id (only for admins)' })
-  @ApiParam({ name: 'id', type: 'number' })
-  @ApiOkResponse({ status: 200, type: CategoryResponseType })
+  @ApiOperation(category.delete.operation)
+  @ApiParam(category.delete.param)
+  @ApiOkResponse(category.delete.response)
   @Auth()
   @Roles(Role.Admin)
   @HttpCode(200)
@@ -82,9 +73,10 @@ export class CategoryController {
     return this.categoryService.delete(productId);
   }
 
-  @ApiOperation({ summary: 'Update category by id (only for admins)' })
-  @ApiParam({ name: 'id', type: 'number' })
-  @ApiOkResponse({ status: 200, type: CategoryResponseType })
+  @ApiOperation(category.update.operation)
+  @ApiParam(category.update.param)
+  @ApiBody({ type: CategoryDto })
+  @ApiOkResponse(category.update.response)
   @UsePipes(new ValidationPipe())
   @Auth()
   @Roles(Role.Admin)

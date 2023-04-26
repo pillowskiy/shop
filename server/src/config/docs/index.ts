@@ -15,3 +15,4 @@ export interface SwaggerApiResponse {
 }
 
 export { responses as auth } from './responses/auth.responses';
+export { responses as category } from './responses/category.responses';
