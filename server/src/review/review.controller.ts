@@ -13,25 +13,44 @@ import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
 import { ReviewDto } from './dto/review.dto';
 import { ReviewService } from './review.service';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { review } from 'src/config/docs';
 
+@ApiTags('reviews')
 @Controller('reviews')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
+  @ApiOperation(review.byProductId.operation)
+  @ApiResponse(review.byProductId.response)
+  @ApiParam(review.byProductId.param)
   @Get(':id')
   public getAll(@Param('id', ParseIntPipe) productId: number) {
     return this.reviewService.getAll(productId);
   }
 
+  @ApiOperation(review.avg.operation)
+  @ApiResponse(review.avg.response)
+  @ApiParam(review.avg.param)
   @Get('/avg/:id')
   public getAvgRating(@Param('id', ParseIntPipe) productId: number) {
     return this.reviewService.getAvgRating(productId);
   }
 
-  @Post('/:id')
-  @Auth()
+  @ApiOperation(review.create.operation)
+  @ApiResponse(review.create.response)
+  @ApiParam(review.create.param)
+  @ApiBody({ type: ReviewDto })
   @UsePipes(new ValidationPipe())
+  @Auth()
   @HttpCode(200)
+  @Post('/:id')
   public create(
     @Param('id', ParseIntPipe) productId: number,
     @Body() dto: ReviewDto,

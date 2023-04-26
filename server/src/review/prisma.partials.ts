@@ -4,6 +4,7 @@ export const userSelect: Prisma.UserSelect = {
   id: true,
   name: true,
   avatarURL: true,
+  roles: true,
 };
 
 export const reviewSelect: Prisma.ReviewSelect = {
