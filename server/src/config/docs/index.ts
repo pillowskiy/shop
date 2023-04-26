@@ -19,3 +19,4 @@ export { responses as category } from './responses/category.responses';
 export { responses as order } from './responses/order.responses';
 export { responses as product } from './responses/product.responses';
 export { responses as review } from './responses/review.responses';
+export { responses as statistic } from './responses/statistic.responses';
