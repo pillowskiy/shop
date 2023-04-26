@@ -96,6 +96,8 @@ export class ProductService {
       throw new NotFoundException('Product not found');
     }
 
+    if (!product.category.length) return [];
+
     return this.prisma.product.findMany({
       where: {
         category: {
