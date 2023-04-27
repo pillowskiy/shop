@@ -13,7 +13,7 @@ import { ProductModule } from './product/product.module';
 @Module({
   imports: [
     AuthModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
     CategoryModule,
     ReviewModule,
