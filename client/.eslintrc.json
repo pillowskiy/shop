@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "./node_modules/gts/",
+    "next/core-web-vitals"
+  ],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
