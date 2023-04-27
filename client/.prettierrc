@@ -1,0 +1,25 @@
+{
+  "trailingComma": "none",
+  "tabWidth": 2,
+  "useTabs": true,
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "arrowParens": "avoid",
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrder": [
+    "<THIRD PARTY MODULES>",
+    "^@components/(.*)$",
+    "^@containers/(.*)$",
+    "^@layout/(.*)$",
+    "^@ui/(.*)$",
+    "^@hooks/(.*)$",
+    "^@redux/(.*)$",
+    "^@styles/(.*)$",
+    "^@services/(.*)$",
+    "^@utils/(.*)$",
+    "^../(.*)",
+    "^./(.*)"
+  ]
+}
