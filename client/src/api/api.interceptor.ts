@@ -1,10 +1,10 @@
 import axios from "axios";
 import { isInterceptorError, isUnhandledAuthError } from "./api.helper";
 import { AuthResponse } from "@types";
-import TokenService from "./token.service";
+import TokenService from "./services/token.service";
 
 const API_URL = process.env.API_URL;
-const $api = axios.create({
+export const $api = axios.create({
   baseURL: API_URL,
   withCredentials: true,
 });
