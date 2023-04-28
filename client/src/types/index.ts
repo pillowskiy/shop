@@ -34,7 +34,7 @@ export type Login = (Pick<RegisterBody, 'email'> | Pick<RegisterBody, 'username'
   password: string;
 }
 
-export interface Stat {
+export interface StatisticValue {
   name: string;
-  value: number;
+  value: string | number;
 }
