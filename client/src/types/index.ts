@@ -24,13 +24,13 @@ export interface AuthResponse extends Tokens {
   user: User;
 }
 
-export interface Register {
+export interface RegisterBody {
   username: string;
   email: string;
   password: string;
 }
 
-export type Login = (Pick<Register, 'email'> | Pick<Register, 'username'>) & {
+export type Login = (Pick<RegisterBody, 'email'> | Pick<RegisterBody, 'username'>) & {
   password: string;
 }
 
