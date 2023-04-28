@@ -1,5 +1,10 @@
 import type { User } from './user.interface';
 
+export enum TokenTypes {
+  ACCESS_TOKEN = 'access_token',
+  REFRESH_TOKEN = 'refresh_token',
+}
+
 export interface Tokens {
   accessToken: string;
   refreshToken: string;
