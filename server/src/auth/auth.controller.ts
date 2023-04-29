@@ -4,11 +4,12 @@ import {
   Get,
   HttpCode,
   Post,
+  Res,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './services/auth.service';
-import { CreateUserDto, JwtRefreshTokenDto, LoginDto } from './dto';
+import { CreateUserDto, LoginDto } from './dto';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -17,12 +18,18 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { auth } from 'src/config/docs';
+import { CookieEmptyPipe, Cookies } from 'src/decorators/cookies.decorator';
+import { Response } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 @ApiBearerAuth()
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @ApiOperation(auth.login.operation)
   @ApiBody(auth.login.body)
@@ -30,8 +37,13 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @Post('login')
   @HttpCode(200)
-  async login(@Body() dto: LoginDto) {
-    return this.authService.login(dto);
+  async login(
+    @Res({ passthrough: true }) res: Response,
+    @Body() dto: LoginDto,
+  ) {
+    const data = await this.authService.login(dto);
+    this.updateCookie(res, data.refreshToken);
+    return data;
   }
 
   @ApiOperation(auth.register.operation)
@@ -40,16 +52,32 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @Post('register')
   @HttpCode(200)
-  async register(@Body() dto: CreateUserDto) {
-    return this.authService.register(dto);
+  async register(
+    @Res({ passthrough: true }) res: Response,
+    @Body() dto: CreateUserDto,
+  ) {
+    const data = await this.authService.register(dto);
+    this.updateCookie(res, data.refreshToken);
+    return data;
   }
 
   @ApiOperation(auth.refresh.operation)
   @ApiBody(auth.refresh.body)
   @ApiResponse(auth.refresh.response)
-  @UsePipes(new ValidationPipe())
   @Get('refresh')
-  async refresh(@Body() dto: JwtRefreshTokenDto) {
-    return this.authService.refresh(dto);
+  async refresh(
+    @Res({ passthrough: true }) res: Response,
+    @Cookies('refresh_token', CookieEmptyPipe) refreshToken: string,
+  ) {
+    const data = await this.authService.refresh(refreshToken);
+    this.updateCookie(res, data.refreshToken);
+    return data;
+  }
+
+  private updateCookie(res: Response, refreshToken: string) {
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: this.configService.get<number>('REFRESH_EXPIRES'),
+    });
   }
 }

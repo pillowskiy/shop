@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { hash, verify } from 'argon2';
 import { PrismaService } from '../../prisma.service';
-import { CreateUserDto, JwtRefreshTokenDto, LoginDto } from '../dto';
+import { CreateUserDto, LoginDto } from '../dto';
 import { TokenService } from './token.service';
 import { userSelect } from '../prisma.partials';
 
@@ -38,8 +38,8 @@ export class AuthService {
     const tokens = await this.token.generate(user.id);
     return { user, ...tokens };
   }
-  public async refresh(dto: JwtRefreshTokenDto) {
-    const userId = await this.token.validate(dto);
+  public async refresh(refreshToken: string) {
+    const userId = await this.token.validate(refreshToken);
     const userData = await this.prisma.user.findUnique({
       where: { id: userId },
       select: userSelect,
@@ -49,7 +49,7 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
 
-    const tokens = await this.token.generate(userData.id);
+    const tokens = await this.token.generate(userId);
     return { user: userData, ...tokens };
   }
   public async login(dto: LoginDto) {
