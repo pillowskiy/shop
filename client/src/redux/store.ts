@@ -36,4 +36,4 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export type TRootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>;
