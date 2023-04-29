@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { PrismaService } from './prisma.service';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,8 +11,15 @@ async function bootstrap() {
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
 
+  const configService = app.get(ConfigService);
+  const PORT = configService.get<number>('PORT') || 3001;
+
   app.setGlobalPrefix('api');
-  app.enableCors();
+  app.enableCors({
+    credentials: true,
+    origin: configService.get<string>('CLIENT_BASE_URL'),
+  });
+  app.use(cookieParser());
 
   const config = new DocumentBuilder()
     .setTitle('Shop')
@@ -21,9 +29,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);
-
-  const configService = app.get(ConfigService);
-  const PORT = configService.get<number>('PORT') || 3001;
 
   await app.listen(PORT, () => console.log(`Server listening on PORT ${PORT}`));
 }
