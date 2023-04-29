@@ -11,7 +11,7 @@ export const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
   const { headers } = config;
-  const accessToken = TokenService.getAccessToken();
+  const accessToken = TokenService.getToken();
   if (headers && accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -25,7 +25,7 @@ $api.interceptors.response.use(res => res, async (err) => {
       `${API_URL}/auth/refresh`,
       { withCredentials: true },
     );
-    TokenService.saveToStorage(response.data);
+    TokenService.setToken(response.data);
     return $api.request(err.config);
   }
   throw err;

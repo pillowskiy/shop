@@ -1,10 +1,5 @@
 import type { User } from './user.interface';
 
-export enum TokenTypes {
-  ACCESS_TOKEN = 'access_token',
-  REFRESH_TOKEN = 'refresh_token',
-}
-
 export interface Tokens {
   accessToken: string;
   refreshToken: string;
@@ -25,12 +20,12 @@ export interface AuthResponse extends Tokens {
 }
 
 export interface RegisterBody {
-  username: string;
+  name: string;
   email: string;
   password: string;
 }
 
-export type Login = (Pick<RegisterBody, 'email'> | Pick<RegisterBody, 'username'>) & {
+export type Login = (Pick<RegisterBody, 'email'> | Pick<RegisterBody, 'name'>) & {
   password: string;
 }
 
