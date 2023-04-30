@@ -1,11 +1,7 @@
 import type { NextPage } from "next";
 
-export type Roles = {
-  forAuth?: boolean;
-}
-
-export type NextPageAuth<P = {}> = NextPage<P> & Roles;
+export type NextPageAuth<P = {}> = NextPage<P> & AuthFields;
 
 export type AuthFields = {
-  Component: Roles;
+  forAuth?: boolean;
 }

@@ -63,6 +63,7 @@ export const userSlice = createSlice({
       })
       .addCase(actions.checkAuth.rejected, (state) => {
         state.isLoading = false;
+        state.user = null;
       });
   }
 });
