@@ -43,14 +43,17 @@ export const responses = {
   },
   refresh: {
     operation: { summary: 'Refresh jwt tokens from refresh' },
-    body: {
+    response: authResponseType,
+  },
+  logout: {
+    operation: { summary: 'Logout from system' },
+    response: {
+      status: HttpStatus.OK,
       schema: {
-        type: 'object',
         example: {
           refreshToken: jwt.refreshToken,
         },
       },
     },
-    response: authResponseType,
   },
 } satisfies Record<string, SwaggerApiResponse>;

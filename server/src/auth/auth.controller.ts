@@ -21,6 +21,7 @@ import { auth } from 'src/config/docs';
 import { CookieEmptyPipe, Cookies } from 'src/decorators/cookies.decorator';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { Auth } from 'src/decorators/auth.decorator';
 
 @ApiBearerAuth()
 @ApiTags('auth')
@@ -62,7 +63,6 @@ export class AuthController {
   }
 
   @ApiOperation(auth.refresh.operation)
-  @ApiBody(auth.refresh.body)
   @ApiResponse(auth.refresh.response)
   @Get('refresh')
   async refresh(
@@ -72,6 +72,18 @@ export class AuthController {
     const data = await this.authService.refresh(refreshToken);
     this.updateCookie(res, data.refreshToken);
     return data;
+  }
+
+  @ApiOperation(auth.logout.operation)
+  @ApiResponse(auth.logout.response)
+  @Auth()
+  @Post('logout')
+  async logout(
+    @Res({ passthrough: true }) res: Response,
+    @Cookies('refresh_token', CookieEmptyPipe) refreshToken: string,
+  ) {
+    res.clearCookie('refresh_token');
+    return refreshToken;
   }
 
   private updateCookie(res: Response, refreshToken: string) {
