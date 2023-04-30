@@ -35,10 +35,28 @@ export class AuthService {
       },
     });
 
-    const tokens = await this.token.generate(user.id);
+    const tokens = {
+      refreshToken: this.token.generateRefresh(user.id),
+      accessToken: this.token.generateAccess(user.id),
+    };
     return { user, ...tokens };
   }
   public async refresh(refreshToken: string) {
+    /* 
+      Generate access token from refresh
+      
+      Since the 'refresh' method takes 'refreshToken' as an argument,
+      it makes no sense to generate a new refresh token,
+      since it is still valid (based on the 'maxAge' parameter in the 'cookie-parser' library).
+      
+      In simple words, if the refresh token checked by 'CookiePipe' (i.e., it exists in cookies)
+      has reached the processing by the service and has been validate,
+      then it is valid and there is no reason in generating a new one.
+
+      Perhaps my opinion is not correct,
+      but I think it is better to prevent it through a measured amount of refresh tokens.
+      Moreover, on the frontend, most articles used this method to get data for the state manager (redux, for example).
+     */
     const userId = await this.token.validate(refreshToken);
     const userData = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -49,17 +67,13 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
 
-    const tokens = await this.token.generate(userId);
-    return { user: userData, ...tokens };
+    const accessToken = this.token.generateAccess(userId);
+    return { user: userData, refreshToken, accessToken };
   }
-  public async login(dto: LoginDto) {
-    const user = await this.validateUser(dto);
-    const tokens = await this.token.generate(user.id);
-    return { user, ...tokens };
-  }
-  private async validateUser({ email, name, password }: LoginDto) {
+  public async login({ email, name, password }: LoginDto) {
     const userData = await this.prisma.user.findFirst({
       where: { OR: [{ name }, { email }] },
+      select: { ...userSelect, password: true },
     });
 
     if (!userData) {
@@ -73,6 +87,12 @@ export class AuthService {
 
     // TEMP =(
     delete userData.password;
-    return userData;
+
+    const tokens = {
+      refreshToken: this.token.generateRefresh(userData.id),
+      accessToken: this.token.generateAccess(userData.id),
+    };
+
+    return { userData, ...tokens };
   }
 }

@@ -10,19 +10,14 @@ export class TokenService {
     private readonly configService: ConfigService,
     private readonly prisma: PrismaService,
   ) {}
-
-  public async generate(userId: number) {
-    const accessToken = this.jwt.sign(
-      { id: userId },
-      { expiresIn: this.configService.get<number>('ACCESS_EXPIRES') },
-    );
-    const refreshToken = this.jwt.sign(
-      { id: userId },
-      { expiresIn: this.configService.get<number>('REFRESH_EXPIRES') },
-    );
-    return { accessToken, refreshToken };
+  public generateAccess(userId: number) {
+    const expiresIn = this.configService.get<number>('ACCESS_EXPIRES');
+    return this.jwt.sign({ id: userId }, { expiresIn });
   }
-
+  public generateRefresh(userId: number) {
+    const expiresIn = this.configService.get<number>('REFRESH_EXPIRES');
+    return this.jwt.sign({ id: userId }, { expiresIn });
+  }
   public async validate(refreshToken: string): Promise<number> {
     const payload: unknown = await this.jwt.verifyAsync(refreshToken);
     if (
