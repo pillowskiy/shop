@@ -17,7 +17,7 @@ export class CookieEmptyPipe implements PipeTransform<string, string> {
 
 export const Cookies = createParamDecorator(
   (data: string, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest();
-    return data ? request.cookies?.[data] : request.cookies;
+    const req = ctx.switchToHttp().getRequest();
+    return data ? req.cookies?.[data] : req.cookies;
   },
 );
