@@ -19,9 +19,7 @@ export default function App({ Component, pageProps }: AppProps & AuthFields) {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <AuthProvider Component={{ forAuth: Component.forAuth }}>
             <Component {...pageProps} />
-          </AuthProvider>
         </PersistGate>
       </Provider>
     </QueryClientProvider>

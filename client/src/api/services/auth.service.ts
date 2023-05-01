@@ -1,6 +1,6 @@
-import type { AuthResponse, LoginBody, RegisterBody } from '@/types'
-import type { AxiosResponse } from 'axios'
-import { $api } from '../api.interceptor'
+import type { AuthResponse, LoginBody, RegisterBody } from '@/types';
+import type { AxiosResponse } from 'axios';
+import { $api } from '../api.interceptor';
 
 export default class AuthService {
   private static controller = 'auth';
