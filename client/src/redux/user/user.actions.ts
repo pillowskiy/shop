@@ -9,6 +9,7 @@ export const register = createAsyncThunk<AuthResponse, RegisterBody>(
   async (data, api) => {
     try {
       const response = await AuthService.register(data);
+      TokenService.setToken(response.data);
       return response.data;
     } catch (err) {
       return api.rejectWithValue(err);
@@ -21,6 +22,7 @@ export const login = createAsyncThunk<AuthResponse, LoginBody>(
   async (data, api) => {
     try {
       const response = await AuthService.login(data);
+      TokenService.setToken(response.data);
       return response.data;
     } catch (err) {
       return api.rejectWithValue(err);
