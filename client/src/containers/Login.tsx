@@ -1,9 +1,7 @@
 import type { FC } from 'react';
 import { Meta } from './Meta';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@layout/card';
-import { FormInput } from '@components/FormInput';
-import { Button } from '@ui/Button';
-import { Anchor } from '@ui/Anchor';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@layout/card';
+import {LoginForm} from "@containers/forms/LoginForm";
 
 export const Login: FC = () => {
   return (
@@ -16,23 +14,8 @@ export const Login: FC = () => {
           </CardHeader>
 
           <CardContent>
-            <form>
-              <FormInput label="Email or username" />
-              <FormInput label="Password" type="password">
-                <Anchor href="#" className="text-sm">
-                  Forgot your password?
-                </Anchor>
-              </FormInput>
-            </form>
+            <LoginForm />
           </CardContent>
-
-          <CardFooter className="flex flex-col">
-            <Button className="mb-2 w-full" variant="outline">Submit</Button>
-            <p className="text-sm text-muted-foreground">
-              Don't have an account yet?&nbsp;
-              <Anchor href="/register">Register</Anchor>
-            </p>
-          </CardFooter>
         </Card>
       </div>
     </Meta>

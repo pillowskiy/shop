@@ -16,15 +16,13 @@ export const FormInput: FC<PropsWithChildren<FormInputProps>> = ({
 }) => {
   return (
     <div className="flex flex-col space-y-1.5 mb-6">
-      <div>
-        <Label
-          className={cn("float-left uppercase", {
-            'text-red-500': error
-          })}
-        >{label} { error && '•' }</Label>
-        { error && <p className="text-xs text-red-500 float-left ml-1 mt-1">{error}</p> }
-      </div>
+      <Label
+        className={cn("float-left uppercase", {
+          'text-destructive': error
+        })}
+      >{label}</Label>
       <Input {...props} />
+      { error && <p className="text-xs text-destructive float-left">{error}</p> }
       {children}
     </div>
   );

@@ -12,7 +12,7 @@ export const register = createAsyncThunk<AuthResponse, RegisterBody>(
       TokenService.setToken(response.data);
       return response.data;
     } catch (err) {
-      return api.rejectWithValue(err);
+      return api.rejectWithValue(err.response.data);
     }
   }
 );
@@ -25,7 +25,7 @@ export const login = createAsyncThunk<AuthResponse, LoginBody>(
       TokenService.setToken(response.data);
       return response.data;
     } catch (err) {
-      return api.rejectWithValue(err);
+      return api.rejectWithValue(err.response.data);
     }
   }
 );
@@ -37,7 +37,7 @@ export const logout = createAsyncThunk<{ refreshToken: string }>(
     const response = await AuthService.logout();
     return response.data
   } catch(err) {
-    return api.rejectWithValue(err);
+    return api.rejectWithValue(err.response.data);
   } finally {
     TokenService.deleteToken();
   }
@@ -58,6 +58,6 @@ export const checkAuth = createAsyncThunk<AuthResponse>(
     return response.data;
   } catch (err) {
     api.dispatch(logout());
-    return api.rejectWithValue(err);
+    return api.rejectWithValue(err.response.data);
   }
 });
