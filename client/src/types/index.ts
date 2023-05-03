@@ -25,8 +25,8 @@ export interface RegisterBody {
   password: string;
 }
 
-export type LoginBody = (Pick<RegisterBody, 'email'> | Pick<RegisterBody, 'name'>) & {
-  password: string;
+export type LoginBody = (Pick<RegisterBody, 'password'>) & {
+  pseudonym: string;
 }
 
 export interface StatisticValue {

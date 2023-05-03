@@ -70,19 +70,23 @@ export class AuthService {
     const accessToken = this.token.generateAccess(userId);
     return { user: userData, refreshToken, accessToken };
   }
-  public async login({ email, name, password }: LoginDto) {
+  public async login({ pseudonym, password }: LoginDto) {
     const userData = await this.prisma.user.findFirst({
-      where: { OR: [{ name }, { email }] },
+      where: { OR: [{ name: pseudonym }, { email: pseudonym }] },
       select: { ...userSelect, password: true },
     });
 
     if (!userData) {
-      throw new NotFoundException('User not found!');
+      throw new NotFoundException(
+        'You have entered an incorrect login or password',
+      );
     }
 
     const isPasswordValid = await verify(userData.password, password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid password');
+      throw new UnauthorizedException(
+        'You have entered an incorrect login or password',
+      );
     }
 
     // TEMP =(
@@ -93,6 +97,6 @@ export class AuthService {
       accessToken: this.token.generateAccess(userData.id),
     };
 
-    return { userData, ...tokens };
+    return { user: userData, ...tokens };
   }
 }

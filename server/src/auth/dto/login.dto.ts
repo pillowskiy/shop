@@ -1,20 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsEmail,
-  IsOptional,
-  IsString,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class LoginDto {
   @ApiProperty({
     example: 'shop_user@gmail.com',
-    description: 'User email (optional if name is provided)',
+    description: 'User name or email',
   })
-  @IsEmail()
-  @IsOptional()
-  public email?: string;
+  @IsString({
+    message: 'This is required field',
+  })
+  @IsNotEmpty({
+    message: 'This is required field',
+  })
+  public pseudonym: string;
 
   @ApiProperty({
     example: '123456',
@@ -27,21 +25,7 @@ export class LoginDto {
     message: 'Password must not exceed 32 characters',
   })
   @IsString({
-    message: 'Invalid value',
+    message: 'This is required field',
   })
   public password: string;
-
-  @ApiProperty({
-    example: 'User',
-    description:
-      'User username, max - 24 characters (optional if email is provided)',
-  })
-  @MaxLength(24, {
-    message: 'User name must not exceed 24 characters',
-  })
-  @IsString({
-    message: 'Invalid value',
-  })
-  @IsOptional()
-  public name?: string;
 }
