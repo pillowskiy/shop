@@ -1,15 +1,16 @@
-import {FC, useState} from 'react';
+import {type FC, type FormEvent, useState} from 'react';
 import {FormInput} from "@components/FormInput";
 import {Anchor} from "@ui/Anchor";
 import {useAuth} from "@hooks/useAuth";
-import {useActions} from "@hooks/useActions";
 import {Button} from "@ui/Button";
 import {useRouter} from "next/router";
 import type {LoginBody} from "@types";
-import { login as loginAction } from '@redux/user/user.actions';
 import {useToast} from "@layout/toast/useToast";
 import {Loader2} from "lucide-react";
 import {cn} from "@lib/utils";
+
+import {useAppDispatch} from "@redux/store";
+import {login} from "@redux/user/user.actions";
 
 export const LoginForm: FC = () => {
     const [data, setData] = useState<LoginBody>({
@@ -18,33 +19,33 @@ export const LoginForm: FC = () => {
     });
     const [errors, setErrors] = useState<string[]>(Array.from({length: 2}, () => ''));
 
-    const { toast } = useToast();
-
     const router = useRouter();
-    const { isLoading } = useAuth();
-    const { login } = useActions();
+    const dispatch = useAppDispatch();
 
-    const onSubmit = async (event) => {
+    const {toast} = useToast();
+    const {isLoading} = useAuth();
+
+    const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const { payload, error } = await login(data);
+        const result = await dispatch(login(data));
 
-        if (payload?.user) {
+        if (login.fulfilled.match(result)) {
             await router.replace('/');
-        } else if (payload?.message) {
-            if (Array.isArray(payload.message)) {
-                setErrors(payload.message);
+        } else if (login.rejected.match(result) && result.payload) {
+            const { message } = result.payload;
+            if (Array.isArray(message)) {
+                setErrors(message);
             } else {
                 setErrors(
-                    Array.from({length: 2}, () => payload.message)
+                    Array.from({length: 2}, () => message)
                 );
             }
         } else {
             toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong.",
-                description: error.message
+                description: result.error.message,
             });
-            console.log('Unhandled error', error.message);
         }
     }
 
@@ -76,7 +77,7 @@ export const LoginForm: FC = () => {
             <Button className={cn("mb-2 w-full", {
                 'disabled': isLoading,
             })} variant="outline">
-                { isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 Submit
             </Button>
             <p className="text-sm text-muted-foreground">

@@ -1,8 +1,8 @@
-import type { FC, PropsWithChildren } from "react"
+import type { FC, PropsWithChildren, AnchorHTMLAttributes } from "react"
 import { cn } from "@lib/utils"
 
 export interface AnchorProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+  extends AnchorHTMLAttributes<HTMLAnchorElement> {}
 
 export const Anchor: FC<PropsWithChildren<AnchorProps>> = ({
   children,
