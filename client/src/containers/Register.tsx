@@ -7,7 +7,7 @@ export const Register: FC = () => {
   return (
     <Meta title='Registration'>
       <div className="h-screen flex justify-center items-center select-none">
-        <Card className="w-[480px] py-6 px-6 text-start">
+        <Card className="w-[480px] py-6 px-6 animate-card-in">
           <CardHeader className="text-center mb-6">
             <CardTitle className="text-4xl font-medium">Registration</CardTitle>
             <CardDescription>Create your account right now!</CardDescription>
