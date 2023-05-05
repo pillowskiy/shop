@@ -4,6 +4,8 @@ import { PrismaService } from './prisma.service';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import * as cookieParser from 'cookie-parser';
+import { ValidationPipe } from '@nestjs/common';
+import { exceptionFactory } from './utils/exceptionFactory';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,7 +22,13 @@ async function bootstrap() {
     origin: configService.get<string>('CLIENT_BASE_URL'),
   });
   app.use(cookieParser());
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      exceptionFactory,
+    }),
+  );
   const config = new DocumentBuilder()
     .setTitle('Shop')
     .setDescription("Pillow's shop documentation")

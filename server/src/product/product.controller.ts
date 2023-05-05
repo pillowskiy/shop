@@ -10,7 +10,6 @@ import {
   Put,
   Query,
   UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { FilterDto } from './dto/filter.dto';
@@ -36,7 +35,6 @@ export class ProductController {
   @ApiOperation(product.getAll.operation)
   @ApiResponse(product.getAll.response)
   @ApiQuery({ type: FilterDto })
-  @UsePipes(new ValidationPipe())
   @Get()
   public async getProducts(@Query() dto: FilterDto) {
     return this.productService.getProducts(dto);
@@ -76,7 +74,6 @@ export class ProductController {
 
   @ApiOperation(product.create.operation)
   @ApiResponse(product.create.response)
-  @UsePipes(new ValidationPipe())
   @Auth()
   @HttpCode(200)
   @Post()
@@ -88,7 +85,6 @@ export class ProductController {
   @ApiResponse(product.update.response)
   @ApiParam(product.update.param)
   @ApiBody({ type: ProductDto })
-  @UsePipes(new ValidationPipe())
   @Auth()
   @HttpCode(200)
   @Put(':id')
@@ -103,7 +99,6 @@ export class ProductController {
   @ApiOperation(product.delete.operation)
   @ApiResponse(product.delete.response)
   @ApiParam(product.delete.param)
-  @UsePipes(new ValidationPipe())
   @Auth()
   @HttpCode(200)
   @Delete(':id')

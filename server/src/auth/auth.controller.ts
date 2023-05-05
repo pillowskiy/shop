@@ -5,8 +5,6 @@ import {
   HttpCode,
   Post,
   Res,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './services/auth.service';
 import { CreateUserDto, LoginDto } from './dto';
@@ -35,7 +33,6 @@ export class AuthController {
   @ApiOperation(auth.login.operation)
   @ApiBody(auth.login.body)
   @ApiResponse(auth.login.response)
-  @UsePipes(new ValidationPipe())
   @Post('login')
   @HttpCode(200)
   async login(
@@ -50,7 +47,6 @@ export class AuthController {
   @ApiOperation(auth.register.operation)
   @ApiBody(auth.register.body)
   @ApiResponse(auth.register.response)
-  @UsePipes(new ValidationPipe())
   @Post('register')
   @HttpCode(200)
   async register(

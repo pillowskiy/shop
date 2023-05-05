@@ -7,8 +7,6 @@ import {
   ParseIntPipe,
   Patch,
   Put,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
@@ -40,7 +38,6 @@ export class UserController {
   @ApiOperation(user.updateProfile.operation)
   @ApiResponse(user.updateProfile.response)
   @ApiBody({ type: UserDto })
-  @UsePipes(new ValidationPipe())
   @Auth()
   @HttpCode(200)
   @Put('profile')

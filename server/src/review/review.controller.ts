@@ -7,7 +7,6 @@ import {
   ParseIntPipe,
   Post,
   UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
@@ -47,7 +46,6 @@ export class ReviewController {
   @ApiResponse(review.create.response)
   @ApiParam(review.create.param)
   @ApiBody({ type: ReviewDto })
-  @UsePipes(new ValidationPipe())
   @Auth()
   @HttpCode(200)
   @Post('/:id')

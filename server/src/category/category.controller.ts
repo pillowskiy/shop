@@ -9,7 +9,6 @@ import {
   Post,
   Put,
   UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { Auth } from 'src/decorators/auth.decorator';
 import { CategoryService } from './category.service';
@@ -77,7 +76,6 @@ export class CategoryController {
   @ApiParam(category.update.param)
   @ApiBody({ type: CategoryDto })
   @ApiOkResponse(category.update.response)
-  @UsePipes(new ValidationPipe())
   @Auth()
   @Roles(Role.Admin)
   @HttpCode(200)
