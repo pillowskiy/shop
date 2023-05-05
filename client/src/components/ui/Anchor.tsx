@@ -1,8 +1,11 @@
-import type { FC, PropsWithChildren, AnchorHTMLAttributes } from "react"
-import { cn } from "@lib/utils"
+import type {FC, PropsWithChildren, AnchorHTMLAttributes} from "react"
+import {cn} from "@lib/utils"
+import Link from "next/link";
 
 export interface AnchorProps
-  extends AnchorHTMLAttributes<HTMLAnchorElement> {}
+  extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string;
+}
 
 export const Anchor: FC<PropsWithChildren<AnchorProps>> = ({
   children,
@@ -10,13 +13,13 @@ export const Anchor: FC<PropsWithChildren<AnchorProps>> = ({
   ...props
 }) => {
   return (
-    <a
+    <Link
       className={cn(
         "cursor-pointer text-primary transition-all",
         "hover:underline hover:text-secondary-foreground",
         className
       )}
       {...props}
-    >{children}</a>
+    >{children}</Link>
   )
 }

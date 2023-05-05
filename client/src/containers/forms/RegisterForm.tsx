@@ -21,8 +21,8 @@ const REGISTER_FIELDS: Record<keyof RegisterBody, string> = {
 }
 
 export const RegisterForm: FC = () => {
-    const [data, setData] = useState<RegisterBody>({...REGISTER_FIELDS});
-    const [errors, setErrors] = useState<ApiValidationReject<RegisterBody>['errors']>({...REGISTER_FIELDS});
+    const [data, setData] = useState<RegisterBody>(REGISTER_FIELDS);
+    const [errors, setErrors] = useState<ApiValidationReject<RegisterBody>['errors']>(REGISTER_FIELDS);
 
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -32,6 +32,7 @@ export const RegisterForm: FC = () => {
 
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setErrors(REGISTER_FIELDS);
         const result = await dispatch(register(data));
 
         if (register.fulfilled.match(result)) {
@@ -40,6 +41,7 @@ export const RegisterForm: FC = () => {
             ('errors' in result.payload) ?
                 setErrors(result.payload.errors) :
                 toast({
+                    variant: "destructive",
                     title: "Uh oh! Something went wrong.",
                     description: result.payload.message,
                 });
@@ -90,7 +92,7 @@ export const RegisterForm: FC = () => {
             </Button>
             <p className="text-sm text-muted-foreground mb-4">
                 Already have an account?&nbsp;
-                <Anchor onClick={() => router.push('/login')}>Login</Anchor>
+                <Anchor href="/login">Login</Anchor>
             </p>
         </form>
     );

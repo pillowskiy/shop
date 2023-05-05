@@ -29,6 +29,7 @@ export const LoginForm: FC = () => {
 
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setErrors(LOGIN_FIELDS);
         const result = await dispatch(login(data));
 
         if (login.fulfilled.match(result)) {
@@ -37,6 +38,7 @@ export const LoginForm: FC = () => {
             ('errors' in result.payload) ?
                 setErrors(result.payload.errors) :
                 toast({
+                    variant: "destructive",
                     title: "Uh oh! Something went wrong.",
                     description: result.payload.message,
                 });
@@ -76,7 +78,7 @@ export const LoginForm: FC = () => {
             </Button>
             <p className="text-sm text-muted-foreground">
                 Do not have an account yet?&nbsp;
-                <Anchor onClick={() => router.push('/register')}>Register</Anchor>
+                <Anchor href="register">Register</Anchor>
             </p>
         </form>
     );
