@@ -5,14 +5,15 @@ import AuthService from '@api/services/auth.service';
 import TokenService from '@api/services/token.service';
 import {rejectAxios} from "@lib/utils";
 import type {AppDispatch, RootState} from "@redux/store";
+import {ApiReject, ApiValidationReject} from "@/types";
 
-type AuthThunkConfig = {
+type AuthThunkConfig<T = any> = {
   state: RootState,
   dispatch: AppDispatch,
-  rejectValue: { message: string };
+  rejectValue: ApiValidationReject<T> | ApiReject;
 }
 
-export const register = createAsyncThunk<AuthResponse, RegisterBody, AuthThunkConfig>(
+export const register = createAsyncThunk<AuthResponse, RegisterBody, AuthThunkConfig<RegisterBody>>(
   'auth/register',
   async (data, api) => {
     try {
@@ -25,7 +26,7 @@ export const register = createAsyncThunk<AuthResponse, RegisterBody, AuthThunkCo
   }
 );
 
-export const login = createAsyncThunk<AuthResponse, LoginBody, { rejectValue: { message: string }}>(
+export const login = createAsyncThunk<AuthResponse, LoginBody, AuthThunkConfig<LoginBody>>(
   'auth/login',
   async (data, api) => {
     try {

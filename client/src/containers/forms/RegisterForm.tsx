@@ -9,18 +9,20 @@ import {useAuth} from "@hooks/useAuth";
 import {cn} from "@lib/utils";
 import {Loader2} from "lucide-react";
 import {FormEvent, useState} from "react";
-import {RegisterBody} from "@types";
+import {ApiValidationReject, RegisterBody} from "@types";
 
 import {useAppDispatch} from "@redux/store";
 import {register} from "@redux/user/user.actions";
 
+const REGISTER_FIELDS: Record<keyof RegisterBody, string> = {
+    email: '',
+    name: '',
+    password: '',
+}
+
 export const RegisterForm: FC = () => {
-    const [data, setData] = useState<RegisterBody>({
-        email: '',
-        name: '',
-        password: '',
-    });
-    const [errors, setErrors] = useState<string[]>(Array.from({length: 3}, () => ''));
+    const [data, setData] = useState<RegisterBody>({...REGISTER_FIELDS});
+    const [errors, setErrors] = useState<ApiValidationReject<RegisterBody>['errors']>({...REGISTER_FIELDS});
 
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -35,18 +37,12 @@ export const RegisterForm: FC = () => {
         if (register.fulfilled.match(result)) {
             await router.replace('/');
         } else if (register.rejected.match(result) && result.payload) {
-            const { message } = result.payload;
-            if (Array.isArray(message)) {
-                setErrors(message);
-            } else {
-                setErrors(Array.from({length: 3}, () => message));
-            }
-        } else {
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: result.error.message,
-            });
+            ('errors' in result.payload) ?
+                setErrors(result.payload.errors) :
+                toast({
+                    title: "Uh oh! Something went wrong.",
+                    description: result.payload.message,
+                });
         }
     }
 
@@ -57,14 +53,16 @@ export const RegisterForm: FC = () => {
                 type="email"
                 onChange={({target}) => setData({...data, email: target.value})}
                 value={data.email}
-                error={errors[0]}
+                error={errors.email}
+                required
             />
             <FormInput
                 label="Username"
                 onChange={({target}) => setData({...data, name: target.value})}
                 value={data.name}
                 maxLength={24}
-                error={errors[1]}
+                error={errors.name}
+                required
             />
             <FormInput
                 label="Password"
@@ -73,7 +71,8 @@ export const RegisterForm: FC = () => {
                 value={data.password}
                 minLength={6}
                 maxLength={32}
-                error={errors[2]}
+                error={errors.password}
+                required
             />
             <FormCheckbox className="opacity-70">
                 Send me emails with information about promotions and interesting offers (optional)
