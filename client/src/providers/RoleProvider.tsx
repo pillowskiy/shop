@@ -1,7 +1,6 @@
-import { FC, PropsWithChildren, useEffect } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useAuth } from '@hooks/useAuth';
 import { useRouter } from 'next/router';
-import type { AuthFields } from '@/types/providers/auth-provider';
 
 const RoleProvider: FC<PropsWithChildren> = ({
   children
