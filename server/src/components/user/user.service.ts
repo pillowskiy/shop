@@ -4,7 +4,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import type { Prisma, User as PrismaUser } from '@prisma/client';
-import { PrismaService } from './../prisma.service';
+import { PrismaService } from '../../prisma.service';
 import { userSelect, productSelect } from './prisma.partials';
 import { UserDto } from './dto/user.dto';
 import { hash } from 'argon2';

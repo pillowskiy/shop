@@ -9,8 +9,8 @@ import { productFullestSelect, productSelect } from './prisma.partials';
 import { ProductDto } from './dto/product.dto';
 import slugify from 'src/utils/slugify';
 import { FilterDto, ProductSort } from './dto/filter.dto';
-import { PaginationService } from 'src/pagination/pagination.service';
-import { CategoryService } from 'src/category/category.service';
+import { PaginationService } from 'src/components/pagination/pagination.service';
+import { CategoryService } from 'src/components/category/category.service';
 import { matchRoles } from 'src/utils/Util';
 
 @Injectable()

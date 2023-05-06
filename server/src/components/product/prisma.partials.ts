@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
-import { categorySelect } from 'src/category/prisma.partials';
-import { reviewSelect } from 'src/review/prisma.partials';
+import { categorySelect } from 'src/components/category/prisma.partials';
+import { reviewSelect } from 'src/components/review/prisma.partials';
 
 export const productSelect: Prisma.ProductSelect = {
   images: true,

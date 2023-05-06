@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './components/auth/auth.module';
 import { PrismaService } from './prisma.service';
-import { UserModule } from './user/user.module';
-import { CategoryModule } from './category/category.module';
-import { ReviewModule } from './review/review.module';
-import { StatisticModule } from './statistic/statistic.module';
-import { PaginationModule } from './pagination/pagination.module';
-import { OrderModule } from './order/order.module';
-import { ProductModule } from './product/product.module';
+import { UserModule } from './components/user/user.module';
+import { CategoryModule } from './components/category/category.module';
+import { ReviewModule } from './components/review/review.module';
+import { StatisticModule } from './components/statistic/statistic.module';
+import { PaginationModule } from './components/pagination/pagination.module';
+import { OrderModule } from './components/order/order.module';
+import { ProductModule } from './components/product/product.module';
 
 @Module({
   imports: [

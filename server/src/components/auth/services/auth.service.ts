@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { hash, verify } from 'argon2';
-import { PrismaService } from '../../prisma.service';
+import { PrismaService } from '../../../prisma.service';
 import { CreateUserDto, LoginDto } from '../dto';
 import { TokenService } from './token.service';
 import { userSelect } from '../prisma.partials';
