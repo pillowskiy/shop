@@ -6,6 +6,7 @@ import TokenService from '@api/services/token.service';
 import {rejectAxios} from "@lib/utils";
 import type {AppDispatch, RootState} from "@redux/store";
 import {ApiReject, ApiValidationReject} from "@/types";
+import {isAxiosError} from "axios";
 
 type AuthThunkConfig<T = any> = {
   state: RootState,
@@ -66,7 +67,9 @@ export const checkAuth = createAsyncThunk<AuthResponse, void, AuthThunkConfig>(
     TokenService.setToken(response.data);
     return response.data;
   } catch (err) {
-    api.dispatch(logout());
+    if (isAxiosError(err) && err.response?.status === 401) {
+      api.dispatch(logout());
+    }
     return api.rejectWithValue(rejectAxios(err));
   }
 });
