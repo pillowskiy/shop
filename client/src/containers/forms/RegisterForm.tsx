@@ -4,7 +4,7 @@ import {FormCheckbox} from "@components/FormCheckbox";
 import {Anchor} from "@ui/Anchor";
 import {Button} from "@ui/Button";
 import {useRouter} from "next/router";
-import {useToast} from "@layout/toast/useToast";
+import {useToast} from "@layout/../../components/common/toast/useToast";
 import {useAuth} from "@hooks/useAuth";
 import {cn} from "@lib/utils";
 import {Loader2} from "lucide-react";

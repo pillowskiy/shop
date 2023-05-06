@@ -1,6 +1,6 @@
 import type {FC} from 'react';
 import {Meta} from './Meta';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@layout/card';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@components/common/Card';
 import {RegisterForm} from "@containers/forms/RegisterForm";
 
 export const Register: FC = () => {

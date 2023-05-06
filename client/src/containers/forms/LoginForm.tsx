@@ -5,7 +5,7 @@ import {useAuth} from "@hooks/useAuth";
 import {Button} from "@ui/Button";
 import {useRouter} from "next/router";
 import type {ApiValidationReject, LoginBody} from "@types";
-import {useToast} from "@layout/toast/useToast";
+import {useToast} from "@layout/../../components/common/toast/useToast";
 import {Loader2} from "lucide-react";
 import {cn} from "@lib/utils";
 
