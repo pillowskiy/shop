@@ -20,7 +20,6 @@ const LOGIN_FIELDS: Record<keyof LoginBody, string> = {
 export const LoginForm: FC = () => {
     const [data, setData] = useState<LoginBody>(LOGIN_FIELDS);
     const [errors, setErrors] = useState<ApiValidationReject<LoginBody>['errors']>(LOGIN_FIELDS);
-
     const router = useRouter();
     const dispatch = useAppDispatch();
 
@@ -70,15 +69,13 @@ export const LoginForm: FC = () => {
                     Forgot your password?
                 </Anchor>
             </FormInput>
-            <Button className={cn("mb-2 w-full", {
-                'disabled': isLoading,
-            })} variant="outline">
+            <Button className="mb-2 w-full" disabled={isLoading} variant="outline">
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 Submit
             </Button>
             <p className="text-sm text-muted-foreground">
                 Do not have an account yet?&nbsp;
-                <Anchor href="register">Register</Anchor>
+                <Anchor href="/register">Register</Anchor>
             </p>
         </form>
     );

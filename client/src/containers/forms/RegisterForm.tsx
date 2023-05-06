@@ -84,9 +84,7 @@ export const RegisterForm: FC = () => {
                 <Anchor href="#">Conditions of Use</Anchor>&nbsp;and&nbsp;
                 <Anchor href="#">Privacy notice</Anchor>&nbsp;and agree to them.
             </FormCheckbox>
-            <Button className={cn("mb-2 w-full", {
-                'disabled': isLoading,
-            })} variant="outline">
+            <Button className="mb-2 w-full" disabled={isLoading} variant="outline">
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 Continue
             </Button>
