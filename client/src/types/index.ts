@@ -33,3 +33,13 @@ export interface StatisticValue {
   name: string;
   value: string | number;
 }
+
+export type ApiValidationReject<T> = {
+  errors: {
+    [Key in keyof T]: string;
+  }
+}
+
+export type ApiReject = {
+  message: string;
+}

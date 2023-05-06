@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function rejectAxios(err: unknown) {
   if (isAxiosError(err) && err.response) {
-    return { message: err.response.data.error.message as string };
+    return err.response.data;
   }
   throw err;
 }
