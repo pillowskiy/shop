@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './services/auth.service';
-import { TokenService } from './services/token.service';
+import { AuthService } from './auth.service';
+import { TokenService } from './token.service';
 import { AuthController } from './auth.controller';
 import { PrismaService } from '../../prisma.service';
 import { JwtModule } from '@nestjs/jwt';

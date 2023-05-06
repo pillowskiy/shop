@@ -6,7 +6,7 @@ import {
   Post,
   Res,
 } from '@nestjs/common';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './auth.service';
 import { CreateUserDto, LoginDto } from './dto';
 import {
   ApiBearerAuth,
