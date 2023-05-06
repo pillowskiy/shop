@@ -1,7 +1,10 @@
-import { Register } from "@containers/Register";
+import {Register} from "@containers/Register";
+import AuthProvider from "@providers/AuthProvider";
 
 export default function AuthLogin() {
   return (
-    <Register />
-  )
+    <AuthProvider forAuth={false}>
+      <Register />
+    </AuthProvider>
+  );
 }

@@ -1,7 +1,10 @@
-import { Login } from '@containers/Login';
+import {Login} from '@containers/Login';
+import AuthProvider from "@providers/AuthProvider";
 
 export default function AuthLogin() {
   return (
-    <Login />
-  )
+    <AuthProvider forAuth={false}>
+      <Login />
+    </AuthProvider>
+  );
 }

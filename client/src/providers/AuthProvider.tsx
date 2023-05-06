@@ -1,5 +1,5 @@
-import { FC, useEffect, type PropsWithChildren } from 'react';
-import type { AuthFields } from '@/types/providers/auth-provider';
+import {type FC, type PropsWithChildren, useEffect} from 'react';
+import type {AuthFields} from '@/types/providers/auth-provider';
 import dynamic from 'next/dynamic';
 import { useUserActions } from '@hooks/useActions';
 
@@ -17,9 +17,11 @@ const AuthProvider: FC<PropsWithChildren<AuthFields>> = ({
     checkAuth();
   }, []);
 
-  return forAuth ?
-    <RoleProvider children={children} />:
-    <div children={children} />;
+  return (
+    <RoleProvider forAuth={forAuth}>
+      {children}
+    </RoleProvider>
+  );
 };
 
 export default AuthProvider;
