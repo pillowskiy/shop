@@ -35,6 +35,7 @@
     --ring: #CBD5E0;
  
     --radius: 0.5rem;
+    --padding: calc(8px + 1.5625vw)
   }
 }
  
