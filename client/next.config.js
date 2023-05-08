@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  experimental: {
+    typedRoutes: true,
+  },
   env: {
     SERVER_URL: process.env.API_URL,
     API_URL: process.env.API_URL,
