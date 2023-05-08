@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Meta } from './Meta';
+import { Meta } from '../Meta';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/common/Card';
 import {LoginForm} from "@containers/forms/LoginForm";
 
