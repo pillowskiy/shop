@@ -1,0 +1,84 @@
+import type {FC} from 'react';
+
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+import {Swiper as LibSwiper, SwiperRef, SwiperSlide} from "swiper/react";
+import {Pagination, Navigation, Autoplay} from "swiper";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import {useCallback, useEffect, useRef, useState} from "react";
+
+export const OfferCarousel: FC = () => {
+    const [queue, setQueue] = useState([
+        {
+            key: 1,
+            color: 'bg-red-500'
+        },
+        {
+            key: 2,
+            color: 'bg-pink-500'
+        },
+        {
+            key: 3,
+            color: 'bg-blue-500'
+        },
+        {
+            key: 4,
+            color: 'bg-yellow-500'
+        },
+        {
+            key: 5,
+            color: 'bg-purple-500'
+        },
+    ]);
+
+    const swiperRef = useRef(null);
+
+    const handlePrev = useCallback(() => {
+        if (!swiperRef.current) return;
+        swiperRef.current["swiper"].slidePrev();
+    }, []);
+
+    const handleNext = useCallback(() => {
+        if (!swiperRef.current) return;
+        swiperRef.current["swiper"].slideNext();
+    }, []);
+
+    return (
+        <section className="relative p-4">
+            <ChevronLeft className="absolute w-8 h-8 top-10 z-10 left-4 top-[50%]" onClick={handlePrev} />
+            <ChevronRight className="absolute w-8 h-8 top-10 z-10 right-4 top-[50%]" onClick={handleNext} />
+            <div>
+
+            </div>
+            <LibSwiper
+                ref={swiperRef}
+                className="h-[280px] md:h-[460px] rounded-lg flex w-full"
+                slidesPerView='auto'
+                spaceBetween={30}
+                loop={true}
+                centeredSlides={true}
+                pagination={{
+                    clickable: true,
+                }}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: true,
+                }}
+                modules={[Pagination, Navigation, Autoplay]}
+            >
+                {queue.map(el => (
+                    <SwiperSlide key={el.key} className={`${el.color} rounded-lg w-2/6`}>
+                        <img
+                            className="object-cover h-full w-full"
+                            src="https://jabko.ua/image/cache/cataloge-2/silder-2/PC-22/dyson%20(1)-max-1700.jpg.webp"
+                            alt="offer"
+                        />
+                    </SwiperSlide>
+                ))}
+            </LibSwiper>
+        </section>
+    );
+};
