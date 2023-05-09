@@ -9,8 +9,8 @@ export const SideBar: FC = () => {
     const {user} = useAuth();
     return (
         <aside className={cn(
-            "fixed md:static bottom-0 md:top-0 r-0 md:bottom-auto text-foreground bg-popover",
-            "w-full md:w-20 md:pt-32 md:pb-custom px-custom md:px-0 h-12 md:h-screen"
+            "fixed bottom-0 md:top-0 md:bottom-auto text-foreground bg-popover",
+            "w-full md:w-20 md:pt-32 md:pb-custom px-custom md:px-0 h-12 md:h-screen z-20"
             )}
         >
             <SideBarItems>
