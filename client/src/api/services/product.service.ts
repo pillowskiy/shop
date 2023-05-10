@@ -5,14 +5,15 @@ import type {
   Product,
   ProductFullest,
   UpdateProductData,
+  GetAllProductsResponse,
 } from '@/types/product.interface';
 
 export default class ProductService {
   private static controller = 'products';
 
   static async getAll(filterParams?: Filter)
-    : Promise<AxiosResponse<Product[]>> {
-    return $api.get<Product[]>(`${this.controller}`, { params: filterParams || {} });
+    : Promise<AxiosResponse<GetAllProductsResponse>> {
+    return $api.get<GetAllProductsResponse>(`${this.controller}`, { params: filterParams || {} });
   }
 
   static async getByValue<T extends keyof Pick<Product, 'id' | 'slug'>>(
