@@ -7,7 +7,7 @@ export const QueryList: FC = () => {
     return (
         <CommandList
             className={cn(
-                "border shadow-md mt-1 rounded-lg backdrop-blur z-20",
+                "border shadow-md mt-1 rounded-lg z-20",
                 "absolute w-full h-auto top-full bg-popover"
             )}
         >

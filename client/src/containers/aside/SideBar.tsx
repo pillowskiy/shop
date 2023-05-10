@@ -9,7 +9,7 @@ export const SideBar: FC = () => {
     const {user} = useAuth();
     return (
         <aside className={cn(
-            "fixed bottom-0 md:top-0 md:bottom-auto text-foreground bg-popover",
+            "fixed bottom-0 md:top-0 md:bottom-auto text-foreground bg-popover border-muted border-t shadow-md md:shadow-none",
             "w-full md:w-20 md:pt-32 md:pb-custom px-custom md:px-0 h-12 md:h-screen z-20"
             )}
         >

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { DialogProps } from "@radix-ui/react-dialog"
 import { Command as CommandPrimitive } from "cmdk"
-import { Search } from "lucide-react"
+import { Search, X } from "lucide-react"
 
 import { cn } from "@lib/utils"
 import { Dialog, DialogContent } from "./Dialog"
@@ -50,6 +50,9 @@ const CommandInput = React.forwardRef<
         className
       )}
       {...props}
+    />
+    <X
+        className="mr-2 h-4 w-4 shrink-0 opacity-50 block md:hidden"
     />
   </div>
 ))

@@ -47,15 +47,15 @@ export const OfferCarousel: FC = () => {
     }, []);
 
     return (
-        <section className="relative p-4">
-            <ChevronLeft className="absolute w-8 h-8 top-10 z-10 left-4 top-[50%]" onClick={handlePrev} />
-            <ChevronRight className="absolute w-8 h-8 top-10 z-10 right-4 top-[50%]" onClick={handleNext} />
+        <section className="relative mt-4">
+            <ChevronLeft className="absolute w-8 h-8 top-10 z-10 left-2 top-[50%]" onClick={handlePrev} />
+            <ChevronRight className="absolute w-8 h-8 top-10 z-10 right-2 top-[50%]" onClick={handleNext} />
             <div>
 
             </div>
             <LibSwiper
                 ref={swiperRef}
-                className="h-[280px] md:h-[460px] rounded-lg flex w-full"
+                className="h-[200px] md:h-[420px] rounded-lg flex w-full"
                 slidesPerView='auto'
                 spaceBetween={30}
                 loop={true}
@@ -72,7 +72,7 @@ export const OfferCarousel: FC = () => {
                 {queue.map(el => (
                     <SwiperSlide key={el.key} className={`${el.color} rounded-lg w-2/6`}>
                         <img
-                            className="object-cover h-full w-full"
+                            className="object-cover h-full w-full rounded-lg"
                             src="https://jabko.ua/image/cache/cataloge-2/silder-2/PC-22/dyson%20(1)-max-1700.jpg.webp"
                             alt="offer"
                         />
