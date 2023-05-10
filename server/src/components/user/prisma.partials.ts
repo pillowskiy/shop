@@ -8,7 +8,8 @@ export const userSelect: Prisma.UserSelect = {
   phone: true,
   password: false,
   orders: false,
-  favorites: false,
+  favorites: true,
+  roles: true,
 };
 
 export const productSelect: Prisma.ProductSelect = {

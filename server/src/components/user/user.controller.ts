@@ -27,11 +27,22 @@ import { user } from 'src/config/docs';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  // TEMP
+  @ApiOperation(user.profile.operation)
+  @ApiResponse(user.profile.response)
+  @ApiParam(user.profile.param)
+  @Auth()
+  @Get('profile')
+  public getProfile(@User() user: PrismaUser) {
+    return user;
+  }
+
+  // TEMP
   @ApiOperation(user.profile.operation)
   @ApiResponse(user.profile.response)
   @ApiParam(user.profile.param)
   @Get('profile/:id')
-  public getProfile(@Param('id', ParseIntPipe) userId: number) {
+  public getProfileById(@Param('id', ParseIntPipe) userId: number) {
     return this.userService.getProfileById(userId);
   }
 
@@ -41,8 +52,8 @@ export class UserController {
   @Auth()
   @HttpCode(200)
   @Put('profile')
-  public updateProfile(@User() user: PrismaUser, @Body() userDto: UserDto) {
-    return this.userService.updateProfile(user, userDto);
+  public updateProfile(@User('id') userId: number, @Body() userDto: UserDto) {
+    return this.userService.updateProfile(userId, userDto);
   }
 
   @ApiOperation(user.toggleFavorite.operation)

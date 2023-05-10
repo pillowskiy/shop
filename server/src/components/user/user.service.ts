@@ -8,7 +8,6 @@ import { PrismaService } from '../../prisma.service';
 import { userSelect, productSelect } from './prisma.partials';
 import { UserDto } from './dto/user.dto';
 import { hash } from 'argon2';
-import { matchRoles } from 'src/utils/Util';
 
 @Injectable()
 export class UserService {
@@ -33,7 +32,7 @@ export class UserService {
     return user;
   }
 
-  public async updateProfile(user: PrismaUser, dto: UserDto) {
+  public async updateProfile(userId: number, dto: UserDto) {
     const isInitialUser = await this.prisma.user
       .findUnique({
         where: { email: dto.email },
@@ -41,16 +40,16 @@ export class UserService {
           ...userSelect,
         },
       })
-      .then((user) => user && user.id === user.id);
+      .then((user) => user && user.id === userId);
 
-    if (!isInitialUser && !matchRoles(['Admin'], user.roles)) {
+    if (!isInitialUser) {
       throw new BadRequestException(
         'The final value does not match the initial value',
       );
     }
 
     return this.prisma.user.update({
-      where: { id: user.id },
+      where: { id: userId },
       data: { ...dto, password: dto.password && (await hash(dto.password)) },
       select: userSelect,
     });

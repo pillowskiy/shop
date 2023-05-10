@@ -3,6 +3,7 @@ import { categorySelect } from 'src/components/category/prisma.partials';
 import { reviewSelect } from 'src/components/review/prisma.partials';
 
 export const productSelect: Prisma.ProductSelect = {
+  id: true,
   images: true,
   name: true,
   price: true,
@@ -10,10 +11,7 @@ export const productSelect: Prisma.ProductSelect = {
   createdAt: true,
   slug: true,
   category: {
-    select: {
-      name: true,
-      slug: true,
-    },
+    select: categorySelect,
   },
 };
 
@@ -21,8 +19,5 @@ export const productFullestSelect: Prisma.ProductSelect = {
   ...productSelect,
   reviews: {
     select: reviewSelect,
-  },
-  category: {
-    select: categorySelect,
   },
 };
