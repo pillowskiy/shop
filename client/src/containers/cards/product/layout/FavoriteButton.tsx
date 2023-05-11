@@ -28,7 +28,6 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({
         onSuccess: () => invalidateQueries(['get profile']),
     });
 
-    console.log(profile)
     return (
         <Toggle className={className} {...props} pressed={isFavorite} onClick={() => mutate()} disabled={!profile}>
             <Heart className="h-4 w-4" />

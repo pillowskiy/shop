@@ -1,7 +1,7 @@
 import type {FC} from 'react';
 import {Star} from "lucide-react";
 import {useQuery} from "@tanstack/react-query";
-import {ProductFullest} from "@types/product.interface";
+import {ProductFullest} from "@/types/product.interface";
 import ReviewService from "@api/services/review.service";
 
 interface ProductRatingProps {

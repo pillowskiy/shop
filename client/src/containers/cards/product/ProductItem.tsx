@@ -16,6 +16,7 @@ export const ProductItem: FC<ProductItemProps> = ({product}) => {
                 className="w-full h-auto object-cover rounded-t-lg"
                 width={360}
                 height={360}
+                loading="lazy"
                 src={product.images[0]}
                 alt={product.name}
             />
