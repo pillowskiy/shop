@@ -3,6 +3,7 @@ import type {ProductFullest} from "@/types/product.interface";
 import {Card, CardContent} from "@common/Card";
 import {FavoriteButton} from "./layout/FavoriteButton";
 import {ProductRating} from "./layout/ProductRating";
+import Image from "next/image";
 
 interface ProductItemProps {
     product: ProductFullest;
@@ -11,7 +12,13 @@ interface ProductItemProps {
 export const ProductItem: FC<ProductItemProps> = ({product}) => {
     return (
         <Card className="flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-none shadow-md rounded-lg duration-500 bg-popover">
-            <img className="w-full h-auto object-cover rounded-t-lg" src={product.images[0]} alt={product.name}/>
+            <Image
+                className="w-full h-auto object-cover rounded-t-lg"
+                width={360}
+                height={360}
+                src={product.images[0]}
+                alt={product.name}
+            />
 
             <CardContent className="px-custom md:px-4 py-3 w-full">
                 <span className="text-muted uppercase text-xs">{product.category.name}</span>
