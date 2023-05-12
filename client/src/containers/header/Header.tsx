@@ -1,10 +1,16 @@
 import type {FC} from 'react';
-import {QueryInput} from "@containers/header/layout/QueryInput";
+import {SearchBar} from "./layout/SearchBar";
+import {cn} from "@lib/utils";
 
 export const Header: FC = () => {
     return (
-        <header className="sticky shadow-md md:shadow-none top-0 w-full flex justify-center px-custom h-16 items-center bg-popover z-20">
-            <QueryInput className="w-full md:w-3/4 lg:w-2/5"/>
+        <header
+            className={cn(
+                "sticky shadow-md md:shadow-none top-0 w-full flex justify-center",
+                "px-custom h-16 items-center bg-popover z-20"
+            )}
+        >
+            <SearchBar/>
         </header>
     );
 };
