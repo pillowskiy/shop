@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {useCallback, useEffect, useRef, useState} from "react";
+import Image from "next/image";
 
 export const OfferCarousel: FC = () => {
     const [queue, setQueue] = useState([
@@ -34,25 +35,22 @@ export const OfferCarousel: FC = () => {
         },
     ]);
 
-    const swiperRef = useRef(null);
+    const swiperRef = useRef<SwiperRef>(null);
 
     const handlePrev = useCallback(() => {
         if (!swiperRef.current) return;
-        swiperRef.current["swiper"].slidePrev();
+        swiperRef.current.swiper.slidePrev();
     }, []);
 
     const handleNext = useCallback(() => {
         if (!swiperRef.current) return;
-        swiperRef.current["swiper"].slideNext();
+        swiperRef.current.swiper.slideNext();
     }, []);
 
     return (
         <section className="relative mt-4">
             <ChevronLeft className="absolute w-8 h-8 top-10 z-10 left-2 top-[50%]" onClick={handlePrev} />
             <ChevronRight className="absolute w-8 h-8 top-10 z-10 right-2 top-[50%]" onClick={handleNext} />
-            <div>
-
-            </div>
             <LibSwiper
                 ref={swiperRef}
                 className="h-[200px] md:h-[420px] rounded-lg flex w-full"
@@ -70,10 +68,12 @@ export const OfferCarousel: FC = () => {
                 modules={[Pagination, Navigation, Autoplay]}
             >
                 {queue.map(el => (
-                    <SwiperSlide key={el.key} className={`${el.color} rounded-lg w-2/6`}>
-                        <img
+                    <SwiperSlide key={el.key} className="rounded-lg w-2/6">
+                        <Image
                             className="object-cover h-full w-full rounded-lg"
                             src="https://jabko.ua/image/cache/cataloge-2/silder-2/PC-22/dyson%20(1)-max-1700.jpg.webp"
+                            width={1680}
+                            height={1080}
                             alt="offer"
                         />
                     </SwiperSlide>
