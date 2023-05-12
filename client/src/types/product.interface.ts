@@ -16,6 +16,7 @@ export interface Product {
   price: number;
   images: string[];
   quantity: number;
+  category: Category;
 }
 
 export interface Filter {
@@ -36,4 +37,9 @@ export interface UpdateProductData {
 export interface ProductFullest extends Product {
   category: Category;
   reviews: Review[];
+}
+
+export interface GetAllProductsResponse {
+  length: number,
+  products: ProductFullest[],
 }

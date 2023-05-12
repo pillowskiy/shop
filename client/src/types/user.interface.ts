@@ -2,9 +2,11 @@ import type { Product } from './product.interface';
 
 export type UserUpdate = Partial<Omit<User, 'id'>> & {
   password?: string
-}
+};
 
-export type FullestUser = User & Product[]
+export type FullestUser = User & {
+  favorites: Product[]
+};
 
 export interface User {
   id: number;
@@ -12,4 +14,4 @@ export interface User {
   name: string;
   avatarURL: string;
   phone?: string;
-}
+};
