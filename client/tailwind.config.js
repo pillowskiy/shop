@@ -56,6 +56,13 @@ module.exports = {
       padding: {
         custom: "var(--padding)"
       },
+      flex: {
+        "card": "1 0 280px",
+      },
+      maxWidth: {
+        "1/2": "calc(50% - 8px)",
+        "1/3": "calc(50% - 24px)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
