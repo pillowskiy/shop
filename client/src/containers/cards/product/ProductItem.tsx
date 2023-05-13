@@ -33,7 +33,7 @@ export const ProductItem: FC<ProductItemProps> = ({product}) => {
                 <span className="text-muted uppercase text-xs">{product.category.name}</span>
                 <p className="text-lg font-bold text-foreground truncate block capitalize">{product.name}</p>
                 <section className="flex items-center">
-                    <p className="text-lg font-semibold text-black cursor-auto my-3">{product.price}$</p>
+                    <p className="text-lg font-semibold text-black cursor-auto py-1">{product.price}$</p>
                     <del>
                         <p className="text-sm text-gray-600 cursor-auto ml-2">$199</p>
                     </del>

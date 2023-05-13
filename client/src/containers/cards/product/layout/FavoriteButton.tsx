@@ -1,12 +1,10 @@
 import type {FC, HTMLAttributes} from 'react';
-import {Heart} from 'lucide-react';
 import {Toggle} from "@ui/Toggle";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
 import {useProfile} from "@hooks/useProfile";
-import {useToast} from "@common/toast/useToast";
-import {isAxiosError} from "axios";
-import {useRouter} from "next/router";
+import {ReactComponent as Heart} from "@assets/images/heart.svg";
+import {ReactComponent as FilledHeart} from "@assets/images/heart_filled.svg";
 
 interface FavoriteButtonProps extends HTMLAttributes<HTMLButtonElement> {
     productId: number;
@@ -29,8 +27,10 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({
     });
 
     return (
-        <Toggle className={className} {...props} pressed={isFavorite} onClick={() => mutate()} disabled={!profile}>
-            <Heart className="h-4 w-4" />
+        <Toggle className={className} {...props} pressed={false} onClick={() => mutate()} disabled={!profile}>
+            {isFavorite ?
+                <FilledHeart className="h-4 w-4 fill-destructive"/> :
+                <Heart className="h-4 w-4 fill-primary"/>}
         </Toggle>
     );
 };

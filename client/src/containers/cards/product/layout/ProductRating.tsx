@@ -21,7 +21,7 @@ export const ProductRating: FC<ProductRatingProps> = ({
                 <Star className="w-4 h-4 opacity-70"/>
                 <p className="text-base text-foreground opacity-90">{rating.toFixed(2)}</p>
             </div>
-            <p className="text-base text-muted">{product.reviews.length} reviews</p>
+            <p className="text-base text-primary">{product.reviews.length} reviews</p>
         </div>
     );
 };
