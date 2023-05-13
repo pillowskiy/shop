@@ -7,13 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { AuthFields } from '@/types/providers/auth-provider';
 import {Toaster} from "@common/toast";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    }
-  }
-});
+const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps & AuthFields) {
   return (
     <QueryClientProvider client={queryClient}>

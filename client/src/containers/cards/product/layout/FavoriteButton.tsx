@@ -16,14 +16,14 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({
     className,
     ...props
 }) => {
-    const {invalidateQueries} = useQueryClient();
+    const queryClient = useQueryClient();
     const {profile} = useProfile();
     const isFavorite = profile ? profile.favorites.some(product => product.id === productId) : false;
 
     const {mutate} = useMutation(['toggle favorite', productId], () => {
         return UserService.toggleFavorite(productId);
     }, {
-        onSuccess: () => invalidateQueries(['get profile']),
+        onSuccess: () => queryClient.invalidateQueries(['get profile']),
     });
 
     return (
