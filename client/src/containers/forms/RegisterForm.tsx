@@ -6,7 +6,6 @@ import {Button} from "@ui/Button";
 import {useRouter} from "next/router";
 import {useToast} from "@layout/../../components/common/toast/useToast";
 import {useAuth} from "@hooks/useAuth";
-import {cn} from "@lib/utils";
 import {Loader2} from "lucide-react";
 import {FormEvent, useState} from "react";
 import {ApiValidationReject, RegisterBody} from "@types";

@@ -16,7 +16,7 @@ export const ProductItem: FC<ProductItemProps> = ({product}) => {
             className={
                 cn(
                     "flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-none shadow-md rounded-lg duration-500 bg-popover",
-                    "hover:scale-[1.02] hover:shadow-xl hover:bg-muted transition-all duration-200"
+                    "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border"
                 )
             }
         >
@@ -31,7 +31,7 @@ export const ProductItem: FC<ProductItemProps> = ({product}) => {
 
             <CardContent className="px-custom md:px-4 py-3 w-full">
                 <span className="text-muted uppercase text-xs">{product.category.name}</span>
-                <p className="text-lg font-bold text-foreground truncate block capitalize">{product.name}</p>
+                <p className="text-sm text-foreground truncate block capitalize">{product.name}</p>
                 <section className="flex items-center">
                     <p className="text-lg font-semibold text-black cursor-auto py-1">{product.price}$</p>
                     <del>

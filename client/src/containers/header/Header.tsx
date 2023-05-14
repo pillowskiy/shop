@@ -6,8 +6,8 @@ export const Header: FC = () => {
     return (
         <header
             className={cn(
-                "sticky shadow-md md:shadow-none top-0 w-full flex justify-center",
-                "px-custom h-16 items-center bg-popover z-20"
+                "sticky top-0 w-full flex justify-center",
+                "px-custom h-16 items-center z-20"
             )}
         >
             <SearchBar/>
