@@ -10,7 +10,7 @@ export default class UserService {
   private static controller = 'users';
 
   static async getProfile(): Promise<AxiosResponse<FullestUser>> {
-    return $api.get<User>(`/${UserService.controller}/profile`);
+    return $api.get<FullestUser>(`/${UserService.controller}/profile`);
   }
   static async getById(userId: number): Promise<AxiosResponse<FullestUser>> {
     return $api.get<FullestUser>(`/${UserService.controller}/profile/${userId}`);

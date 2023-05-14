@@ -27,7 +27,6 @@ import { user } from 'src/config/docs';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // TEMP
   @ApiOperation(user.profile.operation)
   @ApiResponse(user.profile.response)
   @ApiParam(user.profile.param)
@@ -37,7 +36,6 @@ export class UserController {
     return user;
   }
 
-  // TEMP
   @ApiOperation(user.profile.operation)
   @ApiResponse(user.profile.response)
   @ApiParam(user.profile.param)
