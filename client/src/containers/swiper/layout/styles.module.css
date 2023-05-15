@@ -1,0 +1,55 @@
+@media (max-width: 1080px) {
+    .item {
+        padding: 0;
+        width: 0;
+        transition: .5s;
+    }
+    .item:nth-last-child(4) {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1080px) {
+    .item {
+        padding: 0 0 0 1rem;
+        transition: .5s;
+        flex: 1;
+    }
+
+    .item:nth-last-child(4) {
+        flex: 2;
+    }
+
+    .item:nth-last-child(2) {
+        animation: anim2 .5s ease-in;
+    }
+
+    .item:last-child {
+        margin-right: -1rem;
+        flex: 0;
+    }
+
+    .item:first-child {
+        margin-left: -2rem;
+        animation: anim1 .5s ease-out;
+        flex: 0;
+    }
+}
+
+@keyframes anim2 {
+    from {
+        flex: 0;
+    }
+    to {
+        flex: 1;
+    }
+}
+
+@keyframes anim1 {
+    from {
+        flex: 1;
+    }
+    to {
+        flex: 0;
+    }
+}
