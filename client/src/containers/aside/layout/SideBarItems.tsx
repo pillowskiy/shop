@@ -11,7 +11,7 @@ export const SideBarItems: FC<PropsWithChildren<SideBarItemsProps>> = ({
     return (
         <ul
             className={cn(
-                "flex flex-row md:flex-col gap-y-8 items-center justify-between",
+                "flex flex-row md:flex-col gap-y-8 items-center justify-between md:justify-center",
                 "h-full", className
             )}
             {...props}
