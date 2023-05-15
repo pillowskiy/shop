@@ -8,9 +8,14 @@ import {Pagination, Navigation, Autoplay} from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 import Image from "next/image";
 
+/**
+ * Carousel element for interesting offers with "swiper" library.
+ *
+ * @deprecated Deprecated!
+ */
 export const OfferCarousel: FC = () => {
     const [queue, setQueue] = useState([
         {
@@ -53,7 +58,7 @@ export const OfferCarousel: FC = () => {
             <ChevronRight className="absolute w-8 h-8 top-10 z-10 right-2 top-[50%]" onClick={handleNext} />
             <LibSwiper
                 ref={swiperRef}
-                className="h-[200px] md:h-[420px] rounded-lg flex w-full"
+                className="h-[200px] md:h-[420px] rounded-lg flex"
                 slidesPerView='auto'
                 spaceBetween={30}
                 loop={true}
