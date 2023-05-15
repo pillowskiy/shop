@@ -57,7 +57,7 @@ module.exports = {
         custom: "var(--padding)"
       },
       flex: {
-        "card": "1 0 280px",
+        "card": "1 0 200px",
       },
       maxWidth: {
         "1/2": "calc(50% - 8px)",
@@ -76,12 +76,12 @@ module.exports = {
           "0%": { transform: "translateY(-1500px) skewY(30deg) scaleY(1.3);" },
           "70%": { transform: "translateY(30px) skewY(0deg) scaleY(.9);" },
           "100%": { transform:"translateY(0px) skewY(0deg) scaleY(1);" }
-        }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "card-in": "card-in .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;"
+        "card-in": "card-in .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;",
       },
     },
   },

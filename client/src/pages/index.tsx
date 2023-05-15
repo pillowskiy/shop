@@ -7,6 +7,7 @@ import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 import {Catalog} from "@containers/Catalog";
 import {NextPage} from "next";
+import {Carousel} from "@containers/swiper/Carousel";
 
 const HomePage: NextPage = () => {
     return (
@@ -14,7 +15,7 @@ const HomePage: NextPage = () => {
             <Header/>
             <SideBar/>
             <Main>
-                <OfferCarousel/>
+                <Carousel/>
                 <Catalog/>
             </Main>
         </Meta>
