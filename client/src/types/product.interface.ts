@@ -2,10 +2,10 @@ import type { Category } from './category.interface';
 import type { Review } from './review.interface';
 
 export enum ProductSort {
-  HighPrice = 0,
-  LowPrice = 1,
-  Newest = 2,
-  Oldest = 3,
+  HighPrice = 'HIGHT_PRICE',
+  LowPrice = 'LOW_PRICE',
+  Newest = 'NEWEST',
+  Oldest = 'OLDEST',
 }
 
 export interface Product {
