@@ -4,15 +4,13 @@ import {ProductItemSkeleton} from "@containers/cards/product/ProductItemSkeleton
 import {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
+import {Filter} from "@/types/product.interface";
 
-export const Catalog: FC = () => {
+export const Catalog: FC<Filter> = ({...filterOptions}) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const {data} = useQuery(['get products'], () => {
-        return ProductService.getAll({
-            page: 1,
-            perPage: 12,
-        });
+        return ProductService.getAll(filterOptions);
     }, {
         select: ({data}) => data,
         onSuccess: () => setTimeout(() => setIsLoaded(true), 250),
@@ -20,7 +18,7 @@ export const Catalog: FC = () => {
 
     if (!isLoaded) {
         return (
-            <section className="h-fit w-full flex flex-wrap mt-4 gap-4 box-border">
+            <section className="h-fit w-full flex flex-wrap gap-4 box-border">
                 {Array.from({length: 20}, () => (
                     <ProductItemSkeleton key={Date.now() * Math.random()}/>
                 ))}
@@ -29,7 +27,7 @@ export const Catalog: FC = () => {
     }
 
     return (
-        <section className="h-fit w-full flex flex-wrap mt-4 gap-4 box-border">
+        <section className="h-fit w-full flex flex-wrap gap-4 box-border">
             {data?.products ?
                 data.products.map(product => (
                     <ProductItem key={product.id} product={product}/>

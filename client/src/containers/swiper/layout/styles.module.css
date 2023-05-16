@@ -2,7 +2,7 @@
     .item {
         padding: 0;
         width: 0;
-        transition: .5s;
+        transition: all .5s;
     }
     .item:nth-last-child(4) {
         width: 100%;
@@ -47,7 +47,7 @@
 
 @keyframes anim1 {
     from {
-        flex: 1;
+        flex: 2;
     }
     to {
         flex: 0;
