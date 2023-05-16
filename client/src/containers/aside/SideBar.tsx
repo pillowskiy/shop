@@ -1,8 +1,9 @@
 import type {FC} from 'react';
 import {SideBarItems} from "@containers/aside/layout/SideBarItems";
 import {SideBarItem} from "@containers/aside/layout/SideBarItem";
-import {Globe2, ShoppingCart, Heart, List, LogIn} from "lucide-react";
+import {Globe2, ShoppingCart, Heart, List} from "lucide-react";
 import {cn} from "@lib/utils";
+import {SideBarProfile} from "@containers/aside/layout/SideBarProfile";
 
 export const SideBar: FC = () => {
     return (
@@ -15,7 +16,8 @@ export const SideBar: FC = () => {
                 <SideBarItem Icon={ShoppingCart} title="Cart" />
                 <SideBarItem Icon={Heart} title="Favorites" />
                 <SideBarItem Icon={List} title="Orders" />
-                <SideBarItem Icon={Globe2} className="mt-auto" title="Language" />
+                <SideBarItem Icon={Globe2} title="Language" />
+                <SideBarProfile />
             </SideBarItems>
         </aside>
     );

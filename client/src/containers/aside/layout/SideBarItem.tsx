@@ -16,7 +16,7 @@ export const SideBarItem: FC<PropsWithChildren<SideBarItemProps>> = ({
 }) => {
     return (
         <li
-            className={cn("cursor-pointer p-2 hover:bg-muted rounded-lg transition-all text-center w-1/4 md:w-10/12", className)}
+            className={cn("cursor-pointer p-2 hover:bg-muted rounded-lg transition-all text-center w-1/5 md:w-10/12", className)}
             {...props}
         >
             <Icon className="h-7 w-7 m-auto" />
