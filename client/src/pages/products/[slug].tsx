@@ -20,7 +20,7 @@ export default function Page() {
     const router = useRouter();
     const {toast} = useToast();
 
-    const {data: product} = useQuery(['get product by slug'], () => {
+    const {data: product} = useQuery(['get product by slug', getSlug(router.query.slug)], () => {
         return ProductService.getByValue("slug", getSlug(router.query.slug));
     }, {
         select: ({data}) => data,
