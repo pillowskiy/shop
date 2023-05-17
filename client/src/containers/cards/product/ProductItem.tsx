@@ -5,12 +5,15 @@ import {FavoriteButton} from "./layout/FavoriteButton";
 import {ProductRating} from "./layout/ProductRating";
 import Image from "next/image";
 import {cn} from "@lib/utils";
+import {useRouter} from "next/router";
 
 interface ProductItemProps {
     product: ProductFullest;
 }
 
 export const ProductItem: FC<ProductItemProps> = ({product}) => {
+    const router = useRouter();
+
     return (
         <Card
             className={
@@ -19,6 +22,7 @@ export const ProductItem: FC<ProductItemProps> = ({product}) => {
                     "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border cursor-pointer"
                 )
             }
+            onClick={() => router.push(`/products/${product.slug}`)}
         >
             <Image
                 className="w-full h-auto object-cover rounded-t-lg"
