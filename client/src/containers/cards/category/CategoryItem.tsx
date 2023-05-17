@@ -1,6 +1,6 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
-import {Category} from "@types/category.interface";
+import {Category} from "@/types/category.interface";
 import {cn} from "@lib/utils";
 import Image from "next/image";
 
