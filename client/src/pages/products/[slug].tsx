@@ -10,8 +10,9 @@ import {isAxiosError} from "axios";
 import Image from "next/image";
 import {Button} from "@ui/Button";
 import {FavoriteButton} from "@containers/cards/product/layout/FavoriteButton";
-import {cn} from "@lib/utils";
-
+import {Anchor} from "@ui/Anchor";
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
+import {Zap, ShoppingCart} from 'lucide-react';
 const getSlug = (slug: string | string[] | undefined) => {
     return typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
 }
@@ -46,30 +47,89 @@ export default function Page() {
         <Meta title="Product">
             <Header/>
             <SideBar/>
-            <Main className="h-fit">
-                <h1 className="text-4xl py-2">{product.name}</h1>
-                <section className="w-full md:w-3/5 h-auto">
-                    <Image
-                        className="w-3/5"
-                        src={product.images[0]}
-                        alt="product"
-                        width={600}
-                        height={600}
-                    />
-                    <aside>
-                        <div className="w-full rounded-lg border h-[200px]">
-                            <p>Seller: Shop</p>
-                            <hr />
-                            <div className="flex gap-4">
-                                <p>{product.price}</p>
-                                <p className={cn( {
-                                    'text-destructive': product.quantity < 1
-                                })}>{product.quantity > 0 ? "In stock" : "Out of stock"}</p>
-                                <Button variant="default">Buy</Button>
-                                <Button variant="secondary">Buy in Credit</Button>
-                                <FavoriteButton productId={product.id} className="w-10 h-10" />
-                            </div>
+            <Main className="flex relative items-center justify-center min-h-screen-64 h-auto">
+                <section className="w-full sm:w-[520px] md:w-full lg:w-[1080px] relative block md:flex gap-4 mt-4 md:mt-0">
+                    <aside className="w-full block md:w-1/2">
+                        <Image
+                            className="sm:w-[520px] md:w-full sm:h-[420px] md:h-auto border rounded-lg object-cover cursor-pointer"
+                            src={product.images[0]}
+                            alt={"product image"}
+                            width={600}
+                            height={600}
+                        />
+
+                        <div className="flex flex-card gap-4 my-4 max-h-fit overflow-x-auto">
+                            {product.images.slice(0, 5).map(src => (
+                                <Image
+                                    className="rounded-lg cursor-pointer border w-[64px] h-[64px] md:w-[96px] md:h-[96px] "
+                                    key={Math.random() * Date.now()}
+                                    src={src}
+                                    alt={"product image"}
+                                    width={90}
+                                    height={90}
+                                />
+                            ))}
                         </div>
+                    </aside>
+                    <aside className="w-full block md:w-1/2">
+                        <div className="hidden md:block py-2 px-4 rounded-md bg-popover w-full">
+                            <Anchor href="/">
+                                Home
+                            </Anchor>
+                            {product.category && (
+                                <Anchor href={`/categories/${product.category.slug}`}>
+                                    {product.category.name?.slice(0, 26).concat('..')}
+                                </Anchor>
+                            )}
+                            <span>{product.name}</span>
+                        </div>
+
+                        <section>
+                            <h2 className="mt-4 text-2xl md:text-3xl font-bold">{product.name}</h2>
+
+                            <div>
+                                <span><i className="bx bxs-star"></i></span>
+                                <span><i className="bx bxs-star"></i></span>
+                                <span><i className="bx bxs-star"></i></span>
+                                <span><i className="bx bxs-star"></i></span>
+                                <span><i className="bx bxs-star"></i></span>
+                                <span className="review">(47 Review)</span>
+                            </div>
+
+                            <div className="flex mt-4 items-center gap-4">
+                                <span className="text-3xl md:text-5xl font-bold">999$</span>
+                                <del className="text-1xl md:text-2xl font-medium text-muted">{product.price}$</del>
+                            </div>
+
+                            <Accordion type="single" collapsible className="w-full md:hidden">
+                                <AccordionItem value="item-1">
+                                    <AccordionTrigger className="text-xl font-medium">Description</AccordionTrigger>
+                                    <AccordionContent className="text-sm">
+                                        {product.description}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+
+                            <div className="mt-4 hidden md:block">
+                                <h3 className="text-2xl font-medium">Description</h3>
+                                <span className="text-sm mt-2">{product.description}</span>
+                            </div>
+
+                            <div className="flex gap-4 lg:absolute flex-col lg:flex-row w-full lg:w-1/2 mb-4 bottom-0 md:border-t pt-4 md:mt-4">
+                                <Button className="w-full lg:w-1/2 ">
+                                    <Zap className="font-normal"/>
+                                    <p className="font-medium ml-1">Buy now!</p>
+                                </Button>
+
+                                <div className="w-full lg:w-1/2 flex gap-4">
+                                    <Button className="w-10/12" variant="outline">
+                                        <ShoppingCart className="font-normal"/>
+                                        <p className="font-medium ml-1">Add to cart!</p>
+                                    </Button>
+                                    <FavoriteButton className="w-10 h-10 ml-auto" productId={product.id}/>
+                                </div>
+                            </div>
+                        </section>
                     </aside>
                 </section>
             </Main>
