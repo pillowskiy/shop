@@ -19,8 +19,8 @@ export default class ProductService {
   static async getByValue<T extends keyof Pick<Product, 'id' | 'slug'>>(
     type: T,
     value: Product[T]
-  ): Promise<AxiosResponse<Product>> {
-    return $api.get<Product>(`${this.controller}/${type}/${value}`);
+  ): Promise<AxiosResponse<ProductFullest>> {
+    return $api.get<ProductFullest>(`${this.controller}/${type}/${value}`);
   }
 
   static async getByCategorySlug(slug: string): Promise<AxiosResponse<Product[]>> {
