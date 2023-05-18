@@ -13,16 +13,17 @@ import {FavoriteButton} from "@containers/cards/product/layout/FavoriteButton";
 import {Anchor} from "@ui/Anchor";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
 import {Zap, ShoppingCart} from 'lucide-react';
-const getSlug = (slug: string | string[] | undefined) => {
-    return typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
-}
+import {getSlugFromQuery} from "@lib/utils";
 
 export default function Page() {
     const router = useRouter();
     const {toast} = useToast();
 
-    const {data: product} = useQuery(['get product by slug', getSlug(router.query.slug)], () => {
-        return ProductService.getByValue("slug", getSlug(router.query.slug));
+    const slug = getSlugFromQuery(router.query.slug)
+    const {data: product} = useQuery([
+        'get product by slug', slug
+    ], () => {
+        return ProductService.getByValue("slug", slug);
     }, {
         select: ({data}) => data,
         onError: (err) => {
@@ -42,7 +43,6 @@ export default function Page() {
 
     if (!product) return null;
 
-    console.log(product.quantity)
     return (
         <Meta title="Product">
             <Header/>

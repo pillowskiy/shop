@@ -18,3 +18,7 @@ export const getFromLocalStorage = (key: string) => {
     return localStorage.getItem(key);
   }
 }
+
+export const getSlugFromQuery = (slug: string | string[] | undefined) => {
+  return typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
+}
