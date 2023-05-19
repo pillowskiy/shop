@@ -59,6 +59,12 @@ module.exports = {
       flex: {
         "card": "1 0 200px",
       },
+      height: {
+        "screen-64": "calc(100vh - 64px)",
+      },
+      minHeight: {
+        "screen-64": "calc(100vh - 64px)",
+      },
       maxWidth: {
         "1/2": "calc(50% - 8px)",
         "1/3": "calc(50% - 24px)",

@@ -4,7 +4,7 @@ import {Main} from "@containers/Main";
 import {Header} from "@containers/header/Header";
 import AuthProvider from "@providers/AuthProvider";
 import {useProfile} from "@hooks/useProfile";
-import {FavoriteItem} from "@containers/cards/favorite/FavoriteItem";
+import {FavoriteProduct} from "@containers/cards/product/FavoriteProduct";
 
 export default function Page() {
     const {profile} = useProfile();
@@ -13,9 +13,9 @@ export default function Page() {
             <AuthProvider forAuth={true}>
                 <Header/>
                 <SideBar/>
-                <Main className="h-screen-64">
+                <Main className="min-h-screen-64">
                     {profile?.favorites.map(product => (
-                        <FavoriteItem key={product.id} product={product}/>
+                        <FavoriteProduct key={product.id} product={product}/>
                     ))}
                 </Main>
             </AuthProvider>

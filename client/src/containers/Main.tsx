@@ -10,7 +10,7 @@ export const Main: FC<PropsWithChildren<MainContainerProps>> = ({
 }) => {
     return (
         <main
-            className={cn(className, "md:ml-20 md:rounded-tl-lg bg-white border border-muted px-custom md:px-8 pb-4")}
+            className={cn(className, "md:ml-20 md:rounded-tl-lg bg-white border border-muted px-custom md:px-8 pb-20 md:pb-12")}
             {...props}
         >
             { children }
