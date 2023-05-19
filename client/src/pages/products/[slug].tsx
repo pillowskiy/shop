@@ -9,6 +9,7 @@ import {useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {getSlugFromQuery} from "@lib/utils";
 import {SingleProduct} from "@containers/cards/product/SingleProduct";
+import {ProductReview} from "@containers/cards/review/ProductReview";
 
 export default function Page() {
     const router = useRouter();
@@ -31,7 +32,7 @@ export default function Page() {
         },
         onSettled: (data) => {
             if (!data) {
-                return router.replace('/');
+                return router.back();
             }
         }
     });
@@ -42,8 +43,9 @@ export default function Page() {
         <Meta title="Product">
             <Header/>
             <SideBar/>
-            <Main className="flex relative items-center justify-center min-h-screen-64 h-auto">
+            <Main className="flex flex-col relative items-center min-h-screen-64 h-auto">
                 <SingleProduct product={product} />
+                <ProductReview product={product} />
             </Main>
         </Meta>
     );
