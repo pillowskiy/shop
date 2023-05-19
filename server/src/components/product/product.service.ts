@@ -84,7 +84,7 @@ export class ProductService {
   public async getByCategory(categorySlug: string) {
     return this.prisma.product.findMany({
       where: {
-        category: {
+        categories: {
           some: { slug: categorySlug },
         },
       },
@@ -97,12 +97,12 @@ export class ProductService {
       throw new NotFoundException('Product not found');
     }
 
-    if (!product.category.length) return [];
+    if (!product.categories.length) return [];
 
     return this.prisma.product.findMany({
       where: {
-        category: {
-          some: { name: product.category[0].name },
+        categories: {
+          some: { name: product.categories[0].name },
         },
         id: {
           not: productId,
@@ -153,7 +153,7 @@ export class ProductService {
       data: {
         ...data,
         slug: slugify(data.name),
-        category: {
+        categories: {
           connect: { id: categoryId },
         },
       },

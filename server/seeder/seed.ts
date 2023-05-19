@@ -24,7 +24,7 @@ const createProduct = async (count: number) => {
         ),
         quantity: randomInt(100),
         sold: randomInt(10000),
-        category: {
+        categories: {
           create: {
             name: categoryName,
             slug: slugify(categoryName),

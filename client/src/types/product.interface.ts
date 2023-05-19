@@ -16,7 +16,7 @@ export interface Product {
   price: number;
   images: string[];
   quantity: number;
-  category: Category[];
+  categories: Category[];
 }
 
 export interface Filter {

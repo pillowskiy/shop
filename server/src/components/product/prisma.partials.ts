@@ -11,7 +11,7 @@ export const productSelect: Prisma.ProductSelect = {
   description: true,
   createdAt: true,
   slug: true,
-  category: {
+  categories: {
     select: categorySelect,
   },
 };

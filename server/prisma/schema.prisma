@@ -47,7 +47,7 @@ model Product {
   userId Int?  @map("user_id")
   User   User? @relation(fields: [userId], references: [id])
 
-  category    Category[]
+  categories    Category[]
   order_items OrderItem[]
   reviews     Review[]
 }
