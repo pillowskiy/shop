@@ -9,7 +9,7 @@ import {Filter} from "@/types/product.interface";
 export const Catalog: FC<Filter> = ({...filterOptions}) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const {data} = useQuery(['get products'], () => {
+    const {data} = useQuery(['get products', ...Object.keys(filterOptions)], () => {
         return ProductService.getAll(filterOptions);
     }, {
         select: ({data}) => data,
