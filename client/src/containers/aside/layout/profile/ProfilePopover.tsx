@@ -10,6 +10,8 @@ import {
     Truck,
     Send,
     User,
+    Package,
+    Plus
 } from "lucide-react";
 
 import {
@@ -87,15 +89,26 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
                     <Truck className="mr-2 h-4 w-4"/>
                     <span>Delivery</span>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator/>
                 <DropdownMenuItem>
                     <CreditCard className="mr-2 h-4 w-4"/>
-                    <span>Your Billing</span>
+                    <span>Billing</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                     <LifeBuoy className="mr-2 h-4 w-4"/>
                     <span>Support</span>
                 </DropdownMenuItem>
+
+                <DropdownMenuSeparator/>
+                <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                        <Plus className="mr-2 h-4 w-4"/>
+                        <span>Create Product</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Package className="mr-2 h-4 w-4"/>
+                        <span>Your Products</span>
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
                 <DropdownMenuItem onClick={logout}>
                     <LogOut className="mr-2 h-4 w-4"/>
