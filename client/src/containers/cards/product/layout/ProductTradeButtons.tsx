@@ -2,7 +2,7 @@ import type {FC} from 'react';
 import {cn} from "@lib/utils";
 import {Button} from "@ui/Button";
 import {ShoppingCart, Zap} from "lucide-react";
-import {FavoriteButton} from "@containers/cards/product/layout/FavoriteButton";
+import {FavoriteButton} from "@containers/FavoriteButton";
 import {ProductFullest} from "@types/product.interface";
 
 interface ProductTradeContainerProps {

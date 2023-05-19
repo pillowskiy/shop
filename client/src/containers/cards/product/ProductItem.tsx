@@ -1,8 +1,8 @@
 import type {FC} from 'react';
 import type {ProductFullest} from "@/types/product.interface";
 import {Card, CardContent} from "@common/Card";
-import {FavoriteButton} from "./layout/FavoriteButton";
-import {ProductRating} from "./layout/ProductRating";
+import {FavoriteButton} from "../../FavoriteButton";
+import {ProductRating} from "../../ProductRating";
 import Image from "next/image";
 import {cn} from "@lib/utils";
 import {useRouter} from "next/router";

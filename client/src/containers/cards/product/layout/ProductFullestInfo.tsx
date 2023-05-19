@@ -1,6 +1,6 @@
 import {ProductFullest} from "@types/product.interface";
 import type {FC} from 'react';
-import {ProductRating} from "@containers/cards/product/layout/ProductRating";
+import {ProductRating} from "@containers/ProductRating";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
 
 interface ProductInfoContainerProps {
