@@ -3,18 +3,17 @@ import type {Product} from "@/types/product.interface";
 import Image from "next/image";
 import {cn} from "@lib/utils";
 import {Anchor} from "@ui/Anchor";
-import {Button} from "@ui/Button";
-import {FavoriteButton} from "@containers/cards/product/layout/FavoriteButton";
-import {ShoppingCart} from 'lucide-react';
+import {FavoriteButton} from "@containers/product/FavoriteButton";
 import {Card} from "@common/Card";
 import {Badge} from "@ui/Badge";
 import {useRouter} from "next/router";
+import {CartButton} from "@containers/product/CartButton";
 
-interface FavoriteItemProps {
+interface FavoriteProductProps {
     product: Product;
 }
-
-export const FavoriteItem: FC<FavoriteItemProps> = ({product}) => {
+// TODO: Remove the absolute position
+export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
     const router = useRouter();
 
     return (
@@ -34,19 +33,18 @@ export const FavoriteItem: FC<FavoriteItemProps> = ({product}) => {
                 width={128}
                 height={128}
             />
-            <div className="md:w-3/12 ml-4 absolute left-[64px] md:static">
+            <div className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static">
                 <Anchor href={`/products/${product.slug}`}>
-                    {product.name}
+                    {/* TEMP Bad thing */}
+                    {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
                     {!product.quantity &&
-                        <Badge className="h-4 px-2 py-2.5 absolute ml-1" variant="secondary">Out of stock ❌</Badge>}
+                        <Badge className="h-4 px-2 py-2.5 absolute ml-1 hidden sm:block" variant="secondary">Out of stock ❌</Badge>}
                 </Anchor>
+                {/* TEMP Bad thing */}
                 <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
-
             </div>
-            <Button className="ml-auto mt-2 md:mt-0 w-full md:w-fit" disabled={!product.quantity}>
-                <ShoppingCart/>
-                <p className="ml-2">Add to cart</p>
-            </Button>
+
+            <CartButton className="ml-auto mt-2 md:mt-0 w-full md:w-fit" disabled={!product.quantity}/>
             <FavoriteButton className="w-10 h-10 absolute md:relative right-0 mx-4" productId={product.id}/>
         </Card>
     );
