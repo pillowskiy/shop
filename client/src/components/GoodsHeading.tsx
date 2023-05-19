@@ -12,7 +12,7 @@ interface GoodsHeadingProps extends HTMLAttributes<HTMLDivElement> {
 export const GoodsHeading: FC<GoodsHeadingProps> = ({link, children, badge, className, ...props}) => {
     return (
         <div
-            className={cn("mb-2 mt-6 py-1 rounded-lg hover:bg-muted",
+            className={cn("mb-2 mt-6 py-1 rounded-lg hover:bg-muted select-none",
                 "transition-all w-fit hover:px-2 flex gap-1 cursor-pointer", className)}
             {...props}
         >
