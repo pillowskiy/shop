@@ -5,6 +5,7 @@ import { reviewSelect } from 'src/components/review/prisma.partials';
 export const productSelect: Prisma.ProductSelect = {
   id: true,
   images: true,
+  quantity: true,
   name: true,
   price: true,
   description: true,

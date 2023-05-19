@@ -1,15 +1,18 @@
 import type {FC} from 'react';
 import {cn} from "@lib/utils";
 import {Button} from "@ui/Button";
-import {ShoppingCart, Zap} from "lucide-react";
-import {FavoriteButton} from "@containers/FavoriteButton";
+import {Zap} from "lucide-react";
+import {FavoriteButton} from "@containers/product/FavoriteButton";
 import {ProductFullest} from "@types/product.interface";
+import {CartButton} from "@containers/product/CartButton";
 
 interface ProductTradeContainerProps {
     product: ProductFullest;
 }
 
 export const ProductTradeButtons: FC<ProductTradeContainerProps> = ({product}) => {
+    console.log(product);
+
     return (
         <section
             className={cn(
@@ -23,10 +26,7 @@ export const ProductTradeButtons: FC<ProductTradeContainerProps> = ({product}) =
             </Button>
 
             <div className="w-full lg:w-1/2 flex gap-4">
-                <Button className="w-10/12" variant="secondary">
-                    <ShoppingCart className="font-normal"/>
-                    <p className="font-medium ml-1">Add to cart!</p>
-                </Button>
+                <CartButton className="w-10/12" variant="secondary" disabled={!product.quantity} />
                 <FavoriteButton className="w-10 h-10 ml-auto" productId={product.id}/>
             </div>
         </section>

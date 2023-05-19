@@ -1,8 +1,8 @@
 import type {FC} from 'react';
 import type {ProductFullest} from "@/types/product.interface";
 import {Card, CardContent} from "@common/Card";
-import {FavoriteButton} from "../../FavoriteButton";
-import {ProductRating} from "../../ProductRating";
+import {FavoriteButton} from "../../product/FavoriteButton";
+import {ProductRating} from "../../product/ProductRating";
 import Image from "next/image";
 import {cn} from "@lib/utils";
 import {useRouter} from "next/router";
@@ -34,7 +34,6 @@ export const ProductItem: FC<ProductItemProps> = ({product}) => {
             />
 
             <CardContent className="px-custom md:px-4 py-3 w-full">
-                <span className="text-muted uppercase text-xs">{product.category.name}</span>
                 <p className="text-sm text-foreground truncate block capitalize">{product.name}</p>
                 <section className="flex items-center">
                     <p className="text-lg font-semibold text-black cursor-auto py-1">{product.price}$</p>

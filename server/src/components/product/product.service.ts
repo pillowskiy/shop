@@ -68,7 +68,7 @@ export class ProductService {
   }
   public async getProductByQuery(
     query: Prisma.ProductWhereUniqueInput,
-    select: Prisma.ProductSelect = productSelect,
+    select: Prisma.ProductSelect = productFullestSelect,
   ) {
     const product = await this.prisma.product.findUnique({
       where: query,
