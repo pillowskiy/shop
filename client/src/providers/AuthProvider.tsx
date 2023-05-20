@@ -1,4 +1,4 @@
-import {type FC, type PropsWithChildren, useEffect} from 'react';
+import {type FC, type PropsWithChildren, useEffect, useState} from 'react';
 import type {AuthFields} from '@/types/providers/auth-provider';
 import dynamic from 'next/dynamic';
 
@@ -14,13 +14,21 @@ const AuthProvider: FC<PropsWithChildren<AuthFields>> = ({
   forAuth,
   children,
 }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const dispatchAuth = async () => {
+      await dispatch(checkAuth());
+      setTimeout(() => setIsLoaded(true), 200)
+    }
+
     if (TokenService.getToken()) {
-      dispatch(checkAuth());
+      dispatchAuth();
     }
   }, [dispatch]);
+
+  if (!isLoaded) return null;
 
   return (
     <RoleProvider forAuth={forAuth}>
