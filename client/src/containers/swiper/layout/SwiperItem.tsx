@@ -8,9 +8,7 @@ interface SwiperItemProps extends HTMLAttributes<HTMLDivElement> {
 export const SwiperItem: FC<PropsWithChildren<SwiperItemProps>> = ({children, className}) => {
     return (
         <div className={
-            cn(
-            styles.item, className,
-            )}
+            cn(styles.item, className)}
         >
             {children}
         </div>
