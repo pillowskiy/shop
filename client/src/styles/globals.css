@@ -32,6 +32,9 @@
         --destructive: #E53E3E;
         --destructive-foreground: #FFFFFF;
 
+        --warning: #FFD700;
+        --warning-foreground: #FFFFFF;
+
         --ring: #CBD5E0;
 
         --radius: 0.5rem;
