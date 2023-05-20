@@ -37,8 +37,14 @@ export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
                 <Anchor href={`/products/${product.slug}`}>
                     {/* TEMP Bad thing */}
                     {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
-                    {!product.quantity &&
-                        <Badge className="h-4 px-2 py-2.5 absolute ml-1 hidden sm:block" variant="secondary">Out of stock ❌</Badge>}
+                    {!product.quantity && (
+                        <Badge
+                            className="h-4 px-2 py-2.5 absolute ml-1 hidden sm:inline-flex"
+                            variant="secondary"
+                        >
+                            Out of stock ❌
+                        </Badge>
+                    )}
                 </Anchor>
                 {/* TEMP Bad thing */}
                 <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
