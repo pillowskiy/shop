@@ -24,7 +24,11 @@ const ITEMS = [
     {
         key: 5,
         color: 'bg-purple-500'
-    }
+    },
+    {
+        key: 6,
+        color: 'bg-purple-500'
+    },
 ];
 
 const imageSrc = (index: number) => {
