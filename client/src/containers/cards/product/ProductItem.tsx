@@ -22,7 +22,6 @@ export const ProductItem: FC<ProductItemProps> = ({product}) => {
                     "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border cursor-pointer"
                 )
             }
-            onClick={() => router.push(`/products/${product.slug}`)}
         >
             <Image
                 className="w-full h-auto object-cover rounded-t-lg"
@@ -31,10 +30,16 @@ export const ProductItem: FC<ProductItemProps> = ({product}) => {
                 loading="lazy"
                 src={product.images[0]}
                 alt={product.name}
+                onClick={() => router.push(`/products/${product.slug}`)}
             />
 
             <CardContent className="px-custom md:px-4 py-3 w-full">
-                <p className="text-sm text-foreground truncate block capitalize">{product.name}</p>
+                <p
+                    className="text-sm text-foreground truncate block capitalize hover:underline transition-all"
+                    onClick={() => router.push(`/products/${product.slug}`)}
+                >
+                    {product.name}
+                </p>
                 <section className="flex items-center">
                     <p className="text-lg font-semibold text-black cursor-auto py-1">{product.price}$</p>
                     <del>

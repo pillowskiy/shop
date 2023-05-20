@@ -1,9 +1,8 @@
 import type {FC, HTMLAttributes} from 'react';
 import {Star} from "lucide-react";
-import {useQuery} from "@tanstack/react-query";
 import {ProductFullest} from "@/types/product.interface";
-import ReviewService from "@api/services/review.service";
 import {cn} from "@lib/utils";
+import {useProductRateAvg} from "@hooks/useProductRateAVG";
 
 interface ProductRatingProps extends HTMLAttributes<HTMLDivElement> {
     product: ProductFullest;
@@ -14,9 +13,7 @@ export const ProductRating: FC<ProductRatingProps> = ({
     className,
     ...props
 }) => {
-    const rating = useQuery(['product avg rate', product.id], () => {
-        return ReviewService.getAvg(product.id)
-    }, {select: ({data}) => data}).data || 0.00;
+    const rating = useProductRateAvg(product.id);
 
     return (
         <div className={cn("flex justify-between w-full", className)} {...props}>

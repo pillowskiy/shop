@@ -1,5 +1,5 @@
-import {ProductFullest} from "@types/product.interface";
 import type {FC} from 'react';
+import type {ProductFullest} from "@/types/product.interface";
 import {ProductRating} from "@containers/product/ProductRating";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
 

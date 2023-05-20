@@ -2,7 +2,6 @@ import type {FC} from 'react';
 import type {Product} from "@/types/product.interface";
 import Image from "next/image";
 import {cn} from "@lib/utils";
-import {Anchor} from "@ui/Anchor";
 import {FavoriteButton} from "@containers/product/FavoriteButton";
 import {Card} from "@common/Card";
 import {Badge} from "@ui/Badge";
@@ -24,7 +23,6 @@ export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
                     "opacity-90": !product.quantity,
                 }
             )}
-            onClick={() => router.push(`/products/${product.slug}`)}
         >
             <Image
                 className="float-left rounded-lg md:rounded-l-lg h-[64px] w-[64px] md:h-full md:w-auto"
@@ -32,9 +30,13 @@ export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
                 alt={"product image"}
                 width={128}
                 height={128}
+                onClick={() => router.push(`/products/${product.slug}`)}
             />
-            <div className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static">
-                <Anchor href={`/products/${product.slug}`}>
+            <div
+                className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static"
+                onClick={() => router.push(`/products/${product.slug}`)}
+            >
+                <p className="hover:underline transition-all">
                     {/* TEMP Bad thing */}
                     {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
                     {!product.quantity && (
@@ -45,7 +47,7 @@ export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
                             Out of stock ❌
                         </Badge>
                     )}
-                </Anchor>
+                </p>
                 {/* TEMP Bad thing */}
                 <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
             </div>
