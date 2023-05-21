@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import {
@@ -8,6 +8,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { order } from 'src/config/docs';
+import { User } from '../../decorators/user.decorator';
 
 @ApiTags('orders')
 @Controller('orders')
@@ -17,9 +18,8 @@ export class OrderController {
   @ApiOperation(order.getByUserId.operation)
   @ApiParam(order.getByUserId.param)
   @ApiOkResponse(order.getByUserId.response)
-  @Get('/:id')
   @Auth()
-  public async getUserOrders(@Param('id', ParseIntPipe) userId: number) {
+  public async getUserOrders(@User('id') userId: number) {
     return this.orderService.getUserOrders(userId);
   }
 }

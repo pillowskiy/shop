@@ -20,7 +20,7 @@ export const getFromLocalStorage = (key: string) => {
   }
 }
 
-export const getSlugFromQuery = (slug: string | string[] | undefined) => {
+export const getStringFromQuery = (slug: string | string[] | undefined) => {
   return typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
 }
 
@@ -33,7 +33,7 @@ export const analyzeReviews = (reviews: Review[]) => {
   }
   return intervalCounts.map(count => {
     return {
-      percentages: (count / totalCount) * 100,
+      percentages: (count / totalCount) * 100 || 0,
       intervalCounts: count
     };
   });

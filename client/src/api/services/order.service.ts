@@ -5,7 +5,7 @@ import { Order } from '@/types/order.interface';
 export default class OrderService {
   private static controller = 'orders';
 
-  static async getUserOrders(userId: number): Promise<AxiosResponse<Order[]>> {
-    return $api.get<Order[]>(`/${OrderService.controller}/${userId}`);
+  static async getOrders(): Promise<AxiosResponse<Order[]>> {
+    return $api.get<Order[]>(`/${OrderService.controller}/`);
   }
 }
