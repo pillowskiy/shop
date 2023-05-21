@@ -16,11 +16,9 @@ export default class ReviewService {
     return $api.get<number>(`/${ReviewService.controller}/avg/${productId}`);
   }
   static async create(
-    categoryId: number,
+    productId: number,
     data: ReviewCreate
   ): Promise<AxiosResponse<ReviewCreateResponse>> {
-    return $api.post<ReviewCreateResponse>(`/${ReviewService.controller}/${categoryId}`, {
-      data
-    });
+    return $api.post<ReviewCreateResponse>(`/${ReviewService.controller}/${productId}`, data);
   }
 }

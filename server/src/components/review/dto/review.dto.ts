@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString, Max, Min, MaxLength } from 'class-validator';
+import {
+  IsNumber,
+  IsString,
+  Max,
+  Min,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { review } from 'src/config/docs/swagger.entity';
 
 export class ReviewDto {
@@ -7,16 +14,27 @@ export class ReviewDto {
     example: review.rating,
     description: 'The review rate (float number)',
   })
-  @IsNumber()
-  @Min(1)
-  @Max(5)
+  @Max(5, {
+    message: 'Rating must be least or equals 5',
+  })
+  @Min(1, {
+    message: 'Rating must be greater or equals 1',
+  })
+  @IsNumber({}, { message: 'This field is required' })
   public rating: number;
 
   @ApiProperty({
     example: review.text,
     description: 'The review text (description)',
   })
-  @IsString()
-  @MaxLength(4096)
+  @MaxLength(1024, {
+    message: 'The length of the comment should not exceed 1024 characters',
+  })
+  @MinLength(1, {
+    message: 'This field is required',
+  })
+  @IsString({
+    message: 'String expected',
+  })
   public text: string;
 }
