@@ -10,9 +10,9 @@ interface ReviewProgressBarProps {
 export const ReviewProgressBar: FC<ReviewProgressBarProps> = ({starCount, percentages}) => {
     return (
         <div key={Math.random() * Date.now()} className="flex items-center gap-2 w-full mt-2">
-            <p className="w-[60px]">{starCount} star</p>
+            <p className="w-[80px]">{starCount} star</p>
             <Progress className="rounded-md border" value={percentages}/>
-            <p className="w-[60px]">{percentages.toFixed(1)}%</p>
+            <p className="w-[80px]">{percentages.toFixed(1)}%</p>
         </div>
     );
 };
