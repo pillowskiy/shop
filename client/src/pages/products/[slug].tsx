@@ -15,7 +15,9 @@ export default function Page() {
     const router = useRouter();
     const {toast} = useToast();
 
-    const slug = getSlugFromQuery(router.query.slug)
+    // TEMP: https://github.com/vercel/next.js/discussions/11484
+    const slug = getSlugFromQuery(router.query.slug);
+
     const {data: product} = useQuery([
         'get product by slug', slug
     ], () => {
@@ -31,21 +33,19 @@ export default function Page() {
             })
         },
         onSettled: (data) => {
-            if (!data) {
-                return router.back();
-            }
-        }
+            if (!data) return router.back();
+        },
     });
 
     if (!product) return null;
 
     return (
-        <Meta title="Product">
+        <Meta title={product.name || "Product"}>
             <Header/>
             <SideBar/>
             <Main className="flex flex-col relative items-center min-h-screen-64 h-auto">
                 <SingleProduct product={product} />
-                <ProductReview product={product} />
+                <ProductReview productId={product.id} />
             </Main>
         </Meta>
     );
