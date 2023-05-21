@@ -16,6 +16,11 @@ export default class ProductService {
     return $api.get<GetAllProductsResponse>(`${this.controller}`, { params: filterParams || {} });
   }
 
+  static async getUserProducts(userId: number, filterParams?: Filter)
+      : Promise<AxiosResponse<GetAllProductsResponse>> {
+    return $api.get<GetAllProductsResponse>(`${this.controller}/users/${userId}`, { params: filterParams || {} });
+  }
+
   static async getByValue<T extends keyof Pick<Product, 'id' | 'slug'>>(
     type: T,
     value: Product[T]

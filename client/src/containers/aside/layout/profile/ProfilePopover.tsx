@@ -104,7 +104,7 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
                         <Plus className="mr-2 h-4 w-4"/>
                         <span>Create Product</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => router.push(`/products/users/${profile.id}`)}>
                         <Package className="mr-2 h-4 w-4"/>
                         <span>Your Products</span>
                     </DropdownMenuItem>

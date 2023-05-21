@@ -40,6 +40,17 @@ export class ProductController {
     return this.productService.getProducts(dto);
   }
 
+  @ApiOperation(product.getAll.operation)
+  @ApiResponse(product.getAll.response)
+  @ApiQuery({ type: FilterDto })
+  @Get('/users/:id')
+  public async getUserProducts(
+    @Param('id', ParseIntPipe) userId: number,
+    @Query() dto: FilterDto,
+  ) {
+    return this.productService.getProducts(dto, { userId });
+  }
+
   @ApiOperation(product.byId.operation)
   @ApiResponse(product.byId.response)
   @ApiParam(product.byId.param)

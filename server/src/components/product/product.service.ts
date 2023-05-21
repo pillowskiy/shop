@@ -21,7 +21,10 @@ export class ProductService {
     private readonly categoryService: CategoryService,
   ) {}
 
-  public async getProducts({ sort, term }: FilterDto) {
+  public async getProducts(
+    { sort, term }: FilterDto,
+    where?: Prisma.ProductWhereInput,
+  ) {
     const prismaSort: Prisma.ProductOrderByWithRelationInput[] = [];
     switch (sort) {
       case ProductSort.HighPrice:
@@ -47,9 +50,10 @@ export class ProductService {
       : {};
 
     const { skip, perPage } = this.pagination.getPagination();
+    const whereInput = { ...prismaTermSort, ...where };
 
     const products = await this.prisma.product.findMany({
-      where: prismaTermSort,
+      where: whereInput,
       orderBy: prismaSort,
       skip,
       take: perPage,
@@ -59,7 +63,7 @@ export class ProductService {
     return {
       products,
       length: await this.prisma.product.count({
-        where: prismaTermSort,
+        where: whereInput,
       }),
     };
   }
