@@ -9,19 +9,17 @@ export const FormCheckbox: FC<PropsWithChildren<CheckboxProps>> = (
 ) => {
     const id = useId();
     return (
-        <div className={cn(className, "items-top space-x-2 mb-4")}>
+        <div className={"flex items-center space-x-2"}>
             <Checkbox id={id} className="float-left" {...props} />
-            <div className="grid gap-1.5 leading-none px-2">
-                <label
-                    htmlFor={id}
-                    className={cn(
-                        "text-xs text-muted-foreground leading-none",
-                        "peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    )}
-                >
-                    {children}
-                </label>
-            </div>
+            <label
+                htmlFor={id}
+                className={cn(
+                    "text-xs text-muted-foreground leading-none",
+                    "peer-disabled:cursor-not-allowed peer-disabled:opacity-70", className
+                )}
+            >
+                {children}
+            </label>
         </div>
     );
 };

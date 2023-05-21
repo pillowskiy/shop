@@ -5,7 +5,7 @@ import type { FC, PropsWithChildren } from 'react';
 import {useId} from "react";
 
 interface FormInputProps extends InputProps {
-  label: string;
+  label?: string;
   error?: string;
 }
 
