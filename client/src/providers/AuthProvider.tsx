@@ -23,9 +23,7 @@ const AuthProvider: FC<PropsWithChildren<AuthFields>> = ({
       setTimeout(() => setIsLoaded(true), 200)
     }
 
-    if (TokenService.getToken()) {
-      dispatchAuth();
-    }
+    TokenService.getToken() ? dispatchAuth() : setIsLoaded(true);
   }, [dispatch]);
 
   if (!isLoaded) return null;

@@ -6,7 +6,9 @@ export default function AuthLogin() {
     return (
         <Meta title="Register">
             <AuthProvider forAuth={false}>
-                <Register/>
+                <main className="h-screen flex justify-center items-center select-none">
+                    <Register/>
+                </main>
             </AuthProvider>
         </Meta>
     );
