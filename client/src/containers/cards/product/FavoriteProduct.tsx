@@ -19,13 +19,13 @@ export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
         <Card
             className={cn(
                 "relative flex flex-col justify-start md:flex-row md:items-center my-0 mx-auto border mt-4 rounded-lg shadow-sm bg-popover",
-                "hover:shadow-xl hover:bg-muted transition-all duration-200 border h-fit md:h-[100px] p-2 md:p-0 cursor-pointer", {
+                "hover:shadow-xl hover:bg-muted transition-all duration-200 border h-fit md:h-[100px] p-2 md:p-0", {
                     "opacity-90": !product.quantity,
                 }
             )}
         >
             <Image
-                className="float-left rounded-lg md:rounded-l-lg h-[64px] w-[64px] md:h-full md:w-auto"
+                className="float-left rounded-lg md:rounded-l-lg h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer"
                 src={product.images[0]}
                 alt={"product image"}
                 width={128}
@@ -33,7 +33,7 @@ export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
                 onClick={() => router.push(`/products/${product.slug}`)}
             />
             <div
-                className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static"
+                className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer"
                 onClick={() => router.push(`/products/${product.slug}`)}
             >
                 <p className="hover:underline transition-all">
