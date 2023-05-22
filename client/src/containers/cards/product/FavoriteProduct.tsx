@@ -7,6 +7,7 @@ import {Card} from "@common/Card";
 import {Badge} from "@ui/Badge";
 import {useRouter} from "next/router";
 import {CartButton} from "@containers/product/CartButton";
+import {QuantityBadge} from "@containers/cards/product/layout/QuantityBadge";
 
 interface FavoriteProductProps {
     product: Product;
@@ -33,26 +34,19 @@ export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
                 onClick={() => router.push(`/products/${product.slug}`)}
             />
             <div
-                className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer"
+                className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer max-h-[64px]"
                 onClick={() => router.push(`/products/${product.slug}`)}
             >
                 <p className="hover:underline transition-all">
                     {/* TEMP Bad thing */}
                     {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
-                    {!product.quantity && (
-                        <Badge
-                            className="h-4 px-2 py-2.5 absolute ml-1 hidden sm:inline-flex"
-                            variant="secondary"
-                        >
-                            Out of stock ❌
-                        </Badge>
-                    )}
+                    <QuantityBadge quantity={product.quantity} />
                 </p>
                 {/* TEMP Bad thing */}
                 <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
             </div>
 
-            <CartButton className="ml-auto mt-2 md:mt-0 w-full md:w-fit" disabled={!product.quantity}/>
+            <CartButton className="ml-auto mt-2 md:mt-0 w-full md:w-fit" product={product}/>
             <FavoriteButton className="w-10 h-10 absolute md:relative right-0 mx-4" productId={product.id}/>
         </Card>
     );
