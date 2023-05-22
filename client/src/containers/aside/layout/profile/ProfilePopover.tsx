@@ -1,4 +1,5 @@
 import type {FC} from 'react';
+import type {FullestUser} from "@/types/user.interface";
 
 import {
     CreditCard,
@@ -24,7 +25,6 @@ import {
     DropdownMenuTrigger,
 } from "@common/DropdownMenu";
 
-import type {FullestUser} from "@types/user.interface";
 import Image from "next/image";
 import {useAppDispatch} from "@redux/store";
 import {logout as logoutAction} from "@redux/user/user.actions";
@@ -37,8 +37,11 @@ interface ProfilePopoverProps {
 export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
     const dispatch = useAppDispatch();
     const router = useRouter();
+
     const logout = () => {
-        dispatch(logoutAction()).then(() => router.push('/'));
+        dispatch(logoutAction()).finally(() => {
+            return router.reload();
+        });
     }
 
     return (
@@ -100,7 +103,7 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
 
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => router.push('/products/workshop/@me')}>
                         <Plus className="mr-2 h-4 w-4"/>
                         <span>Create Product</span>
                     </DropdownMenuItem>
