@@ -28,9 +28,10 @@ export interface Filter {
 
 export interface UpdateProductData {
   name: string;
-  description?: string;
-  price?: number;
-  quantity?: number;
+  description: string;
+  price: number;
+  quantity: number;
+  weight: number;
   images: string[];
   categoryId: number;
 }
