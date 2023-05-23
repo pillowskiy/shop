@@ -11,12 +11,12 @@ export const StarRating: FC<StarRatingProps> = ({text, rating, className, ...pro
 
     return (
         <div className={cn("flex gap-1 items-center", className)} {...props}>
-            {Array.from({length: 5}, (_, i) => (
+            {Array.from({length: 5}, (_, index) => (
                 <StarIcon
                     className={cn("w-4 h-4 text-warning", {
-                        'fill-warning': i < rating
+                        'fill-warning': index < rating
                     })}
-                    key={Math.random() * Date.now()}
+                    key={index}
                 />
             ))}
 
