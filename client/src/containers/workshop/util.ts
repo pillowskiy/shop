@@ -1,5 +1,5 @@
 import type {Product, UpdateProductData} from "@/types/product.interface";
-import {INITIAL_PRODUCT} from "@containers/workshop/layout/constant";
+import {INITIAL_PRODUCT} from "@containers/workshop/constant";
 
 export const getInitialProductState = (product?: Product): UpdateProductData => {
     if (!product) return INITIAL_PRODUCT;
