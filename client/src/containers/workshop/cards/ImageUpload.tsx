@@ -23,7 +23,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({setImages, images}) => {
         <Card className="bg-popover shadow-md p-4 pb-8">
             <form className="text-center border rounded-lg bg-white h-4/6 pb-4">
                 <h2 className="text-xl font-medium sm:mt-4">Upload an image</h2>
-                <p>Recommended format 4:3</p>
+                <p className="underline">Recommended format 4:3</p>
                 <div className="flex gap-2 justify-center mt-2 flex-shrink">
                     <Badge variant="secondary">🖼️ .jpg</Badge>
                     <Badge variant="secondary">🖼️ .png</Badge>
@@ -31,7 +31,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({setImages, images}) => {
                     <Badge variant="secondary">🖼️ .webp</Badge>
                 </div>
                 <FormInput
-                    className="mt-4 max-w-[180px] md:max-w-[300px] mx-auto"
+                    className="mt-4 max-w-[180px] md:max-w-[300px] mx-auto cursor-pointer"
                     type="file"
                     id="fileElem"
                     multiple
@@ -47,12 +47,12 @@ export const ImageUpload: FC<ImageUploadProps> = ({setImages, images}) => {
                 {images.length ?
                     images.map(src => (
                         <Image
-                            className="rounded-lg cursor-pointer border h-[64px]"
+                            className="rounded-lg cursor-pointer border h-full w-auto"
                             key={Math.random() * Date.now()}
                             src={src}
                             alt={"product image"}
-                            width={256}
-                            height={256}
+                            width={64}
+                            height={64}
                         />
                     )): (
                         <h2 className="m-auto font-medium">🙅 There are not images yet.</h2>
