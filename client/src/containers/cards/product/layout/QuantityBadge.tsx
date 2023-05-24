@@ -12,7 +12,7 @@ export const QuantityBadge: FC<QuantityBadgeProps> = ({quantity}) => {
             className="h-4 px-2 py-2.5 absolute ml-1 hidden sm:inline-flex"
             variant="secondary"
         >
-            Out of stock ❌
+            <p>Out of stock ❌</p>
         </Badge>
     );
 };
