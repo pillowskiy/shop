@@ -1,6 +1,6 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
-import {analyzeReviews} from "@lib/utils";
+import {analyzeReviews} from "./util";
 import {StarRating} from "@containers/product/StarRating";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {ReviewComment} from "@containers/cards/review/layout/ReviewComment";
