@@ -4,7 +4,6 @@ import Image from "next/image";
 import {cn} from "@lib/utils";
 import {FavoriteButton} from "@containers/product/FavoriteButton";
 import {Card} from "@common/Card";
-import {Badge} from "@ui/Badge";
 import {useRouter} from "next/router";
 import {CartButton} from "@containers/product/CartButton";
 import {QuantityBadge} from "@containers/cards/product/layout/QuantityBadge";
@@ -37,12 +36,12 @@ export const FavoriteProduct: FC<FavoriteProductProps> = ({product}) => {
                 className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer max-h-[64px]"
                 onClick={() => router.push(`/products/${product.slug}`)}
             >
-                <p className="hover:underline transition-all">
-                    {/* TEMP Bad thing */}
-                    {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
+                <div className="flex">
+                    <p className="hover:underline transition-all">
+                        {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
+                    </p>
                     <QuantityBadge quantity={product.quantity} />
-                </p>
-                {/* TEMP Bad thing */}
+                </div>
                 <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
             </div>
 
