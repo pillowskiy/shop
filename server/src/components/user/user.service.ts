@@ -20,7 +20,6 @@ export class UserService {
       where: { id: userId },
       select: {
         ...userSelect,
-        favorites: { select: productSelect },
         ...selectObject,
       },
     });

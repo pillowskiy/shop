@@ -20,6 +20,7 @@ $api.interceptors.request.use((config) => {
 
 $api.interceptors.response.use(res => res, async (err) => {
   if (isInterceptorError(err) && isUnhandledAuthError(err)) {
+    if (!TokenService.getToken()) throw err;
     err.config.retried = true;
     const response = await axios.get<AuthResponse>(
       `${API_URL}/auth/refresh`,
