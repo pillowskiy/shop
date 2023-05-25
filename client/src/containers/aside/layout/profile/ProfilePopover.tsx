@@ -1,5 +1,5 @@
 import type {FC} from 'react';
-import type {FullestUser} from "@/types/user.interface";
+import type {User} from "@/types/user.interface";
 
 import {
     CreditCard,
@@ -10,7 +10,7 @@ import {
     Gift,
     Truck,
     Send,
-    User,
+    User as UserIcon,
     Package,
     Plus
 } from "lucide-react";
@@ -31,7 +31,7 @@ import {logout as logoutAction} from "@redux/user/user.actions";
 import {useRouter} from "next/router";
 
 interface ProfilePopoverProps {
-    profile: FullestUser;
+    profile: User;
 }
 
 export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
@@ -65,7 +65,7 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <User className="mr-2 h-4 w-4"/>
+                        <UserIcon className="mr-2 h-4 w-4"/>
                         <span>Your Profile</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem>

@@ -21,7 +21,10 @@ export const SideBarItem: FC<PropsWithChildren<SideBarItemProps>> = ({
 
     return (
         <li
-            className={cn("cursor-pointer p-2 hover:bg-muted rounded-lg transition-all text-center w-1/5 md:w-10/12", className)}
+            className={cn(
+                "cursor-pointer p-2 md:hover:bg-muted rounded-lg transition-all text-center w-1/5 md:w-10/12",
+                className, { 'md:bg-muted': router.asPath === href}
+            )}
             onClick={() => router.push(href)}
             {...props}
         >

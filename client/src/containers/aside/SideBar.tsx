@@ -1,7 +1,7 @@
 import type {FC} from 'react';
 import {SideBarItems} from "@containers/aside/layout/SideBarItems";
 import {SideBarItem} from "@containers/aside/layout/SideBarItem";
-import {ShoppingCart, Heart, List} from "lucide-react";
+import {ShoppingCart, Heart, List, Home} from "lucide-react";
 import {cn} from "@lib/utils";
 import {SideBarProfile} from "@containers/aside/layout/SideBarProfile";
 
@@ -13,9 +13,10 @@ export const SideBar: FC = () => {
         )}
         >
             <SideBarItems>
+                <SideBarItem href="/" Icon={Home} title="Home" />
                 <SideBarItem href="#" Icon={ShoppingCart} title="Cart" />
                 <SideBarItem href="/favorites" Icon={Heart} title="Favorites" />
-                <SideBarItem href="#"Icon={List} title="Orders" />
+                <SideBarItem href="/orders"Icon={List} title="Orders" />
                 <SideBarProfile />
             </SideBarItems>
         </aside>
