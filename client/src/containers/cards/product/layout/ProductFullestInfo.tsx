@@ -13,7 +13,7 @@ export const ProductFullestInfo: FC<ProductInfoContainerProps> = ({product}) => 
         <section>
             <h2 className="mt-4 text-2xl md:text-3xl font-bold">
                 {product.name}
-                <QuantityBadge quantity={product.quantity} />
+                <QuantityBadge className="absolute" quantity={product.quantity} />
             </h2>
 
             <ProductRating className="flex justify-start gap-2 mb-4" product={product}/>

@@ -11,8 +11,6 @@ interface ProductTradeContainerProps {
 }
 
 export const ProductTradeButtons: FC<ProductTradeContainerProps> = ({product}) => {
-    console.log(product);
-
     return (
         <section
             className={cn(
@@ -26,7 +24,7 @@ export const ProductTradeButtons: FC<ProductTradeContainerProps> = ({product}) =
             </Button>
 
             <div className="w-full lg:w-1/2 flex gap-4">
-                <CartButton className="w-10/12" variant="secondary" product={product} />
+                <CartButton className="flex-1" variant="secondary" product={product} />
                 <FavoriteButton className="w-10 h-10 ml-auto" productId={product.id}/>
             </div>
         </section>

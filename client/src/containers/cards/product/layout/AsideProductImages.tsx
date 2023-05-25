@@ -18,7 +18,7 @@ export const AsideProductImages: FC<AsideProductImagesProps> = ({images}) => {
             />
 
             <section className="flex flex-card gap-4 my-4 max-h-fit overflow-x-auto">
-                {images.slice(0, 5).map(src => (
+                {images.map(src => (
                     <Image
                         className="rounded-lg cursor-pointer border w-[64px] h-[64px] md:w-[96px] md:h-[96px] "
                         key={Math.random() * Date.now()}

@@ -1,16 +1,18 @@
 import type {FC} from 'react';
-import {Badge} from "@ui/Badge";
+import {Badge, BadgeProps} from "@ui/Badge";
+import {cn} from "@lib/utils";
 
-interface QuantityBadgeProps {
+interface QuantityBadgeProps extends BadgeProps {
     quantity: number;
 }
 
-export const QuantityBadge: FC<QuantityBadgeProps> = ({quantity}) => {
+export const QuantityBadge: FC<QuantityBadgeProps> = ({quantity, className, ...props}) => {
     if (quantity) return null;
     return (
         <Badge
-            className="h-4 px-2 py-2.5 absolute ml-1 hidden sm:inline-flex"
+            className={cn("h-4 px-2 py-2.5 ml-1 hidden sm:inline-flex", className)}
             variant="secondary"
+            {...props}
         >
             <p>Out of stock ❌</p>
         </Badge>

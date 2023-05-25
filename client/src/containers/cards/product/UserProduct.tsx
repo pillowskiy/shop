@@ -3,14 +3,14 @@ import type {ProductFullest} from "@/types/product.interface";
 import Image from "next/image";
 import {cn} from "@lib/utils";
 import {Card} from "@common/Card";
-import {Badge} from "@ui/Badge";
 import {useRouter} from "next/router";
-import {useProfile} from "@hooks/useProfile";
 import {Button} from "@ui/Button";
 import {Trash2, Edit} from 'lucide-react';
 import {Toggle} from "@ui/Toggle";
 import {StarRating} from "@containers/product/StarRating";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
+import {QuantityBadge} from "@containers/cards/product/layout/QuantityBadge";
+import {useProfile} from "@hooks/useProfile";
 
 interface FavoriteProductProps {
     product: ProductFullest;
@@ -43,18 +43,13 @@ export const UserProduct: FC<FavoriteProductProps> = ({product, ownerId}) => {
                 className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer"
                 onClick={() => router.push(`/products/${product.slug}`)}
             >
-                <p className="hover:underline transition-all">
-                    {/* TEMP Bad thing */}
-                    {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
-                    {!product.quantity && (
-                        <Badge
-                            className="h-4 px-2 py-2.5 absolute ml-1 hidden sm:inline-flex"
-                            variant="secondary"
-                        >
-                            Out of stock ❌
-                        </Badge>
-                    )}
-                </p>
+                <div className="flex">
+                    <p className="hover:underline transition-all">
+                        {/* TEMP Bad thing */}
+                        {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
+                    </p>
+                    <QuantityBadge quantity={product.quantity} />
+                </div>
                 {/* TEMP Bad thing */}
                 <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
             </div>
@@ -63,7 +58,10 @@ export const UserProduct: FC<FavoriteProductProps> = ({product, ownerId}) => {
             {
                 profile?.id === ownerId &&
                 <>
-                    <Button className="ml-auto mt-2 md:mt-0 w-full md:w-fit">
+                    <Button
+                        className="ml-auto mt-2 md:mt-0 w-full md:w-fit"
+                        onClick={() => router.push(`/products/workshop/${product.id}`)}
+                    >
                         <Edit />
                         <p className="ml-2">Edit</p>
                     </Button>
