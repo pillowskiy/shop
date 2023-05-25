@@ -5,11 +5,13 @@ import {StarRating} from "@containers/product/StarRating";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {ReviewComment} from "@containers/cards/review/layout/ReviewComment";
 import {ReviewProgressBar} from "@containers/cards/review/layout/ReviewProgressBar";
-import {ProductReviewForm} from "@containers/cards/review/layout/ProductReviewForm";
+import {ProductReviewForm} from "@containers/cards/review/layout/form/ProductReviewForm";
 import {useQuery} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
 import {EmptyItems} from "@containers/EmptyItems";
 import {SortButtons} from "@containers/cards/review/layout/SortButtons";
+import {useAuth} from "@hooks/useAuth";
+import {useProfile} from "@hooks/useProfile";
 
 interface ProductReviewProps {
     productId: number;
@@ -23,6 +25,8 @@ export const ProductReview: FC<ProductReviewProps> = ({productId}) => {
     });
 
     const rating = useProductRateAvg(productId);
+    const {profile} = useProfile();
+
     return (
         <Card className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] gap-4 p-4 mt-4 bg-popover">
             <h2 className="text-2xl md:text-3xl font-bold">Reviews ({reviews?.length || 0})</h2>
@@ -42,7 +46,7 @@ export const ProductReview: FC<ProductReviewProps> = ({productId}) => {
                         ))
                     }
                     <hr className="mt-4"/>
-                    <ProductReviewForm productId={productId}/>
+                    <ProductReviewForm productId={productId} hasAccess={!!profile}/>
                 </aside>
                 <aside className="w-full md:w-2/3 md:ml-4 mt-2 md:mt-0 relative">
                     {
@@ -50,7 +54,7 @@ export const ProductReview: FC<ProductReviewProps> = ({productId}) => {
                             <>
                                 <SortButtons/>
                                 {reviews.map(review => (
-                                    <ReviewComment key={Date.now() * Math.random()} review={review}/>
+                                    <ReviewComment key={Date.now() * Math.random()} review={review} hasAccess={!!profile}/>
                                 ))}
                             </>
                         ) : <EmptyItems className="hidden md:block lg:top-[40%]">There are not reviews yet.</EmptyItems>

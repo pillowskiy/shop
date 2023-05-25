@@ -1,4 +1,4 @@
-import type {Review} from "@types/review.interface";
+import type {Review} from "@/types/review.interface";
 
 export const analyzeReviews = (reviews: Review[]) => {
     let intervalCounts: number[] = [0, 0, 0, 0, 0];

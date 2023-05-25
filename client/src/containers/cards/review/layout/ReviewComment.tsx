@@ -1,19 +1,21 @@
 import type {FC} from 'react';
 import type {Review} from "@/types/review.interface";
-import {StarRating} from "@containers/product/StarRating";
 import {Toggle} from "@ui/Toggle";
 import {Button} from "@ui/Button";
-import {ProductReportForm} from "@containers/forms/ProductReportForm";
 import {UserAvatar} from "@components/UserAvatar";
+import {ProductReportDialog} from "./dialog/ProductReportDialog";
+import {StarRating} from "@containers/product/StarRating";
 
 interface ReviewCommentProps {
+    hasAccess: boolean;
     review: Review;
 }
 
-export const ReviewComment: FC<ReviewCommentProps> = ({review}) => {
+export const ReviewComment: FC<ReviewCommentProps> = ({review, hasAccess}) => {
     return (
         <div className="w-full h-fit border p-2 rounded-md mb-4 bg-white">
             <div className="flex items-center gap-2">
+                {/*TEMP src*/}
                 <UserAvatar
                     className="rounded-full h-8 w-8 m-auto"
                     src={review.user?.avatarURL || "https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png"}
@@ -34,10 +36,10 @@ export const ReviewComment: FC<ReviewCommentProps> = ({review}) => {
                 <span>{review.text}</span>
                 <div className="mt-2">
                      {/*TEMP: Math.random*/}
-                    <Toggle className="h-6" variant="outline">👍 {(Math.random() * 100).toFixed()}</Toggle>
-                    <ProductReportForm>
-                        <Button className="h-6 ml-2 pl-2" variant="secondary">⚡ Report </Button>
-                    </ProductReportForm>
+                    <Toggle className="h-6" variant="outline" disabled={!hasAccess}>👍 {(Math.random() * 100).toFixed()}</Toggle>
+                    <ProductReportDialog>
+                        <Button className="h-6 ml-2 pl-2" variant="secondary" disabled={!hasAccess}>⚡ Report </Button>
+                    </ProductReportDialog>
                 </div>
             </div>
         </div>
