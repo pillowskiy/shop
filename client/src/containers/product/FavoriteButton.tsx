@@ -3,8 +3,8 @@ import {Toggle} from "@ui/Toggle";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
 import {useProfile} from "@hooks/useProfile";
-import {ReactComponent as Heart} from "@assets/images/heart.svg";
-import {ReactComponent as FilledHeart} from "@assets/images/heart_filled.svg";
+import {Heart} from "lucide-react";
+import {cn} from "@lib/utils";
 
 interface FavoriteButtonProps extends HTMLAttributes<HTMLButtonElement> {
     productId: number;
@@ -28,9 +28,9 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({
 
     return (
         <Toggle className={className} {...props} pressed={false} onClick={() => mutate()} disabled={!profile}>
-            {isFavorite ?
-                <FilledHeart className="h-4 w-4 fill-destructive"/> :
-                <Heart className="h-4 w-4 fill-primary"/>}
+            <Heart className={cn("h-4 w-4 text-primary", {
+                'fill-destructive text-destructive': isFavorite,
+            })}/>
         </Toggle>
     );
 };
