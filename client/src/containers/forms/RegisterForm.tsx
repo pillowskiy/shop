@@ -35,8 +35,10 @@ export const RegisterForm: FC = () => {
         const result = await dispatch(register(data));
 
         if (register.fulfilled.match(result)) {
-            await router.replace('/');
-        } else if (register.rejected.match(result) && result.payload) {
+            return router.back();
+        }
+
+        if (register.rejected.match(result) && result.payload) {
             ('errors' in result.payload) ?
                 setErrors(result.payload.errors) :
                 toast({
@@ -75,7 +77,7 @@ export const RegisterForm: FC = () => {
                 error={errors.password}
                 required
             />
-            <FormCheckbox className="opacity-70">
+            <FormCheckbox className="opacity-70 mb-2">
                 Send me emails with information about promotions and interesting offers (optional)
             </FormCheckbox>
             <FormCheckbox required>
@@ -83,7 +85,7 @@ export const RegisterForm: FC = () => {
                 <Anchor href="#">Conditions of Use</Anchor>&nbsp;and&nbsp;
                 <Anchor href="#">Privacy notice</Anchor>&nbsp;and agree to them.
             </FormCheckbox>
-            <Button className="mb-2 w-full" disabled={isLoading} variant="outline">
+            <Button className="mt-4 mb-2 w-full" disabled={isLoading} variant="outline">
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 Continue
             </Button>

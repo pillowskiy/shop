@@ -31,8 +31,10 @@ export const LoginForm: FC = () => {
         const result = await dispatch(login(data));
 
         if (login.fulfilled.match(result)) {
-            await router.replace('/');
-        } else if (login.rejected.match(result) && result.payload) {
+            return router.back();
+        }
+
+        if (login.rejected.match(result) && result.payload) {
             ('errors' in result.payload) ?
                 setErrors(result.payload.errors) :
                 toast({
