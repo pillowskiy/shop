@@ -6,7 +6,6 @@ import {NumberFormInput} from "@components/NumberFormInput";;
 import {Button} from "@ui/Button";
 import {Card} from "@common/Card";
 import {FormSwitchBox} from "@components/FormSwitch";
-import {CreateProductDialog} from "@containers/dialog/CreateProductDialog";
 
 interface GeneralWorkShopProps {
     updateProduct: (values: Partial<UpdateProductData>) => void;
@@ -85,9 +84,7 @@ export const GeneralWorkShop: FC<GeneralWorkShopProps> = ({updateProduct, newPro
 
             <footer className="md:absolute bottom-0 w-full left-0 md:px-4 md:py-2">
                 <hr className="my-2" />
-                <CreateProductDialog>
-                    <Button>{isProductExist ? "Save" : "Create"}</Button>
-                </CreateProductDialog>
+                <Button>{isProductExist ? "Save" : "Create"}</Button>
                 {isProductExist && <Button className="ml-2" variant="destructive">Delete Product</Button>}
             </footer>
         </Card>

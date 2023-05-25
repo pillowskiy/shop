@@ -2,6 +2,7 @@ import type {FC, PropsWithChildren} from 'react';
 import type {DialogProps} from "@radix-ui/react-dialog";
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger} from "@common/Dialog";
 import {Button} from "@ui/Button";
+import {DialogClose} from "@radix-ui/react-dialog";
 
 interface ConfirmDialog extends DialogProps {
     title: string;
@@ -32,20 +33,21 @@ export const ConfirmDialog: FC<PropsWithChildren<ConfirmDialog>> = ({
                 </DialogHeader>
                 <section className="flex flex-col md:flex-row gap-2">
                     <Button
-                        type="submit"
                         className="flex-1"
                         onClick={onConfirm}
                     >
                         Confirm
                     </Button>
-                    <Button
-                        type="button"
-                        className="flex-1"
-                        variant="destructive"
-                        onClick={onReject}
-                    >
-                        Cancel
-                    </Button>
+                    <DialogClose className="flex-1" asChild>
+                        <Button
+                            type="button"
+                            className="w-full"
+                            variant="destructive"
+                            onClick={onReject}
+                        >
+                            Cancel
+                        </Button>
+                    </DialogClose>
                     </section>
             </DialogContent>
         </Dialog>
