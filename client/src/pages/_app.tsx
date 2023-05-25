@@ -6,6 +6,8 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {AuthFields} from '@/types/providers/auth-provider';
 import {Toaster} from "@common/toast";
+import {Header} from "@containers/header/Header";
+import {SideBar} from "@containers/aside/SideBar";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -20,6 +22,8 @@ export default function App({Component, pageProps}: AppProps & AuthFields) {
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
                     <Toaster/>
+                    <Header/>
+                    <SideBar/>
                     <Component {...pageProps}/>
                 </PersistGate>
             </Provider>

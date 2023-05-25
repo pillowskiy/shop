@@ -1,7 +1,5 @@
 "use client"
 
-import {Header} from "@containers/header/Header";
-import {SideBar} from "@containers/aside/SideBar";
 import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 import {Catalog} from "@containers/Catalog";
@@ -14,8 +12,6 @@ import {GoodsHeading} from "@components/GoodsHeading";
 const HomePage: NextPage = () => {
     return (
         <Meta title="Online Shop">
-            <Header/>
-            <SideBar/>
             <Main>
                 <Carousel/>
                 <GoodsHeading>Popular Categories</GoodsHeading>
