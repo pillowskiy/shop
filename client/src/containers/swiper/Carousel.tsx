@@ -63,7 +63,6 @@ export const Carousel: FC = () => {
             const newItems = [...items];
             newItems.push(newItems.shift()!);
             setItems(newItems);
-            console.log(items.map(item => item.key))
         }, 2000);
     }, [items]);
 

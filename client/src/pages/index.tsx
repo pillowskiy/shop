@@ -1,32 +1,8 @@
-"use client"
+import {HomeScreen} from "@containers/screens/home";
 
-import {Main} from "@containers/Main";
-import {Meta} from "@containers/Meta";
-import {Catalog} from "@containers/Catalog";
-import {NextPage} from "next";
-import {Carousel} from "@containers/swiper/Carousel";
-import {PopularCategories} from "@containers/PopularCategories";
-import {ProductSort} from "@/types/product.interface";
-import {GoodsHeading} from "@components/GoodsHeading";
-
-const HomePage: NextPage = () => {
+export default function HomePage() {
     return (
-        <Meta title="Online Shop">
-            <Main>
-                <Carousel/>
-                <GoodsHeading>Popular Categories</GoodsHeading>
-                <PopularCategories />
-
-                <GoodsHeading badge="novelties 🔥">Newest</GoodsHeading>
-                <Catalog page={1} perPage={8} sort={ProductSort.HighPrice} />
-
-                <GoodsHeading>Popular Products</GoodsHeading>
-                <Catalog page={1} perPage={8} />
-
-                <GoodsHeading>Rated Products</GoodsHeading>
-                <Catalog page={1} perPage={8} />
-            </Main>
-        </Meta>
+        <HomeScreen/>
     );
 }
 
@@ -44,5 +20,3 @@ const HomePage: NextPage = () => {
         },
     };
 } */
-
-export default HomePage;
