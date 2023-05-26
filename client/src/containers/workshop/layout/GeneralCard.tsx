@@ -7,13 +7,13 @@ import {Button} from "@ui/Button";
 import {Card} from "@common/Card";
 import {FormSwitchBox} from "@components/FormSwitch";
 
-interface GeneralWorkShopProps {
+interface GeneralCardProps {
     updateProduct: (values: Partial<UpdateProductData>) => void;
     newProduct: UpdateProductData;
     isProductExist: boolean;
 }
 
-export const GeneralWorkShop: FC<GeneralWorkShopProps> = ({updateProduct, newProduct, isProductExist}) => {
+export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, isProductExist}) => {
     return (
         <Card className="relative row-span-2 bg-popover shadow-md px-4 py-2">
             <h2 className="text-3xl font-bold mt-2">Product workshop</h2>

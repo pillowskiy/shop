@@ -5,12 +5,12 @@ import {Badge} from "@ui/Badge";
 import {FormInput} from "@components/FormInput";
 import {cn} from "@lib/utils";
 
-interface ImageUploadProps {
+interface ImageUploadCardProps {
     setImages: (images: string[]) => void;
     images: string[];
 }
 
-export const ImageUpload: FC<ImageUploadProps> = ({setImages, images}) => {
+export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images}) => {
     const onImagesUpload = ({target}: ChangeEvent<HTMLInputElement>) => {
         if (!target.files?.length) return;
         const newImages = Array.from(target.files, (file => {
@@ -47,7 +47,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({setImages, images}) => {
                 {images.length ?
                     images.map(src => (
                         <Image
-                            className="rounded-lg cursor-pointer border h-full w-auto"
+                            className="rounded-lg cursor-pointer border h-[96px] w-auto"
                             key={Math.random() * Date.now()}
                             src={src}
                             alt={"product image"}

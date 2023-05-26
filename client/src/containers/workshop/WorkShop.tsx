@@ -1,14 +1,18 @@
 import type {FC} from 'react';
 import type {Product} from "@/types/product.interface";
+import type {UpdateProductData} from "@/types/product.interface";
+
 import {useEffect, useState} from "react";
-import {UpdateProductData} from "@/types/product.interface";
-import {GeneralWorkShop} from "@containers/workshop/cards/GeneralWorkShop";
-import {ImageUpload} from "@containers/workshop/cards/ImageUpload";
-import {WorkshopTextarea} from "@containers/workshop/cards/WorkshopTextarea";
-import {getInitialProductState} from "@containers/workshop/util";
-import {UnsavedChangesDialog} from "@containers/dialog/UnsavedChangesDialog";
-import {isEquals} from "@lib/object";
 import {useRouter} from "next/router";
+
+import {getInitialProductState} from "@containers/workshop/util";
+import {isEquals} from "@lib/object";
+
+import {GeneralCard} from "@containers/workshop/layout/GeneralCard";
+import {ImageUploadCard} from "@containers/workshop/layout/ImageUploadCard";
+import {TextareaCard} from "@containers/workshop/layout/TextareaCard";
+
+import {UnsavedChangesDialog} from "@containers/dialog/UnsavedChangesDialog";
 
 interface WorkShopProps {
     product: Product | undefined;
@@ -17,25 +21,25 @@ interface WorkShopProps {
 export const WorkShop: FC<WorkShopProps> = ({product}) => {
     const [newProduct, setNewProduct] = useState<UpdateProductData>(getInitialProductState(product));
 
+    const updateProduct = (values: Partial<UpdateProductData>) => {
+        setNewProduct({...newProduct, ...values});
+    }
+
     const dynamicRoute = useRouter().asPath;
     useEffect(() => {
         setNewProduct(getInitialProductState(product));
     }, [dynamicRoute, product]);
 
-    const updateProduct = (values: Partial<UpdateProductData>) => {
-        setNewProduct({...newProduct, ...values});
-    }
-
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pb-32 md:pb-0">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 md:pb-0">
             { !isEquals(product || {}, newProduct) && <UnsavedChangesDialog /> }
-            <GeneralWorkShop updateProduct={updateProduct} newProduct={newProduct} isProductExist={!!product}/>
+            <GeneralCard updateProduct={updateProduct} newProduct={newProduct} isProductExist={!!product}/>
             <section className="grid grid-rows-2 gap-4 row-span-2">
-                <ImageUpload
+                <ImageUploadCard
                     images={newProduct.images}
                     setImages={(images) => updateProduct({ images: [...newProduct.images, ...images] })}
                 />
-                <WorkshopTextarea
+                <TextareaCard
                     description={newProduct.description}
                     setDescription={(description) => updateProduct({ description })}
                 />
