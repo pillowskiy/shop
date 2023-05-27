@@ -22,11 +22,11 @@ export class ProductService {
   ) {}
 
   public async getProducts(
-    { sort, term }: FilterDto,
+    dto: FilterDto,
     where?: Prisma.ProductWhereInput,
   ) {
     const prismaSort: Prisma.ProductOrderByWithRelationInput[] = [];
-    switch (sort) {
+    switch (dto.sort) {
       case ProductSort.HighPrice:
         prismaSort.push({ price: 'desc' });
         break;
@@ -40,16 +40,16 @@ export class ProductService {
         prismaSort.push({ createdAt: 'desc' });
     }
 
-    const prismaTermSort: Prisma.ProductWhereInput = term
+    const prismaTermSort: Prisma.ProductWhereInput = dto.term
       ? {
           OR: [
-            { name: { contains: term, mode: 'insensitive' } },
-            { description: { contains: term, mode: 'insensitive' } },
+            { name: { contains: dto.term, mode: 'insensitive' } },
+            { description: { contains: dto.term, mode: 'insensitive' } },
           ],
         }
       : {};
 
-    const { skip, perPage } = this.pagination.getPagination();
+    const { skip, perPage } = this.pagination.getPagination(dto);
     const whereInput = { ...prismaTermSort, ...where };
 
     const products = await this.prisma.product.findMany({

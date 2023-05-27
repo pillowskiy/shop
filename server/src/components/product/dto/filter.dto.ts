@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { PaginationDto } from '../../../dto/pagination.dto';
 
 export enum ProductSort {
   HighPrice = 'HIGHT_PRICE',
@@ -8,7 +9,7 @@ export enum ProductSort {
   Oldest = 'OLDEST',
 }
 
-export class FilterDto {
+export class FilterDto extends PaginationDto {
   @ApiProperty({
     example: ProductSort.HighPrice,
     description:

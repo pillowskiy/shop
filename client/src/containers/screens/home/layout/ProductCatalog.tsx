@@ -18,7 +18,7 @@ export const ProductCatalog: FC<Filter> = ({...filterOptions}) => {
     if (!isLoaded) {
         return (
             <section className="h-fit w-full flex flex-wrap gap-4 box-border">
-                {Array.from({length: 20}, () => (
+                {Array.from({length: 8}, () => (
                     <Catalog.ProductSkeleton key={Date.now() * Math.random()}/>
                 ))}
             </section>
