@@ -6,14 +6,15 @@ import {NumberFormInput} from "@components/NumberFormInput";;
 import {Button} from "@ui/Button";
 import {Card} from "@common/Card";
 import {FormSwitchBox} from "@components/FormSwitch";
+import {DeleteButton} from "@containers/product/layout/DeleteButton";
 
 interface GeneralCardProps {
     updateProduct: (values: Partial<UpdateProductData>) => void;
     newProduct: UpdateProductData;
-    isProductExist: boolean;
+    productId: number | undefined;
 }
 
-export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, isProductExist}) => {
+export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, productId}) => {
     return (
         <Card className="relative row-span-2 bg-popover shadow-md px-4 py-2">
             <h2 className="text-3xl font-bold mt-2">Product workshop</h2>
@@ -84,8 +85,12 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, is
 
             <footer className="md:absolute bottom-0 w-full left-0 md:px-4 md:py-2">
                 <hr className="my-2" />
-                <Button>{isProductExist ? "Save" : "Create"}</Button>
-                {isProductExist && <Button className="ml-2" variant="destructive">Delete Product</Button>}
+                <Button>{productId ? "Save" : "Create"}</Button>
+                {productId && (
+                    <DeleteButton className="ml-2 absolute" variant="destructive" productId={productId}>
+                        Delete Product
+                    </DeleteButton>
+                )}
             </footer>
         </Card>
     );

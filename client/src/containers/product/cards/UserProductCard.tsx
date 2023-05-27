@@ -5,17 +5,18 @@ import {cn} from "@lib/utils";
 import {Card} from "@common/Card";
 import {useRouter} from "next/router";
 import {Button} from "@ui/Button";
-import {Trash2, Edit} from 'lucide-react';
-import {Toggle} from "@ui/Toggle";
+import {Edit} from 'lucide-react';
 import {StarRating} from "@containers/product/layout/StarRating";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
 import {useProfile} from "@hooks/useProfile";
+import {DeleteButton} from "@containers/product/layout/DeleteButton";
 
 interface FavoriteProductProps {
     product: ProductFullest;
     ownerId: number;
 }
+
 // TODO: Remove the absolute position
 export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) => {
     const {profile} = useProfile();
@@ -48,12 +49,12 @@ export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) =>
                         {/* TEMP Bad thing */}
                         {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
                     </p>
-                    <QuantityBadge quantity={product.quantity} />
+                    <QuantityBadge quantity={product.quantity}/>
                 </div>
                 {/* TEMP Bad thing */}
                 <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
             </div>
-            <StarRating rating={rating} />
+            <StarRating className="mt-2 md:mt-0" rating={rating}/>
 
             {
                 profile?.id === ownerId &&
@@ -62,12 +63,14 @@ export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) =>
                         className="ml-auto mt-2 md:mt-0 w-full md:w-fit"
                         onClick={() => router.push(`/products/workshop/${product.id}`)}
                     >
-                        <Edit />
+                        <Edit/>
                         <p className="ml-2">Edit</p>
                     </Button>
-                    <Toggle className="w-10 h-10 absolute md:relative right-0 mx-4">
-                        <Trash2 className="text-primary"/>
-                    </Toggle>
+                    <DeleteButton
+                        className="hidden md:block mx-4"
+                        variant="secondary"
+                        productId={product.id}
+                    />
                 </>
             }
         </Card>

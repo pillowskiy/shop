@@ -29,7 +29,7 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
     return (
         <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 md:pb-0">
             { !isEquals(product || {}, newProduct) && <UnsavedChangesDialog /> }
-            <GeneralCard updateProduct={updateProduct} newProduct={newProduct} isProductExist={!!product}/>
+            <GeneralCard updateProduct={updateProduct} newProduct={newProduct} productId={product?.id}/>
             <section className="grid grid-rows-2 gap-4 row-span-2">
                 <ImageUploadCard
                     images={newProduct.images}
