@@ -1,6 +1,6 @@
 import type { Category } from './category.interface';
 import type { Review } from './review.interface';
-import {User} from "@types/user.interface";
+import {User} from "@/types/user.interface";
 
 export enum ProductSort {
   HighPrice = 'HIGHT_PRICE',

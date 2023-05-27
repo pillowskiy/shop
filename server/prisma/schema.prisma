@@ -39,7 +39,7 @@ model Product {
   name        String   @unique
   slug        String   @unique
   description String
-  price       Int
+  price       Float
   images      String[]
   quantity    Int
   sold        Int

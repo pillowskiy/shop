@@ -1,4 +1,4 @@
-import {ReviewCreate, ReviewErrors} from "@types/review.interface";
+import {ReviewCreate, ReviewErrors} from "@/types/review.interface";
 
 export const STAR_REVIEWS = [
     {
