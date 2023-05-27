@@ -15,7 +15,7 @@ export const ProductTradeButtons: FC<ProductTradeContainerProps> = ({product}) =
         <section
             className={cn(
                 "flex gap-4 flex-col lg:flex-row w-full",
-                "mb-4 bottom-0 pt-4 md:mt-4 md:absolute md:w-1/2 md:pr-6 md:pb-4"
+                "pt-4 md:mt-4 "
             )}
         >
             <Button className="w-full lg:w-1/2" disabled={!product.quantity}>

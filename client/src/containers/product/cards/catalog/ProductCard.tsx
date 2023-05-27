@@ -17,12 +17,12 @@ export const ProductCard: FC<ProductItemProps> = ({product}) => {
     return (
         <Card
             className={cn(
-                "flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-none shadow-md rounded-lg bg-popover",
+                "flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-[220px] shadow-md rounded-lg bg-popover",
                 "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border cursor-pointer"
             )}
         >
             <Image
-                className="w-full h-auto object-cover rounded-t-lg"
+                className="w-full h-[200px] aspect-square object-cover rounded-t-lg"
                 width={360}
                 height={360}
                 loading="lazy"

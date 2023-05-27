@@ -14,7 +14,7 @@ export const FavoritesScreen: FC = () => {
     const {profile} = useProfile();
 
     return (
-        <Meta title="Product">
+        <Meta title={profile?.name ? `${profile.name}'s favorites`: "Favorites"}>
             <AuthProvider forAuth={true}>
                 <Main className="min-h-screen-64">
                     {

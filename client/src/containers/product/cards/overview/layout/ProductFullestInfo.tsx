@@ -30,7 +30,7 @@ export const ProductFullestInfo: FC<ProductInfoContainerProps> = ({product}) => 
                 </AccordionItem>
             </Accordion>
 
-            <section className="mt-4 hidden md:block">
+            <section className="mt-4 hidden md:block h-fit">
                 <h3 className="text-2xl font-medium">Description</h3>
                 <span className="text-sm mt-2">{product.description}</span>
             </section>

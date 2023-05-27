@@ -41,12 +41,12 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
         },
         onError: (err) => {
             if (isAxiosError(err)) {
-                setErrors(err.response.data.errors);
+                setErrors(err.response?.data.errors);
             } else {
                 toast({
                     variant: "destructive",
                     title: "Uh oh! Something went wrong",
-                    description: err.response?.data?.message || "Unhandled error"
+                    description: "Unhandled error"
                 });
             }
         },
