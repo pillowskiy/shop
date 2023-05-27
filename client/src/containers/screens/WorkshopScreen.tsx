@@ -5,7 +5,7 @@ import {Loader} from "@containers/Loader";
 import {Meta} from "@containers/Meta";
 import AuthProvider from "@providers/AuthProvider";
 import {Main} from "@containers/Main";
-import {WorkShop} from "@containers/workshop/WorkShop";
+import {ProductWorkShop} from "@containers/product";
 
 interface WorkshopScreenProps {
     id: string;
@@ -25,7 +25,7 @@ export const WorkshopScreen: FC<WorkshopScreenProps> = ({id}) => {
         <Meta title={`Workshop ${product?.name || ""}`}>
             <AuthProvider forAuth={true}>
                 <Main className="flex flex-col justify-center items-center min-h-screen-64 gap-4 relative">
-                    <WorkShop product={product}/>
+                    <ProductWorkShop product={product}/>
                 </Main>
             </AuthProvider>
         </Meta>

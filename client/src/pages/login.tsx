@@ -1,4 +1,4 @@
-import {LoginScreen} from "@containers/screens/LoginScreen";
+import {LoginScreen} from "@containers/auth/LoginScreen";
 
 export default function AuthLogin() {
     return (

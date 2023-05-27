@@ -1,6 +1,5 @@
 import type {FC} from 'react';
-import {ProductItem} from "@containers/cards/product/ProductItem";
-import {ProductItemSkeleton} from "@containers/cards/product/ProductItemSkeleton";
+import {Catalog} from "@containers/product";
 import {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
@@ -20,7 +19,7 @@ export const ProductCatalog: FC<Filter> = ({...filterOptions}) => {
         return (
             <section className="h-fit w-full flex flex-wrap gap-4 box-border">
                 {Array.from({length: 20}, () => (
-                    <ProductItemSkeleton key={Date.now() * Math.random()}/>
+                    <Catalog.ProductSkeleton key={Date.now() * Math.random()}/>
                 ))}
             </section>
         )
@@ -30,7 +29,7 @@ export const ProductCatalog: FC<Filter> = ({...filterOptions}) => {
         <section className="h-fit w-full flex flex-wrap gap-4 box-border">
             {data?.products ?
                 data.products.map(product => (
-                    <ProductItem key={product.id} product={product}/>
+                    <Catalog.ProductCard key={product.id} product={product}/>
                 )) :
                 <div>There are not products yet!</div>
             }

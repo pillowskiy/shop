@@ -1,4 +1,4 @@
-import {RegisterScreen} from "@containers/screens/RegisterScreen";
+import {RegisterScreen} from "@containers/auth/RegisterScreen";
 
 export default function AuthLogin() {
     return (

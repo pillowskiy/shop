@@ -1,4 +1,4 @@
-import {OrdersScreen} from "@containers/screens/OrdersScreen";
+import {OrdersScreen} from "@containers/order/OrdersScreen";
 
 export default function Page() {
     return (

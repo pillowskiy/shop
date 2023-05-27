@@ -12,8 +12,8 @@ import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 import {Loader} from "@containers/Loader";
 
-import {SingleProduct} from "@containers/cards/product/SingleProduct";
-import {ProductReview} from "@containers/cards/review/ProductReview";
+import {OverviewProductCard} from "@containers/product";
+import {ProductReviewCard} from "@containers/review";
 
 interface ProductScreenProps {
     slug: string;
@@ -49,8 +49,8 @@ export const ProductScreen: FC<ProductScreenProps> = ({slug}) => {
     return (
         <Meta title={product.name || "Product"}>
             <Main className="flex flex-col relative items-center min-h-screen-64 h-auto">
-                <SingleProduct product={product}/>
-                <ProductReview productId={product.id}/>
+                <OverviewProductCard product={product}/>
+                <ProductReviewCard productId={product.id}/>
             </Main>
         </Meta>
     );

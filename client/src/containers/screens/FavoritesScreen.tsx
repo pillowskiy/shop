@@ -8,7 +8,7 @@ import {EmptyItems} from "@containers/EmptyItems";
 import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 
-import {FavoriteProduct} from "@containers/cards/product/FavoriteProduct";
+import {FavoriteProductCard} from "@containers/product";
 
 export const FavoritesScreen: FC = () => {
     const {profile} = useProfile();
@@ -21,7 +21,7 @@ export const FavoritesScreen: FC = () => {
                         !profile?.favorites.length ? (
                             <EmptyItems>There are not favorite items yet</EmptyItems>
                         ) : profile.favorites.map(product => (
-                            <FavoriteProduct key={product.id} product={product}/>
+                            <FavoriteProductCard key={product.id} product={product}/>
                         ))
                     }
                 </Main>

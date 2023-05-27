@@ -3,7 +3,7 @@ import {Loader} from "@containers/Loader";
 import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 import {EmptyItems} from "@containers/EmptyItems";
-import {UserProduct} from "@containers/cards/product/UserProduct";
+import {UserProductCard} from "@containers/product";
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {isAxiosError} from "axios";
@@ -50,7 +50,7 @@ export const UserProductsScreen: FC<UserProductsScreenProps> = ({userId}) => {
                     !data?.length ? (
                         <EmptyItems>There are not user products yet</EmptyItems>
                     ) : data?.products.map(product => (
-                        <UserProduct key={product.id} product={product} ownerId={+userId}/>
+                        <UserProductCard key={product.id} product={product} ownerId={+userId}/>
                     ))
                 }
             </Main>
