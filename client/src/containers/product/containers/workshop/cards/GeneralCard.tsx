@@ -3,18 +3,19 @@ import type {UpdateProductData} from "@/types/product.interface";
 
 import {FormInput} from "@components/FormInput";
 import {NumberFormInput} from "@components/NumberFormInput";;
-import {Button} from "@ui/Button";
 import {Card} from "@common/Card";
 import {FormSwitchBox} from "@components/FormSwitch";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
+import {WorkshopSubmitButton} from "@containers/product/containers/workshop/layout/WorkshopSubmit";
 
 interface GeneralCardProps {
     updateProduct: (values: Partial<UpdateProductData>) => void;
     newProduct: UpdateProductData;
     productId: number | undefined;
+    onConfirm: () => void;
 }
 
-export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, productId}) => {
+export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, productId, onConfirm}) => {
     return (
         <Card className="relative row-span-2 bg-popover shadow-md px-4 py-2">
             <h2 className="text-3xl font-bold mt-2">Product workshop</h2>
@@ -67,7 +68,12 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
                     required
                 />
             </section>
-            <FormInput className="bg-white" placeholder="Categories" required/>
+            <FormInput
+                className="bg-white"
+                placeholder="Categories"
+                onChange={({target}) => updateProduct({ categoryId: +target.value })}
+                required
+            />
 
             <hr className="my-2"/>
 
@@ -85,7 +91,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
 
             <footer className="md:absolute bottom-0 w-full left-0 md:px-4 md:py-2">
                 <hr className="my-2" />
-                <Button>{productId ? "Save" : "Create"}</Button>
+                <WorkshopSubmitButton isProductExist={!!productId} onConfirm={onConfirm}/>
                 {productId && (
                     <DeleteButton className="ml-2 absolute" variant="destructive" productId={productId}>
                         Delete Product

@@ -1,4 +1,4 @@
-import {UpdateProductData} from "@types/product.interface";
+import {UpdateProductData} from "@/types/product.interface";
 
 export const INITIAL_PRODUCT: UpdateProductData = {
     name: "",
