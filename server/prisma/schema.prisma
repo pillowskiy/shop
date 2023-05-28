@@ -18,9 +18,10 @@ model User {
   phone     String?
   avatarURL String  @default("https://www.univ.kiev.ua/img/kobzar.jpg") @map("avatar_url")
 
-  roles     Role[]  @default([User])
+  roles     Role[]    @default([User])
   orders    Order[]
-  favorites Product[]
+  products  Product[] @relation("owner")
+  favorites Product[] @relation("favorites")
   reviews   Review[]
 }
 
@@ -36,6 +37,9 @@ model Product {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  ownerId Int  @map("owner_id")
+  owner   User @relation("owner", fields: [ownerId], references: [id])
+
   name        String   @unique
   slug        String   @unique
   description String
@@ -45,11 +49,11 @@ model Product {
   sold        Int
 
   userId Int?  @map("user_id")
-  User   User? @relation(fields: [userId], references: [id])
+  User   User? @relation("favorites", fields: [userId], references: [id])
 
-  categories    Category[]
   order_items OrderItem[]
   reviews     Review[]
+  Category    Category[]
 }
 
 model Category {

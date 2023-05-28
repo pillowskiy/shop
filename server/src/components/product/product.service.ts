@@ -21,10 +21,7 @@ export class ProductService {
     private readonly categoryService: CategoryService,
   ) {}
 
-  public async getProducts(
-    dto: FilterDto,
-    where?: Prisma.ProductWhereInput,
-  ) {
+  public async getProducts(dto: FilterDto, where?: Prisma.ProductWhereInput) {
     const prismaSort: Prisma.ProductOrderByWithRelationInput[] = [];
     switch (dto.sort) {
       case ProductSort.HighPrice:

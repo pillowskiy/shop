@@ -1,3 +1,5 @@
+import type {Pagination} from "@/types";
+
 export type CategoryUpdate = Pick<Category, 'name'>
 
 export interface Category {
@@ -5,3 +7,5 @@ export interface Category {
   name: string;
   slug: string;
 };
+
+export interface CategoryFilter extends Pagination {}

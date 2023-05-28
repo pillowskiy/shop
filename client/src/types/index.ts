@@ -43,3 +43,8 @@ export type ApiValidationReject<T> = {
 export type ApiReject = {
   message: string;
 }
+
+export interface Pagination {
+  page?: number;
+  perPage?: number;
+}

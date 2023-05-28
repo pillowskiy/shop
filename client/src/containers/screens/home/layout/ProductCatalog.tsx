@@ -5,11 +5,11 @@ import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {Filter} from "@/types/product.interface";
 
-export const ProductCatalog: FC<Filter> = ({...filterOptions}) => {
+export const ProductCatalog: FC<Filter> = ({...filterParams}) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const {data} = useQuery(['get products', ...Object.keys(filterOptions)], () => {
-        return ProductService.getAll(filterOptions);
+    const {data} = useQuery(['get products', ...Object.keys(filterParams)], () => {
+        return ProductService.getAll(filterParams);
     }, {
         select: ({data}) => data,
         onSuccess: () => setTimeout(() => setIsLoaded(true), 250),

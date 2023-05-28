@@ -4,10 +4,15 @@ import { CategoryDto } from './dto/category.dto';
 import { categorySelect } from './prisma.partials';
 import slugify from 'src/utils/slugify';
 import type { Prisma } from '@prisma/client';
+import type { PaginationDto } from '../../dto/pagination.dto';
+import { PaginationService } from '../pagination/pagination.service';
 
 @Injectable()
 export class CategoryService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly pagination: PaginationService,
+  ) {}
 
   public async getCategoryByQuery(query: Prisma.CategoryWhereUniqueInput) {
     const category = await this.prisma.category.findUnique({
@@ -31,9 +36,13 @@ export class CategoryService {
       select: categorySelect,
     });
   }
-  public getAll() {
+  public getAll(dto: PaginationDto) {
+    const { skip, perPage } = this.pagination.getPagination(dto);
+
     return this.prisma.category.findMany({
       select: categorySelect,
+      skip,
+      take: perPage,
     });
   }
   public create() {

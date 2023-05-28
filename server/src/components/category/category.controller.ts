@@ -7,7 +7,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Put,
+  Put, Query,
   UsePipes,
 } from '@nestjs/common';
 import { Auth } from 'src/decorators/auth.decorator';
@@ -22,6 +22,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { category } from 'src/config/docs';
+import { PaginationDto } from '../../dto/pagination.dto';
 
 @ApiTags('categories')
 @Controller('categories')
@@ -31,8 +32,8 @@ export class CategoryController {
   @ApiOperation(category.all.operation)
   @ApiOkResponse(category.all.response)
   @Get()
-  public getCategories() {
-    return this.categoryService.getAll();
+  public getCategories(@Query() dto: PaginationDto) {
+    return this.categoryService.getAll(dto);
   }
 
   @ApiOperation(category.byId.operation)

@@ -1,12 +1,12 @@
 import type { AxiosResponse } from 'axios'
+import type {Category, CategoryFilter, CategoryUpdate} from '@/types/category.interface'
 import { $api } from '../api.interceptor'
-import { Category, CategoryUpdate } from '@/types/category.interface'
 
 export default class CategoryService {
   private static controller = 'categories';
 
-  static async getAll(): Promise<AxiosResponse<Category[]>> {
-    return $api.get<Category[]>(`/${CategoryService.controller}`);
+  static async getAll(filterParams?: CategoryFilter): Promise<AxiosResponse<Category[]>> {
+    return $api.get<Category[]>(`/${CategoryService.controller}`, { params: filterParams || {} });
   }
   static async getByValue<T extends keyof Pick<Category, 'id' | 'slug'>>(
     type: T,
