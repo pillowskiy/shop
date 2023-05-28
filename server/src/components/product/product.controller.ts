@@ -120,11 +120,12 @@ export class ProductController {
       }),
     )
     files: Array<Express.Multer.File>,
-    @Body() dto,
+    @Body() dto: ProductDto,
   ) {
     const filePaths = files.map(
       (file) => `http://localhost:8080/products/images/${file.filename}`,
     );
+    console.log(filePaths);
     return this.productService.upsert({
       productId,
       user,

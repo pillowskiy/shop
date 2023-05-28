@@ -1,5 +1,4 @@
 import type { Request } from 'express';
-import { BadRequestException } from '@nestjs/common';
 
 // TEMP: types
 
@@ -21,8 +20,8 @@ export class UploadHelper {
   }
 
   static fileFilter(req: Request, file, cb) {
-    if (!file.mimetype.match('\\.(jpe?g|png)$')) {
-      cb(null, false);
-    }
+    const regex = /\.(jpe?g|png)$/i;
+    console.log(file.mimetype, regex.test(file.mimetype));
+    cb(null, !regex.test(file.mimetype));
   }
 }

@@ -37,10 +37,10 @@ export default class ProductService {
   }
 
   static async upsert(
-    data: UpdateProductData,
+    data: FormData,
     productId: number = -1,
   ): Promise<AxiosResponse<ProductFullest>> {
-    return $api.put<ProductFullest>(`${this.controller}/${productId}`, data);
+    return $api.post<ProductFullest>(`${this.controller}/${productId}`, data);
   }
 
   static async delete(productId: number): Promise<AxiosResponse<number>> {

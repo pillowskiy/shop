@@ -8,6 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { product } from 'src/config/docs/swagger.entity';
+import { Transform, Type } from 'class-transformer';
 
 export class ProductDto {
   @ApiProperty({
@@ -23,6 +24,7 @@ export class ProductDto {
     example: product.price,
     description: 'The product price',
   })
+  @Type(() => Number)
   @IsPositive()
   @IsNumber()
   public price: number;
@@ -31,6 +33,7 @@ export class ProductDto {
     example: product.quantity,
     description: 'The product quantity',
   })
+  @Type(() => Number)
   @IsPositive()
   @IsNumber()
   public quantity: number;
@@ -46,6 +49,7 @@ export class ProductDto {
     example: product.images,
     description: 'The product images',
   })
+  @Transform(({ value }) => value.toString().split(','))
   @IsString({ each: true })
   @ArrayMinSize(1)
   public images: string[];
@@ -54,6 +58,7 @@ export class ProductDto {
     example: product.images,
     description: 'The product category id',
   })
+  @Type(() => Number)
   @IsNumber()
   public categoryId: number;
 }

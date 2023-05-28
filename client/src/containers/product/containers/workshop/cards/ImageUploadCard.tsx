@@ -6,17 +6,14 @@ import {FormInput} from "@components/FormInput";
 import {cn} from "@lib/utils";
 
 interface ImageUploadCardProps {
-    setImages: (images: string[]) => void;
+    setImages: (files: FileList) => void;
     images: string[];
 }
 
 export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images}) => {
     const onImagesUpload = ({target}: ChangeEvent<HTMLInputElement>) => {
         if (!target.files?.length) return;
-        const newImages = Array.from(target.files, (file => {
-            return URL.createObjectURL(file);
-        }));
-        setImages(newImages);
+        setImages(target.files);
     }
 
     return (
@@ -25,19 +22,23 @@ export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images}) =
                 <h2 className="text-xl font-medium sm:mt-4">Upload an image</h2>
                 <p className="underline">Recommended format 4:3</p>
                 <div className="flex gap-2 justify-center mt-2 flex-shrink">
-                    <Badge variant="secondary">🖼️ .jpg</Badge>
                     <Badge variant="secondary">🖼️ .png</Badge>
-                    <Badge variant="secondary">🖼️ .svg</Badge>
-                    <Badge variant="secondary">🖼️ .webp</Badge>
+                    <Badge variant="secondary">🖼️ .jpg</Badge>
                 </div>
                 <FormInput
                     className="mt-4 max-w-[180px] md:max-w-[300px] mx-auto cursor-pointer"
                     type="file"
                     id="fileElem"
                     multiple
-                    accept="image/*"
+                    accept="image/,.png,.jpg,.jpeg"
                     onChange={onImagesUpload}
+                    disabled={images.length > 10}
                 />
+                {images.length > 10 && (
+                    <p className="text-destructive">
+                        We are sorry, but you have reached the maximum number of images
+                    </p>
+                )}
             </form>
             <section className={cn(
                 "flex flex-card gap-4 my-4 max-h-fit overflow-x-auto h-2/6", {
