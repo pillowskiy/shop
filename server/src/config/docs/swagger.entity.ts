@@ -33,6 +33,8 @@ export const product: SwaggerSchema<Product> = {
   quantity: 5,
   sold: 10235,
 
+  ownerId: 1,
+
   createdAt: new Date(),
 };
 

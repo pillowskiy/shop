@@ -2,12 +2,18 @@ import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
   HttpCode,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   ParseIntPipe,
-  Put,
+  Post,
   Query,
+  Res,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { FilterDto } from './dto/filter.dto';
@@ -24,6 +30,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { product } from 'src/config/docs';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+import { join } from 'node:path';
+import { UploadHelper } from '../../utils/UploadHelper';
+import { diskStorage } from 'multer';
 
 @ApiTags('products')
 @Controller('products')
@@ -87,13 +98,38 @@ export class ProductController {
   @ApiBody({ type: ProductDto })
   @Auth()
   @HttpCode(200)
-  @Put(':id')
+  @Post(':id')
+  @UseInterceptors(
+    FilesInterceptor('files[]', 10, {
+      fileFilter: UploadHelper.fileFilter,
+      storage: diskStorage({
+        destination: UploadHelper.destinationPath,
+        filename: UploadHelper.customFileName,
+      }),
+    }),
+  )
   public async upsertProduct(
     @Param('id', ParseIntPipe) productId: number,
     @User() user: PrismaUser,
-    @Body() dto: ProductDto,
+    @UploadedFiles(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 8 }),
+        ],
+      }),
+    )
+    files: Array<Express.Multer.File>,
+    @Body() dto,
   ) {
-    return this.productService.upsert({ productId, user, dto });
+    const filePaths = files.map(
+      (file) => `http://localhost:8080/products/images/${file.filename}`,
+    );
+    return this.productService.upsert({
+      productId,
+      user,
+      dto: { ...dto, images: [...dto.images, ...filePaths] },
+    });
   }
 
   @ApiOperation(product.delete.operation)
@@ -107,5 +143,13 @@ export class ProductController {
     @Param('id', ParseIntPipe) productId: number,
   ) {
     return this.productService.delete(user, productId);
+  }
+
+  @Get('/images/:name')
+  public async getImage(
+    @Param('name') imageName: string,
+    @Res() res: Response,
+  ) {
+    return res.sendFile(join(process.cwd(), 'uploads/', imageName));
   }
 }

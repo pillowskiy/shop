@@ -16,6 +16,7 @@ const createProduct = async (count: number) => {
     await prisma.product.create({
       data: {
         name: productName,
+        ownerId: 1,
         slug: slugify(productName),
         description: faker.commerce.productDescription(),
         price: +faker.commerce.price(),
