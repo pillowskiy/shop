@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   ArrayMinSize,
   IsNumber,
-  IsOptional,
+  IsPositive,
   IsString,
   MaxLength,
   MinLength,
@@ -23,16 +23,24 @@ export class ProductDto {
     example: product.price,
     description: 'The product price',
   })
+  @IsPositive()
   @IsNumber()
   public price: number;
+
+  @ApiProperty({
+    example: product.quantity,
+    description: 'The product quantity',
+  })
+  @IsPositive()
+  @IsNumber()
+  public quantity: number;
 
   @ApiProperty({
     example: product.description,
     description: 'The product description (optional)',
   })
-  @IsOptional()
   @IsString()
-  public description?: string;
+  public description: string;
 
   @ApiProperty({
     example: product.images,

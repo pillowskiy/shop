@@ -23,7 +23,7 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
         setNewProduct({...newProduct, ...values});
     }
 
-    const mutation = useWorkshopMutation(newProduct, product);
+    const mutation = useWorkshopMutation(newProduct);
 
     const dynamicRoute = useRouter().asPath;
     useEffect(() => {

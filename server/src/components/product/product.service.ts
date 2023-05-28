@@ -115,21 +115,16 @@ export class ProductService {
       select: productSelect,
     });
   }
-  public async create(userId: number) {
-    const { id } = await this.prisma.product.create({
-      data: {
-        name: '',
-        slug: '',
-        description: '',
-        sold: 0,
-        quantity: 0,
-        price: 0,
-        userId,
-      },
-    });
-    return id;
-  }
-  public async update(productId: number, user: PrismaUser, dto: ProductDto) {
+  public async upsert({
+    productId,
+    user,
+    dto,
+  }: {
+    // TEMP
+    productId: number;
+    user: PrismaUser;
+    dto: ProductDto;
+  }) {
     const { categoryId, ...data } = dto;
 
     const isCategoryExist = await this.categoryService.getCategoryByQuery({
@@ -142,21 +137,32 @@ export class ProductService {
 
     const product = await this.getProductByQuery(
       { id: productId },
-      { userId: true },
-    );
+      { ownerId: true },
+    ).catch(() => null);
 
-    if (user.id !== product.userId && !matchRoles(['Admin'], user.roles)) {
+    if (
+      product &&
+      user.id !== product.ownerId &&
+      !matchRoles(['Admin'], user.roles)
+    ) {
       throw new ForbiddenException('You are not allowed to do this action');
     }
 
-    return this.prisma.product.update({
+    const updateProductData = {
+      ...data,
+      slug: slugify(data.name),
+      categories: {
+        connect: { id: categoryId },
+      },
+    };
+
+    return this.prisma.product.upsert({
       where: { id: productId },
-      data: {
-        ...data,
-        slug: slugify(data.name),
-        categories: {
-          connect: { id: categoryId },
-        },
+      update: updateProductData,
+      create: {
+        ...updateProductData,
+        sold: 0,
+        ownerId: user.id,
       },
       select: productFullestSelect,
     });

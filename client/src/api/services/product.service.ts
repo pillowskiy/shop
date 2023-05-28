@@ -36,13 +36,9 @@ export default class ProductService {
     return $api.get<Product[]>(`${this.controller}/similar/${productId}`);
   }
 
-  static async create(): Promise<AxiosResponse<number>> {
-    return $api.post<number>(`${this.controller}`);
-  }
-
-  static async update(
-    productId: number,
-    data: UpdateProductData
+  static async upsert(
+    data: UpdateProductData,
+    productId: number = -1,
   ): Promise<AxiosResponse<ProductFullest>> {
     return $api.put<ProductFullest>(`${this.controller}/${productId}`, data);
   }

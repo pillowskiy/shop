@@ -6,10 +6,8 @@ import {
   HttpCode,
   Param,
   ParseIntPipe,
-  Post,
   Put,
   Query,
-  UsePipes,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { FilterDto } from './dto/filter.dto';
@@ -83,15 +81,6 @@ export class ProductController {
     return this.productService.getSimilar(productId);
   }
 
-  @ApiOperation(product.create.operation)
-  @ApiResponse(product.create.response)
-  @Auth()
-  @HttpCode(200)
-  @Post()
-  public async createProduct(@User('id') userId: string) {
-    return this.productService.create(+userId);
-  }
-
   @ApiOperation(product.update.operation)
   @ApiResponse(product.update.response)
   @ApiParam(product.update.param)
@@ -99,12 +88,12 @@ export class ProductController {
   @Auth()
   @HttpCode(200)
   @Put(':id')
-  public async updateProduct(
+  public async upsertProduct(
     @Param('id', ParseIntPipe) productId: number,
     @User() user: PrismaUser,
     @Body() dto: ProductDto,
   ) {
-    return this.productService.update(productId, user, dto);
+    return this.productService.upsert({ productId, user, dto });
   }
 
   @ApiOperation(product.delete.operation)
