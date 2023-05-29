@@ -51,7 +51,6 @@ export class ProductDto {
   })
   @Transform(({ value }) => value.toString().split(','))
   @IsString({ each: true })
-  @ArrayMinSize(1)
   public images: string[];
 
   @ApiProperty({

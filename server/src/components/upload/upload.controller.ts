@@ -3,7 +3,7 @@ import type { Response } from 'express';
 import { join } from 'node:path';
 
 @Controller('uploads')
-export class StatisticController {
+export class UploadController {
   @Get('/:fileName')
   public async publicUploads(
     @Res() res: Response,

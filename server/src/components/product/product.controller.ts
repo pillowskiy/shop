@@ -2,12 +2,9 @@ import {
   Body,
   Controller,
   Delete,
-  FileTypeValidator,
   Get,
   HttpCode,
-  MaxFileSizeValidator,
   Param,
-  ParseFilePipe,
   ParseIntPipe,
   Post,
   Query,
@@ -101,15 +98,7 @@ export class ProductController {
     @Req() req: Request,
     @Param('id', ParseIntPipe) productId: number,
     @User() user: PrismaUser,
-    @UploadedFiles(
-      new ParseFilePipe({
-        validators: [
-          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 8 }),
-        ],
-      }),
-    )
-    files: Express.Multer.File[],
+    @UploadedFiles() files: Express.Multer.File[],
     @Body() dto: ProductDto,
   ) {
     const serverUrl = `${req.protocol}://${req.get('host')}/api`;
