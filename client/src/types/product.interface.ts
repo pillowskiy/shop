@@ -36,6 +36,8 @@ export interface UpdateProductData {
     categoryId: number;
 }
 
+export type UpdateProductDataErrors = Record<keyof UpdateProductData, string>;
+
 export interface ProductFullest extends Product {
     user?: User;
     reviews: Review[];
