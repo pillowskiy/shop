@@ -13,11 +13,11 @@ export const CategoryCard: FC<CategoryItemProps> = ({category}) => {
     return (
         <Card className={
             cn(
-                "flex-1 shadow-md rounded-lg bg-popover flex h-[100px] cursor-pointer",
+                "flex-1 shadow-md rounded-lg bg-popover cursor-pointer",
                 "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border"
             )
         }>
-            <Link href={`categories/${category.slug}`}>
+            <Link className="flex h-[100px]" href={`categories/${category.slug}`}>
                 <Image
                     className="h-full w-auto object-cover rounded-l-lg"
                     src="https://www.ubertheme.com/wp-content/uploads/sites/3/edd/2014/06/jm-category.png"
