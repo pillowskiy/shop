@@ -1,6 +1,5 @@
 import type {FC} from 'react';
 import type {ProductFullest} from "@/types/product.interface";
-import {ProductRating} from "@containers/product/layout/ProductRating";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
 import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
 
@@ -15,8 +14,6 @@ export const ProductFullestInfo: FC<ProductInfoContainerProps> = ({product}) => 
                 {product.name}
                 <QuantityBadge className="absolute" quantity={product.quantity} />
             </h2>
-
-            <ProductRating className="flex justify-start gap-2 mb-4" product={product}/>
 
             <span className="text-3xl md:text-5xl font-bold">999$</span>
             <del className="ml-4 text-1xl md:text-2xl font-medium text-muted">{product.price}$</del>
