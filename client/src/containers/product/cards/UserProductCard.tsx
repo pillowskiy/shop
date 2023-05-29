@@ -11,6 +11,7 @@ import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
 import {useProfile} from "@hooks/useProfile";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
+import Link from "next/link";
 
 interface FavoriteProductProps {
     product: ProductFullest;
@@ -32,28 +33,24 @@ export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) =>
                 }
             )}
         >
-            <Image
-                className="float-left rounded-lg md:rounded-l-lg h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer"
-                src={product.images[0]}
-                alt={"product image"}
-                width={128}
-                height={128}
-                onClick={() => router.push(`/products/${product.slug}`)}
-            />
-            <div
-                className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer"
-                onClick={() => router.push(`/products/${product.slug}`)}
-            >
-                <div className="flex">
-                    <p className="hover:underline transition-all">
-                        {/* TEMP Bad thing */}
-                        {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
-                    </p>
-                    <QuantityBadge quantity={product.quantity}/>
+            <Link href={`/products/${product.slug}`}>
+                <Image
+                    className="float-left rounded-lg md:rounded-l-lg h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer"
+                    src={product.images[0]}
+                    alt={"product image"}
+                    width={128}
+                    height={128}
+                />
+                <div className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer">
+                    <div className="flex">
+                        <p className="hover:underline transition-all">
+                            {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
+                        </p>
+                        <QuantityBadge quantity={product.quantity}/>
+                    </div>
+                    <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
                 </div>
-                {/* TEMP Bad thing */}
-                <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
-            </div>
+            </Link>
             <StarRating className="mt-2 md:mt-0" rating={rating}/>
 
             {
