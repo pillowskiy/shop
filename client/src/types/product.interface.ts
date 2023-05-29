@@ -39,7 +39,7 @@ export interface UpdateProductData {
 export type UpdateProductDataErrors = Record<keyof UpdateProductData, string>;
 
 export interface ProductFullest extends Product {
-    user?: User;
+    owner: User;
     reviews: Review[];
 }
 

@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { categorySelect } from 'src/components/category/prisma.partials';
-import { reviewSelect } from 'src/components/review/prisma.partials';
+import { userSelect } from '../user/prisma.partials';
 
 export const productSelect: Prisma.ProductSelect = {
   id: true,
@@ -18,7 +18,7 @@ export const productSelect: Prisma.ProductSelect = {
 
 export const productFullestSelect: Prisma.ProductSelect = {
   ...productSelect,
-  reviews: {
-    select: reviewSelect,
+  owner: {
+    select: userSelect,
   },
 };
