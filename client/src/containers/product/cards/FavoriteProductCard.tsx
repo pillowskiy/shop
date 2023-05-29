@@ -24,15 +24,15 @@ export const FavoriteProductCard: FC<FavoriteProductProps> = ({product}) => {
                 }
             )}
         >
-            <Link href={`/products/${product.slug}`}>
+            <Link className="flex w-9/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
                 <Image
-                    className="float-left rounded-lg md:rounded-l-lg h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer"
+                    className="float-left rounded-lg md:rounded-l-lg md:rounded-r-none h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer"
                     src={product.images[0]}
                     alt={"product image"}
                     width={128}
                     height={128}
                 />
-                <div className="md:w-3/12 w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer max-h-[64px]">
+                <div className="w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer max-h-[64px]">
                     <div className="flex">
                         <p className="hover:underline transition-all">
                             {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
