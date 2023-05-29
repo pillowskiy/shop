@@ -5,6 +5,7 @@ import UserService from "@api/services/user.service";
 import {useProfile} from "@hooks/useProfile";
 import {Heart} from "lucide-react";
 import {cn} from "@lib/utils";
+import {useFavorites} from "@hooks/useFavorites";
 
 interface FavoriteButtonProps extends HTMLAttributes<HTMLButtonElement> {
     productId: number;
@@ -18,12 +19,14 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({
 }) => {
     const queryClient = useQueryClient();
     const {profile} = useProfile();
-    const isFavorite = profile ? profile.favorites.some(product => product.id === productId) : false;
+    const {data} = useFavorites();
+
+    const isFavorite = data ? data.products.some(product => product.id === productId) : false;
 
     const {mutate} = useMutation(['toggle favorite', productId], () => {
         return UserService.toggleFavorite(productId);
     }, {
-        onSuccess: () => queryClient.invalidateQueries(['get profile']),
+        onSuccess: () => queryClient.invalidateQueries(['get favorites']),
     });
 
     return (

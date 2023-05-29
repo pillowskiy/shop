@@ -54,6 +54,18 @@ export class ProductController {
     return this.productService.getProducts(dto, { ownerId: userId });
   }
 
+  @ApiOperation(product.getAll.operation)
+  @ApiResponse(product.getAll.response)
+  @ApiQuery({ type: FilterDto })
+  @Auth()
+  @Get('/favorites')
+  public async getUserFavorites(
+    @User('id') userId: number,
+    @Query() dto: FilterDto,
+  ) {
+    return this.productService.getProducts(dto, { userId });
+  }
+
   @ApiOperation(product.byId.operation)
   @ApiResponse(product.byId.response)
   @ApiParam(product.byId.param)

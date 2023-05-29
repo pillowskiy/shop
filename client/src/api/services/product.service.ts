@@ -4,7 +4,6 @@ import type {
   Filter,
   Product,
   ProductFullest,
-  UpdateProductData,
   GetAllProductsResponse,
 } from '@/types/product.interface';
 
@@ -19,6 +18,11 @@ export default class ProductService {
   static async getUserProducts(userId: number, filterParams?: Filter)
       : Promise<AxiosResponse<GetAllProductsResponse>> {
     return $api.get<GetAllProductsResponse>(`${this.controller}/users/${userId}`, { params: filterParams || {} });
+  }
+
+  static async getUserFavorites(filterParams?: Filter)
+      : Promise<AxiosResponse<GetAllProductsResponse>> {
+    return $api.get<GetAllProductsResponse>(`${this.controller}/favorites`, { params: filterParams || {} });
   }
 
   static async getByValue<T extends keyof Pick<Product, 'id' | 'slug'>>(

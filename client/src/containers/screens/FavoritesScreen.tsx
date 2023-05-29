@@ -1,7 +1,5 @@
 import type {FC} from 'react';
 
-import {useProfile} from "@hooks/useProfile";
-
 import AuthProvider from "@providers/AuthProvider";
 
 import {EmptyItems} from "@containers/EmptyItems";
@@ -9,18 +7,19 @@ import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 
 import {FavoriteProductCard} from "@containers/product";
+import {useFavorites} from "@hooks/useFavorites";
 
 export const FavoritesScreen: FC = () => {
-    const {profile} = useProfile();
+    const {data} = useFavorites();
 
     return (
-        <Meta title={profile?.name ? `${profile.name}'s favorites`: "Favorites"}>
+        <Meta title="Favorites">
             <AuthProvider forAuth={true}>
                 <Main className="min-h-screen-64">
                     {
-                        !profile?.favorites.length ? (
+                        !data?.products.length ? (
                             <EmptyItems>There are not favorite items yet</EmptyItems>
-                        ) : profile.favorites.map(product => (
+                        ) : data.products.map(product => (
                             <FavoriteProductCard key={product.id} product={product}/>
                         ))
                     }
