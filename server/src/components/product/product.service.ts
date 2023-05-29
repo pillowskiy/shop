@@ -12,6 +12,7 @@ import { FilterDto, ProductSort } from './dto/filter.dto';
 import { PaginationService } from 'src/components/pagination/pagination.service';
 import { CategoryService } from 'src/components/category/category.service';
 import { matchRoles } from 'src/utils/Util';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ProductService {
@@ -19,6 +20,7 @@ export class ProductService {
     private readonly prisma: PrismaService,
     private readonly pagination: PaginationService,
     private readonly categoryService: CategoryService,
+    private readonly uploadService: UploadService,
   ) {}
 
   public async getProducts(dto: FilterDto, where?: Prisma.ProductWhereInput) {
@@ -119,11 +121,15 @@ export class ProductService {
     productId,
     user,
     dto,
+    files,
+    serverUrl,
   }: {
     // TEMP
     productId: number;
     user: PrismaUser;
     dto: ProductDto;
+    files: Express.Multer.File[];
+    serverUrl: string;
   }) {
     const { categoryId, ...data } = dto;
 
@@ -148,12 +154,20 @@ export class ProductService {
       throw new ForbiddenException('You are not allowed to do this action');
     }
 
+    const uploadData = await this.uploadService.uploadFiles(files);
+    const imagesURLs = uploadData.map(({ fileName, fileExtension }) => {
+      return `${serverUrl}/uploads/${fileName + fileExtension}`;
+    });
+
+    console.log(imagesURLs);
+
     const updateProductData = {
       ...data,
       slug: slugify(data.name),
       categories: {
         connect: { id: categoryId },
       },
+      images: [...dto.images, ...imagesURLs],
     };
 
     return this.prisma.product.upsert({

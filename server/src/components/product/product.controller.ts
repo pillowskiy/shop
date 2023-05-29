@@ -11,7 +11,7 @@ import {
   ParseIntPipe,
   Post,
   Query,
-  Res,
+  Req,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -31,10 +31,7 @@ import {
 } from '@nestjs/swagger';
 import { product } from 'src/config/docs';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
-import { join } from 'node:path';
-import { UploadHelper } from '../../utils/UploadHelper';
-import { diskStorage } from 'multer';
+import type { Request } from 'express';
 
 @ApiTags('products')
 @Controller('products')
@@ -57,7 +54,7 @@ export class ProductController {
     @Param('id', ParseIntPipe) userId: number,
     @Query() dto: FilterDto,
   ) {
-    return this.productService.getProducts(dto, { userId });
+    return this.productService.getProducts(dto, { ownerId: userId });
   }
 
   @ApiOperation(product.byId.operation)
@@ -99,16 +96,9 @@ export class ProductController {
   @Auth()
   @HttpCode(200)
   @Post(':id')
-  @UseInterceptors(
-    FilesInterceptor('files[]', 10, {
-      fileFilter: UploadHelper.fileFilter,
-      storage: diskStorage({
-        destination: UploadHelper.destinationPath,
-        filename: UploadHelper.customFileName,
-      }),
-    }),
-  )
+  @UseInterceptors(FilesInterceptor('files[]', 10))
   public async upsertProduct(
+    @Req() req: Request,
     @Param('id', ParseIntPipe) productId: number,
     @User() user: PrismaUser,
     @UploadedFiles(
@@ -119,17 +109,16 @@ export class ProductController {
         ],
       }),
     )
-    files: Array<Express.Multer.File>,
+    files: Express.Multer.File[],
     @Body() dto: ProductDto,
   ) {
-    const filePaths = files.map(
-      (file) => `http://localhost:8080/products/images/${file.filename}`,
-    );
-    console.log(filePaths);
+    const serverUrl = `${req.protocol}://${req.get('host')}/api`;
     return this.productService.upsert({
       productId,
       user,
-      dto: { ...dto, images: [...dto.images, ...filePaths] },
+      dto,
+      files,
+      serverUrl,
     });
   }
 
@@ -144,13 +133,5 @@ export class ProductController {
     @Param('id', ParseIntPipe) productId: number,
   ) {
     return this.productService.delete(user, productId);
-  }
-
-  @Get('/images/:name')
-  public async getImage(
-    @Param('name') imageName: string,
-    @Res() res: Response,
-  ) {
-    return res.sendFile(join(process.cwd(), 'uploads/', imageName));
   }
 }
