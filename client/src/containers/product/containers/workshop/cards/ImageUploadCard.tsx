@@ -1,4 +1,5 @@
 import type {FC, ChangeEvent} from 'react';
+import type {UpdateProductDataErrors} from "@/types/product.interface";
 import {Card} from "@common/Card";
 import Image from "next/image";
 import {Badge} from "@ui/Badge";
@@ -8,9 +9,10 @@ import {cn} from "@lib/utils";
 interface ImageUploadCardProps {
     setImages: (files: FileList) => void;
     images: string[];
+    errors: Pick<UpdateProductDataErrors, 'images'>
 }
 
-export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images}) => {
+export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, errors}) => {
     const onImagesUpload = ({target}: ChangeEvent<HTMLInputElement>) => {
         if (!target.files?.length) return;
         setImages(target.files);
@@ -39,6 +41,7 @@ export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images}) =
                         We are sorry, but you have reached the maximum number of images
                     </p>
                 )}
+                {errors.images && <p className="text-destructive">{errors.images}</p>}
             </form>
             <section className={cn(
                 "flex flex-card gap-4 my-4 max-h-fit overflow-x-auto h-2/6", {

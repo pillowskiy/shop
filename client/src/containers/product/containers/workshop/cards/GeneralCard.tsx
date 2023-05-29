@@ -1,5 +1,5 @@
 import type {FC} from 'react';
-import type {UpdateProductData} from "@/types/product.interface";
+import type {UpdateProductData, UpdateProductDataErrors} from "@/types/product.interface";
 
 import {FormInput} from "@components/FormInput";
 import {NumberFormInput} from "@components/NumberFormInput";;
@@ -13,9 +13,10 @@ interface GeneralCardProps {
     newProduct: UpdateProductData;
     productId: number | undefined;
     onConfirm: () => void;
+    errors: UpdateProductDataErrors
 }
 
-export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, productId, onConfirm}) => {
+export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, productId, onConfirm, errors}) => {
     return (
         <Card className="relative row-span-2 bg-popover shadow-md px-4 py-2">
             <h2 className="text-3xl font-bold mt-2">Product workshop</h2>
@@ -26,6 +27,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
                 className="bg-white"
                 placeholder="Product name"
                 value={newProduct.name}
+                error={errors.name}
                 onChange={({target}) => updateProduct({ name: target.value })}
                 required
             />
@@ -67,10 +69,16 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
                     value={newProduct.price}
                     required
                 />
+
+                <div>
+                    { errors.quantity && <p className="text-destructive">{errors.quantity}</p> }
+                    { errors.price && <p className="text-destructive">{errors.price}</p> }
+                </div>
             </section>
             <FormInput
                 className="bg-white"
                 placeholder="Categories"
+                error={errors.categoryId}
                 onChange={({target}) => updateProduct({ categoryId: +target.value })}
                 required
             />

@@ -1,4 +1,4 @@
-import {UpdateProductData} from "@/types/product.interface";
+import {UpdateProductData, UpdateProductDataErrors} from "@/types/product.interface";
 
 export const INITIAL_PRODUCT: UpdateProductData = {
     name: "",
@@ -8,4 +8,14 @@ export const INITIAL_PRODUCT: UpdateProductData = {
     quantity: 0,
     images: [],
     categoryId: 0
+}
+
+export const INITIAL_PRODUCT_ERRORS: UpdateProductDataErrors = {
+    name: "",
+    description: "",
+    price: "",
+    weight: "",
+    quantity: "",
+    images: "",
+    categoryId: "",
 }
