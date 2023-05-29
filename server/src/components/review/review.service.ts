@@ -3,10 +3,15 @@ import { PrismaService } from 'src/prisma.service';
 import { ReviewDto } from './dto/review.dto';
 import { reviewSelect } from './prisma.partials';
 import { NotFoundException } from '@nestjs/common/exceptions';
+import type { FilterDto } from '../product/dto/filter.dto';
+import { PaginationService } from '../pagination/pagination.service';
 
 @Injectable()
 export class ReviewService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly paginationService: PaginationService,
+  ) {}
 
   public async getAvgRating(productId: number) {
     const data = await this.prisma.review.aggregate({
@@ -15,10 +20,13 @@ export class ReviewService {
     });
     return data._avg.rating || 0;
   }
-  public getAll(productId: number) {
+  public getAll(productId: number, dto: FilterDto) {
+    const { skip, perPage } = this.paginationService.getPagination(dto);
     return this.prisma.review.findMany({
       where: { productId },
       orderBy: { createdAt: 'desc' },
+      take: perPage,
+      skip,
       select: reviewSelect,
     });
   }

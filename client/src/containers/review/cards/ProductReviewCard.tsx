@@ -17,10 +17,12 @@ interface ProductReviewProps {
 }
 
 export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
+    // TEMP: scroll pagination
     const {data: reviews} = useQuery(['get reviews', productId], () => {
         return ReviewService.getById(productId);
     }, {
         select: ({data}) => data,
+        keepPreviousData: true,
     });
 
     const rating = useProductRateAvg(productId);
@@ -52,11 +54,15 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                         reviews?.length ? (
                             <>
                                 <SortButtons/>
-                                {reviews.map(review => (
-                                    <ReviewComment key={Date.now() * Math.random()} review={review} hasAccess={!!profile}/>
+                                {reviews.map((review, index) => (
+                                    <ReviewComment key={index} review={review} hasAccess={!!profile}/>
                                 ))}
                             </>
-                        ) : <EmptyItems className="hidden md:block lg:top-[40%]">There are not reviews yet.</EmptyItems>
+                        ) : (
+                            <EmptyItems className="hidden md:block lg:top-[40%]">
+                                There are not reviews yet.
+                            </EmptyItems>
+                        )
                     }
                 </aside>
             </section>

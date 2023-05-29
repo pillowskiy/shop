@@ -1,4 +1,5 @@
 import type { AxiosResponse } from 'axios'
+import type {Pagination} from "@/types";
 import { $api } from '../api.interceptor'
 import type {
   Review,
@@ -9,8 +10,8 @@ import type {
 export default class ReviewService {
   private static controller = 'reviews';
 
-  static async getById(productId: number): Promise<AxiosResponse<Review[]>> {
-    return $api.get<Review[]>(`/${ReviewService.controller}/${productId}`);
+  static async getById(productId: number, filterParams?: Pagination): Promise<AxiosResponse<Review[]>> {
+    return $api.get<Review[]>(`/${ReviewService.controller}/${productId}`, {params: filterParams || {}});
   }
   static async getAvg(productId: number): Promise<AxiosResponse<number>> {
     return $api.get<number>(`/${ReviewService.controller}/avg/${productId}`);

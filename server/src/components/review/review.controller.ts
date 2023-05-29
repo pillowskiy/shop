@@ -5,7 +5,7 @@ import {
   HttpCode,
   Param,
   ParseIntPipe,
-  Post,
+  Post, Query,
   UsePipes,
 } from '@nestjs/common';
 import { Auth } from 'src/decorators/auth.decorator';
@@ -20,6 +20,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { review } from 'src/config/docs';
+import { PaginationDto } from '../../dto/pagination.dto';
 
 @ApiTags('reviews')
 @Controller('reviews')
@@ -30,8 +31,11 @@ export class ReviewController {
   @ApiResponse(review.byProductId.response)
   @ApiParam(review.byProductId.param)
   @Get(':id')
-  public getAll(@Param('id', ParseIntPipe) productId: number) {
-    return this.reviewService.getAll(productId);
+  public getAll(
+    @Param('id', ParseIntPipe) productId: number,
+    @Query() dto: PaginationDto,
+  ) {
+    return this.reviewService.getAll(productId, dto);
   }
 
   @ApiOperation(review.avg.operation)
