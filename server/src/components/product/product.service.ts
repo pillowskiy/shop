@@ -147,9 +147,10 @@ export class ProductService {
       throw new NotFoundException('Category not found');
     }
 
+    // TEMP: any type
     const product = await this.getProductByQuery(
       { id: productId },
-      { ownerId: true },
+      { ownerId: true, images: true },
     ).catch(() => null);
 
     if (
@@ -165,8 +166,8 @@ export class ProductService {
       return `${serverUrl}/uploads/${fileName + fileExtension}`;
     });
 
-    await this.uploadService.unlinkFiles(
-      product.images.filter((image) => dto.images.indexOf(image) === -1),
+    await this.uploadService.unlinkFromPaths(
+      product?.images.filter((image) => dto.images.indexOf(image) === -1),
     );
 
     const updateProductData = {
@@ -178,16 +179,20 @@ export class ProductService {
       images: [...dto.images, ...imagesURLs],
     };
 
-    return this.prisma.product.upsert({
-      where: { id: productId },
-      update: updateProductData,
-      create: {
-        ...updateProductData,
-        sold: 0,
-        ownerId: user.id,
-      },
-      select: productFullestSelect,
-    });
+    return this.prisma.product
+      .upsert({
+        where: { id: productId },
+        update: updateProductData,
+        create: {
+          ...updateProductData,
+          sold: 0,
+          ownerId: user.id,
+        },
+        select: productFullestSelect,
+      })
+      .catch(() => {
+        this.uploadService.unlinkFromPaths(imagesURLs);
+      });
   }
 
   public async delete(executor: PrismaUser, productId: number) {
@@ -206,7 +211,7 @@ export class ProductService {
         where: { id: productId },
       })
       .then((res) => {
-        this.uploadService.unlinkFiles(res.images);
+        this.uploadService.unlinkFromPaths(res.images);
         return res;
       });
   }

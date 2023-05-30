@@ -16,9 +16,24 @@ export class UploadService {
     return Promise.all(allowFiles.map(this.uploadFile));
   }
 
-  public async unlinkFiles(filePaths: string[]) {
-    const allowPaths = filePaths.filter(this.isPathExist);
-    return Promise.all(allowPaths.map((path) => unlink(path)));
+  public async unlinkFiles(fileNames: string[]) {
+    const allowFiles = fileNames.filter(this.isFileExist);
+    return Promise.all(allowFiles.map(this.unlinkFile));
+  }
+
+  public async unlinkFromPaths(filePaths: string[]) {
+    return this.unlinkFiles(this.getFileNames(filePaths));
+  }
+
+  private getFileNames(paths: string[]) {
+    const newPaths = [];
+    for (const path of paths) {
+      const potentialName = path.split('/').at(-1);
+      if (path.includes('/uploads') && potentialName) {
+        newPaths.push(potentialName);
+      }
+    }
+    return newPaths;
   }
 
   private isFileAllow(file: Express.Multer.File) {
@@ -35,7 +50,19 @@ export class UploadService {
     return { fileName, filePath, fileExtension };
   }
 
-  private isPathExist(path: string) {
-    return existsSync(path);
+  private async unlinkFile(subPaths: string) {
+    return unlink(join(process.cwd(), '/uploads', subPaths));
+  }
+
+  private isFileExist(fileName: string) {
+    return existsSync(join(process.cwd(), '/uploads', fileName));
+  }
+
+  /*
+   * Hopefully, I'll figure it out one day.
+   * For some reason, private methods have no context.
+   */
+  private getPath(...subPath: string[]) {
+    return join(process.cwd(), '/uploads', ...subPath);
   }
 }

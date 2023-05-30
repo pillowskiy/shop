@@ -68,6 +68,7 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
     const handleUpload = async () => {
         const formData = new FormData();
         setErrors(INITIAL_PRODUCT_ERRORS);
+        setImages([]);
         setIsLoading(true);
         images.forEach(({file}) => {
             formData.append('files[]', file);

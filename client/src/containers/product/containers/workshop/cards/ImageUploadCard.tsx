@@ -55,8 +55,8 @@ export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, er
                             key={Math.random() * Date.now()}
                             src={src}
                             alt={"product image"}
-                            width={64}
-                            height={64}
+                            width={164}
+                            height={164}
                         />
                     )): (
                         <h2 className="m-auto font-medium">🙅 There are not images yet.</h2>
