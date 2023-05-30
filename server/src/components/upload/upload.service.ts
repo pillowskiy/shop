@@ -1,20 +1,23 @@
 import { Injectable } from '@nestjs/common';
 
-import { writeFile } from 'fs/promises';
+import { writeFile, unlink, stat } from 'fs/promises';
 import { randomBytes } from 'crypto';
 import { join } from 'path';
+import { asyncFilter } from '../../utils/Util';
 
-// TEMP: to .env
 const FILE_TYPE_REGEX = /\.(jpe?g|png)$/i;
 const FILE_MAX_SIZE = 1024 * 1024 * 8;
 
 @Injectable()
 export class UploadService {
   public async uploadFiles(files: Express.Multer.File[]) {
-    console.log('Files before filter', files);
-    files = files.filter(this.isFileAllow);
-    console.log('Files after filter', files);
-    return Promise.all(files.map(this.uploadFile));
+    const allowFiles = files.filter(this.isFileAllow);
+    return Promise.all(allowFiles.map(this.uploadFile));
+  }
+
+  public async unlinkFiles(filePaths: string[]) {
+    const allowPaths = await asyncFilter(filePaths, this.isPathExist);
+    return Promise.all(allowPaths.map((path) => unlink(path)));
   }
 
   private isFileAllow(file: Express.Multer.File) {
@@ -29,5 +32,9 @@ export class UploadService {
     const filePath = join(process.cwd(), '/uploads', fileName + fileExtension);
     await writeFile(filePath, file.buffer, 'utf8');
     return { fileName, filePath, fileExtension };
+  }
+
+  private async isPathExist(path: string) {
+    return (await stat(path)).isFile();
   }
 }
