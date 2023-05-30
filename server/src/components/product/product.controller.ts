@@ -63,7 +63,9 @@ export class ProductController {
     @User('id') userId: number,
     @Query() dto: FilterDto,
   ) {
-    return this.productService.getProducts(dto, { userId });
+    return this.productService.getProducts(dto, {
+      users: { some: { id: userId } },
+    });
   }
 
   @ApiOperation(product.byId.operation)

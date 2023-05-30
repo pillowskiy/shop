@@ -194,7 +194,7 @@ export class ProductService {
       throw new NotFoundException(`Cannot find product with id ${productId}`);
     }
     if (
-      product.userId !== executor.id &&
+      product.ownerId !== executor.id &&
       matchRoles(['Admin'], executor.roles)
     ) {
       throw new ForbiddenException('You are not allowed to do this action');
