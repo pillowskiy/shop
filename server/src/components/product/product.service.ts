@@ -165,7 +165,9 @@ export class ProductService {
       return `${serverUrl}/uploads/${fileName + fileExtension}`;
     });
 
-    console.log(imagesURLs);
+    await this.uploadService.unlinkFiles(
+      product.images.filter((image) => dto.images.indexOf(image) === -1),
+    );
 
     const updateProductData = {
       ...data,
@@ -199,8 +201,13 @@ export class ProductService {
     ) {
       throw new ForbiddenException('You are not allowed to do this action');
     }
-    return this.prisma.product.delete({
-      where: { id: productId },
-    });
+    return this.prisma.product
+      .delete({
+        where: { id: productId },
+      })
+      .then((res) => {
+        this.uploadService.unlinkFiles(res.images);
+        return res;
+      });
   }
 }

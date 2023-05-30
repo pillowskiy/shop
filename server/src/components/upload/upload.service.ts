@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { writeFile, unlink, stat } from 'fs/promises';
+import { writeFile, unlink } from 'fs/promises';
+import { existsSync } from 'fs';
+
 import { randomBytes } from 'crypto';
 import { join } from 'path';
-import { asyncFilter } from '../../utils/Util';
 
 const FILE_TYPE_REGEX = /\.(jpe?g|png)$/i;
 const FILE_MAX_SIZE = 1024 * 1024 * 8;
@@ -16,7 +17,7 @@ export class UploadService {
   }
 
   public async unlinkFiles(filePaths: string[]) {
-    const allowPaths = await asyncFilter(filePaths, this.isPathExist);
+    const allowPaths = filePaths.filter(this.isPathExist);
     return Promise.all(allowPaths.map((path) => unlink(path)));
   }
 
@@ -34,7 +35,7 @@ export class UploadService {
     return { fileName, filePath, fileExtension };
   }
 
-  private async isPathExist(path: string) {
-    return (await stat(path)).isFile();
+  private isPathExist(path: string) {
+    return existsSync(path);
   }
 }
