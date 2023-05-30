@@ -6,6 +6,8 @@ export enum ProductSort {
   HighPrice = 'HIGHT_PRICE',
   LowPrice = 'LOW_PRICE',
   Newest = 'NEWEST',
+  Popular = 'POPULAR',
+  Rated = 'RATED',
   Oldest = 'OLDEST',
 }
 

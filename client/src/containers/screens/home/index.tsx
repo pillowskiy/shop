@@ -22,10 +22,10 @@ export const HomeScreen: FC = () => {
                 <ProductCatalog page={1} perPage={8} sort={ProductSort.HighPrice}/>
 
                 <GoodsHeading>Popular Products</GoodsHeading>
-                <ProductCatalog page={1} perPage={8}/>
+                <ProductCatalog page={1} perPage={8} sort={ProductSort.Popular}/>
 
                 <GoodsHeading>Rated Products</GoodsHeading>
-                <ProductCatalog page={1} perPage={8}/>
+                <ProductCatalog page={1} perPage={8} sort={ProductSort.Rated}/>
             </Main>
         </Meta>
     );

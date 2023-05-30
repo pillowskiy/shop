@@ -35,6 +35,12 @@ export class ProductService {
       case ProductSort.Oldest:
         prismaSort.push({ createdAt: 'asc' });
         break;
+      case ProductSort.Popular:
+        prismaSort.push({ sold: 'desc' });
+        break;
+      case ProductSort.Rated:
+        prismaSort.push({ reviews: { _count: 'desc' } });
+        break;
       default:
         prismaSort.push({ createdAt: 'desc' });
     }
