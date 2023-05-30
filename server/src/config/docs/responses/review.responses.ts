@@ -15,6 +15,11 @@ const reviewResponseType: SwaggerApiResponse['response'] = {
           avatarURL: user.avatarURL,
           roles: user.roles,
         },
+        helpful: [
+          {
+            name: user.name,
+          },
+        ],
       },
     ],
   },

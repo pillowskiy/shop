@@ -66,4 +66,17 @@ export class UserController {
   ) {
     return this.userService.toggleFavoriteProduct(userId, productId);
   }
+
+  @ApiOperation(user.toggleFavorite.operation)
+  @ApiResponse(user.toggleFavorite.response)
+  @ApiParam(user.toggleFavorite.param)
+  @Auth()
+  @HttpCode(200)
+  @Patch('profile/reviews/helpful/:id')
+  public toggleHelpfulReview(
+    @User('id') userId: number,
+    @Param('id', ParseIntPipe) reviewId: number,
+  ) {
+    return this.userService.toggleHelpful(userId, reviewId);
+  }
 }

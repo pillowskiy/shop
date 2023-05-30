@@ -5,8 +5,8 @@ import {
   HttpCode,
   Param,
   ParseIntPipe,
-  Post, Query,
-  UsePipes,
+  Post,
+  Query,
 } from '@nestjs/common';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
@@ -56,8 +56,8 @@ export class ReviewController {
   public create(
     @Param('id', ParseIntPipe) productId: number,
     @Body() dto: ReviewDto,
-    @User('id') userId: string,
+    @User('id') userId: number,
   ) {
-    return this.reviewService.create(+userId, productId, dto);
+    return this.reviewService.create(userId, productId, dto);
   }
 }

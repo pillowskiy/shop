@@ -55,7 +55,7 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                             <>
                                 <SortButtons/>
                                 {reviews.map((review, index) => (
-                                    <ReviewComment key={index} review={review} hasAccess={!!profile}/>
+                                    <ReviewComment key={index} productId={productId} review={review} hasAccess={!!profile}/>
                                 ))}
                             </>
                         ) : (

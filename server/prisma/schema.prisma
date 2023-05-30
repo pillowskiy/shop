@@ -18,11 +18,14 @@ model User {
   phone     String?
   avatarURL String  @default("https://www.univ.kiev.ua/img/kobzar.jpg") @map("avatar_url")
 
-  roles     Role[]    @default([User])
-  orders    Order[]
-  products  Product[] @relation("owner")
-  favorites Product[] @relation("favorites")
-  reviews   Review[]
+  roles Role[] @default([User])
+
+  products Product[] @relation("owner")
+  reviews  Review[]  @relation("author")
+
+  orders         Order[]
+  favorites      Product[]
+  helpfulReviews Review[]
 }
 
 enum Role {
@@ -48,12 +51,10 @@ model Product {
   quantity    Int
   sold        Int
 
-  userId Int?  @map("user_id")
-  User   User? @relation("favorites", fields: [userId], references: [id])
-
+  users       User[]
   order_items OrderItem[]
   reviews     Review[]
-  categories    Category[]
+  categories  Category[]
 }
 
 model Category {
@@ -79,8 +80,10 @@ model Review {
   productId Int?     @map("product_id")
   product   Product? @relation(fields: [productId], references: [id])
 
+  helpful User[]
+
   userId Int?  @map("user_id")
-  user   User? @relation(fields: [userId], references: [id])
+  user   User? @relation("author", fields: [userId], references: [id])
 }
 
 model Order {

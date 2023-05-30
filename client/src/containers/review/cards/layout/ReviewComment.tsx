@@ -5,13 +5,28 @@ import {Button} from "@ui/Button";
 import {UserAvatar} from "@components/UserAvatar";
 import {ProductReportDialog} from "../../dialogs/ProductReportDialog";
 import {StarRating} from "@containers/product/layout/StarRating";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import UserService from "@api/services/user.service";
+import {useProfile} from "@hooks/useProfile";
 
 interface ReviewCommentProps {
     hasAccess: boolean;
     review: Review;
+    productId: number;
 }
 
-export const ReviewComment: FC<ReviewCommentProps> = ({review, hasAccess}) => {
+export const ReviewComment: FC<ReviewCommentProps> = ({review, productId, hasAccess}) => {
+    const queryClient = useQueryClient();
+    const {profile} = useProfile();
+    const helpfulCount = review.helpful.length;
+    const isHelpful = review.helpful.some(({id}) => profile?.id === id);
+
+    const {mutate, isLoading} = useMutation(['toggle helpful', review.id], () => {
+        return UserService.toggleHelpful(review.id);
+    }, {
+        onSuccess: () => queryClient.invalidateQueries(['get reviews', productId])
+    });
+
     return (
         <div className="w-full h-fit border p-2 rounded-md mb-4 bg-white">
             <div className="flex items-center gap-2">
@@ -35,8 +50,15 @@ export const ReviewComment: FC<ReviewCommentProps> = ({review, hasAccess}) => {
                 <StarRating className="mb-2" rating={review.rating} text=" "/>
                 <span>{review.text}</span>
                 <div className="mt-2">
-                     {/*TEMP: Math.random*/}
-                    <Toggle className="h-6" variant="outline" disabled={!hasAccess}>👍 {(Math.random() * 100).toFixed()}</Toggle>
+                    <Toggle
+                        pressed={isHelpful}
+                        className="h-6"
+                        variant="outline"
+                        disabled={!hasAccess || isLoading}
+                        onClick={mutate}
+                    >
+                        👍 {helpfulCount}
+                    </Toggle>
                     <ProductReportDialog>
                         <Button className="h-6 ml-2 pl-2" variant="secondary" disabled={!hasAccess}>⚡ Report </Button>
                     </ProductReportDialog>

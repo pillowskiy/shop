@@ -9,7 +9,7 @@ import {
   User,
 } from '@prisma/client';
 
-type OmitKeys = 'updatedAt' | 'userId' | 'productId' | 'orderId';
+type OmitKeys = 'updatedAt' | 'userId' | 'productId' | 'orderId' | 'helpfulId';
 type SwaggerSchema<T, K extends keyof T = null> = Omit<T, OmitKeys | K>;
 
 export const user: SwaggerSchema<User, 'password'> = {

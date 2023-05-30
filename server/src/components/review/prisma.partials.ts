@@ -15,4 +15,10 @@ export const reviewSelect: Prisma.ReviewSelect = {
   user: {
     select: userSelect,
   },
+  helpful: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
 };

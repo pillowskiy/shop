@@ -19,6 +19,11 @@ export default class UserService {
       `/${UserService.controller}/profile/products/favorite/${productId}`
     );
   }
+  static async toggleHelpful(reviewId: number): Promise<AxiosResponse<User>> {
+    return $api.patch<User>(
+        `/${UserService.controller}/profile/reviews/helpful/${reviewId}`
+    );
+  }
   static async update(data: UserUpdate): Promise<AxiosResponse<User>> {
     return $api.patch<User>(`/${UserService.controller}/profile`, {
       data

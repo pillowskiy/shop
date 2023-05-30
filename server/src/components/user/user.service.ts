@@ -54,8 +54,9 @@ export class UserService {
     });
   }
 
+  // TEMP: decomposition
   public async toggleFavoriteProduct(userId: number, productId: number) {
-    const userData = await this.getProfileById(userId);
+    const userData = await this.getProfileById(userId, { favorites: true });
     const isFavorite = userData.favorites.some(
       (product) => product.id === productId,
     );
@@ -72,6 +73,30 @@ export class UserService {
           ...userSelect,
           favorites: { select: productSelect },
         },
+      })
+      .catch(() => {
+        throw new NotFoundException('Product not found');
+      });
+  }
+
+  // TEMP: decomposition
+  public async toggleHelpful(userId: number, reviewId: number) {
+    const userData = await this.getProfileById(userId, {
+      helpfulReviews: true,
+    });
+    const isHelpful = userData.helpfulReviews.some(
+      (review) => review.id === reviewId,
+    );
+
+    return this.prisma.user
+      .update({
+        where: { id: userId },
+        data: {
+          helpfulReviews: {
+            [isHelpful ? 'disconnect' : 'connect']: { id: reviewId },
+          },
+        },
+        select: userSelect,
       })
       .catch(() => {
         throw new NotFoundException('Product not found');
