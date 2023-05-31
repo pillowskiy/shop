@@ -88,7 +88,7 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
     if (isLoading) return <Loader/>
 
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 md:pb-0">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 md:pb-0 max-w-[1080px]">
             {!isEquals(getInitialProductState(product), newProduct) && <UnsavedChangesDialog/>}
             <GeneralCard
                 onConfirm={handleUpload}
