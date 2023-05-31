@@ -2,11 +2,14 @@ import type {FC} from 'react';
 import type {UpdateProductData, UpdateProductDataErrors} from "@/types/product.interface";
 
 import {FormInput} from "@components/FormInput";
-import {NumberFormInput} from "@components/NumberFormInput";;
+import {NumberFormInput} from "@components/NumberFormInput";
+
+;
 import {Card} from "@common/Card";
 import {FormSwitchBox} from "@components/FormSwitch";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
 import {WorkshopSubmitButton} from "@containers/product/containers/workshop/layout/WorkshopSubmit";
+import {CategorySelect} from "@containers/product/containers/workshop/layout/CategorySelect";
 
 interface GeneralCardProps {
     updateProduct: (values: Partial<UpdateProductData>) => void;
@@ -28,7 +31,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
                 placeholder="Product name"
                 value={newProduct.name}
                 error={errors.name}
-                onChange={({target}) => updateProduct({ name: target.value })}
+                onChange={({target}) => updateProduct({name: target.value})}
                 required
             />
             <FormInput
@@ -69,24 +72,17 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
                     value={newProduct.price}
                     required
                 />
-
-                <div>
-                    { errors.quantity && <p className="text-destructive">{errors.quantity}</p> }
-                    { errors.price && <p className="text-destructive">{errors.price}</p> }
-                </div>
             </section>
-            <FormInput
-                className="bg-white"
-                placeholder="Categories"
-                error={errors.categoryId}
-                onChange={({target}) => updateProduct({ categoryId: +target.value })}
-                required
-            />
+            <div>
+                {errors.quantity && <p className="text-destructive">{errors.quantity}</p>}
+                {errors.price && <p className="text-destructive">{errors.price}</p>}
+            </div>
+            <CategorySelect/>
 
             <hr className="my-2"/>
 
-            <FormSwitchBox label="Item used" />
-            <FormSwitchBox label="The product is damaged" />
+            <FormSwitchBox label="Item used"/>
+            <FormSwitchBox label="The product is damaged"/>
 
             <hr className="my-2"/>
 
@@ -99,12 +95,14 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
 
             <footer className="md:absolute bottom-0 w-full left-0 md:px-4 md:py-2">
                 <hr className="my-2" />
-                <WorkshopSubmitButton isProductExist={!!productId} onConfirm={onConfirm}/>
-                {productId && (
-                    <DeleteButton className="ml-2 absolute" variant="destructive" productId={productId}>
-                        Delete Product
-                    </DeleteButton>
-                )}
+                <div className="flex flex-col md:flex-row gap-2">
+                    <WorkshopSubmitButton isProductExist={!!productId} onConfirm={onConfirm}/>
+                    {productId && (
+                        <DeleteButton variant="destructive" productId={productId}>
+                            Delete
+                        </DeleteButton>
+                    )}
+                </div>
             </footer>
         </Card>
     );

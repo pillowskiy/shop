@@ -23,7 +23,7 @@ export const WorkshopSubmitButton: FC<WorkshopSubmitProps> = ({isProductExist, o
             {...PRODUCT_ACTION_CONFIRM_BODY[isProductExist ? "update": "create"]}
             onConfirm={onConfirm}
         >
-            {isProductExist ? "Update product": "Create product"}
+            {isProductExist ? "Update": "Create"}
         </ProductActionConfirm>
     );
 };
