@@ -64,9 +64,8 @@ model Category {
 
   name String @unique
   slug String @unique
-
-  productId Int?     @map("product_id")
-  Product   Product? @relation(fields: [productId], references: [id])
+  
+  Product   Product[]
 }
 
 model Review {

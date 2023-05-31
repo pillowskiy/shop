@@ -35,7 +35,7 @@ export interface UpdateProductData {
     quantity: number;
     weight: number;
     images: string[];
-    categoryId: number;
+    categories: number[];
 }
 
 export type UpdateProductDataErrors = Record<keyof UpdateProductData, string>;

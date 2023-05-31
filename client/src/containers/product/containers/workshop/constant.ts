@@ -7,7 +7,7 @@ export const INITIAL_PRODUCT: UpdateProductData = {
     weight: 0,
     quantity: 0,
     images: [],
-    categoryId: 0
+    categories: []
 }
 
 export const INITIAL_PRODUCT_ERRORS: UpdateProductDataErrors = {
@@ -17,5 +17,5 @@ export const INITIAL_PRODUCT_ERRORS: UpdateProductDataErrors = {
     weight: "",
     quantity: "",
     images: "",
-    categoryId: "",
+    categories: "",
 }

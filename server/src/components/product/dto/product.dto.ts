@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   ArrayMinSize,
+  IsArray,
   IsNumber,
   IsPositive,
   IsString,
@@ -54,10 +55,15 @@ export class ProductDto {
   public images: string[];
 
   @ApiProperty({
-    example: product.images,
-    description: 'The product category id',
+    example: [1],
+    description: 'The product categories id',
   })
-  @Type(() => Number)
-  @IsNumber()
-  public categoryId: number;
+  @Transform(({ value }) =>
+    value
+      .toString()
+      .split(',')
+      .map((newValue) => +newValue),
+  )
+  @IsNumber({}, { each: true })
+  public categories: number[];
 }

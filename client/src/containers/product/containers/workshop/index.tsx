@@ -81,6 +81,7 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
         upsertMutation({formData});
     };
 
+    // TEMP
     useEffect(() => {
         setNewProduct(getInitialProductState(product));
     }, [dynamicRoute, product]);

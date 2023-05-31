@@ -137,17 +137,11 @@ export class ProductService {
     files: Express.Multer.File[];
     serverUrl: string;
   }) {
-    const { categoryId, ...data } = dto;
-
-    const isCategoryExist = await this.categoryService.getCategoryByQuery({
-      id: categoryId,
+    const { categories, ...data } = dto;
+    const categoriesData = await this.prisma.category.findMany({
+      where: { id: { in: categories } },
     });
 
-    if (!isCategoryExist) {
-      throw new NotFoundException('Category not found');
-    }
-
-    // TEMP: any type
     const product = await this.getProductByQuery(
       { id: productId },
       { ownerId: true, images: true },
@@ -174,7 +168,10 @@ export class ProductService {
       ...data,
       slug: slugify(data.name),
       categories: {
-        connect: { id: categoryId },
+        connect: categoriesData.map(({ id }) => ({ id })),
+        disconnect: categoriesData
+          .filter(({ id }) => categories.indexOf(id) === -1)
+          .map(({ id }) => ({ id })),
       },
       images: [...dto.images, ...imagesURLs],
     };

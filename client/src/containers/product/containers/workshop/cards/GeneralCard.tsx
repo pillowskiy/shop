@@ -78,9 +78,10 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
                 {errors.price && <p className="text-destructive">{errors.price}</p>}
             </div>
             <CategorySelect
-                setCategories={(categories) => updateProduct({categoryId: categories[0]})}
+                selectedCategories={newProduct.categories}
+                setCategories={(categories) => updateProduct({categories})}
             />
-            {errors.categoryId && <p className="text-destructive">{errors.categoryId}</p>}
+            {errors.categories && <p className="text-destructive">{errors.categories}</p>}
 
             <hr className="my-2"/>
 
