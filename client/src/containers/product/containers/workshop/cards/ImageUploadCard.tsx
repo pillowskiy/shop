@@ -8,11 +8,12 @@ import {cn} from "@lib/utils";
 
 interface ImageUploadCardProps {
     setImages: (files: FileList) => void;
+    deleteImage: (src: string) => void;
     images: string[];
     errors: Pick<UpdateProductDataErrors, 'images'>
 }
 
-export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, errors}) => {
+export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, errors, deleteImage}) => {
     const onImagesUpload = ({target}: ChangeEvent<HTMLInputElement>) => {
         if (!target.files?.length) return;
         setImages(target.files);
@@ -51,8 +52,9 @@ export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, er
                 {images.length ?
                     images.map(src => (
                         <Image
-                            className="rounded-lg cursor-pointer border h-[96px] w-auto"
+                            className="rounded-lg cursor-pointer border h-[96px] w-auto hover:border-destructive"
                             key={Math.random() * Date.now()}
+                            onClick={() => deleteImage(src)}
                             src={src}
                             alt={"product image"}
                             width={164}

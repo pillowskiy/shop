@@ -19,7 +19,7 @@ interface ProductReviewProps {
 export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
     // TEMP: scroll pagination
     const {data: reviews} = useQuery(['get reviews', productId], () => {
-        return ReviewService.getById(productId);
+        return ReviewService.getById(productId, { perPage: 4, page: 1 });
     }, {
         select: ({data}) => data,
         keepPreviousData: true,

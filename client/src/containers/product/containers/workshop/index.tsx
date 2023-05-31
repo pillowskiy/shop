@@ -109,6 +109,11 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
                         })))
                         setImages([...images, ...newImages])
                     }}
+                    deleteImage={(src) => {
+                        // TEMP
+                        setImages(images => images.filter(({preview}) => preview !== src))
+                        updateProduct({ images: newProduct.images.filter(image => image !== src)})
+                    }}
                 />
                 <TextareaCard
                     errors={{description: errors.description}}
