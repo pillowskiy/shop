@@ -12,6 +12,8 @@ import storage from 'redux-persist/lib/storage';
 import { userSlice } from './user/user.slice';
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {useDispatch} from "react-redux";
+import {cartMiddleware} from "@redux/cart/cart.middleware";
+import {cartSlice} from "@redux/cart/cart.slice";
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +22,7 @@ const persistConfig = {
 }
 const rootReducer = combineReducers({
   user: userSlice.reducer,
+  cart: cartSlice.reducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
@@ -28,7 +31,7 @@ export const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }),
+  }).concat(cartMiddleware),
 });
 export const persistor = persistStore(store);
 

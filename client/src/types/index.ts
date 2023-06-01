@@ -1,18 +1,18 @@
 import type { User } from './user.interface';
+import type {Product} from "@/types/product.interface";
 
 export interface Tokens {
   accessToken: string;
   refreshToken: string;
 }
 
-export interface InitialState {
+export interface UserInitialState {
   user: User | null;
   isLoading: boolean;
 }
 
-export interface Auth {
-  email: string;
-  password: string;
+export interface CartInitialState {
+  items: Product[];
 }
 
 export interface AuthResponse extends Tokens {

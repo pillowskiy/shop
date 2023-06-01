@@ -1,8 +1,8 @@
-import { InitialState } from "@/types";
+import type { UserInitialState } from "@/types";
 import * as actions from "./user.actions";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: InitialState = {
+const initialState: UserInitialState = {
   user: null,
   isLoading: false,
 };
