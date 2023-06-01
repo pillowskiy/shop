@@ -11,8 +11,10 @@ export interface UserInitialState {
   isLoading: boolean;
 }
 
+export type CartItem = Product & {count: number}
+
 export interface CartInitialState {
-  items: Product[];
+  items: CartItem[];
 }
 
 export interface AuthResponse extends Tokens {

@@ -1,9 +1,10 @@
 import type {CartInitialState} from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice, current} from "@reduxjs/toolkit";
+import {getFromLocalStorage} from "@lib/utils";
 
 // TEMP: use only the product ID
 const initialState: CartInitialState = {
-    items: [],
+    items: JSON.parse(getFromLocalStorage('cart') || "[]"),
 };
 
 export const cartSlice = createSlice({
@@ -12,16 +13,20 @@ export const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action) => {
             const newItem = action.payload;
-            state.items.push(newItem);
+            state.items.push({...newItem, count: newItem.count || 1});
         },
         removeFromCart: (state, action) => {
             const itemId = action.payload.id;
-            state.items = state.items.filter(id => id !== itemId);
+            state.items = current(state.items).filter(item => item.id !== itemId);
         },
-        clearCart: state => {
-            state.items = [];
-        },
+        updateCart: (state, action) => {
+            const itemId = action.payload.id;
+            const index = current(state.items).findIndex(item => item.id === itemId);
+            if (index > 0) {
+                state.items[index] = action.payload;
+            }
+        }
     },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateCart } = cartSlice.actions;

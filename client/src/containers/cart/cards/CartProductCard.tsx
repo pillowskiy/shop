@@ -1,26 +1,32 @@
 import type {FC} from 'react';
-import type {Product} from "@/types/product.interface";
+import type {CartItem} from "@/types";
 import {Card} from "@common/Card";
 import Image from "next/image";
 import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
 import {Trash} from "lucide-react";
 import {NumberFormInput} from "@components/NumberFormInput";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import {Button} from "@ui/Button";
 import {useAppDispatch} from "@redux/store";
-import {removeFromCart} from "@redux/cart/cart.slice";
+import {removeFromCart, updateCart} from "@redux/cart/cart.slice";
+import {useDebounce} from "@hooks/useDebounce";
 
 interface CartProductCardProps {
-    product: Product;
+    product: CartItem;
 }
 
 export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(product.count);
+    const {debounce} = useDebounce(quantity, 1000);
     const dispatch = useAppDispatch();
 
+    if (debounce === quantity) {
+        dispatch(updateCart({ ...product, count: quantity }));
+    }
+
     return (
-        <Card className="p-2 h-fit w-full">
+        <Card className="p-2 h-fit w-full mb-4">
             <section className="relative w-full">
                 <Link href={`/products/${product.slug}`} className="flex">
                     <Image
@@ -42,7 +48,6 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
                 </Link>
                 <Button
                     className="absolute right-0 top-0"
-                    productId={product.id}
                     variant="secondary"
                     onClick={() => dispatch(removeFromCart(product))}
                 >
@@ -51,8 +56,10 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
             </section>
             <section className="-mt-4 flex justify-between items-end">
                 <NumberFormInput
+                    type="number"
                     className="w-[96px]"
                     setValue={(step) => setQuantity(prev => prev + step)}
+                    onChange={({target}) => setQuantity(+target.value)}
                     value={quantity}
                     step={1}
                     max={product.quantity}
