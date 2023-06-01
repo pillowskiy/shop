@@ -14,7 +14,7 @@ export const NumberFormInput: FC<NumberFormInput> = ({className, step, value, se
     return (
         <div className="flex items-center relative">
             <div
-                className="py-2.5 px-1.5 rounded-lg cursor-pointer absolute left-1"
+                className="py-3 h-10 px-1.5 rounded-lg cursor-pointer absolute left-1 bottom-0"
                 onClick={() => setValue(step * (-1))}
             >
                 <Minus className="w-4 h-4"/>
@@ -28,7 +28,7 @@ export const NumberFormInput: FC<NumberFormInput> = ({className, step, value, se
                 {...props}
             />
             <div
-                className="py-2.5 px-1.5 rounded-lg cursor-pointer absolute right-1"
+                className="py-3 h-10 px-1.5 rounded-lg cursor-pointer absolute right-1 bottom-0"
                 onClick={() => setValue(step)}
             >
                 <Plus className="w-4 h-4"/>

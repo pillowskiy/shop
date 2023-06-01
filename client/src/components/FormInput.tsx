@@ -19,7 +19,7 @@ export const FormInput: FC<PropsWithChildren<FormInputProps>> = ({
 }) => {
     const id = useId();
     return (
-        <div className="flex flex-col space-y-1.5 mb-6">
+        <div className="flex flex-col space-y-1.5 mt-6">
             {
                 label && <Label
                     htmlFor={id}
