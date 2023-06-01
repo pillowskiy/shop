@@ -7,6 +7,8 @@ import {useAppDispatch} from "@redux/store";
 import {addToCart} from "@redux/cart/cart.slice";
 import {cn} from "@lib/utils";
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
+import {useToast} from "@common/toast/useToast";
+import {ToastAction} from "@common/toast/Toast";
 
 interface CartButtonProps extends ButtonProps {
     product: Product;
@@ -16,6 +18,7 @@ export const CartButton: FC<CartButtonProps> = ({className, product, ...props}) 
     const {items} = useCart();
     const isExist = items.some(item => item.id === product.id);
     const dispatch = useAppDispatch();
+    const {toast} = useToast();
 
     if (isExist) {
         return (
@@ -36,7 +39,17 @@ export const CartButton: FC<CartButtonProps> = ({className, product, ...props}) 
         <Button
             className={className}
             disabled={!product.quantity}
-            onClick={() => dispatch(addToCart(product))}
+            onClick={() => {
+                dispatch(addToCart(product))
+                toast({
+                    description: "✅ You have successfully added a product to your basket",
+                    action: (
+                        <CartDialog>
+                            <ToastAction altText="Go to cart">Go to cart</ToastAction>
+                        </CartDialog>
+                    ),
+                })
+            }}
             {...props}
         >
             <ShoppingCart/>
