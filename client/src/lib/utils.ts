@@ -19,6 +19,12 @@ export const getFromLocalStorage = (key: string) => {
   }
 }
 
+export const setLocalStorage = (key: string, value: string) => {
+  if (typeof window !== 'undefined') {
+    return localStorage.setItem(key, value);
+  }
+}
+
 export const getStringFromQuery = (slug: string | string[] | undefined) => {
   return typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
 }
