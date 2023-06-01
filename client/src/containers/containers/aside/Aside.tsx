@@ -3,20 +3,38 @@ import {ShoppingCart, Heart, List, Home} from "lucide-react";
 import {cn} from "@lib/utils";
 
 import * as SideBar from './layout';
+import {CartDialog} from "@containers/cart/dialogs/CartDialog";
+import {useCart} from "@hooks/useCart";
 
 export const Aside: FC = () => {
+    const {items} = useCart();
+
     return (
-        <aside className={cn(
-            "fixed bottom-0 md:top-0 md:bottom-auto text-foreground bg-popover border-muted border-t shadow-md md:shadow-none",
-            "w-full md:w-20 md:pt-48 md:pb-4 md:px-0 h-14 md:h-screen z-20"
-        )}
+        <aside
+            className={cn(
+                "fixed bottom-0 md:top-0 md:bottom-auto text-foreground bg-popover border-muted border-t shadow-md md:shadow-none",
+                "w-full md:w-20 md:pt-48 md:pb-4 md:px-0 h-14 md:h-screen z-20"
+            )}
         >
             <SideBar.Items>
-                <SideBar.Item href="/" Icon={Home} title="Home" />
-                <SideBar.Item href="#" Icon={ShoppingCart} title="Cart" />
-                <SideBar.Item href="/favorites" Icon={Heart} title="Favorites" />
-                <SideBar.Item href="/orders" Icon={List} title="Orders" />
-                <SideBar.Profile />
+                <SideBar.Item href="/" Icon={Home} title="Home"/>
+                <CartDialog className="relative">
+                    <SideBar.Item Icon={ShoppingCart} title="Cart">
+                        <p
+                            className={cn(
+                                "absolute text-xs rounded-full h-fit w-fit bg-destructive",
+                                "right-[8px] top-[2px] px-1.5 py-0.5 text-white hidden md:block", {
+                                    "md:hidden": items.length < 1
+                                }
+                            )}
+                        >
+                            {items.length}
+                        </p>
+                    </SideBar.Item>
+                </CartDialog>
+                <SideBar.Item href="/favorites" Icon={Heart} title="Favorites"/>
+                <SideBar.Item href="/orders" Icon={List} title="Orders"/>
+                <SideBar.Profile/>
             </SideBar.Items>
         </aside>
     );
