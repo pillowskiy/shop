@@ -38,7 +38,7 @@ export const CategorySelect: FC<CategorySelectProps> = ({setCategories, selected
         <DropdownMenu onOpenChange={(open) => !open && setCategories(selectedKeys)}>
             <DropdownMenuTrigger asChild disabled={isDisabled}>
                 <Button
-                    className="w-full flex flex-wrap gap-1 justify-start overflow-x-hidden bg-white text-foreground font-normal border py-1 h-fit"
+                    className="w-full flex flex-wrap gap-1 justify-start overflow-x-hidden bg-white text-foreground font-normal border py-1 h-fit mt-6"
                     disabled={isDisabled}>
                     {(!Object.values(selected).filter(Boolean).length || !categories?.length) ?
                         <p className="my-1">Categories</p> : (
