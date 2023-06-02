@@ -28,7 +28,8 @@ import {
 import Image from "next/image";
 import {useAppDispatch} from "@redux/store";
 import {logout as logoutAction} from "@redux/user/user.actions";
-import {useRouter} from "next/router";
+import Link from "next/link";
+import {useQueryClient} from "@tanstack/react-query";
 
 interface ProfilePopoverProps {
     profile: User;
@@ -36,11 +37,11 @@ interface ProfilePopoverProps {
 
 export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
     const dispatch = useAppDispatch();
-    const router = useRouter();
+    const queryClient = useQueryClient();
 
     const logout = () => {
         dispatch(logoutAction()).finally(() => {
-            return router.reload();
+            return queryClient.invalidateQueries(['get profile'])
         });
     }
 
@@ -65,8 +66,10 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <UserIcon className="mr-2 h-4 w-4"/>
-                        <span>Your Profile</span>
+                        <Link className="flex items-center" href={`/users/${profile.id}`}>
+                            <UserIcon className="mr-2 h-4 w-4"/>
+                            <span>Your Profile</span>
+                        </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <List className="mr-2 h-4 w-4"/>
@@ -103,13 +106,17 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
 
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                    <DropdownMenuItem onClick={() => router.push('/products/workshop/@me')}>
-                        <Plus className="mr-2 h-4 w-4"/>
-                        <span>Create Product</span>
+                    <DropdownMenuItem>
+                        <Link className="flex items-center" href={'/products/workshop/@me'}>
+                            <Plus className="mr-2 h-4 w-4"/>
+                            <span>Create Product</span>
+                        </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => router.push(`/products/users/${profile.id}`)}>
-                        <Package className="mr-2 h-4 w-4"/>
-                        <span>Your Products</span>
+                    <DropdownMenuItem>
+                        <Link className="flex items-center" href={`/products/users/${profile.id}`}>
+                            <Package className="mr-2 h-4 w-4"/>
+                            <span>Your Products</span>
+                        </Link>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
