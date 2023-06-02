@@ -5,7 +5,7 @@ import { StatisticValue } from '@/types';
 export default class StatisticService {
   private static controller = 'statistics';
 
-  static async getUserOrders(userId: number): Promise<AxiosResponse<StatisticValue[]>> {
+  static async getUserStatistic(userId: number): Promise<AxiosResponse<StatisticValue[]>> {
     return $api.get<StatisticValue[]>(`/${StatisticService.controller}/${userId}`);
   }
 }
