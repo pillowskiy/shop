@@ -9,12 +9,15 @@ import ProductService from "@api/services/product.service";
 import {isAxiosError} from "axios";
 import {useRouter} from "next/router";
 import {useToast} from "@common/toast/useToast";
+import {useState} from "react";
+import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
 
 interface UserProductsScreenProps {
     userId: string;
 }
 
 export const UserProductsScreen: FC<UserProductsScreenProps> = ({userId}) => {
+    const [isLoaded, setIsLoaded] = useState(false);
     const router = useRouter();
     const {toast} = useToast();
 
@@ -29,19 +32,29 @@ export const UserProductsScreen: FC<UserProductsScreenProps> = ({userId}) => {
         select: ({data}) => data,
         enabled: !!userId,
         onError: (err) => {
-            console.log(err);
             toast({
                 variant: "destructive",
                 title: "Uh Oh! Something went wrong",
                 description: isAxiosError(err) ? err.response?.data.message : "Unhandled error occurred!"
             })
         },
+        onSuccess: () => setTimeout(() => setIsLoaded(true), 400),
         onSettled: (data) => {
             if (!data) return router.back();
         },
     });
 
-    if (!data?.length) return <Loader/>;
+    if (!isLoaded) {
+        return (
+            <Main className="min-h-screen-64">
+                {
+                    Array.from({length: 10}, (_, index) => (
+                        <HorizontalSkeleton key={index} />
+                    ))
+                }
+            </Main>
+        )
+    }
 
     return (
         <Meta title={"Products"}>

@@ -18,7 +18,6 @@ interface FavoriteProductProps {
     ownerId: number;
 }
 
-// TODO: Remove the absolute position
 export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) => {
     const {profile} = useProfile();
     const router = useRouter();
@@ -51,7 +50,6 @@ export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) =>
                     <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
                 </div>
             </Link>
-            <StarRating className="mt-2 md:mt-0" rating={rating}/>
 
             {
                 profile?.id === ownerId &&
