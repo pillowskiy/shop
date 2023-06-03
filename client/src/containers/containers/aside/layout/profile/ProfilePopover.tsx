@@ -30,6 +30,7 @@ import {useAppDispatch} from "@redux/store";
 import {logout as logoutAction} from "@redux/user/user.actions";
 import Link from "next/link";
 import {useQueryClient} from "@tanstack/react-query";
+import {useRouter} from "next/router";
 
 interface ProfilePopoverProps {
     profile: User;
@@ -38,10 +39,12 @@ interface ProfilePopoverProps {
 export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
     const dispatch = useAppDispatch();
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     const logout = () => {
         dispatch(logoutAction()).finally(() => {
-            return queryClient.invalidateQueries(['get profile'])
+            queryClient.removeQueries(['get profile']);
+            return router.reload();
         });
     }
 

@@ -7,6 +7,7 @@ export const useProfile = () => {
         return UserService.getProfile();
     }, {
         select: ({data}) => data,
+        refetchOnWindowFocus: true,
         enabled: !!TokenService.getToken()
     });
     return { profile: data };
