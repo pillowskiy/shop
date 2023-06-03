@@ -72,7 +72,7 @@ export const Carousel: FC = () => {
                 {items.map((item, i) => (
                     <SwiperItem key={item.key}>
                         <Image
-                            className="object-cover h-full w-full rounded-lg"
+                            className="object-cover h-full w-full rounded-lg object-cover object-top"
                             src={imageSrc(item.key - 1)}
                             width={1680}
                             height={920}

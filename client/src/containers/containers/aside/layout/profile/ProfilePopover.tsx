@@ -55,7 +55,7 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
                     className="cursor-pointer p-2 rounded-lg text-center w-1/5 md:w-10/12 mt-auto"
                 >
                     <Image
-                        className="w-7 h-7 md:w-12 md:h-12 object-cover m-auto rounded-full"
+                        className="w-7 h-7 md:w-12 md:h-12 object-cover object-top m-auto rounded-full"
                         src={profile.avatarURL}
                         alt={profile.name}
                         width={64}

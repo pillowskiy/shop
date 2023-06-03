@@ -19,7 +19,7 @@ export const CategoryCard: FC<CategoryItemProps> = ({category}) => {
         }>
             <Link className="flex h-[100px]" href={`categories/${category.slug}`}>
                 <Image
-                    className="h-full w-auto object-cover rounded-l-lg"
+                    className="h-full w-auto object-cover object-top rounded-l-lg"
                     src="https://www.ubertheme.com/wp-content/uploads/sites/3/edd/2014/06/jm-category.png"
                     alt="category"
                     width={400}

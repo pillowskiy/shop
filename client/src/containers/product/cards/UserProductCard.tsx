@@ -34,7 +34,7 @@ export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) =>
         >
             <Link className="flex w-9/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
                 <Image
-                    className="float-left rounded-lg md:rounded-l-lg md:rounded-r-none h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer"
+                    className="float-left rounded-lg md:rounded-l-lg md:rounded-r-none h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer object-cover object-top"
                     src={product.images[0]}
                     alt={"product image"}
                     width={128}

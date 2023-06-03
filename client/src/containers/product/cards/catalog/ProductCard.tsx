@@ -20,7 +20,7 @@ export const ProductCard: FC<ProductItemProps> = ({product}) => {
         >
             <Link href={`/products/${product.slug}`}>
                 <Image
-                    className="w-full h-auto aspect-square object-cover rounded-t-lg"
+                    className="w-full h-auto aspect-square object-cover object-top rounded-t-lg"
                     width={360}
                     height={360}
                     loading="lazy"
