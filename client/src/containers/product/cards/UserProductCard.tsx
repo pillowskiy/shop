@@ -27,19 +27,21 @@ export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) =>
         <Card
             className={cn(
                 "relative flex flex-col justify-start md:flex-row md:items-center my-0 mx-auto border mt-4 rounded-lg shadow-sm bg-popover",
-                "hover:shadow-xl hover:bg-muted transition-all duration-200 border h-fit md:h-[100px] p-2 md:p-0", {
+                "hover:shadow-xl hover:bg-muted transition-all duration-200 border h-fit md:h-[98px] p-2 md:p-0", {
                     "opacity-90": !product.quantity,
                 }
             )}
         >
             <Link className="flex w-9/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
-                <Image
-                    className="float-left rounded-lg md:rounded-l-lg md:rounded-r-none h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer object-cover object-top"
-                    src={product.images[0]}
-                    alt={"product image"}
-                    width={128}
-                    height={128}
-                />
+                <div className="h-[96px] w-[96px] flex justify-center bg-white rounded-lg md:rounded-l-lg md:rounded-r-none">
+                    <Image
+                        className="rounded-[inherit] h-full w-auto md:h-full md:w-auto cursor-pointer object-cover object-top"
+                        src={product.images[0]}
+                        alt={"product image"}
+                        width={128}
+                        height={128}
+                    />
+                </div>
                 <div className="w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer max-h-[64px]">
                     <div className="flex">
                         <p className="hover:underline transition-all">
