@@ -70,7 +70,7 @@ export const LoginForm: FC = () => {
                     Forgot your password?
                 </Anchor>
             </FormInput>
-            <Button className="mb-2 w-full" disabled={isLoading} variant="outline">
+            <Button className="mt-8 mb-2 w-full" disabled={isLoading} variant="outline">
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 Submit
             </Button>

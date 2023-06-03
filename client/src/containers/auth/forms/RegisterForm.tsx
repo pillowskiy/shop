@@ -77,14 +77,16 @@ export const RegisterForm: FC = () => {
                 error={errors.password}
                 required
             />
-            <FormCheckbox className="opacity-70 mb-2">
-                Send me emails with information about promotions and interesting offers (optional)
-            </FormCheckbox>
-            <FormCheckbox required>
-                I have read the&nbsp;
-                <Anchor href="#">Conditions of Use</Anchor>&nbsp;and&nbsp;
-                <Anchor href="#">Privacy notice</Anchor>&nbsp;and agree to them.
-            </FormCheckbox>
+            <section className="mt-4">
+                <FormCheckbox className="opacity-70 mb-2">
+                    Send me emails with information about promotions and interesting offers (optional)
+                </FormCheckbox>
+                <FormCheckbox required>
+                    I have read the&nbsp;
+                    <Anchor href="#">Conditions of Use</Anchor>&nbsp;and&nbsp;
+                    <Anchor href="#">Privacy notice</Anchor>&nbsp;and agree to them.
+                </FormCheckbox>
+            </section>
             <Button className="mt-4 mb-2 w-full" disabled={isLoading} variant="outline">
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 Continue
