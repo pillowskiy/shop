@@ -32,7 +32,7 @@ export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, er
                     type="file"
                     className="mt-4 max-w-[180px] md:max-w-[300px] mx-auto cursor-pointer"
                     multiple
-                    accept="image/,.png,.jpg,.jpeg"
+                    accept="image/,.png,.jpg,.jpeg,.webp"
                     onChange={onImagesUpload}
                     disabled={images.length > 10}
                 />

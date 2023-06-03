@@ -6,7 +6,7 @@ import { existsSync } from 'fs';
 import { randomBytes } from 'crypto';
 import { join } from 'path';
 
-const FILE_TYPE_REGEX = /\.(jpe?g|png)$/i;
+const FILE_TYPE_REGEX = /\.(jpe?g|png|webp)$/i;
 const FILE_MAX_SIZE = 1024 * 1024 * 8;
 
 @Injectable()
