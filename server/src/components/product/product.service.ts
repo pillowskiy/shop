@@ -161,19 +161,25 @@ export class ProductService {
     });
 
     await this.uploadService.unlinkFromPaths(
-      product?.images.filter((image) => dto.images.indexOf(image) === -1),
+      product?.images.filter((image) => dto.images.indexOf(image) === -1) || [],
     );
+
+    const disconnectCategories = categoriesData
+      .filter(({ id }) => categories.indexOf(id) === -1)
+      .map(({ id }) => ({ id }));
 
     const updateProductData = {
       ...data,
       slug: slugify(data.name),
       categories: {
         connect: categoriesData.map(({ id }) => ({ id })),
-        disconnect: categoriesData
-          .filter(({ id }) => categories.indexOf(id) === -1)
-          .map(({ id }) => ({ id })),
+        // https://github.com/prisma/prisma-client-js/issues/377
+        disconnect: disconnectCategories.length
+          ? disconnectCategories
+          : undefined,
       },
-      images: [...dto.images, ...imagesURLs],
+      // TEMP: 03.06 17:03
+      images: [...dto.images.filter(Boolean), ...imagesURLs],
     };
 
     return this.prisma.product
@@ -187,8 +193,9 @@ export class ProductService {
         },
         select: productFullestSelect,
       })
-      .catch(() => {
+      .catch((err) => {
         this.uploadService.unlinkFromPaths(imagesURLs);
+        throw err;
       });
   }
 

@@ -89,7 +89,7 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
     if (isLoading) return <Loader/>
 
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 md:pb-0 max-w-[1080px]">
+        <section className="grid md:grid-cols-2 gap-4 mt-4 md:pb-0 max-w-[1080px]">
             {!isEquals(getInitialProductState(product), newProduct) && <UnsavedChangesDialog/>}
             <GeneralCard
                 onConfirm={handleUpload}
@@ -98,7 +98,7 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
                 newProduct={newProduct}
                 productId={product?.id}
             />
-            <section className="grid grid-rows-2 gap-4 row-span-2">
+            <section className="grid grid-rows-[2fr 1fr] gap-4 row-span-2">
                 <ImageUploadCard
                     images={[...newProduct.images, ...images.map(({preview}) => preview)]}
                     errors={{images: errors.images}}

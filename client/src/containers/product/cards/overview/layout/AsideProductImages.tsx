@@ -17,8 +17,8 @@ export const AsideProductImages: FC<AsideProductImagesProps> = ({images}) => {
                 className="w-full h-[300px] sm:w-[520px] sm:h-[420px] md:h-[300px] xl:h-[400px] border rounded-lg object-cover object-top cursor-pointer"
                 src={images[mainImageIndex]}
                 alt={"product image"}
-                width={600}
-                height={600}
+                width={880}
+                height={880}
             />
 
             <section className="flex flex-card gap-4 my-4 max-h-fit overflow-x-auto">

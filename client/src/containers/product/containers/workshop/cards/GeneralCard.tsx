@@ -97,7 +97,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
             />
             <p className="text-xs mt-1">To publish a product, click on the switch above</p>
 
-            <footer className="md:absolute bottom-0 w-full left-0 md:px-4 md:py-2">
+            <footer className="w-full md:py-2">
                 <hr className="my-2"/>
                 <div className="flex flex-col md:flex-row gap-2">
                     <WorkshopSubmitButton isProductExist={!!productId} onConfirm={onConfirm}/>

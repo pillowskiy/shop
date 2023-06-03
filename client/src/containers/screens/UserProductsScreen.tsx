@@ -26,7 +26,7 @@ export const UserProductsScreen: FC<UserProductsScreenProps> = ({userId}) => {
     ], () => {
         return ProductService.getUserProducts(+userId, {
             page: 1,
-            perPage: 10,
+            perPage: 20,
         });
     }, {
         select: ({data}) => data,
