@@ -15,16 +15,16 @@ export const HomeScreen: FC = () => {
         <Meta title="Online Shop">
             <Main>
                 <Carousel/>
-                <GoodsHeading>Categories</GoodsHeading>
+                <GoodsHeading href="/categories">Categories</GoodsHeading>
                 <CategoryCatalog perPage={4} page={1}/>
 
-                <GoodsHeading badge="novelties 🔥">Newest</GoodsHeading>
+                <GoodsHeading href="/" badge="novelties 🔥">Newest</GoodsHeading>
                 <ProductCatalog page={1} perPage={8} sort={ProductSort.HighPrice}/>
 
-                <GoodsHeading>Popular Products</GoodsHeading>
+                <GoodsHeading href="/">Popular Products</GoodsHeading>
                 <ProductCatalog page={1} perPage={8} sort={ProductSort.Popular}/>
 
-                <GoodsHeading>Rated Products</GoodsHeading>
+                <GoodsHeading href="/">Rated Products</GoodsHeading>
                 <ProductCatalog page={1} perPage={8} sort={ProductSort.Rated}/>
             </Main>
         </Meta>
