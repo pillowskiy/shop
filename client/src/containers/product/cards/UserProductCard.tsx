@@ -1,17 +1,13 @@
 import type {FC} from 'react';
 import type {ProductFullest} from "@/types/product.interface";
-import Image from "next/image";
 import {cn} from "@lib/utils";
 import {Card} from "@common/Card";
 import {useRouter} from "next/router";
 import {Button} from "@ui/Button";
 import {Edit} from 'lucide-react';
-import {StarRating} from "@containers/product/layout/StarRating";
-import {useProductRateAvg} from "@hooks/useProductRateAVG";
-import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
 import {useProfile} from "@hooks/useProfile";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
-import Link from "next/link";
+import {ProductHorizontalInfo} from "@containers/product/cards/overview/layout/ProductHorizontalInfo";
 
 interface FavoriteProductProps {
     product: ProductFullest;
@@ -21,7 +17,6 @@ interface FavoriteProductProps {
 export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) => {
     const {profile} = useProfile();
     const router = useRouter();
-    const rating = useProductRateAvg(product.id);
 
     return (
         <Card
@@ -32,26 +27,7 @@ export const UserProductCard: FC<FavoriteProductProps> = ({product, ownerId}) =>
                 }
             )}
         >
-            <Link className="flex w-9/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
-                <div className="h-[96px] w-[96px] flex justify-center bg-white rounded-lg md:rounded-l-lg md:rounded-r-none">
-                    <Image
-                        className="rounded-[inherit] h-full w-auto md:h-full md:w-auto cursor-pointer object-cover object-top"
-                        src={product.images[0]}
-                        alt={"product image"}
-                        width={128}
-                        height={128}
-                    />
-                </div>
-                <div className="w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer max-h-[64px]">
-                    <div className="flex">
-                        <p className="hover:underline transition-all">
-                            {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
-                        </p>
-                        <QuantityBadge quantity={product.quantity}/>
-                    </div>
-                    <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
-                </div>
-            </Link>
+            <ProductHorizontalInfo product={product} />
 
             {
                 profile?.id === ownerId &&

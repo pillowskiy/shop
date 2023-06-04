@@ -1,19 +1,15 @@
 import type {FC} from 'react';
 import type {Product} from "@/types/product.interface";
-import Image from "next/image";
 import {cn} from "@lib/utils";
 import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
 import {Card} from "@common/Card";
-import {useRouter} from "next/router";
 import {CartButton} from "@containers/product/layout/CartButton";
-import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
-import Link from "next/link";
+import {ProductHorizontalInfo} from "@containers/product/cards/overview/layout/ProductHorizontalInfo";
 
 interface FavoriteProductProps {
     product: Product;
 }
 
-// TODO: Remove the absolute position
 export const FavoriteProductCard: FC<FavoriteProductProps> = ({product}) => {
     return (
         <Card
@@ -24,26 +20,8 @@ export const FavoriteProductCard: FC<FavoriteProductProps> = ({product}) => {
                 }
             )}
         >
-            <Link className="flex w-9/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
-                <Image
-                    className="float-left rounded-lg md:rounded-l-lg md:rounded-r-none h-[64px] w-[64px] md:h-full md:w-auto cursor-pointer"
-                    src={product.images[0]}
-                    alt={"product image"}
-                    width={128}
-                    height={128}
-                />
-                <div className="w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer max-h-[64px]">
-                    <div className="flex">
-                        <p className="hover:underline transition-all">
-                            {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
-                        </p>
-                        <QuantityBadge quantity={product.quantity}/>
-                    </div>
-                    <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
-                </div>
-            </Link>
-
-            <CartButton className="ml-auto mt-2 md:mt-0 w-full md:w-fit" product={product}/>
+            <ProductHorizontalInfo product={product} />
+            <CartButton className="ml-auto mt-2 md:mt-0 w-full md:w-fit min-w-[140px]" product={product}/>
             <FavoriteButton className="w-10 h-10 absolute md:relative right-0 mx-4" productId={product.id}/>
         </Card>
     );
