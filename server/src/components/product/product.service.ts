@@ -56,7 +56,11 @@ export class ProductService {
       : {};
 
     const { skip, perPage } = this.pagination.getPagination(dto);
-    const whereInput = { ...prismaTermSort, ...where };
+    const whereInput: Prisma.ProductWhereInput = {
+      ...prismaTermSort,
+      ...where,
+      quantity: { gt: 0 },
+    };
 
     const products = await this.prisma.product.findMany({
       where: whereInput,
