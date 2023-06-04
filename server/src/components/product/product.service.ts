@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -168,6 +169,17 @@ export class ProductService {
       .filter(({ id }) => categories.indexOf(id) === -1)
       .map(({ id }) => ({ id }));
 
+    // TEMP: 03.06 17:03
+    const images = [...dto.images.filter(Boolean), ...imagesURLs];
+
+    if (!images.length) {
+      throw new BadRequestException({
+        errors: {
+          images: 'No images have been validated',
+        },
+      });
+    }
+
     const updateProductData = {
       ...data,
       slug: slugify(data.name),
@@ -178,8 +190,7 @@ export class ProductService {
           ? disconnectCategories
           : undefined,
       },
-      // TEMP: 03.06 17:03
-      images: [...dto.images.filter(Boolean), ...imagesURLs],
+      images,
     };
 
     return this.prisma.product
