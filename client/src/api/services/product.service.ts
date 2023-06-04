@@ -36,7 +36,7 @@ export default class ProductService {
     return $api.get<Product[]>(`${this.controller}/category/${slug}`);
   }
 
-  static async getSimilar(productId: number): Promise<AxiosResponse<Product[]>> {
+  static async getSimilar(productId: number): Promise<AxiosResponse<ProductFullest[]>> {
     return $api.get<Product[]>(`${this.controller}/similar/${productId}`);
   }
 

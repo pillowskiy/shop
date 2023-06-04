@@ -14,6 +14,7 @@ import {Loader} from "@containers/Loader";
 
 import {OverviewProductCard} from "@containers/product";
 import {ProductReviewCard} from "@containers/review";
+import {SimilarProducts} from "@containers/product/cards/SimilarProducts";
 
 interface ProductScreenProps {
     slug: string;
@@ -51,6 +52,7 @@ export const ProductScreen: FC<ProductScreenProps> = ({slug}) => {
             <Main className="flex flex-col relative items-center min-h-screen-64 h-auto">
                 <OverviewProductCard product={product}/>
                 <ProductReviewCard productId={product.id}/>
+                <SimilarProducts productId={product.id} />
             </Main>
         </Meta>
     );
