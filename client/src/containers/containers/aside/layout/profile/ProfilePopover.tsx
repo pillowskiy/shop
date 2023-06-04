@@ -68,12 +68,12 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
                 <DropdownMenuLabel>{profile.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        <Link className="flex items-center" href={`/users/${profile.id}`}>
+                    <Link className="w-full" href={`/users/${profile.id}`}>
+                        <DropdownMenuItem>
                             <UserIcon className="mr-2 h-4 w-4"/>
                             <span>Your Profile</span>
-                        </Link>
-                    </DropdownMenuItem>
+                        </DropdownMenuItem>
+                    </Link>
                     <DropdownMenuItem>
                         <List className="mr-2 h-4 w-4"/>
                         <span>Your Orders</span>
@@ -109,18 +109,18 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
 
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        <Link className="flex items-center" href={'/products/workshop/@me'}>
+                    <Link className="w-full" href={'/products/workshop/@me'}>
+                        <DropdownMenuItem>
                             <Plus className="mr-2 h-4 w-4"/>
                             <span>Create Product</span>
-                        </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <Link className="flex items-center" href={`/products/users/${profile.id}`}>
+                        </DropdownMenuItem>
+                    </Link>
+                    <Link className="w-full" href={`/products/users/${profile.id}`}>
+                        <DropdownMenuItem>
                             <Package className="mr-2 h-4 w-4"/>
                             <span>Your Products</span>
-                        </Link>
-                    </DropdownMenuItem>
+                        </DropdownMenuItem>
+                    </Link>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
                 <DropdownMenuItem onClick={logout}>
