@@ -32,7 +32,7 @@ export default class ProductService {
     return $api.get<ProductFullest>(`${this.controller}/${type}/${value}`);
   }
 
-  static async getByCategorySlug(slug: string): Promise<AxiosResponse<Product[]>> {
+  static async getByCategorySlug(slug: string): Promise<AxiosResponse<ProductFullest[]>> {
     return $api.get<Product[]>(`${this.controller}/category/${slug}`);
   }
 
