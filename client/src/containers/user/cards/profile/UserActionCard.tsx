@@ -17,7 +17,7 @@ export const UserActionCard: FC<UserActionCardProps> = ({user}) => {
     return (
         <Card className="h-fit p-4 flex flex-col items-center gap-4 bg-popover">
             <Avatar className="w-full h-auto max-w-[220px] rounded-lg border">
-                <AvatarImage src={user.avatarURL} width={360} height={360}/>
+                <AvatarImage className="object-cover object-top" src={user.avatarURL} width={360} height={360}/>
                 <AvatarFallback>
                     <Skeleton />
                 </AvatarFallback>

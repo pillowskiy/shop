@@ -61,7 +61,7 @@ export const Carousel: FC = () => {
     useEffect(() => {
         setTimeout(() => {
             const newItems = [...items];
-            newItems.push(newItems.shift()!);
+            newItems.push(newItems.shift());
             setItems(newItems);
         }, 2000);
     }, [items]);
@@ -72,7 +72,7 @@ export const Carousel: FC = () => {
                 {items.map((item, i) => (
                     <SwiperItem key={item.key}>
                         <Image
-                            className="object-cover h-full w-full rounded-lg object-cover object-top"
+                            className="object-cover object-left h-full w-full rounded-lg object-cover object-top"
                             src={imageSrc(item.key - 1)}
                             width={1680}
                             height={920}
