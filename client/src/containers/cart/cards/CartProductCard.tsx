@@ -21,22 +21,24 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
     const {debounce} = useDebounce(quantity, 1000);
     const dispatch = useAppDispatch();
 
-    if (debounce === quantity) {
-        dispatch(updateCart({ ...product, count: quantity }));
-    }
+    useEffect(() => {
+        if (debounce === quantity) {
+            dispatch(updateCart({ ...product, count: quantity }));
+        }
+    }, [debounce]);
 
     return (
         <Card className="p-2 h-fit w-full mb-4">
             <section className="relative w-full">
                 <Link href={`/products/${product.slug}`} className="flex">
                     <Image
-                        className="w-[96px] h-[96px] rounded-lg"
+                        className="w-[96px] h-[96px] rounded-lg object-cover object-top"
                         src={product.images[0]}
                         alt="Product image"
                         width={256}
                         height={256}
                     />
-                    <div className="w-7/12 ml-4 left-[64px] cursor-pointer max-h-[64px]">
+                    <div className="w-7/12 ml-4 cursor-pointer max-h-[64px]">
                         <div className="flex">
                             <p className="hover:underline transition-all">
                                 {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}

@@ -5,6 +5,8 @@ export const useCart = () => {
     const totalCost = items.reduce((acc, {price, count}) => {
         return (price * count) + acc
     }, 0);
-
-    return { items, totalCost };
+    const totalItems = items.reduce((acc, {count}) => {
+        return acc + count;
+    }, 0);
+    return { items, totalCost, totalItems };
 }

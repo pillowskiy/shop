@@ -7,7 +7,7 @@ import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import {useCart} from "@hooks/useCart";
 
 export const Aside: FC = () => {
-    const {items} = useCart();
+    const {totalItems} = useCart();
 
     return (
         <aside
@@ -24,11 +24,11 @@ export const Aside: FC = () => {
                             className={cn(
                                 "absolute text-xs rounded-full h-fit w-fit bg-destructive",
                                 "right-[8px] top-[2px] px-1.5 py-0.5 text-white hidden md:block", {
-                                    "md:hidden": items.length < 1
+                                    "md:hidden": totalItems < 1
                                 }
                             )}
                         >
-                            {items.length}
+                            {totalItems}
                         </p>
                     </SideBar.Item>
                 </CartDialog>

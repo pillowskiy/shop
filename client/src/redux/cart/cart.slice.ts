@@ -22,7 +22,7 @@ export const cartSlice = createSlice({
         updateCart: (state, action) => {
             const itemId = action.payload.id;
             const index = current(state.items).findIndex(item => item.id === itemId);
-            if (index > 0) {
+            if (index >= 0) {
                 state.items[index] = action.payload;
             }
         }
