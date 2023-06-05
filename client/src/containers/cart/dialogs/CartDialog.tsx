@@ -5,6 +5,7 @@ import {CartProductCard} from "@containers/cart/cards/CartProductCard";
 import {EmptyItems} from "@containers/EmptyItems";
 import {Button} from "@ui/Button";
 import {DialogClose} from "@radix-ui/react-dialog";
+import Link from "next/link";
 
 export const CartDialog: FC<PropsWithChildren> = ({children}) => {
     const {items, totalCost} = useCart();
@@ -36,7 +37,9 @@ export const CartDialog: FC<PropsWithChildren> = ({children}) => {
                         <h2 className="font-medium text-xl">
                             {totalCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
                         </h2>
-                        <Button>Place an order</Button>
+                        <Link href="checkout">
+                            <Button>Place an order</Button>
+                        </Link>
                     </div>
                 </DialogFooter>
             </DialogContent>
