@@ -9,11 +9,13 @@ import {GoodsHeading} from "@components/GoodsHeading";
 
 import {CategoryCatalog} from "./layout/CategoryCatalog";
 import {ProductCatalog} from "./layout/ProductCatalog";
+import {CartNotificationCard} from "@containers/cart/cards/CartNotificationCard";
 
 export const HomeScreen: FC = () => {
     return (
         <Meta title="Online Shop">
             <Main>
+                <CartNotificationCard />
                 <Carousel/>
                 <GoodsHeading href="/categories">Categories</GoodsHeading>
                 <CategoryCatalog perPage={4} page={1}/>
