@@ -20,14 +20,14 @@ export const ProductHorizontalInfo: FC<ProductHorizontalInfoProps> = ({product})
                     height={128}
                 />
             </div>
-            <div className="w-7/12 ml-4 absolute left-[64px] md:static cursor-pointer max-h-[64px]">
+            <div className="md:w-8/12 ml-4 absolute left-[96px] md:static cursor-pointer max-h-[64px]">
                 <div className="flex">
                     <p className="hover:underline transition-all">
                         {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
                     </p>
                     <QuantityBadge quantity={product.quantity}/>
                 </div>
-                <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
+                <p className="text-xs hidden md:block">{product.description?.slice(0, 48).concat("..")}</p>
             </div>
         </Link>
     );

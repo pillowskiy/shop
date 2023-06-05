@@ -15,7 +15,9 @@ export const CartDialog: FC<PropsWithChildren> = ({children}) => {
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
-            <DialogContent className="w-screen h-screen md:h-fit md:h-4/5 md:w-[1080px] md:max-h-3/5 flex flex-col items-start">
+            <DialogContent
+                className="w-screen h-screen md:h-fit md:h-4/5 md:w-[1080px] md:max-h-3/5 flex flex-col items-start"
+            >
                 <DialogTitle className="text-2xl">Cart ({items.length})</DialogTitle>
                 <section className="w-full h-full overflow-y-auto">
                     {
@@ -37,9 +39,11 @@ export const CartDialog: FC<PropsWithChildren> = ({children}) => {
                         <h2 className="font-medium text-xl">
                             {totalCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
                         </h2>
-                        <Link href="checkout">
-                            <Button>Place an order</Button>
-                        </Link>
+                        <DialogClose asChild>
+                            <Link href="/checkout">
+                                <Button>Place an order</Button>
+                            </Link>
+                        </DialogClose>
                     </div>
                 </DialogFooter>
             </DialogContent>
