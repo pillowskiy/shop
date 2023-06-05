@@ -56,7 +56,7 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
                     <Trash className="w-6 h-6"/>
                 </Button>
             </section>
-            <section className="-mt-4 flex justify-between items-end">
+            <section className="-mt-2 flex justify-between items-end">
                 <NumberFormInput
                     type="number"
                     className="w-[96px]"

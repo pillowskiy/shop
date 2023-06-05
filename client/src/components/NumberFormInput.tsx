@@ -7,7 +7,7 @@ interface NumberFormInput extends FormInputProps {
     setValue: (step: number) => void;
     value: number;
     step: number;
-    label: string;
+    label?: string;
 }
 
 export const NumberFormInput: FC<NumberFormInput> = ({className, step, value, setValue, ...props}) => {

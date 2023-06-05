@@ -5,7 +5,6 @@ import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 import {useState} from "react";
 import {Loader} from "@containers/Loader";
-import {cn} from "@lib/utils";
 import {UserActionCard} from "@containers/user/cards/profile/UserActionCard";
 import {UserInfoCard} from "@containers/user/cards/profile/UserInfoCard";
 import {UserTabsBreadcrumbCard} from "@containers/user/cards/profile/UserTabsBreadcrumbCard";
@@ -37,7 +36,7 @@ export const ProfileScreen: FC<ProfileScreenProps> = ({userId}) => {
                     <section className="w-full sm:w-4/12 lg:w-3/12">
                         <UserActionCard user={user}/>
                     </section>
-                    <section className="w-full sm:w-8/12 lg:w-9/12 flex-2">
+                    <section className="w-full sm:w-8/12 lg:w-9/12">
                         <UserInfoCard user={user} />
                         <UserTabsBreadcrumbCard />
                         <UserCommentCard />
