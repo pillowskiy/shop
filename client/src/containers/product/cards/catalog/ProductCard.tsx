@@ -5,6 +5,7 @@ import {FavoriteButton} from "../../layout/FavoriteButton";
 import Image from "next/image";
 import {cn} from "@lib/utils";;
 import Link from "next/link";
+import {priceFormat} from "@lib/formatter";
 
 interface ProductItemProps {
     product: ProductFullest;
@@ -38,7 +39,7 @@ export const ProductCard: FC<ProductItemProps> = ({product}) => {
                     </p>
                 </Link>
                 <section className="flex items-center">
-                    <p className="text-lg font-semibold text-black cursor-auto py-1">{product.price}$</p>
+                    <p className="text-lg font-semibold text-black cursor-auto py-1">{priceFormat(product.price)}</p>
                     <del>
                         <p className="text-sm text-gray-600 cursor-auto ml-2">$199</p>
                     </del>

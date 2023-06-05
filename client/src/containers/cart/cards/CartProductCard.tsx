@@ -11,6 +11,7 @@ import {Button} from "@ui/Button";
 import {useAppDispatch} from "@redux/store";
 import {removeFromCart, updateCart} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
+import {priceFormat} from "@lib/formatter";
 
 interface CartProductCardProps {
     product: CartItem;
@@ -68,7 +69,7 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
                     min={1}
                 />
                 <div className="p-2 h-10 flex gap-2 items-center select-none">
-                    <h2 className="font-bold text-2xl">{product.price}$</h2>
+                    <h2 className="font-bold text-2xl">{priceFormat(product.price)}</h2>
                     <del className="text-sm text-destructive">300$</del>
                 </div>
             </section>

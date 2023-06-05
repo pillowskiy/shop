@@ -2,6 +2,7 @@ import type {FC} from 'react';
 import type {ProductFullest} from "@/types/product.interface";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
 import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
+import {priceFormat} from "@lib/formatter";
 
 interface ProductInfoContainerProps {
     product: ProductFullest;
@@ -16,7 +17,7 @@ export const ProductFullestInfo: FC<ProductInfoContainerProps> = ({product}) => 
             </h2>
 
             <span className="text-3xl md:text-5xl font-bold">999$</span>
-            <del className="ml-4 text-1xl md:text-2xl font-medium text-muted">{product.price}$</del>
+            <del className="ml-4 text-1xl md:text-2xl font-medium text-muted">{priceFormat(product.price)}</del>
 
             <Accordion type="single" collapsible className="w-full md:hidden">
                 <AccordionItem value="description">
