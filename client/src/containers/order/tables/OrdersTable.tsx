@@ -4,11 +4,11 @@ import {
     Table,
     TableBody,
     TableCaption,
-    TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@common/Table"
+import {OrderItemRow} from "@containers/order/tables/layout/OrderItemRow";
 
 interface OrdersTableProps {
     orders: Order[];
@@ -22,16 +22,13 @@ export const OrdersTable: FC<OrdersTableProps> = ({orders}) => {
                 <TableRow>
                     <TableHead className="w-[100px]">Invoice</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Price</TableHead>
                     <TableHead>Items Count</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
                 {orders.map((order) => (
-                    <TableRow key={order.id}>
-                        <TableCell className="font-medium">{order.id}</TableCell>
-                        <TableCell>{order.status}</TableCell>
-                        <TableCell>{order.items.length}</TableCell>
-                    </TableRow>
+                    <OrderItemRow key={order.id} order={order} />
                 ))}
             </TableBody>
         </Table>

@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Prisma } from '@prisma/client';
@@ -41,5 +45,23 @@ export class OrderService {
     });
 
     return order;
+  }
+
+  public async getItems(orderId: number, userId: number) {
+    const order = await this.prisma.order.findUnique({
+      where: { id: orderId },
+    });
+
+    if (!order) {
+      throw new NotFoundException(`No products found to order #${orderId}`);
+    }
+
+    if (order.userId !== userId) {
+      throw new ForbiddenException("You cannot view other people's orders");
+    }
+
+    return this.prisma.orderItem.findMany({
+      where: { orderId },
+    });
   }
 }

@@ -25,7 +25,7 @@ export const OrdersScreen: FC = () => {
     return (
         <Meta title="Orders">
             <AuthProvider forAuth={true}>
-                <Main className="flex relative items-center justify-center min-h-screen-64">
+                <Main className="flex relative items-start justify-center min-h-screen-64">
                     {
                         !orders?.length ?
                             <EmptyItems>There are not orders yet.</EmptyItems> :

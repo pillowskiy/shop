@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, HttpStatus, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  HttpCode,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import {
@@ -20,7 +28,7 @@ export class OrderController {
   @ApiParam(order.getByUserId.param)
   @ApiOkResponse(order.getByUserId.response)
   @Auth()
-  @HttpStatus(200)
+  @HttpCode(200)
   @Get()
   public async getUserOrders(@User('id') userId: number) {
     return this.orderService.getUserOrders(userId);
@@ -30,5 +38,15 @@ export class OrderController {
   @Post()
   public createOrder(@Body() dto: CreateOrderDto, @User('id') userId: number) {
     return this.orderService.create(dto, userId);
+  }
+
+  @Auth()
+  @HttpCode(200)
+  @Get('/items/:orderId')
+  public get(
+    @Param('orderId', ParseIntPipe) orderId: number,
+    @User('id') userId: number,
+  ) {
+    return this.orderService.getItems(orderId, userId);
   }
 }
