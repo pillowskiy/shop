@@ -29,7 +29,7 @@ export const OrderProductsCard: FC = () => {
                             key={item.id}
                             className={cn(
                                 "bg-white hover:bg-muted hover:shadow-lg transition-all min-w-[260px] w-full",
-                                "relative flex flex-col lg:flex-row lg:justify-between lg:items-center shadow-md"
+                                "relative flex flex-col lg:flex-row lg:justify-between lg:items-center shadow-md p-2 lg:p-0"
                             )}
                         >
                             <ProductHorizontalInfo product={item}/>

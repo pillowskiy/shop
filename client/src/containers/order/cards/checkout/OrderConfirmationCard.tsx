@@ -12,21 +12,24 @@ import Link from "next/link";
 import {isAxiosError} from "axios";
 import {useAppDispatch} from "@redux/store";
 import {clearCart} from "@redux/cart/cart.slice";
+import {useRouter} from "next/router";
 
 export const OrderConfirmationCard: FC = () => {
     const {totalItems, totalCost, items} = useCart();
     const {toast} = useToast();
-    const {dispatch} = useAppDispatch();
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const {mutate} = useMutation(['create order'], () => {
         return OrderService.createOrder({
             items: items.map(({id, count}) => ({productId: id, quantity: count}))
         });
     }, {
-        onSuccess: () => {
+        onSuccess: async () => {
+            await router.push('/');
             toast({
                 title: "✅ Order",
-                description: "You successfully placed order",
+                description: "You have successfully placed an order",
                 action: (
                     <Link href="/orders">
                         <ToastAction altText="Go to orders">Go to orders</ToastAction>
