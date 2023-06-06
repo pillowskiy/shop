@@ -3,8 +3,11 @@ import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 
 import {Checkout} from "./";
+import {PromoCode} from "@types/promo-code.interface";
+import {useState} from "react";
 
 export const CheckoutScreen: FC = () => {
+    const [promo, setPromo] = useState<PromoCode | null>(null);
     return (
         <Meta title="Checkout">
             <Main className="min-h-screen-64 h-auto flex justify-center">
@@ -18,7 +21,7 @@ export const CheckoutScreen: FC = () => {
                         <Checkout.OrderDetailsCard />
                     </section>
                     <section className="w-full sm:w-4/12 lg:w-3/12 h-fit sm:sticky top-[72px]">
-                        <Checkout.OrderPromoCodeCard />
+                        <Checkout.OrderPromoCodeCard promo={promo} setPromo={setPromo}/>
                         <Checkout.OrderConfirmationCard />
                     </section>
                 </section>
