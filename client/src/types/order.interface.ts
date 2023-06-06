@@ -1,5 +1,5 @@
-import { CartItem } from './cart.interface';
-import { User } from './user.interface';
+import type { CartItem } from './cart.interface';
+import type { User } from './user.interface';
 
 export enum OrderStatus {
   PENDING = 'PENDING',
@@ -14,4 +14,13 @@ export interface Order {
   status: OrderStatus;
   user: User;
   items: CartItem[];
+}
+
+export interface CreateOrder {
+  items: OrderItem[]
+}
+
+export interface OrderItem {
+  productId: number;
+  quantity: number;
 }

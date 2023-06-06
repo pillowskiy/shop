@@ -1,6 +1,6 @@
 import type {CartInitialState} from "@/types";
 import {createSlice, current} from "@reduxjs/toolkit";
-import {getFromLocalStorage} from "@lib/utils";
+import {getFromLocalStorage, setLocalStorage} from "@lib/utils";
 
 // TEMP: use only the product ID
 const initialState: CartInitialState = {
@@ -25,8 +25,11 @@ export const cartSlice = createSlice({
             if (index >= 0) {
                 state.items[index] = action.payload;
             }
+        },
+        clearCart: (state) => {
+            state.items = [];
         }
     },
 });
 
-export const { addToCart, removeFromCart, updateCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateCart, clearCart } = cartSlice.actions;

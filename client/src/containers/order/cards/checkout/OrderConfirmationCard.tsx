@@ -3,9 +3,47 @@ import {Card} from "@common/Card";
 import {Button} from "@ui/Button";
 import {Anchor} from "@ui/Anchor";
 import {useCart} from "@hooks/useCart";
+import {priceFormat} from "@lib/formatter";
+import {useMutation} from "@tanstack/react-query";
+import OrderService from "@api/services/order.service";
+import {useToast} from "@common/toast/useToast";
+import {ToastAction} from "@common/toast/Toast";
+import Link from "next/link";
+import {isAxiosError} from "axios";
+import {useAppDispatch} from "@redux/store";
+import {clearCart} from "@redux/cart/cart.slice";
 
 export const OrderConfirmationCard: FC = () => {
-    const {totalItems, totalCost} = useCart();
+    const {totalItems, totalCost, items} = useCart();
+    const {toast} = useToast();
+    const {dispatch} = useAppDispatch();
+
+    const {mutate} = useMutation(['create order'], () => {
+        return OrderService.createOrder({
+            items: items.map(({id, count}) => ({productId: id, quantity: count}))
+        });
+    }, {
+        onSuccess: () => {
+            toast({
+                title: "✅ Order",
+                description: "You successfully placed order",
+                action: (
+                    <Link href="/orders">
+                        <ToastAction altText="Go to orders">Go to orders</ToastAction>
+                    </Link>
+                )
+            });
+            dispatch(clearCart())
+        },
+        onError: (err) => {
+            if (isAxiosError(err) && !err.response?.data.errors) {
+                toast({
+                    variant: "destructive",
+                    description: `❌ ${err.response?.data.message || "Unhandled error occurred!"}`
+                });
+            }
+        }
+    })
 
     return (
         <Card className="bg-popover p-4 mt-4">
@@ -13,7 +51,7 @@ export const OrderConfirmationCard: FC = () => {
             <hr className="my-2"/>
             <div className="flex justify-between text-xs">
                 <p className="font-medium">{totalItems} products worth:</p>
-                <p className="ml-50 text-primary opacity-90">{totalCost}$</p>
+                <p className="ml-50 text-primary opacity-90">{priceFormat(totalCost)}</p>
             </div>
             <div className="flex justify-between text-xs mt-2">
                 <p className="font-medium">Delivery cost:</p>
@@ -22,11 +60,11 @@ export const OrderConfirmationCard: FC = () => {
             <hr className="my-2"/>
             <div className="flex justify-between items-center">
                 <p className="font-medium">To be paid</p>
-                <h2 className="text-2xl">{totalCost}$</h2>
+                <h2 className="text-2xl">{priceFormat(totalCost)}</h2>
             </div>
             <hr className="my-2"/>
             <footer>
-                <Button className="w-full">Confirm the order</Button>
+                <Button className="w-full" onClick={mutate}>Confirm the order</Button>
 
                 <section className="mt-2 text-xs">
                     <p className="font-medium mb-1">
