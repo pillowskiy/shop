@@ -10,6 +10,7 @@ import { PaginationModule } from './components/pagination/pagination.module';
 import { OrderModule } from './components/order/order.module';
 import { ProductModule } from './components/product/product.module';
 import { UploadModule } from './components/upload/upload.module';
+import { PromoCodeModule } from './components/promo-code/promo-code.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { UploadModule } from './components/upload/upload.module';
     OrderModule,
     ProductModule,
     UploadModule,
+    PromoCodeModule,
   ],
   providers: [PrismaService],
 })

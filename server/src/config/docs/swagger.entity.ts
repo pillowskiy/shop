@@ -57,7 +57,7 @@ export const review: SwaggerSchema<Review> = {
 export const order: SwaggerSchema<Order> = {
   id: 1,
   status: OrderStatus.PENDING,
-
+  promoCodeId: 1,
   createdAt: new Date(),
 };
 

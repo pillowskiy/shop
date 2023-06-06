@@ -26,6 +26,8 @@ model User {
   orders         Order[]
   favorites      Product[]
   helpfulReviews Review[]
+
+  promoCodes PromoCode[] @relation("owner")
 }
 
 enum Role {
@@ -33,6 +35,23 @@ enum Role {
   Helper
   Admin
   Owner
+}
+
+model PromoCode {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  ownerId Int?  @map("owner_id")
+  owner   User? @relation("owner", fields: [ownerId], references: [id])
+
+  name String @unique
+
+  expiresAt       DateTime @map("expires_at")
+  activationLimit Int      @default(30) @map("activation_limit")
+
+  discountPercent Int     @default(5) @map("discount_percent")
+  orders          Order[]
 }
 
 model Product {
@@ -94,6 +113,9 @@ model Order {
 
   userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id])
+
+  promoCodeId Int?       @map("promo_code_id")
+  promoCode   PromoCode? @relation(fields: [promoCodeId], references: [id])
 
   items OrderItem[]
 }
