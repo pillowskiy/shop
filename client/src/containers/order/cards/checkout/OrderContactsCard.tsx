@@ -1,6 +1,7 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
-import {ChevronRight, MapPin} from "lucide-react";
+import {MapPin} from "lucide-react";
+import {Button} from "@ui/Button";
 
 export const OrderContactsCard: FC = () => {
     return (
@@ -11,7 +12,7 @@ export const OrderContactsCard: FC = () => {
                 <p className="text-xs opacity-90">Your city:</p>
                 <p className="font-medium">Bunbulandia</p>
             </div>
-            <ChevronRight className="ml-auto w-6 h-6 opacity-90"/>
+            <Button className="ml-auto opacity-90" variant="link">Is not?</Button>
         </Card>
     );
 };
