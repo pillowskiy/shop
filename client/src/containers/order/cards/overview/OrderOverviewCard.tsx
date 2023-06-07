@@ -1,6 +1,5 @@
 import type {FC} from 'react';
 import type {Order} from "@/types/order.interface";
-import {Card} from "@common/Card";
 import {useQuery} from "@tanstack/react-query";
 import OrderService from "@api/services/order.service";
 import {priceFormat} from "@lib/formatter";
@@ -36,7 +35,7 @@ export const OrderOverviewCard: FC<OrderOverviewCardProps> = ({order, defaultOpe
     const price = (orderItems || []).reduce((prev, cur) => prev + cur.price, 0);
 
     return (
-        <main className="bg-popover p-4 mt-4 rounded-lg">
+        <main className="bg-popover p-4 mt-4 rounded-lg border shadow-sm">
             <section
                 className="flex items-center justify-between z-[10] cursor-pointer"
                 onClick={() => setIsOpen(prev => !prev)}

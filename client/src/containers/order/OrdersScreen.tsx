@@ -12,6 +12,7 @@ import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 
 import {OrderOverviewCard} from "@containers/order/cards/overview/OrderOverviewCard";
+import {OrderBreadcrumbCard} from "@containers/order/cards/overview/OrderBreadcrumbCard";
 
 export const OrdersScreen: FC = () => {
     const {user} = useAuth();
@@ -26,6 +27,7 @@ export const OrdersScreen: FC = () => {
         <Meta title="Orders">
             <AuthProvider forAuth={true}>
                 <Main className="min-h-screen-64">
+                    { orders && <OrderBreadcrumbCard /> }
                     {
                         !orders?.length ?
                             <EmptyItems>There are not orders yet.</EmptyItems> :

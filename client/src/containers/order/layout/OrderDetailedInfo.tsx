@@ -27,7 +27,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                 <hr className="my-2"/>
 
                 {/*     TEMP    */}
-                <article className="py-1.5 border-b">
+                <article className="py-2 border-b">
                     <div className="flex items-center">
                         <Package className="w-5 h-5 mr-1 text-primary opacity-90"/>
                         <p>Courier to your address</p>
@@ -53,12 +53,10 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                 </div>
             </section>
             <section className="w-full md:w-8/12 px-2">
-                <h2 className="font-medium text-xl select-none">Items ({items.length})</h2>
-                <hr className="my-2"/>
 
                 <Accordion type="single" collapsible>
                     <AccordionItem className="mb-4" value="description">
-                        <AccordionTrigger>Show items</AccordionTrigger>
+                        <AccordionTrigger className="font-medium text-xl select-none p-0 pb-2">Items</AccordionTrigger>
                         <AccordionContent className="max-h-[300px] overflow-y-auto rounded-lg p-4 pb-0 my-4 border">
                             {
                                 items.map(item => (
