@@ -21,6 +21,10 @@ export const OrderDeliveryCard: FC = () => {
                     <RadioGroupItem value="office_b"/>
                     <Label className="text-lg font-normal">Pickup from the post office B</Label>
                 </div>
+
+                <span className="mt-2 bg-white shadow-sm border border-warning p-2 rounded-lg text-center hidden sm:block">
+                    Delivery methods may vary depending on the payment method
+                </span>
             </RadioGroup>
         </Card>
     );

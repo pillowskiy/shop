@@ -36,6 +36,10 @@ export const OrderPaymentCard: FC = () => {
                     <RadioGroupItem value="office_b"/>
                     <Label className="text-lg font-normal">Another one method</Label>
                 </div>
+
+                <span className="mt-2 bg-white shadow-sm border border-warning p-2 rounded-lg text-center hidden sm:block">
+                    Payment methods may vary depending on the delivery method
+                </span>
             </RadioGroup>
         </Card>
     );
