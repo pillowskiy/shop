@@ -29,8 +29,8 @@ export const OrdersScreen: FC = () => {
                     {
                         !orders?.length ?
                             <EmptyItems>There are not orders yet.</EmptyItems> :
-                            orders.map((order) => (
-                                <OrderOverviewCard key={order.id} order={order} />
+                            orders.map((order, index) => (
+                                <OrderOverviewCard key={order.id} order={order} defaultOpen={!index}/>
                             ))
                     }
                 </Main>
