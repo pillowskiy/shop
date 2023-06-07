@@ -87,11 +87,22 @@ module.exports = {
           "70%": { transform: "translateY(30px) skewY(0deg) scaleY(.9);" },
           "100%": { transform:"translateY(0px) skewY(0deg) scaleY(1);" }
         },
+        "randomly-x": {
+          "100%": { transform: "translateX(calc(100% - 16px));" }
+        },
+        "randomly-y": {
+          "100%": { transform: "translateY(calc(100% - 16px));" }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "card-in": "card-in .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;",
+        "randomly-x": "randomly-x 2.6s linear infinite alternate",
+        "randomly-y": "randomly-y .8s linear infinite alternate",
+      },
+      fontFamily: {
+        consolas: ['Consolas', 'monospace']
       },
     },
   },
