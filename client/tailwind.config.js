@@ -93,6 +93,10 @@ module.exports = {
         "randomly-y": {
           "100%": { transform: "translateY(calc(100% - 16px));" }
         },
+        "180-rotate": {
+          from: { transform: "rotate(180deg)" },
+          to: { transform: "rotate(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -100,6 +104,7 @@ module.exports = {
         "card-in": "card-in .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;",
         "randomly-x": "randomly-x 2.6s linear infinite alternate",
         "randomly-y": "randomly-y .8s linear infinite alternate",
+        "180-rotate": "180-rotate .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;"
       },
       fontFamily: {
         consolas: ['Consolas', 'monospace']

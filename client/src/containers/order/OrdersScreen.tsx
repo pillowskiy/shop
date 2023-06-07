@@ -11,7 +11,7 @@ import {EmptyItems} from "@containers/EmptyItems";
 import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 
-import {OrdersTable} from "@containers/order/tables/OrdersTable";
+import {OrderOverviewCard} from "@containers/order/cards/overview/OrderOverviewCard";
 
 export const OrdersScreen: FC = () => {
     const {user} = useAuth();
@@ -25,11 +25,13 @@ export const OrdersScreen: FC = () => {
     return (
         <Meta title="Orders">
             <AuthProvider forAuth={true}>
-                <Main className="flex relative items-start justify-center min-h-screen-64">
+                <Main className="min-h-screen-64">
                     {
                         !orders?.length ?
                             <EmptyItems>There are not orders yet.</EmptyItems> :
-                            <OrdersTable orders={orders}/>
+                            orders.map((order) => (
+                                <OrderOverviewCard key={order.id} order={order} />
+                            ))
                     }
                 </Main>
             </AuthProvider>

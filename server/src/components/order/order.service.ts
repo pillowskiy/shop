@@ -6,6 +6,7 @@ import {
 import { PrismaService } from 'src/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Prisma } from '@prisma/client';
+import { orderItemSelect } from './prisma.partials';
 
 @Injectable()
 export class OrderService {
@@ -62,6 +63,7 @@ export class OrderService {
 
     return this.prisma.orderItem.findMany({
       where: { orderId },
+      select: orderItemSelect,
     });
   }
 }
