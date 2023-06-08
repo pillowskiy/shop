@@ -4,7 +4,6 @@ import {Card} from "@common/Card";
 import {Package} from "lucide-react";
 import Link from "next/link";
 import {StatisticBreadcrumb} from "@containers/user/layout/StatisticBreadcrumb";
-import {Button} from "@ui/Button";
 
 interface UserInfoCardProps {
     user: User;
@@ -12,14 +11,14 @@ interface UserInfoCardProps {
 
 export const UserInfoCard: FC<UserInfoCardProps> = ({user}) => {
     return (
-        <Card className="h-fit p-4 gap-4 bg-popover">
+        <Card className="h-fit p-4 gap-4 bg-popover mt-4 sm:mt-0">
             <div className="pb-2 border-b">
                 <h2 className="font-bold text-xl">{user.name}</h2>
             </div>
             <section className="mt-2 sm:w-[280px]">
                 <div className="flex justify-between">
                     <p className="font-medium">Registration:</p>
-                    <p className="ml-50">{new Date().toLocaleDateString()}</p>
+                    <p className="ml-50">{new Date(user.createdAt).toLocaleDateString()}</p>
                 </div>
             </section>
             <section className="py-2 border-y mt-2">

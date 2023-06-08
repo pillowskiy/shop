@@ -23,6 +23,11 @@ export const UserActionCard: FC<UserActionCardProps> = ({user}) => {
                     <Skeleton />
                 </AvatarFallback>
             </Avatar>
+
+            <div className="w-full px-1 py-2 h-10 bg-muted shadow-sm rounded-lg uppercase font-bold text-center select-none">
+                {user.roles.at(-1)}
+            </div>
+
             {
                 user.id === profile?.id ? (
                     <Button className="w-full">Edit profile</Button>

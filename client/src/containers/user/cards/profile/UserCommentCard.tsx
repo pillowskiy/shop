@@ -12,10 +12,10 @@ export const UserCommentCard: FC = () => {
     // TEMP: to form folder
     return (
         <Card className="p-4 mt-4 bg-popover">
-            <form className="w-full flex">
-                <UserAvatar src={profile.avatarURL}/>
+            <form className="w-full sm:flex">
+                <UserAvatar className="hidden sm:block" src={profile.avatarURL}/>
 
-                <section className="ml-4 w-full">
+                <section className="sm:ml-4 w-full">
                     <Textarea
                         className="bg-white"
                         placeholder="Write something"
