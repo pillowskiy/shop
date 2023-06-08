@@ -13,7 +13,7 @@ export const Aside: FC = () => {
         <aside
             className={cn(
                 "fixed bottom-0 md:top-0 md:bottom-auto text-foreground bg-popover border-muted border-t shadow-md md:shadow-none",
-                "w-full md:w-20 md:pt-48 md:pb-4 md:px-0 h-14 md:h-screen z-20"
+                "w-full md:w-20 md:pb-4 md:px-0 h-16 md:h-screen z-20"
             )}
         >
             <SideBar.Items>
@@ -32,9 +32,9 @@ export const Aside: FC = () => {
                         </p>
                     </SideBar.Item>
                 </CartDialog>
+                <SideBar.Profile/>
                 <SideBar.Item href="/favorites" Icon={Heart} title="Favorites"/>
                 <SideBar.Item href="/orders" Icon={List} title="Orders"/>
-                <SideBar.Profile/>
             </SideBar.Items>
         </aside>
     );

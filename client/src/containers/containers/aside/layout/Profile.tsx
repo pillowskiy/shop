@@ -1,9 +1,28 @@
 import type {FC} from 'react';
 import {useProfile} from "@hooks/useProfile";
-import {LogInButton} from "@containers/containers/aside/layout/profile/LogInButton";
-import {ProfilePopover} from "@containers/containers/aside/layout/profile/ProfilePopover";
+import {ProfilePopover} from "@containers/user/layout/ProfilePopover";
+import {LogIn} from "lucide-react";
+import {Item} from "@containers/containers/aside/layout/Item";
+import Image from "next/image";
 
 export const Profile: FC = () => {
     const {profile} = useProfile();
-    return profile ? <ProfilePopover profile={profile} /> : <LogInButton />;
+    return profile ?
+        (
+            <ProfilePopover profile={profile}>
+                <li
+                    className="cursor-pointer p-2 rounded-lg text-center w-1/5 md:w-10/12 md:hidden"
+                >
+                    <Image
+                        className="w-12 h-12 object-cover object-top m-auto rounded-full"
+                        src={profile.avatarURL}
+                        alt={profile.name}
+                        width={64}
+                        height={64}
+                    />
+                </li>
+            </ProfilePopover>
+        ) : (
+            <Item href="/login" Icon={LogIn} title="Log in"/>
+        );
 };

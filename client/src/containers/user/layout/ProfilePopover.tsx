@@ -1,8 +1,7 @@
-import type {FC} from 'react';
+import type {FC, PropsWithChildren} from 'react';
 import type {User} from "@/types/user.interface";
 
 import {
-    CreditCard,
     List,
     Mails,
     LifeBuoy,
@@ -25,18 +24,18 @@ import {
     DropdownMenuTrigger,
 } from "@common/DropdownMenu";
 
-import Image from "next/image";
 import {useAppDispatch} from "@redux/store";
 import {logout as logoutAction} from "@redux/user/user.actions";
 import Link from "next/link";
 import {useQueryClient} from "@tanstack/react-query";
 import {useRouter} from "next/router";
+import {DropdownMenuProps} from "@radix-ui/react-dropdown-menu";
 
-interface ProfilePopoverProps {
+interface ProfilePopoverProps extends DropdownMenuProps {
     profile: User;
 }
 
-export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
+export const ProfilePopover: FC<PropsWithChildren<ProfilePopoverProps>> = ({children, profile, ...props}) => {
     const dispatch = useAppDispatch();
     const queryClient = useQueryClient();
     const router = useRouter();
@@ -49,20 +48,9 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
     }
 
     return (
-        <DropdownMenu>
+        <DropdownMenu {...props}>
             <DropdownMenuTrigger asChild>
-                <li
-                    className="cursor-pointer p-2 rounded-lg text-center w-1/5 md:w-10/12 mt-auto"
-                >
-                    <Image
-                        className="w-7 h-7 md:w-12 md:h-12 object-cover object-top m-auto rounded-full"
-                        src={profile.avatarURL}
-                        alt={profile.name}
-                        width={64}
-                        height={64}
-                    />
-                    <p className="text-xs block md:hidden">{profile.name}</p>
-                </li>
+                {children}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>{profile.name}</DropdownMenuLabel>
@@ -97,10 +85,6 @@ export const ProfilePopover: FC<ProfilePopoverProps> = ({profile}) => {
                 <DropdownMenuItem disabled>
                     <Truck className="mr-2 h-4 w-4"/>
                     <span>Delivery</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <CreditCard className="mr-2 h-4 w-4"/>
-                    <span>Billing</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                     <LifeBuoy className="mr-2 h-4 w-4"/>
