@@ -7,6 +7,9 @@ import {
   ParseIntPipe,
   Patch,
   Put,
+  Req,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
@@ -21,6 +24,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { user } from 'src/config/docs';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Request } from 'express';
 
 @ApiTags('users')
 @Controller('users')
@@ -50,8 +55,15 @@ export class UserController {
   @Auth()
   @HttpCode(200)
   @Put('profile')
-  public updateProfile(@User('id') userId: number, @Body() userDto: UserDto) {
-    return this.userService.updateProfile(userId, userDto);
+  @UseInterceptors(FileInterceptor('file'))
+  public updateProfile(
+    @Req() req: Request,
+    @User('id') userId: number,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() userDto: UserDto,
+  ) {
+    const serverUrl = `${req.protocol}://${req.get('host')}/api`;
+    return this.userService.updateProfile(userId, userDto, file, serverUrl);
   }
 
   @ApiOperation(user.toggleFavorite.operation)

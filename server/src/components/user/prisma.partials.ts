@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client';
 
 export const userSelect: Prisma.UserSelect = {
+  createdAt: true,
   id: true,
   email: true,
   name: true,
@@ -8,7 +9,6 @@ export const userSelect: Prisma.UserSelect = {
   phone: true,
   password: false,
   orders: false,
-  favorites: true,
   roles: true,
 };
 

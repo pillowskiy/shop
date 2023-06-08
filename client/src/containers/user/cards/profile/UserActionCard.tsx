@@ -6,6 +6,7 @@ import {Skeleton} from "@ui/Skeleton";
 import {UserActionButtons} from "@containers/user/layout/ActionButtons";
 import {useProfile} from "@hooks/useProfile";
 import {Button} from "@ui/Button";
+import {EditAvatarPopover} from "@containers/user/layout/EditAvatarPopover";
 
 interface UserActionCardProps {
     user: User;
@@ -24,7 +25,7 @@ export const UserActionCard: FC<UserActionCardProps> = ({user}) => {
             </Avatar>
             {
                 user.id === profile?.id ? (
-                    <Button className="w-full" disabled>Edit profile</Button>
+                    <Button className="w-full">Edit profile</Button>
                 ): (
                     <UserActionButtons className="w-full" />
                 )

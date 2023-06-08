@@ -1,17 +1,21 @@
 import {
-  NotFoundException,
-  Injectable,
   BadRequestException,
+  Injectable,
+  NotFoundException,
 } from '@nestjs/common';
-import type { Prisma, User as PrismaUser } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
-import { userSelect, productSelect } from './prisma.partials';
+import { productSelect, userSelect } from './prisma.partials';
 import { UserDto } from './dto/user.dto';
 import { hash } from 'argon2';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) {}
   public async getProfileById(
     userId: number,
     selectObject: Prisma.UserSelect = {},
@@ -31,15 +35,23 @@ export class UserService {
     return user;
   }
 
-  public async updateProfile(userId: number, dto: UserDto) {
-    const isInitialUser = await this.prisma.user
+  public async updateProfile(
+    userId: number,
+    dto: UserDto,
+    file: Express.Multer.File,
+    serverURL: string,
+  ) {
+    const { isInitialUser, user } = await this.prisma.user
       .findUnique({
         where: { email: dto.email },
         select: {
           ...userSelect,
         },
       })
-      .then((user) => user && user.id === userId);
+      .then((user) => ({
+        isInitialUser: user && user.id === userId,
+        user: user,
+      }));
 
     if (!isInitialUser) {
       throw new BadRequestException(
@@ -47,11 +59,37 @@ export class UserService {
       );
     }
 
-    return this.prisma.user.update({
-      where: { id: userId },
-      data: { ...dto, password: dto.password && (await hash(dto.password)) },
-      select: userSelect,
-    });
+    let newAvatarURL = user.avatarURL;
+    if (file) {
+      const uploadData = await this.uploadService.uploadFiles([file]);
+      if (!uploadData.length) {
+        throw new BadRequestException({
+          errors: {
+            avatarURL: 'The received image is not supported',
+          },
+        });
+      }
+
+      const { fileName, fileExtension } = uploadData.at(0);
+      newAvatarURL = `${serverURL}/uploads/${fileName + fileExtension}`;
+    }
+
+    return this.prisma.user
+      .update({
+        where: { id: userId },
+        data: {
+          ...dto,
+          password: dto.password && (await hash(dto.password)),
+          avatarURL: newAvatarURL,
+        },
+        select: userSelect,
+      })
+      .catch((err) => {
+        if (user.avatarURL !== newAvatarURL) {
+          this.uploadService.unlinkFromPaths([newAvatarURL]);
+        }
+        throw err;
+      });
   }
 
   // TEMP: decomposition

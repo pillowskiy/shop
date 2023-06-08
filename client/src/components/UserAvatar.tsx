@@ -8,7 +8,7 @@ interface UserAvatarProps extends AvatarImageProps {}
 
 export const UserAvatar: FC<UserAvatarProps> = ({className, ...props}) => {
     return (
-        <Avatar>
+        <Avatar className={className}>
             <AvatarImage className={cn("object-cover object-top", className)} {...props}/>
             <AvatarFallback>
                 <Skeleton />

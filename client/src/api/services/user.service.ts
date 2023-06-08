@@ -2,7 +2,6 @@ import type { AxiosResponse } from 'axios'
 import { $api } from '../api.interceptor'
 import type {
   User,
-  UserUpdate
 } from '@/types/user.interface'
 
 export default class UserService {
@@ -24,9 +23,7 @@ export default class UserService {
         `/${UserService.controller}/profile/reviews/helpful/${reviewId}`
     );
   }
-  static async update(data: UserUpdate): Promise<AxiosResponse<User>> {
-    return $api.patch<User>(`/${UserService.controller}/profile`, {
-      data
-    });
+  static async update(data: FormData): Promise<AxiosResponse<User>> {
+    return $api.put<User>(`/${UserService.controller}/profile`, data);
   }
 }
