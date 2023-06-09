@@ -44,7 +44,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                     </div>
                     <div className="flex justify-between">
                         <p className="font-medium">Phone:</p>
-                        <p className="text-primary opacity-90">{profile.phone || "Phone number is missing"}</p>
+                        <p className="text-primary opacity-90">{profile.phone || "Missing"}</p>
                     </div>
                     <div className="flex justify-between">
                         <p className="font-medium">Email:</p>
@@ -54,6 +54,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
             </section>
             <section className="w-full md:w-8/12 px-2">
 
+                {/* TEMP */}
                 <Accordion type="single" collapsible>
                     <AccordionItem className="mb-4" value="description">
                         <AccordionTrigger className="font-medium text-xl select-none p-0 pb-2">Items</AccordionTrigger>

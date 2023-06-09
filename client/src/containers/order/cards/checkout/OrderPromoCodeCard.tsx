@@ -36,7 +36,7 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
         },
         onSettled: () => {
             setValue("");
-        }
+        },
     });
 
     return (
@@ -52,8 +52,11 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
             />
             <Button
                 className="mt-2 w-full flex"
-                disabled={isLoading || !!promo || !value}
-                onClick={mutate}
+                disabled={isLoading || !!promo}
+                onClick={() => {
+                    if (!value) return;
+                    mutate();
+                }}
             >
                 {isLoading && <Loader2 className="w-5 h-5 mr-2 animate-spin"/>}
                 <p>Apply</p>

@@ -28,15 +28,6 @@ export const OrderPaymentCard: FC = () => {
                     {payment === "magic" && <MagicCard className="my-2 mx-auto"/>}
                 </div>
 
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="office_a"/>
-                    <Label className="text-lg font-normal">EasyPay</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="office_b"/>
-                    <Label className="text-lg font-normal">Another one method</Label>
-                </div>
-
                 <span className="mt-2 bg-white shadow-sm border border-warning p-2 rounded-lg text-center hidden sm:block">
                     Payment methods may vary depending on the delivery method
                 </span>
