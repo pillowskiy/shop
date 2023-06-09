@@ -1,19 +1,21 @@
 import type {FC, ChangeEvent} from 'react';
-import type {UpdateProductDataErrors} from "@/types/product.interface";
 import {Card} from "@common/Card";
 import Image from "next/image";
 import {Badge} from "@ui/Badge";
 import {cn} from "@lib/utils";
 import {Input} from "@ui/Input";
+import {useContext} from "react";
+import {WorkShopContext} from "@containers/product/containers/workshop";
 
 interface ImageUploadCardProps {
     setImages: (files: FileList) => void;
     deleteImage: (src: string) => void;
     images: string[];
-    errors: Pick<UpdateProductDataErrors, 'images'>
 }
 
-export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, errors, deleteImage}) => {
+export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, deleteImage}) => {
+    const {errors} = useContext(WorkShopContext);
+
     const onImagesUpload = ({target}: ChangeEvent<HTMLInputElement>) => {
         if (!target.files?.length) return;
         setImages(target.files);

@@ -1,4 +1,4 @@
-import {type FC, useEffect, useState} from "react";
+import {createContext, type FC, useEffect, useState} from "react";
 import type {Product, UpdateProductData, UpdateProductDataErrors} from "@/types/product.interface";
 import {getInitialProductState} from "@containers/product/containers/workshop/util";
 import {useRouter} from "next/router";
@@ -20,6 +20,13 @@ interface ProductWorkShopProps {
     product: Product | undefined;
 }
 
+interface WorkShopContextValue extends ProductWorkShopProps {
+    newProduct: UpdateProductData;
+    errors: UpdateProductDataErrors;
+}
+
+export const WorkShopContext = createContext<WorkShopContextValue | null>(null);
+
 export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
     const [newProduct, setNewProduct] = useState<UpdateProductData>(getInitialProductState(product));
     const [errors, setErrors] = useState<UpdateProductDataErrors>(INITIAL_PRODUCT_ERRORS)
@@ -30,7 +37,6 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
         setNewProduct({...newProduct, ...values});
     }
 
-    const dynamicRoute = useRouter().asPath;
     const {toast} = useToast();
     const router = useRouter();
 
@@ -56,19 +62,15 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
                     description: `✅ You successfully ${product ? "updated" : "created"} a product`
                 });
                 setNewProduct(getInitialProductState(data));
+                setImages([]);
             },
-            onSettled: () => {
-                setTimeout(() => {
-                    setIsLoading(false);
-                }, 200);
-            }
+            onSettled: () => setTimeout(() => setIsLoading(false), 200)
         }
     );
 
     const handleUpload = async () => {
         const formData = new FormData();
         setErrors(INITIAL_PRODUCT_ERRORS);
-        setImages([]);
         setIsLoading(true);
         images.forEach(({file}) => {
             formData.append('files[]', file);
@@ -84,43 +86,39 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
     // TEMP
     useEffect(() => {
         setNewProduct(getInitialProductState(product));
-    }, [dynamicRoute, product]);
+    }, [product]);
 
     if (isLoading) return <Loader/>
 
     return (
-        <section className="grid md:grid-cols-2 gap-4 mt-4 md:pb-0 max-w-[1080px]">
-            {!isEquals(getInitialProductState(product), newProduct) && <UnsavedChangesDialog/>}
-            <GeneralCard
-                onConfirm={handleUpload}
-                updateProduct={updateProduct}
-                errors={errors}
-                newProduct={newProduct}
-                productId={product?.id}
-            />
-            <section className="grid grid-rows-[2fr 1fr] gap-4 row-span-2">
-                <ImageUploadCard
-                    images={[...newProduct.images, ...images.map(({preview}) => preview)]}
-                    errors={{images: errors.images}}
-                    setImages={(files) => {
-                        const newImages = Array.from(files, (file => ({
-                            preview: URL.createObjectURL(file),
-                            file,
-                        })))
-                        setImages([...images, ...newImages])
-                    }}
-                    deleteImage={(src) => {
-                        // TEMP
-                        setImages(images => images.filter(({preview}) => preview !== src))
-                        updateProduct({ images: newProduct.images.filter(image => image !== src)})
-                    }}
+        <WorkShopContext.Provider value={{ product, newProduct, errors }}>
+            <section className="grid md:grid-cols-2 gap-4 mt-4 md:pb-0 max-w-[1080px]">
+                {!isEquals(getInitialProductState(product), newProduct) && <UnsavedChangesDialog/>}
+                <GeneralCard
+                    onConfirm={handleUpload}
+                    updateProduct={updateProduct}
                 />
-                <TextareaCard
-                    errors={{description: errors.description}}
-                    description={newProduct.description}
-                    setDescription={(description) => updateProduct({description})}
-                />
+                <section className="grid grid-rows-[2fr 1fr] gap-4 row-span-2">
+                    <ImageUploadCard
+                        images={[...newProduct.images, ...images.map(({preview}) => preview)]}
+                        setImages={(files) => {
+                            const newImages = Array.from(files, (file => ({
+                                preview: URL.createObjectURL(file),
+                                file,
+                            })))
+                            setImages([...images, ...newImages])
+                        }}
+                        deleteImage={(src) => {
+                            // TEMP
+                            setImages(images => images.filter(({preview}) => preview !== src))
+                            updateProduct({ images: newProduct.images.filter(image => image !== src)})
+                        }}
+                    />
+                    <TextareaCard
+                        setDescription={(description) => updateProduct({description})}
+                    />
+                </section>
             </section>
-        </section>
+        </WorkShopContext.Provider>
     );
 };

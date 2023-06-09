@@ -1,25 +1,25 @@
 import type {FC} from 'react';
-import type {UpdateProductData, UpdateProductDataErrors} from "@/types/product.interface";
+import type {UpdateProductData} from "@/types/product.interface";
 
 import {FormInput} from "@components/FormInput";
 import {NumberFormInput} from "@components/NumberFormInput";
 
-;
 import {Card} from "@common/Card";
 import {FormSwitchBox} from "@components/FormSwitch";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
 import {WorkshopSubmitButton} from "@containers/product/containers/workshop/layout/WorkshopSubmit";
 import {CategorySelect} from "@containers/product/containers/workshop/layout/CategorySelect";
+import {useContext} from "react";
+import {WorkShopContext} from "@containers/product/containers/workshop";
 
 interface GeneralCardProps {
     updateProduct: (values: Partial<UpdateProductData>) => void;
-    newProduct: UpdateProductData;
-    productId: number | undefined;
     onConfirm: () => void;
-    errors: UpdateProductDataErrors
 }
 
-export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, productId, onConfirm, errors}) => {
+export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) => {
+    const {product, newProduct, errors} = useContext(WorkShopContext);
+
     return (
         <Card className="relative row-span-2 bg-popover shadow-md px-4 py-2">
             <h2 className="text-3xl font-bold mt-2">Product workshop</h2>
@@ -100,9 +100,9 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, newProduct, pr
             <footer className="w-full md:py-2">
                 <hr className="my-2"/>
                 <div className="flex flex-col md:flex-row gap-2">
-                    <WorkshopSubmitButton isProductExist={!!productId} onConfirm={onConfirm}/>
-                    {productId && (
-                        <DeleteButton variant="destructive" productId={productId}>
+                    <WorkshopSubmitButton isProductExist={!!product} onConfirm={onConfirm}/>
+                    {product && (
+                        <DeleteButton variant="destructive" productId={product.id}>
                             Delete
                         </DeleteButton>
                     )}
