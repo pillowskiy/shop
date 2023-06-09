@@ -6,6 +6,7 @@ import {createContext} from "react";
 import type {User} from "@/types/user.interface";
 import {ShippingTab} from "@containers/user/tabs/account/ShippingTab";
 import {PrivacyTab} from "@containers/user/tabs/account/PrivacyTab";
+import {BillingTab} from "@containers/user/tabs/account/BillingTab";
 
 export const AccountContext = createContext<User | undefined>(undefined);
 
@@ -30,6 +31,9 @@ export const AccountTab: FC = () => {
                 </TabsContent>
                 <TabsContent value="privacy">
                     <PrivacyTab/>
+                </TabsContent>
+                <TabsContent value="billing">
+                    <BillingTab/>
                 </TabsContent>
             </AccountContext.Provider>
         </Tabs>

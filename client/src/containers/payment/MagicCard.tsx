@@ -42,7 +42,7 @@ export const MagicCard: FC<MagicCardProps> = ({className, ...props}) => {
 
                 <footer className="relative text-left uppercase text-sm text-primary font-medium">
                     <p className="lowercase text-[10px] leading-3 opacity-90">valid thru</p>
-                    <h3 className="leading-3">{expiresEnd.getMonth()}/{expiresEnd.getFullYear()}</h3>
+                    <h3 className="leading-3">{expiresEnd.getMonth().toString().padStart(2, '0')}/{expiresEnd.getFullYear() % 2000}</h3>
                     <h3 className="opacity-90 leading-3">{profile?.name}</h3>
                     <h3 className="opacity-80 leading-3">USD</h3>
                     <Image
