@@ -50,3 +50,8 @@ export interface Pagination {
   page?: number;
   perPage?: number;
 }
+
+export interface WithPaginationResponse<Key extends string, Type extends Array<unknown>> {
+  length: number;
+  [Key]: Type;
+}

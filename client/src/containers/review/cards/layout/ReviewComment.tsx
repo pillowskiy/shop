@@ -1,5 +1,5 @@
-import type {FC} from 'react';
 import type {Review} from "@/types/review.interface";
+import {memo} from "react";
 import {Toggle} from "@ui/Toggle";
 import {Button} from "@ui/Button";
 import {UserAvatar} from "@components/UserAvatar";
@@ -17,7 +17,9 @@ interface ReviewCommentProps {
     productId: number;
 }
 
-export const ReviewComment: FC<ReviewCommentProps> = ({review, productId, hasAccess}) => {
+const ReviewComment = memo<ReviewCommentProps>(({review, productId, hasAccess}) => {
+    console.log(review.id, "Rendered!");
+
     const queryClient = useQueryClient();
     const {profile} = useProfile();
     const helpfulCount = review.helpful.length;
@@ -75,4 +77,7 @@ export const ReviewComment: FC<ReviewCommentProps> = ({review, productId, hasAcc
             </div>
         </div>
     );
-};
+});
+
+ReviewComment.displayName = "ReviewComment";
+export { ReviewComment };

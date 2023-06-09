@@ -20,15 +20,21 @@ export class ReviewService {
     });
     return data._avg.rating || 0;
   }
-  public getAll(productId: number, dto: FilterDto) {
+  public async getAll(productId: number, dto: FilterDto) {
     const { skip, perPage } = this.paginationService.getPagination(dto);
-    return this.prisma.review.findMany({
+    const reviews = await this.prisma.review.findMany({
       where: { productId },
       orderBy: { createdAt: 'desc' },
       take: perPage,
       skip,
       select: reviewSelect,
     });
+    return {
+      reviews,
+      length: await this.prisma.review.count({
+        where: { productId },
+      }),
+    };
   }
   public async create(userId: number, productId: number, dto: ReviewDto) {
     try {

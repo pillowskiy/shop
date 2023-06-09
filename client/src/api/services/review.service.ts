@@ -4,13 +4,14 @@ import { $api } from '../api.interceptor'
 import type {
   Review,
   ReviewCreateResponse,
-  ReviewCreate
+  ReviewCreate,
+  GetAlLReviewsResponse,
 } from '@/types/review.interface'
 
 export default class ReviewService {
   private static controller = 'reviews';
 
-  static async getById(productId: number, filterParams?: Pagination): Promise<AxiosResponse<Review[]>> {
+  static async getById(productId: number, filterParams?: Pagination): Promise<AxiosResponse<GetAlLReviewsResponse>> {
     return $api.get<Review[]>(`/${ReviewService.controller}/${productId}`, {params: filterParams || {}});
   }
   static async getAvg(productId: number): Promise<AxiosResponse<number>> {

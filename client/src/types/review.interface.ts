@@ -1,4 +1,5 @@
 import { User } from "./user.interface";
+import {WithPaginationResponse} from "@types/index";
 
 export type ReviewCreateResponse = Review & { user: User };
 export type ReviewCreate = Pick<Review, 'text' | 'rating'>;
@@ -14,3 +15,5 @@ export interface Review {
 };
 
 export type ReviewErrors = Record<keyof ReviewCreate, string>;
+
+export type GetAlLReviewsResponse = WithPaginationResponse<"reviews", Review[]>;
