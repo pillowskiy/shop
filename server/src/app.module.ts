@@ -11,6 +11,7 @@ import { OrderModule } from './components/order/order.module';
 import { ProductModule } from './components/product/product.module';
 import { UploadModule } from './components/upload/upload.module';
 import { PromoCodeModule } from './components/promo-code/promo-code.module';
+import { PaymentModule } from './components/payment/payment.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { PromoCodeModule } from './components/promo-code/promo-code.module';
     ProductModule,
     UploadModule,
     PromoCodeModule,
+    PaymentModule,
   ],
   providers: [PrismaService],
 })

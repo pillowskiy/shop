@@ -32,6 +32,7 @@ model User {
   helpfulReviews Review[]
 
   promoCodes PromoCode[] @relation("owner")
+  payments Payment[]
 }
 
 enum Gender {
@@ -149,4 +150,25 @@ enum OrderStatus {
   PENDING
   COMPLETED
   CANCELLED
+}
+
+model Payment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  type PaymentType
+
+  cardNumber  String      @map("card_number")
+  cardExpiresAt DateTime @map("card_expires_at")
+  cardCvv     String   @map("card_cvv")
+
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+}
+
+enum PaymentType {
+  VISA
+  PAY_PAL
+  MAGIC
 }
