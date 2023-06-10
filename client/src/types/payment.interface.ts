@@ -12,7 +12,8 @@ export interface Payment {
 
     cardNumber: string;
     cardExpiresAt: Date;
-    cardCvv: string;
 }
 
-export type CreatePaymentData = Omit<Payment, 'id' | 'createdAt'>;
+export type CreatePaymentData = Omit<Payment, 'id' | 'createdAt'> & {
+    cardCvv: string;
+};
