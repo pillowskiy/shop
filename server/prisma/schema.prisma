@@ -18,6 +18,10 @@ model User {
   phone     String?
   avatarURL String  @default("https://www.univ.kiev.ua/img/kobzar.jpg") @map("avatar_url")
 
+  aboutMe   String    @default("") @map("about_me")
+  gender    Gender    @default(Unknown)
+  birthDate DateTime? @map("birth_date")
+
   roles Role[] @default([User])
 
   products Product[] @relation("owner")
@@ -28,6 +32,12 @@ model User {
   helpfulReviews Review[]
 
   promoCodes PromoCode[] @relation("owner")
+}
+
+enum Gender {
+  Male
+  Female
+  Unknown
 }
 
 enum Role {
@@ -126,7 +136,7 @@ model OrderItem {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   quantity Int
-  price    Int
+  price    Float
 
   orderId Int   @map("order_id")
   order   Order @relation(fields: [orderId], references: [id])

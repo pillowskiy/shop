@@ -6,7 +6,8 @@ import {Skeleton} from "@ui/Skeleton";
 import {UserActionButtons} from "@containers/user/layout/ActionButtons";
 import {useProfile} from "@hooks/useProfile";
 import {Button} from "@ui/Button";
-import {EditAvatarPopover} from "@containers/user/layout/EditAvatarPopover";
+import {EditProfileDialog} from "@containers/user/layout/EditProfileDialog";
+import {cn} from "@lib/utils";
 
 interface UserActionCardProps {
     user: User;
@@ -24,13 +25,18 @@ export const UserActionCard: FC<UserActionCardProps> = ({user}) => {
                 </AvatarFallback>
             </Avatar>
 
-            <div className="w-full px-1 py-2 h-10 bg-muted shadow-sm rounded-lg uppercase font-bold text-center select-none">
-                {user.roles.at(-1)}
+            <div className={cn(
+                "w-full px-1 py-2 h-10 bg-muted shadow-sm rounded-lg",
+                "uppercase font-bold text-center select-none"
+            )}>
+                <p className="drop-shadow-lg text-green-100 shadow-amber-200">{user.roles.at(-1)}</p>
             </div>
 
             {
                 user.id === profile?.id ? (
-                    <Button className="w-full">Edit profile</Button>
+                    <EditProfileDialog>
+                        <Button className="w-full">Edit profile</Button>
+                    </EditProfileDialog>
                 ): (
                     <UserActionButtons className="w-full" />
                 )

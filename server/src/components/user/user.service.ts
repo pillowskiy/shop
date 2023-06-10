@@ -43,7 +43,7 @@ export class UserService {
   ) {
     const { isInitialUser, user } = await this.prisma.user
       .findUnique({
-        where: { email: dto.email },
+        where: { id: dto.id },
         select: {
           ...userSelect,
         },

@@ -7,6 +7,7 @@ import {
   Review,
   Role,
   User,
+  Gender,
 } from '@prisma/client';
 
 type OmitKeys = 'updatedAt' | 'userId' | 'productId' | 'orderId' | 'helpfulId';
@@ -19,6 +20,10 @@ export const user: SwaggerSchema<User, 'password'> = {
   avatarURL: 'https://somewhere.png/',
   phone: '0123456789' || null,
   roles: [Role.User],
+
+  aboutMe: 'Some text',
+  gender: Gender.Male,
+  birthDate: new Date(1970, 0, 1),
 
   createdAt: new Date(),
 };

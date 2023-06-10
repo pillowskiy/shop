@@ -1,12 +1,18 @@
-export type UserUpdate = Partial<Omit<User, 'id'>> & {
-  password?: string
+export type UserUpdate = Partial<Omit<User, 'createdAt' | 'roles'>> & {
+  readonly id: number;
 };
 
-enum Role {
+export enum Role {
   User,
   Helper,
   Admin,
   Owner,
+}
+
+export enum Gender {
+  Male = "Male",
+  Female = "Female",
+  Unknown = "Unknown",
 }
 
 export interface User {
@@ -14,7 +20,11 @@ export interface User {
   email: string;
   name: string;
   avatarURL: string;
-  phone?: string;
+  phone: string | null;
   createdAt: string;
+
+  aboutMe: string;
+  birthDate: string;
+  gender: Gender;
   roles: Role[];
 };

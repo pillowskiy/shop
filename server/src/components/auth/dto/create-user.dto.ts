@@ -40,7 +40,7 @@ export class CreateUserDto {
     example: 'User',
     description: 'String with max length - 24 characters',
   })
-  @MaxLength(24, {
+  @MaxLength(36, {
     message: 'User name must not exceed 24 characters',
   })
   @IsString({
