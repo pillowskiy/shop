@@ -1,13 +1,23 @@
 import type {FC} from 'react';
+import {PaymentType} from "@/types/payment.interface";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
 import {DialogClose} from "@radix-ui/react-dialog";
 import {Button} from "@ui/Button";
 import React from "react";
-import {Info, Plus, CreditCard, Wand} from "lucide-react";
+import {Info, Plus} from "lucide-react";
 import {cn} from "@lib/utils";
-import {Badge} from "@ui/Badge";
+import {useQuery} from "@tanstack/react-query";
+import PaymentService from "@api/services/payment.service";
+import {PaymentMethod} from "@containers/payment/layout/PaymentMethod";
+import {MagicCardCreation} from "@containers/payment/MagicCardCreation";
 
 export const BillingTab: FC = () => {
+    const {data: payments} = useQuery(['get payments'], () => {
+        return PaymentService.getAll();
+    }, {
+        select: ({data}) => data,
+    })
+
     return (
         <Card className="bg-popover animate-card-in px-1">
             <CardHeader>
@@ -26,37 +36,23 @@ export const BillingTab: FC = () => {
             <CardContent className="max-h-[600px] overflow-y-auto rounded-lg">
                 <section className="flex flex-col gap-2">
                     <h2 className="font-medium">Payment Methods:</h2>
-                    <div className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row">
-                        <div>
-                            <div className="flex gap-1 items-center">
-                                <Wand className="h-5 sm:h-4 w-auto"/>
-                                <p className="text-lg sm:text-base font-medium">Magic (*0000)</p>
+                    {
+                        payments?.length ? payments.map(payment => (
+                            <PaymentMethod
+                                key={payment.id}
+                                payment={payment}
+                                badges={
+                                    payment.type === "MAGIC" ?
+                                        ["🔓 Default", "🔮 Magic", "💎 Unlimited"]:
+                                        ["✏ Custom"]
+                                }
+                            />
+                        )) : (
+                            <div className="text-center text-lg font-medium p-2 rounded-lg border bg-white">
+                                💳 There are no payment methods yet.
                             </div>
-                            <p className="text-sm sm:text-xs">Expires {new Date().toLocaleDateString()}</p>
-                        </div>
-
-                        <div className="flex flex-wrap gap-1 sm:max-w-[180px]">
-                            <Badge className="h-4 uppercase pl-1.5" variant="secondary">🔓 Default</Badge>
-                            <Badge className="h-4 uppercase pl-1.5" variant="secondary">🔮 Magic</Badge>
-                            <Badge className="h-4 uppercase pl-1.5" variant="secondary">💎 Unlimited</Badge>
-                        </div>
-                        <Button className="w-full sm:w-auto ml-auto" variant="secondary">Edit</Button>
-                    </div>
-
-                    <div className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row">
-                        <div>
-                            <div className="flex gap-1 items-center">
-                                <CreditCard className="h-5 sm:h-4 w-auto"/>
-                                <p className="text-lg sm:text-base font-medium">Visa (*0000)</p>
-                            </div>
-                            <p className="text-sm sm:text-xs">Expires {new Date().toLocaleDateString()}</p>
-                        </div>
-
-                        <div className="flex flex-wrap gap-1 sm:max-w-[180px]">
-                            <Badge className="h-4 uppercase pl-1.5" variant="secondary">✏ Custom</Badge>
-                        </div>
-                        <Button className="w-full sm:w-auto ml-auto" variant="secondary">Edit</Button>
-                    </div>
+                        )
+                    }
                 </section>
 
                 <section className="bg-white border rounded-lg p-4 flex flex-col justify-center items-center mt-4">
@@ -71,17 +67,10 @@ export const BillingTab: FC = () => {
                     <Button className="mt-2 font-medium" variant="link">Add a new payment method</Button>
                 </section>
 
-                <div className="text-center p-2 rounded-lg p-2 border mt-4 bg-white">
-                    <div
-                        className={cn(
-                            "rounded-md p-2 bg-popover font-medium cursor-pointer",
-                            "border border-popover hover:border-purple-400 transition-all",
-                            "drop-shadow-md hover:drop-shadow-purple-400 hover:text-purple-400"
-                        )}
-                    >
-                        ✨ Open magic card for free ✨
-                    </div>
-                </div>
+                {
+                    !payments?.some(payment => payment.type === PaymentType.MAGIC) &&
+                    <MagicCardCreation />
+                }
             </CardContent>
             <CardFooter className="pt-2 flex justify-between">
                 <DialogClose asChild>
