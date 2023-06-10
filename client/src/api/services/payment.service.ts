@@ -19,4 +19,9 @@ export default class PaymentService {
         : Promise<AxiosResponse<Payment>> {
         return $api.delete<Payment>(`${this.controller}/${paymentId}`);
     }
+
+    static async createMagicCard()
+        : Promise<AxiosResponse<Payment>> {
+        return $api.post<Payment>(`${this.controller}/magic`);
+    }
 }

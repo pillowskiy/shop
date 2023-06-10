@@ -7,6 +7,8 @@ import { PrismaService } from 'src/prisma.service';
 import { PaymentDto } from './dto/payment.dto';
 import { hash } from 'argon2';
 import { paymentSelect } from './prisma.partials';
+import { PaymentType } from '@prisma/client';
+import { generateCcNumber } from 'optima-ccgen';
 
 @Injectable()
 export class PaymentService {
@@ -48,6 +50,23 @@ export class PaymentService {
     return this.prisma.payment.delete({
       where: { id: paymentId },
       select: paymentSelect,
+    });
+  }
+
+  public async createMagicCard(userId: number) {
+    const hasMagicCard = await this.prisma.payment.findFirst({
+      where: { userId, type: PaymentType.MAGIC },
+    });
+
+    if (hasMagicCard) {
+      throw new ForbiddenException('You already have a magic card');
+    }
+
+    return this.createPayment(userId, {
+      cardNumber: generateCcNumber('1234', 16),
+      cardExpiresAt: new Date(Date.now() + 3600 * 60 * 24 * 30 * 48),
+      cardCvv: '000',
+      type: PaymentType.MAGIC,
     });
   }
 }

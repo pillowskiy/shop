@@ -38,4 +38,10 @@ export class PaymentController {
   ) {
     return this.paymentService.deletePayment(userId, paymentId);
   }
+
+  @Auth()
+  @Post('/magic')
+  public createMagicCard(@User('id') userId: number) {
+    return this.paymentService.createMagicCard(userId);
+  }
 }
