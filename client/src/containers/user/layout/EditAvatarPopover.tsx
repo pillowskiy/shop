@@ -57,11 +57,8 @@ export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
         if (!image) return;
         const formData = new FormData();
         setError("");
+        formData.append("id", profile?.id + "");
         formData.append("file", image.file);
-
-        Object.entries(profile).forEach(([key, value]) => {
-            formData.append(key, value);
-        });
 
         console.log("file", formData.get("file"));
         mutate({formData});

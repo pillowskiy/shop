@@ -25,7 +25,8 @@ export class UserDto {
     description: 'The user email address',
   })
   @IsEmail()
-  public email: string;
+  @IsOptional()
+  public email?: string;
 
   @ApiProperty({
     example: user.name + '_Modify',
