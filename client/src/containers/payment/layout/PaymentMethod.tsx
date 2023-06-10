@@ -20,7 +20,7 @@ export const PaymentMethod: FC<PaymentMethodProps> = ({payment, badges = []}) =>
                         <Wand className="h-5 sm:h-4 w-auto"/>:
                         <CreditCard className="h-5 sm:h-4 w-auto"/>
                     }
-                    <p className="text-lg sm:text-base font-medium">Magic (*{payment.cardNumber.slice(12 - 4)})</p>
+                    <p className="text-lg sm:text-base font-medium">Magic (*{payment.cardNumber.slice(16 - 4)})</p>
                 </div>
                 <p className="text-sm sm:text-xs">Expires {new Date(payment.cardExpiresAt).toLocaleDateString()}</p>
             </div>

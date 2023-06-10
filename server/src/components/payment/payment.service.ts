@@ -64,7 +64,7 @@ export class PaymentService {
 
     return this.createPayment(userId, {
       cardNumber: generateCcNumber('1234', 16),
-      cardExpiresAt: new Date(Date.now() + 3600 * 60 * 24 * 30 * 48),
+      cardExpiresAt: new Date(new Date().getFullYear() + 4),
       cardCvv: '000',
       type: PaymentType.MAGIC,
     });

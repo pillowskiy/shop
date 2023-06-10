@@ -1,13 +1,26 @@
 import type {FC} from 'react';
+import {useState} from "react";
 import {Card} from "@common/Card";
 import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
 import {Label} from "@ui/Label";
 import {MagicCard} from "@containers/payment/MagicCard";
 import {cn} from "@lib/utils";
-import {useState} from "react";
+import {useQuery} from "@tanstack/react-query";
+import PaymentService from "@api/services/payment.service";
+import {PaymentType} from "@/types/payment.interface";
+import Link from "next/link";
+import {useProfile} from "@hooks/useProfile";
+import {Info} from "lucide-react";
 
 export const OrderPaymentCard: FC = () => {
-    const [payment, setPayment] = useState("magic");
+    const [method, setMethod] = useState<PaymentType>();
+    const {profile} = useProfile();
+
+    const {data: payments} = useQuery(["get payments"], () => {
+        return PaymentService.getAll();
+    }, {
+        select: ({data}) => data,
+    })
 
     return (
         <Card className="bg-popover p-4 mt-4">
@@ -15,22 +28,32 @@ export const OrderPaymentCard: FC = () => {
 
             <RadioGroup
                 className="flex flex-col gap-2 ml-2 rounded-lg"
-                defaultValue="magic"
-                onValueChange={(value) => setPayment(value)}
+                onValueChange={(value: PaymentType) => setMethod(value)}
             >
-                <div className={cn("transition-all rounded-lg", {
-                    "border p-2": payment === "magic"
-                })}>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="magic"/>
-                        <Label className="text-lg font-normal">Magic card</Label>
+                {payments?.map(payment => (
+                    <div key={payment.id} className={cn("transition-all rounded-lg", {
+                        "border p-2": method === payment.type
+                    })}>
+                        <div className="flex items-center space-x-2">
+                            <RadioGroupItem value={payment.type}/>
+                            <Label className="text-lg font-normal">Magic card</Label>
+                        </div>
+                        {method === PaymentType.MAGIC && <MagicCard className="my-2 mx-auto" payment={payment}/>}
                     </div>
-                    {payment === "magic" && <MagicCard className="my-2 mx-auto"/>}
-                </div>
+                ))}
 
-                <span className="mt-2 bg-white shadow-sm border border-warning p-2 rounded-lg text-center hidden sm:block">
-                    Payment methods may vary depending on the delivery method
-                </span>
+                {(!payments?.length && profile) && (
+                    <Link
+                        className={cn(
+                            "mt-2 bg-white shadow-sm border border hover:border-warning hover:underline",
+                            "transition-all p-2 rounded-lg text-center hidden sm:flex gap-1 justify-center"
+                        )}
+                        href={`/users/${profile.id}`}
+                    >
+                        <p>You do not have any payment method, add it to your profile</p>
+                        <Info className="w-4 h-4 text-primary opacity-90"/>
+                    </Link>
+                )}
             </RadioGroup>
         </Card>
     );

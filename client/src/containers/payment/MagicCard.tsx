@@ -3,13 +3,16 @@ import {useProfile} from "@hooks/useProfile";
 import {Wifi} from "lucide-react";
 import Image from "next/image";
 import {cn} from "@lib/utils";
+import {Payment} from "@/types/payment.interface";
+import {cardNumberFormat} from "@lib/formatter";
 
-interface MagicCardProps extends HTMLAttributes<HTMLDivElement> {}
+interface MagicCardProps extends HTMLAttributes<HTMLDivElement> {
+    payment: Payment;
+}
 
-export const MagicCard: FC<MagicCardProps> = ({className, ...props}) => {
+export const MagicCard: FC<MagicCardProps> = ({className, payment, ...props}) => {
     const {profile} = useProfile();
-    // Four years
-    const expiresEnd = new Date(Date.now() + 3600 * 24 * 30 * 48);
+    const expiresEnd = new Date(payment.cardExpiresAt);
 
     return (
         <main
@@ -38,11 +41,14 @@ export const MagicCard: FC<MagicCardProps> = ({className, ...props}) => {
                     <div className="w-12 h-8 rounded-lg bg-warning" />
                 </div>
 
-                <h2 className="text-2xl text-primary my-2">4716 6109 3132 3010</h2>
+                <h2 className="text-2xl text-primary my-2">{cardNumberFormat(payment.cardNumber)}</h2>
 
                 <footer className="relative text-left uppercase text-sm text-primary font-medium">
                     <p className="lowercase text-[10px] leading-3 opacity-90">valid thru</p>
-                    <h3 className="leading-3">{expiresEnd.getMonth().toString().padStart(2, '0')}/{expiresEnd.getFullYear() % 2000}</h3>
+                    <h3 className="leading-3">
+                        {expiresEnd.getMonth().toString().padStart(2, '0')}/
+                        {expiresEnd.getFullYear()%1000}
+                    </h3>
                     <h3 className="opacity-90 leading-3">{profile?.name}</h3>
                     <h3 className="opacity-80 leading-3">USD</h3>
                     <Image
