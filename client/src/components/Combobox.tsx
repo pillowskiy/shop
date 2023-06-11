@@ -62,12 +62,9 @@ export const Combobox: FC<ComboboxProps> = ({items, placeholder, onValueChange, 
                     variant="outline"
                     aria-expanded={open}
                     className={cn("w-full justify-between mt-4 bg-popover", className)}
-                    disabled={disabled}
+                    disabled={disabled || !items.length}
                 >
-                    {(items.length && value.length)
-                        ? items.find((item) => item.value === value)?.label
-                        : placeholder
-                    }
+                    {items.find((item) => item.value === value)?.label || placeholder}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
                 </Button>
             </PopoverTrigger>
