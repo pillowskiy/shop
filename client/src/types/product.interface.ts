@@ -2,6 +2,7 @@ import type {Category} from './category.interface';
 import type {Review} from './review.interface';
 import type {User} from "@/types/user.interface";
 import type {Pagination} from "@/types";
+import {WithPaginationResponse} from "@/types";
 
 export enum ProductSort {
     HighPrice = 'HIGHT_PRICE',
@@ -45,7 +46,4 @@ export interface ProductFullest extends Product {
     reviews: Review[];
 }
 
-export interface GetAllProductsResponse {
-    length: number,
-    products: ProductFullest[],
-}
+export type GetAllProductsResponse = WithPaginationResponse<"products", ProductFullest[]>;

@@ -8,7 +8,7 @@ import {Filter} from "@/types/product.interface";
 export const ProductCatalog: FC<Filter> = ({...filterParams}) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const {data} = useQuery(['get products', ...Object.keys(filterParams)], () => {
+    const {data} = useQuery(['get products', ...Object.values(filterParams)], () => {
         return ProductService.getAll(filterParams);
     }, {
         select: ({data}) => data,
@@ -27,7 +27,7 @@ export const ProductCatalog: FC<Filter> = ({...filterParams}) => {
 
     return (
         <section className="h-fit w-full flex flex-wrap gap-4 box-border">
-            {data?.products ?
+            {data?.length ?
                 data.products.map(product => (
                     <Catalog.ProductCard key={product.id} product={product}/>
                 )) :
