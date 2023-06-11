@@ -35,16 +35,20 @@ export const CartDialog: FC<PropsWithChildren> = ({children}) => {
                             Continue shopping
                         </Button>
                     </DialogClose>
-                    <div className="px-2 py-4 border bg-white rounded-lg flex gap-4 items-center">
-                        <h2 className="font-medium text-xl">
-                            {totalCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
-                        </h2>
-                        <DialogClose asChild>
-                            <Link href="/checkout">
-                                <Button>Place an order</Button>
-                            </Link>
-                        </DialogClose>
-                    </div>
+                    {
+                        !!items.length && (
+                            <div className="px-2 py-4 border bg-white rounded-lg flex gap-4 items-center">
+                                <h2 className="font-medium text-xl">
+                                    {totalCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
+                                </h2>
+                                <DialogClose asChild>
+                                    <Link href="/checkout">
+                                        <Button>Place an order</Button>
+                                    </Link>
+                                </DialogClose>
+                            </div>
+                        )
+                    }
                 </DialogFooter>
             </DialogContent>
         </Dialog>
