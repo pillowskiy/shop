@@ -23,8 +23,8 @@ export const Header: FC = () => {
                             className="w-11 h-11 object-cover object-top rounded-full absolute right-0 md:mr-[48px] lg:mr-[126px] hidden md:block border cursor-pointer"
                             src={profile.avatarURL}
                             alt={profile.name}
-                            width={64}
-                            height={64}
+                            width={256}
+                            height={256}
                         />
                     </ProfilePopover>
                 )

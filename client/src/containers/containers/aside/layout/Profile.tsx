@@ -11,14 +11,14 @@ export const Profile: FC = () => {
         (
             <ProfilePopover profile={profile}>
                 <li
-                    className="cursor-pointer p-2 rounded-lg text-center w-1/5 md:w-10/12 md:hidden"
+                    className="cursor-pointer py-2 rounded-lg text-center w-1/5 h-full md:hidden"
                 >
                     <Image
                         className="w-12 h-12 object-cover object-top m-auto rounded-full"
                         src={profile.avatarURL}
                         alt={profile.name}
-                        width={64}
-                        height={64}
+                        width={256}
+                        height={256}
                     />
                 </li>
             </ProfilePopover>

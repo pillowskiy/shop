@@ -24,7 +24,8 @@ const Item = forwardRef<HTMLLIElement, SideBarItemProps>(({
         <li
             ref={ref}
             className={cn(
-                "relative cursor-pointer p-2 md:hover:bg-muted rounded-lg transition-all text-center w-3/12 md:w-10/12",
+                "relative cursor-pointer p-2 md:hover:bg-muted rounded-lg",
+                "transition-all text-center w-3/12 md:w-10/12 select-none",
                 className, { 'md:bg-muted': router.asPath === href}
             )}
             onClick={() => href && router.push(href)}
