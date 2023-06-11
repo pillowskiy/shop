@@ -5,8 +5,7 @@ import {Button} from "@ui/Button";
 
 export const OrderContactsCard: FC = () => {
     return (
-        <Card
-            className="bg-popover p-4 flex items-center hover:shadow-lg transition-all">
+        <Card className="bg-popover p-4 flex items-center hover:shadow-lg transition-all">
             <MapPin className="w-8 h-8 opacity-90 mr-2"/>
             <div>
                 <p className="text-xs opacity-90">Automate form filling!</p>
