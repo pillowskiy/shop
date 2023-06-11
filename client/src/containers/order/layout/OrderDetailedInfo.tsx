@@ -1,5 +1,6 @@
 import type {FC} from 'react';
 import type {Order, OrderItem} from "@/types/order.interface";
+import {OrderStatus} from "@/types/order.interface";
 import {useProfile} from "@hooks/useProfile";
 import {priceFormat} from "@lib/formatter";
 import {Button} from "@ui/Button";
@@ -85,6 +86,13 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                 <div className="flex gap-2 md:gap-4 flex-col md:flex-row mt-4">
                     <Button className="w-full md:w-auto" variant="secondary" disabled>Leave a review</Button>
                     <Button className="w-full md:w-auto">Repeat the order</Button>
+                    <Button
+                        className="w-full md:w-auto md:ml-auto"
+                        variant="destructive"
+                        disabled={order.status !== OrderStatus.PENDING}
+                    >
+                        Cancel
+                    </Button>
                 </div>
             </section>
         </main>
