@@ -4,7 +4,7 @@ import {Button} from "@ui/Button";
 import {Zap} from "lucide-react";
 import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
 import {ProductFullest} from "@/types/product.interface";
-import {CartButton} from "@containers/product/layout/CartButton";
+import {CartButton} from "@containers/cart/layout/CartButton";
 
 interface ProductTradeContainerProps {
     product: ProductFullest;

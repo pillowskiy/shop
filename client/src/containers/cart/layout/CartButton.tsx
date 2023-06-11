@@ -41,14 +41,6 @@ export const CartButton: FC<CartButtonProps> = ({className, product, ...props}) 
             disabled={!product.quantity}
             onClick={() => {
                 dispatch(addToCart(product))
-                toast({
-                    description: "✅ You have successfully added a product to your basket",
-                    action: (
-                        <CartDialog>
-                            <ToastAction altText="Go to cart">Go to cart</ToastAction>
-                        </CartDialog>
-                    ),
-                })
             }}
             {...props}
         >
