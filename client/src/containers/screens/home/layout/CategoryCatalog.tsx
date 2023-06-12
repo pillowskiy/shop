@@ -25,14 +25,12 @@ export const CategoryCatalog: FC<CategoryFilter> = ({...filterParams}) => {
         );
     }
 
-    // TEMP slice (pagination on backend)
     return (
         <section className="h-fit w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 box-border">
             {categories?.length ?
                 categories.map(category => (
                     <Catalog.CategoryCard key={category.id} category={category}/>
-                )) :
-                null
+                )) : null
             }
         </section>
     );

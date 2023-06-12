@@ -31,7 +31,9 @@ export const ProductCatalog: FC<Filter> = ({...filterParams}) => {
                 data.products.map(product => (
                     <Catalog.ProductCard key={product.id} product={product}/>
                 )) :
-                <div>There are not products yet!</div>
+                <div className="p-4 rounded-lg bg-popover w-full text-2xl text-center font-medium select-none">
+                    🙅There are no products yet!
+                </div>
             }
         </section>
     );
