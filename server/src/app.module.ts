@@ -12,6 +12,7 @@ import { ProductModule } from './components/product/product.module';
 import { UploadModule } from './components/upload/upload.module';
 import { PromoCodeModule } from './components/promo-code/promo-code.module';
 import { PaymentModule } from './components/payment/payment.module';
+import { ShippingModule } from './components/shipping/shipping.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { PaymentModule } from './components/payment/payment.module';
     UploadModule,
     PromoCodeModule,
     PaymentModule,
+    ShippingModule,
   ],
   providers: [PrismaService],
 })

@@ -32,7 +32,8 @@ model User {
   helpfulReviews Review[]
 
   promoCodes PromoCode[] @relation("owner")
-  payments Payment[]
+  payments   Payment[]
+  shipping   Shipping[]
 }
 
 enum Gender {
@@ -95,7 +96,7 @@ model Category {
   name String @unique
   slug String @unique
 
-  Product Product[]
+  product Product[]
 }
 
 model Review {
@@ -128,7 +129,9 @@ model Order {
   promoCodeId Int?       @map("promo_code_id")
   promoCode   PromoCode? @relation(fields: [promoCodeId], references: [id])
 
-  items OrderItem[]
+  items      OrderItem[]
+  shipping   Shipping   @relation(fields: [shippingId], references: [id])
+  shippingId Int
 }
 
 model OrderItem {
@@ -159,9 +162,9 @@ model Payment {
 
   type PaymentType
 
-  cardNumber  String      @map("card_number")
+  cardNumber    String   @map("card_number")
   cardExpiresAt DateTime @map("card_expires_at")
-  cardCvv     String   @map("card_cvv")
+  cardCvv       String   @map("card_cvv")
 
   userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id])
@@ -171,4 +174,22 @@ enum PaymentType {
   VISA
   PAY_PAL
   MAGIC
+}
+
+model Shipping {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name    String
+  surname String
+
+  country String
+  state   String
+  city    String
+
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+
+  orders Order[]
 }
