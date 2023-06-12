@@ -19,7 +19,7 @@ export class OrderService {
     });
   }
 
-  public async create({ items }: CreateOrderDto, userId: number) {
+  public async create({ items, shippingId }: CreateOrderDto, userId: number) {
     const productIds = items.map((item) => item.productId);
     const products = await this.prisma.product.findMany({
       where: { id: { in: productIds } },
@@ -36,16 +36,19 @@ export class OrderService {
         price: product.price,
       }));
 
-    const order = this.prisma.order.create({
+    return this.prisma.order.create({
       data: {
-        userId,
+        user: {
+          connect: { id: userId },
+        },
         items: {
           createMany: { data },
         },
+        shipping: {
+          connect: { id: shippingId },
+        },
       },
     });
-
-    return order;
   }
 
   public async getItems(orderId: number, userId: number) {

@@ -64,6 +64,7 @@ export const order: SwaggerSchema<Order> = {
   status: OrderStatus.PENDING,
   promoCodeId: 1,
   createdAt: new Date(),
+  shippingId: 1,
 };
 
 export const orderItem: SwaggerSchema<OrderItem> = {

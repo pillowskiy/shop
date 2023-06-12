@@ -13,6 +13,10 @@ export class CreateOrderDto {
   @Type(() => OrderItemDto)
   @ValidateNested({ each: true })
   public readonly items: OrderItemDto[];
+
+  @IsInt()
+  @Min(0)
+  public readonly shippingId: number;
 }
 
 export class OrderItemDto {
