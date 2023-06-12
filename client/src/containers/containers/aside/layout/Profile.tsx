@@ -23,6 +23,6 @@ export const Profile: FC = () => {
                 </li>
             </ProfilePopover>
         ) : (
-            <Item href="/login" Icon={LogIn} title="Log in"/>
+            <Item className="md:hidden" href="/login" Icon={LogIn} title="Log in"/>
         );
 };
