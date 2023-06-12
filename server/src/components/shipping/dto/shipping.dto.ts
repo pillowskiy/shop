@@ -22,7 +22,6 @@ export class ShippingDto {
   state: string;
 
   @IsString()
-  @MaxLength(8)
   @IsNotEmpty()
   city: string;
 }

@@ -36,4 +36,10 @@ export class ShippingService {
       where: { id: userId },
     });
   }
+
+  public async getAll(userId: number) {
+    return this.prisma.shipping.findMany({
+      where: { userId },
+    });
+  }
 }

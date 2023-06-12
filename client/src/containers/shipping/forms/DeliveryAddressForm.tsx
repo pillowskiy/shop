@@ -3,26 +3,19 @@ import {DE, FR, GB, PL, UA} from "country-flag-icons/react/1x1";
 import {CardDescription} from "@common/Card";
 import {Combobox} from "@components/Combobox";
 import {Country, State, City} from "country-state-city";
-import {useState} from "react";
+import {CreateShippingData} from "@types/shipping.interface";
 
 interface AddressValue {
     value: string;
     label: string;
 }
 
-interface AddressState {
-    country: string | null;
-    state: string | null;
-    city: string | null;
+interface DeliveryAddressFormProps {
+    data: CreateShippingData;
+    updateData: (values: Partial<CreateShippingData>) => void;
 }
 
-export const DeliveryAddressForm: FC = () => {
-    const [address, setAddress] = useState<AddressState>({country: null, state: null, city: null});
-
-    const updateAddress = (value: Record<keyof AddressState, string>) => {
-        setAddress({...address, ...value})
-    }
-
+export const DeliveryAddressForm: FC<DeliveryAddressFormProps> = ({data, updateData}) => {
     const countries = Country.getAllCountries();
     const updatedCountries: AddressValue[] = countries.map(country => ({
         label: country.name,
@@ -45,8 +38,6 @@ export const DeliveryAddressForm: FC = () => {
         }));
     }
 
-    console.log(address);
-
     return (
         <form className="border rounded-lg p-2 bg-white">
             <p className="font-consolas text-sm text-primary opacity-90 text-center">Popular countries</p>
@@ -61,19 +52,19 @@ export const DeliveryAddressForm: FC = () => {
             <Combobox
                 items={updatedCountries}
                 placeholder="Select country"
-                onValueChange={(value) => updateAddress({country: value})}
+                onValueChange={(value) => updateData({country: value})}
             />
             <Combobox
-                items={getState(address.country)}
+                items={getState(data.country)}
                 placeholder="Select state"
-                onValueChange={(value) => updateAddress({ state: value })}
-                disabled={!address.country}
+                onValueChange={(value) => updateData({ state: value })}
+                disabled={!data.country}
             />
             <Combobox
-                items={getCity(address.country, address.state)}
+                items={getCity(data.country, data.state)}
                 placeholder="Select city"
-                onValueChange={(value) => updateAddress({ city: value })}
-                disabled={!address.state}
+                onValueChange={(value) => updateData({ city: value })}
+                disabled={!data.state}
             />
 
             <CardDescription className="mt-1 text-xs">
