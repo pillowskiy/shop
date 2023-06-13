@@ -1,15 +1,12 @@
 import {type FC, useState} from 'react';
 import {Button} from "@ui/Button"
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@common/DropdownMenu";
-import {ChevronDown} from "lucide-react";
+import {Check, ChevronDown} from "lucide-react";
 import {useQuery} from "@tanstack/react-query";
 import CategoryService from "@api/services/category.service";
 import {cn} from "@lib/utils";
+import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem} from "@common/Command";
+import {Popover, PopoverTrigger} from "@radix-ui/react-popover";
+import {PopoverContent} from "@common/Popover";
 
 interface CategorySelectProps {
     selectedCategories: number[];
@@ -35,8 +32,8 @@ export const CategorySelect: FC<CategorySelectProps> = ({setCategories, selected
     const selectedKeys = Object.entries(selected).filter(([_, value]) => value).map(([key]) => +key);
 
     return (
-        <DropdownMenu onOpenChange={(open) => !open && setCategories(selectedKeys)}>
-            <DropdownMenuTrigger asChild disabled={isDisabled}>
+        <Popover onOpenChange={(open) => !open && setCategories(selectedKeys)}>
+            <PopoverTrigger asChild disabled={isDisabled}>
                 <Button
                     className="w-full flex flex-wrap gap-1 justify-start overflow-x-hidden bg-white text-foreground font-normal border py-1 h-fit mt-6"
                     disabled={isDisabled}>
@@ -53,26 +50,35 @@ export const CategorySelect: FC<CategorySelectProps> = ({setCategories, selected
                         )}
                     <ChevronDown className="w-4 h-4 ml-auto"/>
                 </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-                className={cn(
-                    "absolute translate-x-[-50%] overflow-y-auto bg-white",
-                    "w-[var(--radix-dropdown-menu-trigger-width)] max-h-[200px]"
-                )}
-            >
-                {categories && categories.map(category => (
-                    <DropdownMenuCheckboxItem
-                        key={category.id}
-                        checked={Boolean(selected[category.id])}
-                        onCheckedChange={() => setSelected({
-                            ...selected,
-                            [category.id]: !Boolean(selected[category.id])
-                        })}
-                    >
-                        {category.name}
-                    </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent>
-        </DropdownMenu>
+            </PopoverTrigger>
+            <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
+                <Command className="bg-white">
+                    <CommandInput
+                        placeholder="Find category"
+                        autoFocus
+                    />
+                    <CommandEmpty>No results found</CommandEmpty>
+                    <CommandGroup className="max-h-[200px] overflow-y-auto">
+                        {categories && categories.map(category => (
+                            <CommandItem
+                                key={category.id}
+                                onSelect={() => setSelected({
+                                    ...selected,
+                                    [category.id]: !Boolean(selected[category.id])
+                                })}
+                            >
+                                <Check
+                                    className={cn(
+                                        "mr-2 h-4 w-4 transition-all",
+                                        Boolean(selected[category.id]) ? "opacity-100" : "opacity-0"
+                                    )}
+                                />
+                                {category.name}
+                            </CommandItem>
+                        ))}
+                    </CommandGroup>
+                </Command>
+            </PopoverContent>
+        </Popover>
     );
 };
