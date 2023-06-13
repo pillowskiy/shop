@@ -1,9 +1,12 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
 import {MapPin, Info} from "lucide-react";
-import {Button} from "@ui/Button";
+import Link from "next/link";
+import {useProfile} from "@hooks/useProfile";
 
 export const OrderContactsCard: FC = () => {
+    const {profile} = useProfile();
+
     return (
         <Card className="bg-popover p-4 flex items-center hover:shadow-lg transition-all">
             <MapPin className="w-8 h-8 opacity-90 mr-2"/>
@@ -14,7 +17,14 @@ export const OrderContactsCard: FC = () => {
                     <Info className="w-4 h-4 ml-1 hidden md:block opacity-90 text-primary" />
                 </div>
             </div>
-            <Button className="ml-auto opacity-90" variant="link">Give access</Button>
+            {profile && (
+                <Link
+                    href={`/users/${profile.id}`}
+                    className="ml-auto opacity-90 md:hover:underline transition-all text-sm"
+                >
+                    Give access
+                </Link>
+            )}
         </Card>
     );
 };

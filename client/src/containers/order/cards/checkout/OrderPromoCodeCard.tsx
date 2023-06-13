@@ -25,7 +25,7 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
     }, {
         onError: (err) => {
             if (isAxiosError(err)) {
-                setError(err.response.data.message || "Unhandled error occurred (promo)");
+                setError(err.response?.data?.message || "Unhandled error occurred (promo)");
             }
         },
         onSuccess: ({data}) => {
@@ -40,7 +40,7 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
     });
 
     return (
-        <Card className="bg-popover px-4 pb-4">
+        <Card className="bg-popover px-6 sm:px-4 pb-4">
             <FormInput
                 className="bg-white"
                 label="Promo-code"

@@ -49,7 +49,7 @@ export const OrderConfirmationCard: FC = () => {
     })
 
     return (
-        <Card className="bg-popover p-4 mt-4">
+        <Card className="bg-popover p-4 px-6 sm:px-4 mt-4">
             <h2 className="font-medium text-xl">Total payable</h2>
             <hr className="my-2"/>
             <div className="flex justify-between text-xs">
