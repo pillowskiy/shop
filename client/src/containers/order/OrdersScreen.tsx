@@ -27,7 +27,7 @@ export const OrdersScreen: FC = () => {
         <Meta title="Orders">
             <AuthProvider forAuth={true}>
                 <Main className="min-h-screen-64">
-                    { orders && <OrderBreadcrumbCard /> }
+                    { !!orders?.length && <OrderBreadcrumbCard /> }
                     {
                         !orders?.length ?
                             <EmptyItems>There are not orders yet.</EmptyItems> :

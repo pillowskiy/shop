@@ -4,7 +4,7 @@ import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 
 import {Checkout} from "./";
-import {PromoCode} from "@types/promo-code.interface";
+import type {PromoCode} from "@/types/promo-code.interface";
 import {useState} from "react";
 import {useCart} from "@hooks/useCart";
 import {EmptyItems} from "@containers/EmptyItems";
