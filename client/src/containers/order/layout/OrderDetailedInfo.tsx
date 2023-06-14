@@ -5,9 +5,9 @@ import {useProfile} from "@hooks/useProfile";
 import {priceFormat} from "@lib/formatter";
 import {Button} from "@ui/Button";
 import {Package} from "lucide-react";
-import {CartProductCard} from "@containers/cart/cards/CartProductCard";
 import {Accordion} from "@radix-ui/react-accordion";
 import {AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
+import {CartReadonlyItemCard} from "@containers/cart/cards/CartReadonlyItemCard";
 
 interface OrderDetailedInfoProps {
     order: Order;
@@ -62,7 +62,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                         <AccordionContent className="max-h-[300px] overflow-y-auto rounded-lg p-4 pb-0 my-4 border">
                             {
                                 items.map(item => (
-                                    <CartProductCard key={item.id} product={{...item.product, count: item.quantity}} />
+                                    <CartReadonlyItemCard key={item.id} item={{...item.product, count: item.quantity}} />
                                 ))
                             }
                         </AccordionContent>
