@@ -6,6 +6,7 @@ import {useCart} from "@hooks/useCart";
 import {CartReadonlyItemCard} from "@containers/cart/cards/CartReadonlyItemCard";
 
 export const OrderProductsCard: FC = () => {
+    // TEMP (every cart item should have only id and quantity)
     const {items} = useCart();
 
     return (
@@ -20,7 +21,7 @@ export const OrderProductsCard: FC = () => {
                 </CartDialog>
             </div>
 
-            <section className="relative flex flex-col gap-4 rounded-lg max-h-[400px] overflow-y-auto">
+            <section className="relative rounded-lg max-h-[400px] overflow-y-auto">
                 {
                     items.map(item => (
                         <CartReadonlyItemCard key={item.id} item={item} />

@@ -13,17 +13,19 @@ import {isAxiosError} from "axios";
 import {useAppDispatch} from "@redux/store";
 import {clearCart} from "@redux/cart/cart.slice";
 import {useRouter} from "next/router";
+import {useContext} from "react";
+import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
 
 export const OrderConfirmationCard: FC = () => {
-    const {totalItems, totalCost, items} = useCart();
+    const {totalItems, totalCost} = useCart();
+    const {items, shippingId, paymentId, promo} = useContext(OrderCheckoutContext);
+
     const {toast} = useToast();
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     const {mutate} = useMutation(['create order'], () => {
-        return OrderService.createOrder({
-            items: items.map(({id, count}) => ({productId: id, quantity: count}))
-        });
+        return OrderService.createOrder({items, shippingId, paymentId, promo});
     }, {
         onSuccess: async () => {
             await router.push('/');
@@ -67,7 +69,9 @@ export const OrderConfirmationCard: FC = () => {
             </div>
             <hr className="my-2"/>
             <footer>
-                <Button className="w-full" onClick={mutate}>Confirm the order</Button>
+                <Button className="w-full" onClick={() => mutate()}>
+                    Confirm the order
+                </Button>
 
                 <section className="mt-2 text-xs">
                     <p className="font-medium mb-1">

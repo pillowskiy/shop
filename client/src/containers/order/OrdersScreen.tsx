@@ -38,7 +38,7 @@ export const OrdersScreen: FC = () => {
                         !orders?.length ?
                             <EmptyItems>There are not orders yet.</EmptyItems> :
                             orders
-                                .filter(order => new Date(order.createdAt) <= orderDateFilter[filter])
+                                .filter(order => new Date(order.createdAt) >= orderDateFilter[filter])
                                 .map((order, index) => (
                                     <OrderOverviewCard key={order.id} order={order} defaultOpen={!index}/>
                                 ))

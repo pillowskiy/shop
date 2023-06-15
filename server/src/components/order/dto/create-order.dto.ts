@@ -1,7 +1,9 @@
 import {
   ArrayMinSize,
   IsArray,
-  IsInt, IsOptional, IsString,
+  IsInt,
+  IsOptional,
+  IsString,
   Min,
   ValidateNested,
 } from 'class-validator';

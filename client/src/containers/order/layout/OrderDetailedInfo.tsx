@@ -60,11 +60,9 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                     <AccordionItem className="mb-4" value="description">
                         <AccordionTrigger className="font-medium text-xl select-none p-0 pb-2">Items</AccordionTrigger>
                         <AccordionContent className="max-h-[300px] overflow-y-auto rounded-lg p-4 pb-0 my-4 border">
-                            {
-                                items.map(item => (
-                                    <CartReadonlyItemCard key={item.id} item={{...item.product, count: item.quantity}} />
-                                ))
-                            }
+                            {items.map(item => (
+                                <CartReadonlyItemCard key={item.id} item={{...item.product, count: item.quantity}} />
+                            ))}
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
