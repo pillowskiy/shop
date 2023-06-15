@@ -1,5 +1,16 @@
 import {User} from "./user.interface";
-import {WithPaginationResponse} from "@/types/";
+import {Pagination, WithPaginationResponse} from "@/types/";
+
+export enum ReviewSort {
+    Newest = 'NEWEST',
+    Oldest = 'OLDEST',
+    Better = 'BETTER',
+    Worse = 'WORSE',
+}
+
+export interface Filter extends Pagination {
+    sort?: ReviewSort;
+}
 
 export type ReviewCreateResponse = Review & { user: User };
 export type ReviewCreate = Pick<Review, 'text' | 'rating'>;

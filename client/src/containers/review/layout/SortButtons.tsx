@@ -1,13 +1,25 @@
-import {Button} from "@ui/Button";
-import {memo} from "react";
+import {ReviewSort} from "@/types/review.interface";
+import {memo, useState} from "react";
+import {SortButton} from "@components/SortButton";
 
 export const SortButtons = memo(() => {
+    const [sortMethod, setSortMethod] = useState(ReviewSort.Newest);
     return (
         <section className="mt-2 mb-4 flex gap-2 bg-muted p-2 rounded-md overflow-x-auto">
-            <Button className="h-8" variant="default" disabled>Newest</Button>
-            <Button className="h-8" variant="secondary">Oldest</Button>
-            <Button className="h-8" variant="secondary">Better</Button>
-            <Button className="h-8" variant="secondary">Worse</Button>
+            {
+                Object.values(ReviewSort).map(value => (
+                    <SortButton
+                        key={value}
+                        className="capitalize"
+                        value={value}
+                        onValueChange={(newValue) => setSortMethod(newValue)}
+                        variant={sortMethod === value ? "default" : "secondary"}
+                        disabled={sortMethod === value}
+                    >
+                        {value}
+                    </SortButton>
+                ))
+            }
         </section>
     );
 });

@@ -29,7 +29,7 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                 <aside className="w-full md:w-1/3">
                     <h2 className="text-xl md:text-2xl font-medium">Customer reviews</h2>
                     <StarRating rating={reviewStatistic?.avg || 0}/>
-                    <hr className="mt-4"/>
+                    <hr className="my-4"/>
                     {   reviewStatistic &&
                         reviewStatistic.intervalCounts.map(({intervalCounts, percentages, rate}) => (
                             <ReviewProgressBar
@@ -40,7 +40,7 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                             />
                         ))
                     }
-                    <hr className="mt-4"/>
+                    <hr className="my-4"/>
                     <ProductReviewForm productId={productId} hasAccess={!!profile}/>
                 </aside>
                 <aside className="w-full md:w-2/3 md:ml-4 mt-2 md:mt-0 relative">

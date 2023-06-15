@@ -68,8 +68,8 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
     }
 
     return (
-        <form onSubmit={onSubmit} className="pb-4 border-b" action="@containers/cards/review/layout/form/ProductReviewForm">
-            <h2 className="text-xl md:text-2xl font-medium mt-2">Review this product</h2>
+        <form onSubmit={onSubmit} className="pb-4 border-b">
+            <h2 className="text-xl md:text-2xl font-medium">Review this product</h2>
             <p className="text-primary opacity-90">Share your thoughts with other customers</p>
             <Textarea
                 className={cn("mt-4 bg-white", {

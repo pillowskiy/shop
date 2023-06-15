@@ -20,7 +20,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { review } from 'src/config/docs';
-import { PaginationDto } from '../../dto/pagination.dto';
+import { FilterDto } from './dto/filter.dto';
 
 @ApiTags('reviews')
 @Controller('reviews')
@@ -33,7 +33,7 @@ export class ReviewController {
   @Get(':id')
   public getAll(
     @Param('id', ParseIntPipe) productId: number,
-    @Query() dto: PaginationDto,
+    @Query() dto: FilterDto,
   ) {
     return this.reviewService.getAll(productId, dto);
   }

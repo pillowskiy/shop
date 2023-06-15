@@ -3,8 +3,10 @@ import { PrismaService } from 'src/prisma.service';
 import { ReviewDto } from './dto/review.dto';
 import { reviewSelect } from './prisma.partials';
 import { NotFoundException } from '@nestjs/common/exceptions';
-import type { FilterDto } from '../product/dto/filter.dto';
 import { PaginationService } from '../pagination/pagination.service';
+import type { FilterDto } from './dto/filter.dto';
+import {Prisma} from "@prisma/client";
+import {ReviewSort} from "./dto/filter.dto";
 
 @Injectable()
 export class ReviewService {
@@ -21,10 +23,25 @@ export class ReviewService {
     return data._avg.rating || 0;
   }
   public async getAll(productId: number, dto: FilterDto) {
+    const prismaSort: Prisma.ReviewOrderByWithRelationInput[] = [];
+    switch (dto.sort) {
+      case ReviewSort.Oldest:
+        prismaSort.push({ createdAt: 'asc' });
+        break;
+      case ReviewSort.Better:
+        prismaSort.push({ rating: 'desc' });
+        break;
+      case ReviewSort.Worse:
+        prismaSort.push({ rating: 'asc' });
+        break;
+      default:
+        prismaSort.push({ createdAt: 'desc' });
+    }
+
     const { skip, perPage } = this.paginationService.getPagination(dto);
     const reviews = await this.prisma.review.findMany({
       where: { productId },
-      orderBy: { createdAt: 'desc' },
+      orderBy: prismaSort,
       take: perPage,
       skip,
       select: reviewSelect,
