@@ -13,9 +13,13 @@ import {Meta} from "@containers/Meta";
 
 import {OrderOverviewCard} from "@containers/order/cards/overview/OrderOverviewCard";
 import {OrderBreadcrumbCard} from "@containers/order/cards/overview/OrderBreadcrumbCard";
+import {useState} from "react";
+import {orderDateFilter} from "@containers/order/constant";
 
 export const OrdersScreen: FC = () => {
     const {user} = useAuth();
+    const [filter, setFilter] = useState<keyof typeof orderDateFilter>("all");
+
     const {data: orders} = useQuery(['get orders'], () => {
         return OrderService.getOrders();
     }, {
@@ -27,13 +31,17 @@ export const OrdersScreen: FC = () => {
         <Meta title="Orders">
             <AuthProvider forAuth={true}>
                 <Main className="min-h-screen-64">
-                    { !!orders?.length && <OrderBreadcrumbCard /> }
+                    {!!orders?.length && (
+                        <OrderBreadcrumbCard filter={filter} setFilter={(newValue) => setFilter(newValue)}/>
+                    )}
                     {
                         !orders?.length ?
                             <EmptyItems>There are not orders yet.</EmptyItems> :
-                            orders.map((order, index) => (
-                                <OrderOverviewCard key={order.id} order={order} defaultOpen={!index}/>
-                            ))
+                            orders
+                                .filter(order => new Date(order.createdAt) <= orderDateFilter[filter])
+                                .map((order, index) => (
+                                    <OrderOverviewCard key={order.id} order={order} defaultOpen={!index}/>
+                                ))
                     }
                 </Main>
             </AuthProvider>
