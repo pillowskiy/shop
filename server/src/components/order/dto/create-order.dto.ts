@@ -1,7 +1,7 @@
 import {
   ArrayMinSize,
   IsArray,
-  IsInt,
+  IsInt, IsOptional, IsString,
   Min,
   ValidateNested,
 } from 'class-validator';
@@ -17,6 +17,14 @@ export class CreateOrderDto {
   @IsInt()
   @Min(0)
   public readonly shippingId: number;
+
+  @IsInt()
+  @Min(0)
+  public readonly paymentId: number;
+
+  @IsString()
+  @IsOptional()
+  public readonly promo?: string;
 }
 
 export class OrderItemDto {

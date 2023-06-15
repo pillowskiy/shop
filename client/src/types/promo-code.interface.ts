@@ -1,4 +1,4 @@
-export interface CreatePromoCodeData extends Omit<PromoCode, { 'ownerId': number }> {
+export type CreatePromoCodeData = Omit<PromoCode, 'ownerId'> & {
     activationLimit?: number;
 }
 

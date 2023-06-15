@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios'
 import { $api } from '../api.interceptor'
-import type {CreateOrder, Order, OrderItem} from '@/types/order.interface';
+import type {CreateOrderData, Order, OrderItem} from '@/types/order.interface';
 
 export default class OrderService {
   private static controller = 'orders';
@@ -9,7 +9,7 @@ export default class OrderService {
     return $api.get<Order[]>(`/${OrderService.controller}/`);
   }
 
-  static async createOrder(data: CreateOrder): Promise<AxiosResponse<Order[]>> {
+  static async createOrder(data: CreateOrderData): Promise<AxiosResponse<Order[]>> {
     return $api.post<Order[]>(`/${OrderService.controller}/`, data);
   }
 
