@@ -7,6 +7,7 @@ import type {
   ReviewCreate,
   GetAlLReviewsResponse,
 } from '@/types/review.interface'
+import {ReviewStatistic} from "@/types/review.interface";
 
 export default class ReviewService {
   private static controller = 'reviews';
@@ -16,6 +17,9 @@ export default class ReviewService {
   }
   static async getAvg(productId: number): Promise<AxiosResponse<number>> {
     return $api.get<number>(`/${ReviewService.controller}/avg/${productId}`);
+  }
+  static async getStatistic(productId: number): Promise<AxiosResponse<ReviewStatistic>> {
+    return $api.get<ReviewStatistic>(`/${ReviewService.controller}/statistic/${productId}`);
   }
   static async create(
     productId: number,

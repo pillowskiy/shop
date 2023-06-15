@@ -1,23 +1,26 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
-import {analyzeReviews} from "../util";
 import {StarRating} from "@containers/product/layout/StarRating";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
-import {ReviewComment} from "@containers/review/cards/layout/ReviewComment";
 import {ReviewProgressBar} from "@containers/review/cards/layout/ReviewProgressBar";
 import {ProductReviewForm} from "@containers/review/forms/ProductReviewForm";
-import {EmptyItems} from "@containers/EmptyItems";
-import {SortButtons} from "@containers/review/layout/SortButtons";
 import {useProfile} from "@hooks/useProfile";
 import {ReviewComments} from "@containers/review/layout/ReviewComments";
+import {useQuery} from "@tanstack/react-query";
+import ReviewService from "@api/services/review.service";
 
 interface ProductReviewProps {
     productId: number;
 }
 
 export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
-    const rating = useProductRateAvg(productId);
     const {profile} = useProfile();
+
+    const {data: reviewStatistic} = useQuery(['get review statistic', productId], () => {
+        return ReviewService.getStatistic(productId);
+    }, {
+        select: ({data}) => data,
+    })
 
     return (
         <Card className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] gap-4 p-4 mt-4 bg-popover">
@@ -25,15 +28,15 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
             <section className="mt-2 flex flex-col md:flex-row w-full border-t pt-2">
                 <aside className="w-full md:w-1/3">
                     <h2 className="text-xl md:text-2xl font-medium">Customer reviews</h2>
-                    <StarRating rating={rating}/>
+                    <StarRating rating={reviewStatistic?.avg || 0}/>
                     <hr className="mt-4"/>
-                    {
-                        analyzeReviews([]).map(({intervalCounts, percentages}, index) => (
+                    {   reviewStatistic &&
+                        reviewStatistic.intervalCounts.map(({intervalCounts, percentages, rate}) => (
                             <ReviewProgressBar
-                                key={Math.random() * Date.now()}
+                                key={rate}
                                 intervalCounts={intervalCounts}
                                 percentages={percentages}
-                                starCount={index + 1}
+                                starCount={rate}
                             />
                         ))
                     }

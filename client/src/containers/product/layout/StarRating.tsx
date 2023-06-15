@@ -8,7 +8,6 @@ interface StarRatingProps extends HTMLAttributes<HTMLDivElement>{
 }
 
 export const StarRating: FC<StarRatingProps> = ({text, rating, className, ...props}) => {
-
     return (
         <div className={cn("flex gap-1 items-center", className)} {...props}>
             {Array.from({length: 5}, (_, index) => (

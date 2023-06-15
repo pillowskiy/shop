@@ -46,6 +46,11 @@ export class ReviewController {
     return this.reviewService.getAvgRating(productId);
   }
 
+  @Get('/statistic/:id')
+  public getStatistic(@Param('id', ParseIntPipe) productId: number) {
+    return this.reviewService.getStatistic(productId);
+  }
+
   @ApiOperation(review.create.operation)
   @ApiResponse(review.create.response)
   @ApiParam(review.create.param)

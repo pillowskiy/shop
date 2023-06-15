@@ -4,17 +4,16 @@ import {ReviewComment} from "@containers/review/cards/layout/ReviewComment";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
 import {Button} from "@ui/Button";
+import {REVIEWS_PER_PAGE} from "@containers/review/constant";
 
 interface ReviewCommentsProps {
     productId: number;
     hasAccess: boolean;
 }
 
-const PER_PAGE: number = 1;
-
 export const ReviewComments: FC<ReviewCommentsProps> = ({productId, hasAccess}) => {
     const fetchReviews = async (page: number) => {
-        const {data} = await ReviewService.getById(productId, {page, perPage: PER_PAGE});
+        const {data} = await ReviewService.getById(productId, {page, perPage: REVIEWS_PER_PAGE});
         return data;
     }
 
@@ -28,7 +27,7 @@ export const ReviewComments: FC<ReviewCommentsProps> = ({productId, hasAccess}) 
         fetchReviews(pageParam)
     ), {
         getNextPageParam: (lastPage, allPages) => {
-            const totalPages = ~~(lastPage.length / PER_PAGE);
+            const totalPages = Math.ceil(lastPage.length / REVIEWS_PER_PAGE);
             return totalPages > allPages.length && allPages.length + 1;
         },
     });
