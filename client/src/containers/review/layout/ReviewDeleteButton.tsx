@@ -1,0 +1,56 @@
+import type {FC, PropsWithChildren} from 'react';
+import type {Review} from "@/types/review.interface";
+import {useProfile} from "@hooks/useProfile";
+import {Role} from "@types/user.interface";
+import {Button, ButtonProps} from "@ui/Button";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import ReviewService from "@api/services/review.service";
+import {useToast} from "@common/toast/useToast";
+import {isAxiosError} from "axios";
+import {Trash2} from "lucide-react";
+import {cn} from "@lib/utils";
+
+interface ReviewDeleteButtonProps extends ButtonProps {
+    review: Review;
+    productId: number;
+}
+
+export const ReviewDeleteButton: FC<PropsWithChildren<ReviewDeleteButtonProps>> = ({
+    review,
+    className,
+    children,
+    productId,
+    ...props
+}) => {
+    const {profile} = useProfile();
+    const {toast} = useToast();
+    const queryClient = useQueryClient();
+    const canDelete = profile?.roles.some(role => role === Role.Admin) || review.user?.id === profile?.id;
+
+    const {mutate} = useMutation(['delete review', review.id], () => {
+        return ReviewService.delete(review.id);
+    }, {
+        onSuccess: () => {
+            toast({
+                description: "✅ You have successfully deleted a review"
+            });
+            return queryClient.invalidateQueries(['get reviews', productId])
+        },
+        onError: (err) => {
+            if (!isAxiosError(err)) return;
+            toast({
+                variant: "destructive",
+                title: "Uh Oh! Something went wrong.",
+                description: err.response?.data?.message || "Unhandled error occurred!",
+            });
+        }
+    })
+
+    if (!profile || !canDelete) return null;
+
+    return (
+        <Button className={cn("h-fit w-fit", className)} variant="secondary" onClick={mutate} {...props}>
+            {children ? children : <Trash2 className="w-4 h-4"/>}
+        </Button>
+    );
+};

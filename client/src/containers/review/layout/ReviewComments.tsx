@@ -5,6 +5,7 @@ import {useInfiniteQuery} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
 import {Button} from "@ui/Button";
 import {REVIEWS_PER_PAGE} from "@containers/review/constant";
+import {ReviewSort} from "@types/review.interface";
 
 interface ReviewCommentsProps {
     productId: number;
@@ -13,7 +14,11 @@ interface ReviewCommentsProps {
 
 export const ReviewComments: FC<ReviewCommentsProps> = ({productId, hasAccess}) => {
     const fetchReviews = async (page: number) => {
-        const {data} = await ReviewService.getById(productId, {page, perPage: REVIEWS_PER_PAGE});
+        const {data} = await ReviewService.getById(productId, {
+            page,
+            perPage: REVIEWS_PER_PAGE,
+            sort: ReviewSort.Newest
+        });
         return data;
     }
 

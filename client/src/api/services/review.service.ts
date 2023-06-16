@@ -26,4 +26,7 @@ export default class ReviewService {
   ): Promise<AxiosResponse<ReviewCreateResponse>> {
     return $api.post<ReviewCreateResponse>(`/${ReviewService.controller}/${productId}`, data);
   }
+  static async delete(reviewId: number) {
+    return $api.delete<Review>(`/${ReviewService.controller}/${reviewId}`);
+  }
 }

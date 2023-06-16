@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { ReviewDto } from './dto/review.dto';
 import { reviewSelect } from './prisma.partials';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { PaginationService } from '../pagination/pagination.service';
 import type { FilterDto } from './dto/filter.dto';
-import {Prisma} from "@prisma/client";
-import {ReviewSort} from "./dto/filter.dto";
+import { Prisma, User as PrismaUser } from '@prisma/client';
+import { ReviewSort } from './dto/filter.dto';
+import { matchRoles } from '../../utils/Util';
 
 @Injectable()
 export class ReviewService {
@@ -93,6 +94,27 @@ export class ReviewService {
     } catch {
       throw new NotFoundException('Product not found');
     }
+  }
+
+  public async delete(executor: PrismaUser, reviewId: number) {
+    const review = await this.prisma.review.findUnique({
+      where: { id: reviewId },
+    });
+
+    if (!review) {
+      throw new NotFoundException(`Cannot find review with id ${reviewId}`);
+    }
+
+    if (
+      review.userId !== executor.id &&
+      matchRoles(['Admin'], executor.roles)
+    ) {
+      throw new ForbiddenException('You are not allowed to do this action');
+    }
+
+    return this.prisma.review.delete({
+      where: { id: reviewId },
+    });
   }
 
   private async countReviews(productId: number) {

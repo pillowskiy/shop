@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Param,
@@ -21,6 +22,7 @@ import {
 } from '@nestjs/swagger';
 import { review } from 'src/config/docs';
 import { FilterDto } from './dto/filter.dto';
+import { User as PrismaUser } from '@prisma/client';
 
 @ApiTags('reviews')
 @Controller('reviews')
@@ -64,5 +66,15 @@ export class ReviewController {
     @User('id') userId: number,
   ) {
     return this.reviewService.create(userId, productId, dto);
+  }
+
+  @Auth()
+  @HttpCode(200)
+  @Delete(':id')
+  public async deleteProduct(
+    @User() user: PrismaUser,
+    @Param('id', ParseIntPipe) reviewId: number,
+  ) {
+    return this.reviewService.delete(user, reviewId);
   }
 }

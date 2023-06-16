@@ -10,6 +10,7 @@ import UserService from "@api/services/user.service";
 import {useProfile} from "@hooks/useProfile";
 import {cn} from "@lib/utils";
 import {ProfileHoverCard} from "@containers/user/cards/popover/ProfileHoverCard";
+import {ReviewDeleteButton} from "@containers/review/layout/ReviewDeleteButton";
 
 interface ReviewCommentProps {
     hasAccess: boolean;
@@ -18,8 +19,6 @@ interface ReviewCommentProps {
 }
 
 const ReviewComment = memo<ReviewCommentProps>(({review, productId, hasAccess}) => {
-    console.log(review.id, "Rendered!");
-
     const queryClient = useQueryClient();
     const {profile} = useProfile();
     const helpfulCount = review.helpful.length;
@@ -53,28 +52,39 @@ const ReviewComment = memo<ReviewCommentProps>(({review, productId, hasAccess}) 
                     </div>
                 </div>
             </ProfileHoverCard>
-            <p className="text-primary opacity-90 text-xs absolute right-0 mr-4 top-0 mt-5">{new Date(review.createdAt).toLocaleDateString()}</p>
+            <p className="text-primary opacity-90 text-xs absolute right-0 mr-4 top-0 mt-5">
+                {new Date(review.createdAt).toLocaleDateString()}
+            </p>
 
             <hr className="my-2 w-full"/>
 
             <div>
                 <StarRating className="mb-2" rating={review.rating} text=" "/>
                 <span>{review.text}</span>
-                <div className="mt-2">
-                    <Toggle
-                        pressed={isHelpful}
-                        className="h-6"
-                        variant="outline"
-                        disabled={!hasAccess || isLoading}
-                        onClick={mutate}
-                    >
-                        👍 {helpfulCount}
-                    </Toggle>
-                    <ProductReportDialog>
-                        <Button className="h-6 ml-2 pl-2" variant="secondary" disabled={!hasAccess}>⚡ Report </Button>
-                    </ProductReportDialog>
-                </div>
             </div>
+
+            <footer className="mt-4 flex space-x-2">
+                <Toggle
+                    pressed={isHelpful}
+                    className="h-6"
+                    variant="outline"
+                    disabled={!hasAccess || isLoading}
+                    onClick={mutate}
+                >
+                    👍 {helpfulCount}
+                </Toggle>
+                <ProductReportDialog>
+                    <Button className="h-6 pl-2" variant="secondary" disabled={!hasAccess}>⚡ Report </Button>
+                </ProductReportDialog>
+                <ReviewDeleteButton
+                    review={review}
+                    productId={productId}
+                    className="h-6 ml-auto px-1 sm:pl-2 sm:pr-3 opacity-80 md:hover:opacity-100 transition-all absolute right-2"
+                    variant="destructive"
+                >
+                    🗑️ <p className="hidden sm:block ml-1"> Delete</p>
+                </ReviewDeleteButton>
+            </footer>
         </div>
     );
 });
