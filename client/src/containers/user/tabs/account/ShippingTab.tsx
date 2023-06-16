@@ -11,6 +11,7 @@ import {useMutation} from "@tanstack/react-query";
 import ShippingService from "@api/services/shipping.service";
 import {useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
+import {PhoneInput} from "@components/PhoneInput";
 
 const INITIAL_SHIPPING_DATA: CreateShippingData = {
     country: "",
@@ -18,6 +19,7 @@ const INITIAL_SHIPPING_DATA: CreateShippingData = {
     city: "",
     surname: "",
     name: "",
+    phone: "",
 }
 
 export const ShippingTab: FC = () => {
@@ -72,7 +74,10 @@ export const ShippingTab: FC = () => {
                         <FormInput className="bg-white" label="Name" {...formInputProps("name")}/>
                         <FormInput className="bg-white" label="Surname" {...formInputProps("surname")}/>
                     </section>
-                    <FormInput className="bg-white" label="Phone number"/>
+                    <div>
+                        <PhoneInput value={data.phone} onChange={(phone) => setData({...data, phone})}/>
+                        {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
+                    </div>
                     <FormInput className="bg-white" label="Email" value={profile?.email} disabled/>
 
                     <hr className="my-4"/>

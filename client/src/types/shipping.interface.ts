@@ -9,6 +9,8 @@ export interface Shipping {
     state: string;
     city: string;
 
+    phone: string;
+
     userId: number;
 }
 

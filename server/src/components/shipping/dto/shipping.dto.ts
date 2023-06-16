@@ -24,4 +24,8 @@ export class ShippingDto {
   @IsString()
   @IsNotEmpty()
   city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  phone: string;
 }

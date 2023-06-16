@@ -187,6 +187,7 @@ model Shipping {
   country String
   state   String
   city    String
+  phone   String
 
   userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id])
