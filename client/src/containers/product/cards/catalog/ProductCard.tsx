@@ -8,6 +8,7 @@ import Link from "next/link";
 import {priceFormat} from "@lib/formatter";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {Star} from "lucide-react";
+import {StarRating} from "@containers/product/layout/StarRating";
 
 interface ProductItemProps {
     product: ProductFullest;
@@ -42,17 +43,14 @@ export const ProductCard: FC<ProductItemProps> = ({product}) => {
                         {product.name}
                     </p>
                 </Link>
-                <section className="flex items-center">
-                    <p className="text-lg font-semibold text-black cursor-auto py-1">{priceFormat(product.price)}</p>
-                    <del className="hidden sm:block">
-                        <p className="text-sm text-gray-600 cursor-auto ml-2">$199</p>
-                    </del>
-                    <FavoriteButton className="ml-auto" productId={product.id}/>
+                <section className="flex items-start">
+                    <p className="sm:text-lg font-semibold leading-4 text-black cursor-auto py-1">
+                        {priceFormat(product.price)}
+                    </p>
+                    <del className="text-sm text-destructive opacity-80 ml-2">$199</del>
+                    <FavoriteButton className="ml-auto hidden sm:block" productId={product.id}/>
                 </section>
-                <footer className="flex items-center">
-                    <Star className="w-4 h-4 mr-1 text-primary opacity-90" />
-                    <p>{rating.toFixed(1)}</p>
-                </footer>
+                <StarRating rating={rating} text={rating.toFixed(1)}/>
             </CardContent>
         </Card>
     );

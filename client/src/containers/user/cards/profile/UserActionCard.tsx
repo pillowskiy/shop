@@ -26,10 +26,10 @@ export const UserActionCard: FC<UserActionCardProps> = ({user}) => {
             </Avatar>
 
             <div className={cn(
-                "w-full px-1 py-2 h-10 bg-muted shadow-sm rounded-lg",
+                "w-full px-1 py-2 h-10 bg-white border shadow-sm rounded-lg",
                 "uppercase font-bold text-center select-none"
             )}>
-                <p className="drop-shadow-lg text-green-100 shadow-amber-200">{user.roles.at(-1)}</p>
+                <p className="drop-shadow-lg text-primary shadow-muted-200">{user.roles.at(-1)}</p>
             </div>
 
             {

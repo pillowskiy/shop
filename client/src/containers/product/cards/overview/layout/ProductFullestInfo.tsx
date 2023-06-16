@@ -16,8 +16,10 @@ export const ProductFullestInfo: FC<ProductInfoContainerProps> = ({product}) => 
                 <QuantityBadge className="absolute" quantity={product.quantity} />
             </h2>
 
-            <span className="text-3xl md:text-5xl font-bold">999$</span>
-            <del className="ml-4 text-1xl md:text-2xl font-medium text-muted">{priceFormat(product.price)}</del>
+            <div className="flex space-x-4">
+                <span className="text-3xl md:text-5xl font-bold">999$</span>
+                <del className="text-1xl md:text-2xl font-medium text-destructive opacity-80">{priceFormat(product.price)}</del>
+            </div>
 
             <Accordion type="single" collapsible className="w-full md:hidden">
                 <AccordionItem value="description">
