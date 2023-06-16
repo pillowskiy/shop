@@ -28,7 +28,7 @@ export const Aside: FC = () => {
                                 }
                             )}
                         >
-                            {totalItems}
+                            {totalItems < 99 ? totalItems : "99+"}
                         </p>
                     </SideBar.Item>
                 </CartDialog>

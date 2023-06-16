@@ -10,20 +10,20 @@ interface ProductHorizontalInfoProps {
 
 export const ProductHorizontalInfo: FC<ProductHorizontalInfoProps> = ({product}) => {
     return (
-        <Link className="flex w-9/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
-            <div className="h-[96px] w-[96px] flex justify-center bg-white rounded-lg md:rounded-l-lg md:rounded-r-none">
+        <Link className="flex w-full md:w-9/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
+            <div className="h-[72px] w-[72px] md:h-[96px] md:w-[96px] flex justify-center bg-white rounded-lg md:rounded-l-lg md:rounded-r-none">
                 <Image
-                    className="rounded-[inherit] h-full w-auto md:h-full md:w-auto cursor-pointer object-cover object-top"
+                    className="rounded-[inherit] h-full w-full cursor-pointer object-cover object-top"
                     src={product.images[0]}
                     alt={"product image"}
                     width={128}
                     height={128}
                 />
             </div>
-            <div className="md:w-8/12 ml-4 absolute left-[96px] md:static cursor-pointer max-h-[64px]">
+            <div className="md:w-8/12 ml-2 sm:ml-4 md:static cursor-pointer max-h-[72px]">
                 <div className="flex">
                     <p className="hover:underline transition-all">
-                        {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
+                        {product.name.length > 22 ? product.name.slice(0, 24).concat("..") : product.name}
                     </p>
                     <QuantityBadge quantity={product.quantity}/>
                 </div>

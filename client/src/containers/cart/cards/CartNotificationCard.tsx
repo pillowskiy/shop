@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const CartNotificationCard: FC = () => {
-    const {items, totalItems, totalCost} = useCart();
+    const {items, totalCost} = useCart();
 
     if (!items.length) return null;
 
@@ -35,8 +35,8 @@ export const CartNotificationCard: FC = () => {
                 {
                     items.length > 4 && (
                         <div className="p-2 w-[64px] h-[64px] bg-muted shadow-md rounded-lg flex flex-col items-center justify-center">
-                            <h2 className="text-2xl font-medium leading-5">+{items.length + 1}</h2>
-                            <p className="text-xs text-primary opacity-90 leading-4">items</p>
+                            <h2 className="text-2xl font-medium leading-5">+{items.length - 4}</h2>
+                            <p className="text-xs text-primary opacity-90 leading-4">products</p>
                         </div>
                     )
                 }

@@ -12,6 +12,7 @@ import {useAppDispatch} from "@redux/store";
 import {removeFromCart, updateCart} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
 import {priceFormat} from "@lib/formatter";
+import {ProductHorizontalInfo} from "@containers/product/cards/overview/layout/ProductHorizontalInfo";
 
 interface CartProductCardProps {
     product: CartItem;
@@ -31,24 +32,7 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
     return (
         <Card className="p-2 h-fit w-full mb-4">
             <section className="relative w-full">
-                <Link href={`/products/${product.slug}`} className="flex">
-                    <Image
-                        className="w-[96px] h-[96px] rounded-lg object-cover object-top"
-                        src={product.images[0]}
-                        alt="Product image"
-                        width={256}
-                        height={256}
-                    />
-                    <div className="w-7/12 ml-4 cursor-pointer max-h-[64px]">
-                        <div className="flex">
-                            <p className="hover:underline transition-all">
-                                {product.name.length > 22 ? product.name.slice(0, 26).concat("..") : product.name}
-                            </p>
-                            <QuantityBadge quantity={product.quantity}/>
-                        </div>
-                        <p className="text-xs">{product.description?.slice(0, 56).concat("..")}</p>
-                    </div>
-                </Link>
+                <ProductHorizontalInfo product={product} />
                 <Button
                     className="absolute right-0 top-0"
                     variant="secondary"
@@ -60,16 +44,16 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
             <section className="-mt-2 flex justify-between items-end">
                 <NumberFormInput
                     type="number"
-                    className="w-[96px]"
+                    className="w-[72px] md:w-[96px]"
                     setValue={(step) => setQuantity(prev => prev + step)}
                     onChange={({target}) => setQuantity(+target.value)}
                     value={quantity}
                     step={1}
-                    max={product.quantity}
+                    max={product.quantity > 10 ? 10 : product.quantity}
                     min={1}
                 />
-                <div className="p-2 h-10 flex gap-2 items-center select-none">
-                    <h2 className="font-bold text-2xl">{priceFormat(product.price)}</h2>
+                <div className="p-2 h-10 flex space-x-2 items-center select-none">
+                    <h2 className="font-bold text-xl sm:text-2xl">{priceFormat(product.price)}</h2>
                     <del className="text-sm text-destructive">300$</del>
                 </div>
             </section>

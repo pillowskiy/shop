@@ -10,13 +10,11 @@ import {SelectContent, SelectItem, SelectTrigger} from "@common/Select";
 import {getAddressPlaceholder} from "@lib/csc";
 import {useContext} from "react";
 import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
-import {useProfile} from "@hooks/useProfile";
 import {PhoneInput} from "@components/PhoneInput";
 
 export const OrderDetailsCard: FC = () => {
     const {shippingId, updateDetails} = useContext(OrderCheckoutContext);
 
-    const {profile} = useProfile();
     const {data: shipping} = useQuery(['get shipping'], () => {
         return ShippingService.getAll()
     }, {
@@ -52,7 +50,7 @@ export const OrderDetailsCard: FC = () => {
                     <FormInput className="bg-white" label="Name" defaultValue={currentShipping?.name || ""}/>
                     <FormInput className="bg-white" label="Surname" defaultValue={currentShipping?.surname || ""}/>
                 </div>
-                <PhoneInput value={profile?.phone || ""}/>
+                <PhoneInput value={currentShipping?.phone || ""}/>
 
                 {!shipping?.length &&
                     <span className="mt-4 bg-white shadow-sm border border-blue-300 p-2 rounded-lg text-center hidden sm:block">
