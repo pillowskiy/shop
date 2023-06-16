@@ -11,7 +11,7 @@ export const Profile: FC = () => {
         (
             <ProfilePopover profile={profile}>
                 <li
-                    className="cursor-pointer py-2 rounded-lg text-center w-1/5 h-full md:hidden"
+                    className="cursor-pointer py-2 rounded-lg text-center w-1/5 h-full md:hidden select-none"
                 >
                     <Image
                         className="w-12 h-12 object-cover object-top m-auto rounded-full"

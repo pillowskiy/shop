@@ -44,7 +44,13 @@ export const SearchBar: FC = () => {
                     onChange={({target}) => setValue(target.value)}
                 />
 
-                {isComponentVisible && <List.Search products={data?.products || []} isLoading={isLoading} />}
+                {isComponentVisible && (
+                    <List.Search
+                        products={data?.products || []}
+                        isLoading={isLoading}
+                        onClose={() => setIsComponentVisible(false)}
+                    />
+                )}
             </div>
         </form>
     );

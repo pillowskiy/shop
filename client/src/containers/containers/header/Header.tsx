@@ -23,7 +23,7 @@ export const Header: FC = () => {
                     profile ? (
                         <ProfilePopover profile={profile}>
                             <Image
-                                className="w-11 h-11 object-cover object-top rounded-full border cursor-pointer"
+                                className="w-11 h-11 object-cover object-top rounded-full border cursor-pointer select-none"
                                 src={profile.avatarURL}
                                 alt={profile.name}
                                 width={256}
