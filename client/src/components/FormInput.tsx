@@ -23,7 +23,7 @@ export const FormInput: FC<PropsWithChildren<FormInputProps>> = ({
             {
                 label && <Label
                     htmlFor={id}
-                    className={cn("float-left font-medium", {
+                    className={cn("float-left font-medium text-sm", {
                         'text-destructive': error
                     }, labelClassName)}
                 >{label}</Label>

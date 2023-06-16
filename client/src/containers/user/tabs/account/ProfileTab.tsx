@@ -14,6 +14,7 @@ import {useMutation} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
 import {useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
+import {PhoneInput} from "@components/PhoneInput";
 
 const INITIAL_ERRORS: Record<keyof Omit<UserUpdate, 'id'>, string> = {
     aboutMe: "",
@@ -81,7 +82,7 @@ export const ProfileTab: FC = () => {
             </CardHeader>
             <CardContent className="max-h-[600px] overflow-y-auto rounded-lg">
                 <FormInput className="bg-white" label="Username" {...getInputValues("name")}/>
-                <FormInput className="bg-white" label="Phone number" type="tel" {...getInputValues("phone")}/>
+                <PhoneInput />
                 <FormInput className="bg-white" label="Email" type="email" {...getInputValues("email")}/>
 
                 <section className="flex gap-2 items-center mt-4">
