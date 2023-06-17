@@ -15,6 +15,7 @@ import {clearCart} from "@redux/cart/cart.slice";
 import {useRouter} from "next/router";
 import {useContext} from "react";
 import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
+import {InfoRow} from "@components/InfoRow";
 
 export const OrderConfirmationCard: FC = () => {
     const {totalItems, totalCost} = useCart();
@@ -53,16 +54,14 @@ export const OrderConfirmationCard: FC = () => {
     return (
         <Card className="bg-popover p-4 px-6 sm:px-4 mt-4">
             <h2 className="font-medium text-xl">Total payable</h2>
-            <hr className="my-2"/>
-            <div className="flex justify-between text-xs">
-                <p className="font-medium">{totalItems} products worth:</p>
-                <p className="ml-50 text-primary opacity-90">{priceFormat(totalCost)}</p>
-            </div>
-            <div className="flex justify-between text-xs mt-2">
-                <p className="font-medium">Delivery cost:</p>
-                <p className="ml-50 text-primary opacity-90">at the carrier tariffs</p>
-            </div>
-            <hr className="my-2"/>
+            <section className="py-2 my-2 border-y flex flex-col space-y-1.5">
+                <InfoRow className="text-xs" title={`${totalItems} products worth`}>
+                    {priceFormat(totalCost)}
+                </InfoRow>
+                <InfoRow className="text-xs" title="Delivery cost">
+                    at the carrier tariffs
+                </InfoRow>
+            </section>
             <div className="flex justify-between items-center">
                 <p className="font-medium">To be paid</p>
                 <h2 className="text-2xl">{priceFormat(totalCost)}</h2>

@@ -5,6 +5,7 @@ import {Card} from "@common/Card";
 import {Package} from "lucide-react";
 import Link from "next/link";
 import {StatisticBreadcrumb} from "@containers/user/layout/StatisticBreadcrumb";
+import {InfoRow} from "@components/InfoRow";
 
 interface UserInfoCardProps {
     user: User;
@@ -18,22 +19,18 @@ export const UserInfoCard: FC<UserInfoCardProps> = ({user}) => {
                 <span>{user.aboutMe}</span>
             </div>
             <section className="mt-2 sm:w-[280px]">
-                <div className="flex justify-between">
-                    <p className="font-medium">Registration:</p>
-                    <p className="ml-50">{new Date(user.createdAt).toLocaleDateString()}</p>
-                </div>
-                <div className="flex justify-between">
-                    <p className="font-medium">Gender:</p>
-                    <p className="ml-50">{user.gender === Gender.Unknown ? "not specified" : user.gender}</p>
-                </div>
-                <div className="flex justify-between">
-                    <p className="font-medium">Date of birth:</p>
-                    <p className="ml-50">{new Date(user.birthDate).toLocaleDateString()}</p>
-                </div>
-                <div className="flex justify-between">
-                    <p className="font-medium">Age:</p>
-                    <p className="ml-50">{new Date().getFullYear() - new Date(user.birthDate).getFullYear()}</p>
-                </div>
+                <InfoRow title="Registration">
+                    {new Date(user.createdAt).toLocaleDateString()}
+                </InfoRow>
+                <InfoRow title="Gender">
+                    {user.gender === Gender.Unknown ? "not specified" : user.gender}
+                </InfoRow>
+                <InfoRow title="Date of birth">
+                    {new Date(user.birthDate).toLocaleDateString()}
+                </InfoRow>
+                <InfoRow title="Age">
+                    {new Date().getFullYear() - new Date(user.birthDate).getFullYear()}
+                </InfoRow>
             </section>
             <section className="py-2 border-y mt-2">
                 <Link

@@ -4,7 +4,7 @@ import {cn} from "@lib/utils";
 import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
 import {Card} from "@common/Card";
 import {CartButton} from "@containers/cart/layout/CartButton";
-import {ProductHorizontalInfo} from "@containers/product/cards/overview/layout/ProductHorizontalInfo";
+import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 
 interface FavoriteProductProps {
     product: Product;
