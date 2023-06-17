@@ -11,7 +11,7 @@ import {DialogClose} from "@radix-ui/react-dialog";
 import React, {useContext} from "react";
 import {AccountContext} from "@containers/user/tabs/account/AccountTab";
 import {Select, SelectGroup, SelectValue} from "@radix-ui/react-select";
-import {SelectContent, SelectItem, SelectLabel, SelectTrigger} from "@common/Select";
+import {SelectContent, SelectItem, SelectTrigger} from "@common/Select";
 
 export const PrivacyTab: FC = () => {
     const profile = useContext(AccountContext);

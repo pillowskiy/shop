@@ -7,7 +7,7 @@ import {Button} from "@ui/Button";
 import {Edit} from 'lucide-react';
 import {useProfile} from "@hooks/useProfile";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
-import {ProductHorizontalInfo} from "@containers/product/cards/overview/layout/ProductHorizontalInfo";
+import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 
 interface FavoriteProductProps {
     product: ProductFullest;

@@ -12,7 +12,7 @@ import {useAppDispatch} from "@redux/store";
 import {removeFromCart, updateCart} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
 import {priceFormat} from "@lib/formatter";
-import {ProductHorizontalInfo} from "@containers/product/cards/overview/layout/ProductHorizontalInfo";
+import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
 
 interface CartProductCardProps {

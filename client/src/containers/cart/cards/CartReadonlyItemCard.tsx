@@ -1,7 +1,7 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
 import {cn} from "@lib/utils";
-import {ProductHorizontalInfo} from "@containers/product/cards/overview/layout/ProductHorizontalInfo";
+import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 import {priceFormat} from "@lib/formatter";
 import {CartItem} from "@/types";
 

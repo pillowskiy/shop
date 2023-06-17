@@ -11,7 +11,7 @@ interface ProductHorizontalInfoProps {
 export const ProductHorizontalInfo: FC<ProductHorizontalInfoProps> = ({product}) => {
     return (
         <Link className="flex w-full md:w-9/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
-            <div className="h-[72px] w-[72px] md:h-[96px] md:w-[96px] flex justify-center bg-white rounded-lg md:rounded-l-lg md:rounded-r-none">
+            <div className="h-[72px] w-[72px] md:h-[96px] md:w-[96px] flex justify-center bg-white rounded-lg">
                 <Image
                     className="rounded-[inherit] h-full w-full cursor-pointer object-cover object-top"
                     src={product.images[0]}
