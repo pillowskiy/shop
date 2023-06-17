@@ -13,6 +13,7 @@ import {removeFromCart, updateCart} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
 import {priceFormat} from "@lib/formatter";
 import {ProductHorizontalInfo} from "@containers/product/cards/overview/layout/ProductHorizontalInfo";
+import {ProductPrice} from "@containers/product/layout/ProductPrice";
 
 interface CartProductCardProps {
     product: CartItem;
@@ -53,8 +54,7 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
                     min={1}
                 />
                 <div className="p-2 h-10 flex space-x-2 items-center select-none">
-                    <h2 className="font-bold text-xl sm:text-2xl">{priceFormat(product.price)}</h2>
-                    <del className="text-sm text-destructive">300$</del>
+                    <ProductPrice size="lg" product={product} />
                 </div>
             </section>
         </Card>

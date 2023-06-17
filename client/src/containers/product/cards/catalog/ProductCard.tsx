@@ -1,14 +1,13 @@
 import type {FC} from 'react';
 import type {ProductFullest} from "@/types/product.interface";
-import {Card, CardContent, CardFooter} from "@common/Card";
+import {Card, CardContent} from "@common/Card";
 import {FavoriteButton} from "../../layout/FavoriteButton";
 import Image from "next/image";
 import {cn} from "@lib/utils";;
 import Link from "next/link";
-import {priceFormat} from "@lib/formatter";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
-import {Star} from "lucide-react";
 import {StarRating} from "@containers/product/layout/StarRating";
+import {ProductPrice} from "@containers/product/layout/ProductPrice";
 
 interface ProductItemProps {
     product: ProductFullest;
@@ -43,11 +42,8 @@ export const ProductCard: FC<ProductItemProps> = ({product}) => {
                         {product.name}
                     </p>
                 </Link>
-                <section className="flex items-start">
-                    <p className="sm:text-lg font-semibold leading-4 text-black cursor-auto py-1">
-                        {priceFormat(product.price)}
-                    </p>
-                    <del className="text-sm text-destructive opacity-80 ml-2">$199</del>
+                <section className="flex">
+                    <ProductPrice size="sm" product={product}/>
                     <FavoriteButton className="ml-auto hidden sm:block" productId={product.id}/>
                 </section>
                 <StarRating rating={rating} text={rating.toFixed(1)}/>
