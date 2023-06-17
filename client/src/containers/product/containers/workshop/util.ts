@@ -9,6 +9,7 @@ export const getInitialProductState = (product?: Product): UpdateProductData => 
         description: product.description,
         quantity: product.quantity,
         name: product.name,
+        discountPercent: product.discountPercent,
         categories: product.categories.map(({id}) => id),
         price: product.price,
         weight: 0,

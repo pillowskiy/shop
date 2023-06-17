@@ -9,7 +9,7 @@ import {FormSwitchBox} from "@components/FormSwitch";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
 import {WorkshopSubmitButton} from "@containers/product/containers/workshop/layout/WorkshopSubmit";
 import {CategorySelect} from "@containers/product/containers/workshop/layout/CategorySelect";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {WorkShopContext} from "@containers/product/containers/workshop";
 
 interface GeneralCardProps {
@@ -18,6 +18,7 @@ interface GeneralCardProps {
 }
 
 export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) => {
+    const [isDiscount, setIsDiscount] = useState(false);
     const {product, newProduct, errors} = useContext(WorkShopContext);
 
     return (
@@ -88,6 +89,29 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
             <FormSwitchBox label="Item used"/>
             <FormSwitchBox label="The product is damaged"/>
 
+            <hr className="my-2"/>
+            <FormSwitchBox
+                label="Discounted product"
+                onCheckedChange={(checked) => {
+                    setIsDiscount(checked);
+                    if (!checked) updateProduct({ discountPercent: 0 })
+                }}
+                checked={isDiscount}
+            />
+            <FormInput
+                className="px-0 appearance-none h-3 bg-white range-lg outline-0 border rounded-xl cursor-w-resize"
+                type="range"
+                label={`Discount - ${newProduct.discountPercent || 0}%`}
+                value={newProduct.discountPercent || 0}
+                onChange={({target}) => {
+                    if (!+target.value) setIsDiscount(false);
+                    updateProduct({ discountPercent: +target.value });
+                }}
+                disabled={!isDiscount}
+                min={0}
+                max={99}
+            />
+            {errors.discountPercent && <p className="text-destructive">{errors.discountPercent}</p>}
             <hr className="my-2"/>
 
             <FormSwitchBox

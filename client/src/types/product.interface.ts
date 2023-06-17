@@ -19,6 +19,8 @@ export interface Product {
     name: string;
     description: string;
     price: number;
+    discountPercent: number;
+    finalPrice: number;
     images: string[];
     quantity: number;
     categories: Category[];
@@ -35,6 +37,7 @@ export interface UpdateProductData {
     price: number;
     quantity: number;
     weight: number;
+    discountPercent?: number;
     images: string[];
     categories: number[];
 }

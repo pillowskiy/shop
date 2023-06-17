@@ -14,6 +14,7 @@ import { PaginationService } from 'src/components/pagination/pagination.service'
 import { CategoryService } from 'src/components/category/category.service';
 import { matchRoles } from 'src/utils/Util';
 import { UploadService } from '../upload/upload.service';
+import { calculatePrice } from 'src/utils/productPrice';
 
 @Injectable()
 export class ProductService {
@@ -184,6 +185,8 @@ export class ProductService {
       });
     }
 
+    const productPrice = calculatePrice(data.price, data.discountPercent);
+
     const updateProductData = {
       ...data,
       slug: slugify(data.name),
@@ -195,6 +198,7 @@ export class ProductService {
           : undefined,
       },
       images,
+      ...productPrice,
     };
 
     return this.prisma.product

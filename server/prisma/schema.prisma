@@ -74,13 +74,17 @@ model Product {
   ownerId Int  @map("owner_id")
   owner   User @relation("owner", fields: [ownerId], references: [id])
 
-  name        String   @unique
-  slug        String   @unique
+  name        String @unique
+  slug        String @unique
   description String
-  price       Float
-  images      String[]
-  quantity    Int
-  sold        Int
+
+  price           Float
+  discountPercent Float @default(0) @map("discount_percent")
+  finalPrice      Float @map("final_price")
+
+  images   String[]
+  quantity Int
+  sold     Int
 
   users       User[]
   order_items OrderItem[]
@@ -130,7 +134,7 @@ model Order {
   promoCode   PromoCode? @relation(fields: [promoCodeId], references: [id])
 
   items      OrderItem[]
-  shipping   Shipping   @relation(fields: [shippingId], references: [id])
+  shipping   Shipping    @relation(fields: [shippingId], references: [id])
   shippingId Int
 }
 

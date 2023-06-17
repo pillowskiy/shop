@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  ArrayMinSize,
-  IsArray,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
+  Max,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -29,6 +29,13 @@ export class ProductDto {
   @IsPositive()
   @IsNumber()
   public price: number;
+
+  @IsPositive()
+  @Max(99)
+  @IsNumber()
+  @IsOptional()
+  @Type(() => Number)
+  public discountPercent?: number = 0;
 
   @ApiProperty({
     example: product.quantity,

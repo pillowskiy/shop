@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import slugify from '../src/utils/slugify';
+import { calculatePrice } from '../src/utils/productPrice';
 const prisma = new PrismaClient();
 
 function randomInt(max: number) {
@@ -13,17 +14,23 @@ const createProduct = async (count: number) => {
     const productName = faker.commerce.productName();
     const categoryName = faker.commerce.department();
 
+    const randomPercent = randomInt(100);
+    const productPrice = calculatePrice(
+      +faker.commerce.price(),
+      randomPercent < 30 ? 0 : randomPercent,
+    );
+
     await prisma.product.create({
       data: {
         name: productName,
         ownerId: 1,
         slug: slugify(productName),
         description: faker.commerce.productDescription(),
-        price: +faker.commerce.price(),
         images: Array.from({ length: randomInt(6) }, () =>
           faker.image.imageUrl(500, 500, slugify(categoryName), true),
         ),
-        quantity: randomInt(100),
+        ...productPrice,
+        quantity: randomInt(1000),
         sold: randomInt(10000),
         categories: {
           create: {

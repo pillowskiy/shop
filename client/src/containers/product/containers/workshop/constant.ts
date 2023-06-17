@@ -6,6 +6,7 @@ export const INITIAL_PRODUCT: UpdateProductData = {
     price: 0,
     weight: 0,
     quantity: 0,
+    discountPercent: 0,
     images: [],
     categories: []
 }
@@ -17,5 +18,6 @@ export const INITIAL_PRODUCT_ERRORS: UpdateProductDataErrors = {
     weight: "",
     quantity: "",
     images: "",
+    discountPercent: "",
     categories: "",
 }

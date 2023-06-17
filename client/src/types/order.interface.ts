@@ -18,8 +18,18 @@ export interface Order {
   items: CartItem[];
 }
 
-export interface CreateOrder {
-  items: CreateOrderItem[]
+export interface CreateOrderData {
+  items: CreateOrderItem[];
+  shippingId: number;
+  paymentId: number;
+  promo?: string;
+}
+
+export type OrderDetailsValues = Pick<CreateOrderData, 'paymentId' | 'shippingId'>;
+
+export interface CheckoutOrderContext extends CreateOrderData {
+  updateDetails: (values: Partial<OrderDetailsValues>) => void;
+  setItems: (values: CreateOrderItem[]) => void
 }
 
 export interface CreateOrderItem {

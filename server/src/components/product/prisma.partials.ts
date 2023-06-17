@@ -8,6 +8,8 @@ export const productSelect: Prisma.ProductSelect = {
   quantity: true,
   name: true,
   price: true,
+  discountPercent: true,
+  finalPrice: true,
   description: true,
   createdAt: true,
   slug: true,

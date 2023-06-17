@@ -34,6 +34,8 @@ export const product: SwaggerSchema<Product> = {
   slug: 'car',
   description: 'Beautiful car',
   price: 1020,
+  discountPercent: 0,
+  finalPrice: 1020,
   images: ['https://somewhere.png/cars/1', 'https://somewhere.png/cars/1'],
   quantity: 5,
   sold: 10235,
