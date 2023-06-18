@@ -1,17 +1,13 @@
 import type {FC} from 'react';
 import type {CartItem} from "@/types";
 import {Card} from "@common/Card";
-import Image from "next/image";
-import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
 import {Trash} from "lucide-react";
 import {NumberFormInput} from "@components/NumberFormInput";
 import {useEffect, useState} from "react";
-import Link from "next/link";
 import {Button} from "@ui/Button";
 import {useAppDispatch} from "@redux/store";
 import {removeFromCart, updateCart} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
-import {priceFormat} from "@lib/formatter";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
 
@@ -46,8 +42,7 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
                 <NumberFormInput
                     type="number"
                     className="w-[72px] md:w-[96px]"
-                    setValue={(step) => setQuantity(prev => prev + step)}
-                    onChange={({target}) => setQuantity(+target.value)}
+                    setValue={setQuantity}
                     value={quantity}
                     step={1}
                     max={product.quantity > 10 ? 10 : product.quantity}

@@ -48,8 +48,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
             <section className="flex justify-between gap-4 w-fit md:w-full">
                 <NumberFormInput
                     label="Weight (KG)"
-                    setValue={(step) => updateProduct({weight: step + newProduct.weight})}
-                    onChange={({target}) => updateProduct({weight: +target.value})}
+                    setValue={(value) => updateProduct({weight: value})}
                     step={0.2}
                     min={0}
                     value={newProduct.weight}
@@ -57,8 +56,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
                 />
                 <NumberFormInput
                     label="Quantity"
-                    setValue={(step) => updateProduct({quantity: step + newProduct.quantity})}
-                    onChange={({target}) => updateProduct({quantity: +target.value})}
+                    setValue={(value) => updateProduct({quantity: value})}
                     step={1}
                     min={0}
                     value={newProduct.quantity}
@@ -66,8 +64,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
                 />
                 <NumberFormInput
                     label="Price (USD)"
-                    setValue={(step) => updateProduct({price: step + newProduct.price})}
-                    onChange={({target}) => updateProduct({price: +target.value})}
+                    setValue={(value) => updateProduct({price: value})}
                     step={1}
                     min={0}
                     value={newProduct.price}
@@ -94,7 +91,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
                 label="Discounted product"
                 onCheckedChange={(checked) => {
                     setIsDiscount(checked);
-                    if (!checked) updateProduct({ discountPercent: 0 })
+                    if (!checked) updateProduct({discountPercent: 0})
                 }}
                 checked={isDiscount}
             />
@@ -105,7 +102,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
                 value={newProduct.discountPercent || 0}
                 onChange={({target}) => {
                     if (!+target.value) setIsDiscount(false);
-                    updateProduct({ discountPercent: +target.value });
+                    updateProduct({discountPercent: +target.value});
                 }}
                 disabled={!isDiscount}
                 min={0}
