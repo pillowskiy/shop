@@ -1,6 +1,9 @@
 import type { CartItem } from './cart.interface';
 import type { User } from './user.interface';
 import type {Product} from "@/types/product.interface";
+import {Payment} from "@types/payment.interface";
+import {Shipping} from "@types/shipping.interface";
+import {PromoCode} from "@types/promo-code.interface";
 
 export enum OrderStatus {
   PENDING = 'PENDING',
@@ -10,12 +13,16 @@ export enum OrderStatus {
 
 export interface Order {
   id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
+
+  payment: Payment;
+  items: CartItem[];
+  shipping: Shipping;
+  promoCode: PromoCode;
 
   status: OrderStatus;
-  user: User;
-  items: CartItem[];
+  userId: number;
 }
 
 export interface CreateOrderData {

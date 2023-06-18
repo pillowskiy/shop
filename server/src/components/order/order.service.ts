@@ -6,7 +6,7 @@ import {
 import { PrismaService } from 'src/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Prisma } from '@prisma/client';
-import { orderItemSelect } from './prisma.partials';
+import { orderItemSelect, orderSelect } from './prisma.partials';
 
 @Injectable()
 export class OrderService {
@@ -16,10 +16,14 @@ export class OrderService {
     return this.prisma.order.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
+      select: orderSelect,
     });
   }
 
-  public async create({ items, shippingId }: CreateOrderDto, userId: number) {
+  public async create(
+    { items, shippingId, paymentId }: CreateOrderDto,
+    userId: number,
+  ) {
     const productIds = items.map((item) => item.productId);
     const products = await this.prisma.product.findMany({
       where: { id: { in: productIds } },
@@ -47,7 +51,11 @@ export class OrderService {
         shipping: {
           connect: { id: shippingId },
         },
+        payment: {
+          connect: { id: paymentId },
+        },
       },
+      select: orderSelect,
     });
   }
 

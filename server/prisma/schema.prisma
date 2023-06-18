@@ -136,6 +136,9 @@ model Order {
   items      OrderItem[]
   shipping   Shipping    @relation(fields: [shippingId], references: [id])
   shippingId Int
+
+  payment   Payment? @relation(fields: [paymentId], references: [id])
+  paymentId Int?
 }
 
 model OrderItem {
@@ -172,6 +175,10 @@ model Payment {
 
   userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id])
+
+  temp Boolean?
+
+  orders Order[]
 }
 
 enum PaymentType {
@@ -195,6 +202,8 @@ model Shipping {
 
   userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id])
+
+  temp Boolean?
 
   orders Order[]
 }

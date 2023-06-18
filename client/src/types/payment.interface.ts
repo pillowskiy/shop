@@ -12,6 +12,8 @@ export interface Payment {
 
     cardNumber: string;
     cardExpiresAt: Date;
+
+    temp: boolean | null;
 }
 
 export type CreatePaymentData = Omit<Payment, 'id' | 'createdAt'> & {

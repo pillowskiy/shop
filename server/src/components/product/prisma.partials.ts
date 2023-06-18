@@ -4,6 +4,7 @@ import { userSelect } from '../user/prisma.partials';
 
 export const productSelect: Prisma.ProductSelect = {
   id: true,
+  ownerId: true,
   images: true,
   quantity: true,
   name: true,

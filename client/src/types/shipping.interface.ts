@@ -12,6 +12,8 @@ export interface Shipping {
     phone: string;
 
     userId: number;
+
+    temp: boolean | null;
 }
 
 export type CreateShippingData = Omit<Shipping, 'id' | 'createdAt' | 'userId'>;

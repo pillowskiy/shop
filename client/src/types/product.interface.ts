@@ -23,6 +23,7 @@ export interface Product {
     finalPrice: number;
     images: string[];
     quantity: number;
+    ownerId: number;
     categories: Category[];
 }
 

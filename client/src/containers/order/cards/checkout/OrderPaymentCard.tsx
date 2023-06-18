@@ -1,5 +1,5 @@
 import type {FC} from 'react';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Card} from "@common/Card";
 import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
 import {Label} from "@ui/Label";
@@ -7,13 +7,13 @@ import {MagicCard} from "@containers/payment/MagicCard";
 import {cn} from "@lib/utils";
 import {useQuery} from "@tanstack/react-query";
 import PaymentService from "@api/services/payment.service";
-import {PaymentType} from "@/types/payment.interface";
 import Link from "next/link";
 import {useProfile} from "@hooks/useProfile";
 import {Info} from "lucide-react";
+import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
 
 export const OrderPaymentCard: FC = () => {
-    const [method, setMethod] = useState<PaymentType>();
+    const {paymentId, updateDetails} = useContext(OrderCheckoutContext);
     const {profile} = useProfile();
 
     const {data: payments} = useQuery(["get payments"], () => {
@@ -28,17 +28,17 @@ export const OrderPaymentCard: FC = () => {
 
             <RadioGroup
                 className="flex flex-col gap-2 ml-2 rounded-lg"
-                onValueChange={(value: PaymentType) => setMethod(value)}
+                onValueChange={(value) => updateDetails({paymentId: +value})}
             >
                 {payments?.map(payment => (
                     <div key={payment.id} className={cn("transition-all rounded-lg", {
-                        "border p-2": method === payment.type
+                        "border p-2": paymentId === payment.id
                     })}>
                         <div className="flex items-center space-x-2">
-                            <RadioGroupItem value={payment.type}/>
+                            <RadioGroupItem value={payment.id.toString()}/>
                             <Label className="text-lg font-normal">Magic card</Label>
                         </div>
-                        {method === PaymentType.MAGIC && <MagicCard className="my-2 mx-auto" payment={payment}/>}
+                        {paymentId === payment.id && <MagicCard className="my-2 mx-auto" payment={payment}/>}
                     </div>
                 ))}
 
