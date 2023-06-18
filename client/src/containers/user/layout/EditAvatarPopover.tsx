@@ -118,13 +118,15 @@ export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
                         description="Please upload a file to continue"
                         disabled={!!image}
                     >
-                        <Button
-                            className="w-full"
-                            disabled={!image || isLoading}
-                            onClick={onSubmit}
-                        >
-                            Apply
-                        </Button>
+                        <div className="w-full">
+                            <Button
+                                className="w-full"
+                                disabled={!image || isLoading}
+                                onClick={onSubmit}
+                            >
+                                Apply
+                            </Button>
+                        </div>
                     </HoverInfoCard>
                 </DialogFooter>
             </DialogContent>

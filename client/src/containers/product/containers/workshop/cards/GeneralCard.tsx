@@ -101,19 +101,21 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
                 description="Confirm that you really want to create a discount for this product."
                 disabled={isDiscount}
             >
-                <FormInput
-                    className="px-0 appearance-none h-3 bg-white range-lg outline-0 border rounded-xl cursor-w-resize"
-                    type="range"
-                    label={`Discount - ${newProduct.discountPercent || 0}%`}
-                    value={newProduct.discountPercent || 0}
-                    onChange={({target}) => {
-                        if (!+target.value) setIsDiscount(false);
-                        updateProduct({discountPercent: +target.value});
-                    }}
-                    disabled={!isDiscount}
-                    min={0}
-                    max={99}
-                />
+                <div>
+                    <FormInput
+                        className="px-0 appearance-none h-3 bg-white range-lg outline-0 border rounded-xl cursor-w-resize"
+                        type="range"
+                        label={`Discount - ${newProduct.discountPercent || 0}%`}
+                        value={newProduct.discountPercent || 0}
+                        onChange={({target}) => {
+                            if (!+target.value) setIsDiscount(false);
+                            updateProduct({discountPercent: +target.value});
+                        }}
+                        disabled={!isDiscount}
+                        min={0}
+                        max={99}
+                    />
+                </div>
             </HoverInfoCard>
             {errors.discountPercent && <p className="text-destructive">{errors.discountPercent}</p>}
             <hr className="my-2"/>
@@ -123,11 +125,13 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
                 description="You cannot publish a product that is out of stock"
                 disabled={!!newProduct.quantity}
             >
-                <FormSwitchBox
-                    label="The product is for sale"
-                    disabled={!newProduct.quantity}
-                    defaultChecked={!!newProduct.quantity}
-                />
+                <div>
+                    <FormSwitchBox
+                        label="The product is for sale"
+                        disabled={!newProduct.quantity}
+                        defaultChecked={!!newProduct.quantity}
+                    />
+                </div>
             </HoverInfoCard>
             <p className="text-xs mt-1">To publish a product, click on the switch above</p>
 

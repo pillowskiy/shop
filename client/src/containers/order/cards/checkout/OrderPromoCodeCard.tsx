@@ -56,17 +56,19 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
                 description="You have already activated the promo code"
                 disabled={!promo}
             >
-                <Button
-                    className="mt-2 w-full flex"
-                    onClick={() => {
-                        if (!value) return;
-                        mutate();
-                    }}
-                    disabled={isLoading || !!promo}
-                >
-                    {isLoading && <Loader2 className="w-5 h-5 mr-2 animate-spin"/>}
-                    <p>Apply</p>
-                </Button>
+                <div>
+                    <Button
+                        className="mt-2 w-full flex"
+                        onClick={() => {
+                            if (!value) return;
+                            mutate();
+                        }}
+                        disabled={isLoading || !!promo}
+                    >
+                        {isLoading && <Loader2 className="w-5 h-5 mr-2 animate-spin"/>}
+                        <p>Apply</p>
+                    </Button>
+                </div>
             </HoverInfoCard>
         </Card>
     );

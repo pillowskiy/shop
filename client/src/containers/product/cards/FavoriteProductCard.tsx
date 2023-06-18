@@ -14,7 +14,7 @@ export const FavoriteProductCard: FC<FavoriteProductProps> = ({product}) => {
     return (
         <Card
             className={cn(
-                "relative flex flex-col justify-start md:flex-row md:items-center my-0 mx-auto border mt-4 rounded-lg shadow-sm bg-popover",
+                "relative flex flex-col md:flex-row md:items-center my-0 mx-auto border mt-4 rounded-lg shadow-sm bg-popover",
                 "hover:shadow-xl hover:bg-muted transition-all duration-200 border h-fit md:h-[100px] p-2 md:p-0", {
                     "opacity-90": !product.quantity,
                 }

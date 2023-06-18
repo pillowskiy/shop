@@ -104,14 +104,16 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
                 description="You do not have permission to post a review on this product"
                 disabled={hasAccess}
             >
-                <Button type="submit" className="mt-2 w-full" disabled={isLoading || !hasAccess}>
-                    <p>Send</p>
-                    {
-                        isLoading ?
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin"/>:
-                            <Send className="font-normal w-4 h-4 ml-1" />
-                    }
-                </Button>
+                <div>
+                    <Button type="submit" className="mt-2 w-full" disabled={isLoading || !hasAccess}>
+                        <p>Send</p>
+                        {
+                            isLoading ?
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin"/>:
+                                <Send className="font-normal w-4 h-4 ml-1" />
+                        }
+                    </Button>
+                </div>
             </HoverInfoCard>
         </form>
     );

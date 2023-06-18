@@ -84,7 +84,9 @@ export const ShippingTab: FC = () => {
                         title="Email Address"
                         description="Only the email address associated with the profile is allowed."
                     >
-                        <FormInput className="bg-white" label="Email" value={profile?.email} disabled/>
+                        <div>
+                            <FormInput className="bg-white" label="Email" value={profile?.email} disabled/>
+                        </div>
                     </HoverInfoCard>
 
                     <hr className="my-4"/>

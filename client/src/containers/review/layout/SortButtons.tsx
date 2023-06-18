@@ -14,17 +14,20 @@ export const SortButtons = memo(() => {
                         title="Review sorting"
                         description="You have already chosen to sort data by this key"
                         disabled={sortMethod !== value}
+                        openDelay={2000}
                     >
-                        <SortButton
-                            key={value}
-                            className="capitalize"
-                            value={value}
-                            onValueChange={(newValue) => setSortMethod(newValue)}
-                            variant={sortMethod === value ? "default" : "secondary"}
-                            disabled={sortMethod === value}
-                        >
-                            {value}
-                        </SortButton>
+                        <div>
+                            <SortButton
+                                key={value}
+                                className="capitalize"
+                                value={value}
+                                onValueChange={(newValue) => setSortMethod(newValue)}
+                                variant={sortMethod === value ? "default" : "secondary"}
+                                disabled={sortMethod === value}
+                            >
+                                {value}
+                            </SortButton>
+                        </div>
                     </HoverInfoCard>
                 ))
             }

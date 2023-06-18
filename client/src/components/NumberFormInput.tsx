@@ -28,7 +28,7 @@ export const NumberFormInput: FC<NumberFormInput> = ({className, step, value, se
                 onClick={() => setValue(value - step)}
                 disabled={value <= min}
             >
-                <Minus className={cn("w-4 h-4 transition-all", value <= min && "opacity-80 cursor-default")}/>
+                <Minus className={cn("w-4 h-4 transition-all", value <= min && "opacity-30 cursor-default")}/>
             </button>
             <FormInput
                 type="number"

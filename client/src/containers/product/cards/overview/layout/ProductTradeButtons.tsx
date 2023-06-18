@@ -24,10 +24,12 @@ export const ProductTradeButtons: FC<ProductTradeContainerProps> = ({product}) =
                 description="Sorry, this product is out of stock"
                 disabled={!!product.quantity}
             >
-                <Button className="w-full lg:w-1/2" disabled={!product.quantity}>
-                    <Zap className="font-normal"/>
-                    <p className="font-medium ml-1">Buy now!</p>
-                </Button>
+                <div className="w-full lg:w-1/2">
+                    <Button className="w-full" disabled={!product.quantity}>
+                        <Zap className="font-normal"/>
+                        <p className="font-medium ml-1">Buy now!</p>
+                    </Button>
+                </div>
             </HoverInfoCard>
 
             <div className="w-full lg:w-1/2 flex gap-4">

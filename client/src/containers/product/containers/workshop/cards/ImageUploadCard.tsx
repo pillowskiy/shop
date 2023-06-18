@@ -6,7 +6,6 @@ import {cn} from "@lib/utils";
 import {Input} from "@ui/Input";
 import {useContext} from "react";
 import {WorkShopContext} from "@containers/product/containers/workshop";
-import {HoverInfoCard} from "@components/HoverInfoCard";
 
 interface ImageUploadCardProps {
     setImages: (files: FileList) => void;

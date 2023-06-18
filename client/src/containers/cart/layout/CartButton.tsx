@@ -7,7 +7,6 @@ import {useAppDispatch} from "@redux/store";
 import {addToCart} from "@redux/cart/cart.slice";
 import {cn} from "@lib/utils";
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
-import {HoverInfoCard} from "@components/HoverInfoCard";
 
 interface CartButtonProps extends ButtonProps {
     product: Product;
@@ -34,22 +33,16 @@ export const CartButton: FC<CartButtonProps> = ({className, product, ...props}) 
     }
 
     return (
-        <HoverInfoCard
-            title="The product is out of stock."
-            description="Sorry, this product is out of stock"
-            disabled={!!product.quantity}
+        <Button
+            className={className}
+            disabled={!product.quantity}
+            onClick={() => {
+                dispatch(addToCart(product))
+            }}
+            {...props}
         >
-            <Button
-                className={className}
-                disabled={!product.quantity}
-                onClick={() => {
-                    dispatch(addToCart(product))
-                }}
-                {...props}
-            >
-                <ShoppingCart/>
-                <p className="ml-2">Add to cart</p>
-            </Button>
-        </HoverInfoCard>
+            <ShoppingCart/>
+            <p className="ml-2">Add to cart</p>
+        </Button>
     );
 };
