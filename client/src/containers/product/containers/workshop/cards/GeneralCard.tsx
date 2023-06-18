@@ -11,6 +11,7 @@ import {WorkshopSubmitButton} from "@containers/product/containers/workshop/layo
 import {CategorySelect} from "@containers/product/containers/workshop/layout/CategorySelect";
 import {useContext, useState} from "react";
 import {WorkShopContext} from "@containers/product/containers/workshop";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 interface GeneralCardProps {
     updateProduct: (values: Partial<UpdateProductData>) => void;
@@ -95,27 +96,39 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
                 }}
                 checked={isDiscount}
             />
-            <FormInput
-                className="px-0 appearance-none h-3 bg-white range-lg outline-0 border rounded-xl cursor-w-resize"
-                type="range"
-                label={`Discount - ${newProduct.discountPercent || 0}%`}
-                value={newProduct.discountPercent || 0}
-                onChange={({target}) => {
-                    if (!+target.value) setIsDiscount(false);
-                    updateProduct({discountPercent: +target.value});
-                }}
-                disabled={!isDiscount}
-                min={0}
-                max={99}
-            />
+            <HoverInfoCard
+                title="Product workshop"
+                description="Confirm that you really want to create a discount for this product."
+                disabled={isDiscount}
+            >
+                <FormInput
+                    className="px-0 appearance-none h-3 bg-white range-lg outline-0 border rounded-xl cursor-w-resize"
+                    type="range"
+                    label={`Discount - ${newProduct.discountPercent || 0}%`}
+                    value={newProduct.discountPercent || 0}
+                    onChange={({target}) => {
+                        if (!+target.value) setIsDiscount(false);
+                        updateProduct({discountPercent: +target.value});
+                    }}
+                    disabled={!isDiscount}
+                    min={0}
+                    max={99}
+                />
+            </HoverInfoCard>
             {errors.discountPercent && <p className="text-destructive">{errors.discountPercent}</p>}
             <hr className="my-2"/>
 
-            <FormSwitchBox
-                label="The product is for sale"
-                disabled={!newProduct.quantity}
-                defaultChecked={!!newProduct.quantity}
-            />
+            <HoverInfoCard
+                title="Product workshop"
+                description="You cannot publish a product that is out of stock"
+                disabled={!!newProduct.quantity}
+            >
+                <FormSwitchBox
+                    label="The product is for sale"
+                    disabled={!newProduct.quantity}
+                    defaultChecked={!!newProduct.quantity}
+                />
+            </HoverInfoCard>
             <p className="text-xs mt-1">To publish a product, click on the switch above</p>
 
             <footer className="w-full md:py-2">

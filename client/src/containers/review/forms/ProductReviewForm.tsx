@@ -15,6 +15,7 @@ import ReviewService from "@api/services/review.service";
 
 import {INITIAL_ERRORS, INITIAL_REVIEW, STAR_REVIEWS} from "../constant";
 import {StarReview} from "../layout/StarReview";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 interface ProductReviewFormProps {
     hasAccess: boolean;
@@ -98,14 +99,20 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
             </div>
             {errors.rating && <p className="text-xs text-destructive">{errors.rating}</p>}
 
-            <Button type="submit" className="mt-2 w-full" disabled={isLoading || !hasAccess}>
-                <p>Send</p>
-                {
-                    isLoading ?
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin"/>:
-                        <Send className="font-normal w-4 h-4 ml-1" />
-                }
-            </Button>
+            <HoverInfoCard
+                title="Publishing a review"
+                description="You do not have permission to post a review on this product"
+                disabled={hasAccess}
+            >
+                <Button type="submit" className="mt-2 w-full" disabled={isLoading || !hasAccess}>
+                    <p>Send</p>
+                    {
+                        isLoading ?
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin"/>:
+                            <Send className="font-normal w-4 h-4 ml-1" />
+                    }
+                </Button>
+            </HoverInfoCard>
         </form>
     );
 };

@@ -12,6 +12,7 @@ import ShippingService from "@api/services/shipping.service";
 import {useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {PhoneInput} from "@components/PhoneInput";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 const INITIAL_SHIPPING_DATA: CreateShippingData = {
     country: "",
@@ -78,7 +79,13 @@ export const ShippingTab: FC = () => {
                         <PhoneInput value={data.phone} onChange={(phone) => setData({...data, phone})}/>
                         {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
                     </div>
-                    <FormInput className="bg-white" label="Email" value={profile?.email} disabled/>
+
+                    <HoverInfoCard
+                        title="Email Address"
+                        description="Only the email address associated with the profile is allowed."
+                    >
+                        <FormInput className="bg-white" label="Email" value={profile?.email} disabled/>
+                    </HoverInfoCard>
 
                     <hr className="my-4"/>
                     <DeliveryAddressForm data={data} updateData={(values) => setData({...data, ...values})}/>

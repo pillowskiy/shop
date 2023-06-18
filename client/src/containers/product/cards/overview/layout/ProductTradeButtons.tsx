@@ -5,6 +5,7 @@ import {Zap} from "lucide-react";
 import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
 import {ProductFullest} from "@/types/product.interface";
 import {CartButton} from "@containers/cart/layout/CartButton";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 interface ProductTradeContainerProps {
     product: ProductFullest;
@@ -18,10 +19,16 @@ export const ProductTradeButtons: FC<ProductTradeContainerProps> = ({product}) =
                 "pt-4 md:mt-4 "
             )}
         >
-            <Button className="w-full lg:w-1/2" disabled={!product.quantity}>
-                <Zap className="font-normal"/>
-                <p className="font-medium ml-1">Buy now!</p>
-            </Button>
+            <HoverInfoCard
+                title="The product is out of stock"
+                description="Sorry, this product is out of stock"
+                disabled={!!product.quantity}
+            >
+                <Button className="w-full lg:w-1/2" disabled={!product.quantity}>
+                    <Zap className="font-normal"/>
+                    <p className="font-medium ml-1">Buy now!</p>
+                </Button>
+            </HoverInfoCard>
 
             <div className="w-full lg:w-1/2 flex gap-4">
                 <CartButton className="flex-1" variant="secondary" product={product} />

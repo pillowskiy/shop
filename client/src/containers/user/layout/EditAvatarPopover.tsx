@@ -11,6 +11,7 @@ import UserService from "@api/services/user.service";
 import {isAxiosError} from "axios";
 import {useToast} from "@common/toast/useToast";
 import {useProfile} from "@hooks/useProfile";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
     const [image, setImage] = useState<{ preview: string, file: File } | null>(null);
@@ -50,7 +51,7 @@ export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
         if (!target.files?.length) return;
         const file = target.files.item(0);
         const preview = URL.createObjectURL(file);
-        setImage({ preview, file });
+        setImage({preview, file});
     }
 
     const onSubmit = () => {
@@ -74,8 +75,10 @@ export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
                     <DialogTitle className="text-2xl">Select an image</DialogTitle>
                 </DialogHeader>
 
-                <section
-                    className="bg-white border rounded-lg py-4 px-8 flex items-center justify-center flex-col w-fit text-center">
+                <section className={cn(
+                    "bg-white border rounded-lg py-4 px-8 flex items-center",
+                    "justify-center flex-col w-fit text-center"
+                )}>
                     <label htmlFor="upload">
                         <input
                             id="upload"
@@ -110,13 +113,19 @@ export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
                 </section>
 
                 <DialogFooter>
-                    <Button
-                        className="w-full"
-                        disabled={!image || isLoading}
-                        onClick={onSubmit}
+                    <HoverInfoCard
+                        title="Avatar changing"
+                        description="Please upload a file to continue"
+                        disabled={!!image}
                     >
-                        Apply
-                    </Button>
+                        <Button
+                            className="w-full"
+                            disabled={!image || isLoading}
+                            onClick={onSubmit}
+                        >
+                            Apply
+                        </Button>
+                    </HoverInfoCard>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

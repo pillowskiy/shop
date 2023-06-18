@@ -9,6 +9,7 @@ import PromoCodeService from "@api/services/promo-code.service";
 import {useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {Loader2} from "lucide-react";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 interface OrderPromoCodeCard {
     promo: PromoCode;
@@ -50,17 +51,23 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
                 placeholder="SUMMER2023"
                 disabled={!!promo}
             />
-            <Button
-                className="mt-2 w-full flex"
-                disabled={isLoading || !!promo}
-                onClick={() => {
-                    if (!value) return;
-                    mutate();
-                }}
+            <HoverInfoCard
+                title="Promo code activated"
+                description="You have already activated the promo code"
+                disabled={!promo}
             >
-                {isLoading && <Loader2 className="w-5 h-5 mr-2 animate-spin"/>}
-                <p>Apply</p>
-            </Button>
+                <Button
+                    className="mt-2 w-full flex"
+                    onClick={() => {
+                        if (!value) return;
+                        mutate();
+                    }}
+                    disabled={isLoading || !!promo}
+                >
+                    {isLoading && <Loader2 className="w-5 h-5 mr-2 animate-spin"/>}
+                    <p>Apply</p>
+                </Button>
+            </HoverInfoCard>
         </Card>
     );
 };
