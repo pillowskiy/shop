@@ -1,17 +1,13 @@
 import type {FC} from 'react';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
-import {FormInput} from "@components/FormInput";
 import {Button} from "@ui/Button";
-import {EditAvatarPopover} from "@containers/user/layout/EditAvatarPopover";
 import {Label} from "@ui/Label";
-import {Textarea} from "@ui/Textarea";
-import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
 import {Checkbox} from "@ui/Checkbox";
 import {DialogClose} from "@radix-ui/react-dialog";
 import React, {useContext} from "react";
-import {AccountContext} from "@containers/user/tabs/account/AccountTab";
 import {Select, SelectGroup, SelectValue} from "@radix-ui/react-select";
 import {SelectContent, SelectItem, SelectTrigger} from "@common/Select";
+import {AccountContext} from "@containers/screens/UserWorkshopScreen";
 
 export const PrivacyTab: FC = () => {
     const profile = useContext(AccountContext);
@@ -25,7 +21,7 @@ export const PrivacyTab: FC = () => {
                     Control who can see your profile information and activities.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="max-h-[600px] overflow-y-auto rounded-lg">
+            <CardContent className="md:max-h-[600px] overflow-y-auto rounded-lg">
                 <div className="items-top flex space-x-2">
                     <Checkbox className="bg-white" id="age" defaultChecked/>
                     <div className="grid gap-1.5 leading-none">
@@ -102,10 +98,7 @@ export const PrivacyTab: FC = () => {
                     </SelectContent>
                 </Select>
             </CardContent>
-            <CardFooter className="pt-2 flex justify-between">
-                <DialogClose asChild>
-                    <Button variant="secondary">Close</Button>
-                </DialogClose>
+            <CardFooter className="pt-2">
                 <Button>Save changes</Button>
             </CardFooter>
         </Card>

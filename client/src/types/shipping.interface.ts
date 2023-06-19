@@ -13,7 +13,7 @@ export interface Shipping {
 
     userId: number;
 
-    temp: boolean | null;
+    temp?: boolean;
 }
 
 export type CreateShippingData = Omit<Shipping, 'id' | 'createdAt' | 'userId'>;

@@ -25,7 +25,7 @@ interface ComboboxProps {
     placeholder: string;
     onValueChange: (search: string) => void;
     disabled?: boolean;
-    className: string;
+    className?: string;
 }
 
 export const Combobox: FC<ComboboxProps> = ({items, placeholder, onValueChange, disabled, className}) => {

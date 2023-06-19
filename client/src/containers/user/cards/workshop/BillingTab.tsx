@@ -33,7 +33,7 @@ export const BillingTab: FC = () => {
                     <Info className="w-4 h-4 ml-1 text-primary opacity-90 cursor-pointer"/>
                 </div>
             </CardHeader>
-            <CardContent className="max-h-[600px] overflow-y-auto rounded-lg">
+            <CardContent className="md:max-h-[600px] overflow-y-auto rounded-lg">
                 <section className="flex flex-col gap-2">
                     <h2 className="font-medium">Payment Methods:</h2>
                     {
@@ -56,7 +56,7 @@ export const BillingTab: FC = () => {
                 </section>
 
                 <section className="bg-white border rounded-lg p-4 flex flex-col justify-center items-center mt-4">
-                    <div className="relative bg-muted p-2 rounded-lg w-[280px] h-[140px] cursor-pointer">
+                    <div className="relative bg-muted p-2 rounded-lg w-[200px] h-[100px] md:w-[280px] md:h-[140px] cursor-pointer">
                         <Plus
                             className={cn(
                                 "w-[64px] h-[64px] absolute top-[50%] -translate-y-[50%] left-[50%] text-primary",
@@ -72,11 +72,8 @@ export const BillingTab: FC = () => {
                     <MagicCardCreation />
                 }
             </CardContent>
-            <CardFooter className="pt-2 flex justify-between">
-                <DialogClose asChild>
-                    <Button variant="secondary">Close</Button>
-                </DialogClose>
-                <Button>Save changes</Button>
+            <CardFooter className="pt-2">
+                <Button>Create a payment method</Button>
             </CardFooter>
         </Card>
     );

@@ -6,8 +6,8 @@ import {Skeleton} from "@ui/Skeleton";
 import {UserActionButtons} from "@containers/user/layout/ActionButtons";
 import {useProfile} from "@hooks/useProfile";
 import {Button} from "@ui/Button";
-import {EditProfileDialog} from "@containers/user/layout/EditProfileDialog";
 import {cn} from "@lib/utils";
+import Link from "next/link";
 
 interface UserActionCardProps {
     user: User;
@@ -34,9 +34,9 @@ export const UserActionCard: FC<UserActionCardProps> = ({user}) => {
 
             {
                 user.id === profile?.id ? (
-                    <EditProfileDialog>
+                    <Link className="w-full" href="/profile">
                         <Button className="w-full">Edit profile</Button>
-                    </EditProfileDialog>
+                    </Link>
                 ): (
                     <UserActionButtons className="w-full" />
                 )

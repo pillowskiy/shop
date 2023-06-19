@@ -15,7 +15,7 @@ interface ProfileScreenProps {
     userId: number;
 }
 
-export const ProfileScreen: FC<ProfileScreenProps> = ({userId}) => {
+export const UserProfileScreen: FC<ProfileScreenProps> = ({userId}) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const {data: user} = useQuery(['get user', userId], () => {
         return UserService.getById(userId)

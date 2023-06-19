@@ -1,9 +1,9 @@
 import type {FC} from 'react';
+import type {CreateShippingData} from "@/types/shipping.interface";
 import {DE, FR, GB, PL, UA} from "country-flag-icons/react/1x1";
 import {CardDescription} from "@common/Card";
 import {Combobox} from "@components/Combobox";
 import {Country, State, City} from "country-state-city";
-import {CreateShippingData} from "@types/shipping.interface";
 
 interface AddressValue {
     value: string;

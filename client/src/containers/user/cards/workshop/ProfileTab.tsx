@@ -8,13 +8,13 @@ import {Label} from "@ui/Label";
 import {Textarea} from "@ui/Textarea";
 import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
 import {DialogClose} from "@radix-ui/react-dialog";
-import {AccountContext} from "@containers/user/tabs/account/AccountTab";
 import {Gender} from "@/types/user.interface";
 import {useMutation} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
 import {useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {PhoneInput} from "@components/PhoneInput";
+import {AccountContext} from "@containers/screens/UserWorkshopScreen";
 
 const INITIAL_ERRORS: Record<keyof Omit<UserUpdate, 'id'>, string> = {
     aboutMe: "",
@@ -80,7 +80,7 @@ export const ProfileTab: FC = () => {
                     Make changes to your account here. Click save when you are done.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="max-h-[600px] overflow-y-auto rounded-lg">
+            <CardContent className="md:max-h-[600px] overflow-y-auto rounded-lg">
                 <FormInput className="bg-white" label="Username" {...getInputValues("name")}/>
                 <PhoneInput />
                 <FormInput className="bg-white" label="Email" type="email" {...getInputValues("email")}/>
@@ -135,10 +135,7 @@ export const ProfileTab: FC = () => {
                     </RadioGroup>
                 </section>
             </CardContent>
-            <CardFooter className="pt-2 flex justify-between">
-                <DialogClose asChild>
-                    <Button variant="secondary">Close</Button>
-                </DialogClose>
+            <CardFooter className="pt-2">
                 <Button onClick={onConfirm}>Save changes</Button>
             </CardFooter>
         </Card>
