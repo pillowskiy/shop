@@ -3,33 +3,9 @@ import {Swiper} from "@containers/swiper/layout/Swiper";
 import {SwiperItem} from "@containers/swiper/layout/SwiperItem";
 import {useEffect, useState} from "react";
 import Image from "next/image";
-
-const ITEMS = [
-    {
-        key: 1,
-        color: 'bg-red-500'
-    },
-    {
-        key: 2,
-        color: 'bg-pink-500'
-    },
-    {
-        key: 3,
-        color: 'bg-blue-500'
-    },
-    {
-        key: 4,
-        color: 'bg-yellow-500'
-    },
-    {
-        key: 5,
-        color: 'bg-purple-500'
-    },
-    {
-        key: 6,
-        color: 'bg-purple-500'
-    },
-];
+import {cn} from "@lib/utils";
+import {ITEMS} from "@containers/swiper/constants";
+import {SwiperSlick} from "@containers/swiper/layout/SwiperSlick";
 
 const imageSrc = (index: number) => {
     const srcs = [
@@ -54,22 +30,22 @@ const imageSrc = (index: number) => {
  *     although this is not surprising since changing the state of items will in any case
  *     cause the component to re-render, but now it's not time.
  *
- * @beta Not for production!
+ * @beta Not for production! -> TEMP
  */
 export const Carousel: FC = () => {
     const [items, setItems] = useState(ITEMS);
     useEffect(() => {
         setTimeout(() => {
             const newItems = [...items];
-            newItems.push(newItems.shift());
+            newItems.push(newItems.shift()!);
             setItems(newItems);
         }, 2000);
     }, [items]);
 
     return (
-        <div className="relative w-full rounded-lg flex flex-col justify-center">
+        <section className="relative w-full rounded-lg flex flex-col justify-center">
             <Swiper>
-                {items.map((item, i) => (
+                {items.map((item) => (
                     <SwiperItem key={item.key}>
                         <Image
                             className="object-cover object-left h-full w-full rounded-lg object-cover object-top"
@@ -81,6 +57,7 @@ export const Carousel: FC = () => {
                     </SwiperItem>
                 ))}
             </Swiper>
-        </div>
+            <SwiperSlick activeIndex={ITEMS.findIndex(({key}) => (key === items[0].key))} />
+        </section>
     );
 };

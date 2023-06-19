@@ -1,7 +1,7 @@
 import type {FC, PropsWithChildren} from 'react';
 import type {Review} from "@/types/review.interface";
+import {Role} from "@/types/user.interface";
 import {useProfile} from "@hooks/useProfile";
-import {Role} from "@types/user.interface";
 import {Button, ButtonProps} from "@ui/Button";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
@@ -45,7 +45,7 @@ export const ReviewDeleteButton: FC<PropsWithChildren<ReviewDeleteButtonProps>> 
     if (!profile || !canDelete) return null;
 
     return (
-        <Button className={cn("h-fit w-fit", className)} variant="secondary" onClick={mutate} {...props}>
+        <Button className={cn("h-fit w-fit", className)} variant="secondary" onClick={() => mutate()} {...props}>
             {children ? children : <Trash2 className="w-4 h-4"/>}
         </Button>
     );
