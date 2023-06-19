@@ -7,7 +7,7 @@ import {useCart} from "@hooks/useCart";
 import {priceFormat} from "@lib/formatter";
 import {useMutation} from "@tanstack/react-query";
 import OrderService from "@api/services/order.service";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {ToastAction} from "@common/toast/Toast";
 import Link from "next/link";
 import {isAxiosError} from "axios";
@@ -36,23 +36,18 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
     }, {
         onSuccess: async () => {
             await router.push('/');
-            toast({
-                title: "✅ Order",
-                description: "You have successfully placed an order",
-                action: (
-                    <Link href="/orders">
-                        <ToastAction altText="Go to orders">Go to orders</ToastAction>
-                    </Link>
-                )
-            });
+            toast(buildToast("order.creation.success").setAction(
+                <Link href="/orders">
+                    <ToastAction altText="Go to orders">Go to orders</ToastAction>
+                </Link>
+            ));
             dispatch(clearCart())
         },
         onError: (err) => {
             if (isAxiosError(err) && !err.response?.data.errors) {
-                toast({
-                    variant: "destructive",
-                    description: `❌ ${err.response?.data.message || "Unhandled error occurred!"}`
-                });
+                toast(buildToast("error", {
+                    error: err.response?.data.message || "Unhandled error occurred!"
+                }).toast);
             }
         }
     })

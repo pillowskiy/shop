@@ -13,7 +13,7 @@ import {useMutation} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {INITIAL_PRODUCT_ERRORS} from "./constant";
 import {isAxiosError} from "axios";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {Loader} from "@containers/Loader";
 
 interface ProductWorkShopProps {
@@ -50,17 +50,15 @@ export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
                 if (err.response?.data?.errors) {
                     setErrors(err.response.data.errors);
                 } else {
-                    toast({
-                        variant: "destructive",
-                        title: "Uh Oh! something went wrong.",
-                        description: err.response?.data?.message || "Unhandled error"
-                    });
+                    toast(buildToast("error", {
+                        error: err.response?.data?.message || "Unhandled error"
+                    }).toast);
                 }
             },
             onSuccess: ({data}) => {
-                toast({
-                    description: `✅ You successfully ${product ? "updated" : "created"} a product`
-                });
+                toast(buildToast("product.workshop.success", {
+                    action: product ? "updated" : "created"
+                }).toast);
                 setNewProduct(getInitialProductState(data));
                 setImages([]);
             },

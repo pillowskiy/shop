@@ -5,7 +5,7 @@ import {useAuth} from "@hooks/useAuth";
 import {Button} from "@ui/Button";
 import {useRouter} from "next/router";
 import type {ApiValidationReject, LoginBody} from "@types";
-import {useToast} from "@layout/../../components/common/toast/useToast";
+import {buildToast, useToast} from "@layout/../../components/common/toast/useToast";
 import {Loader2} from "lucide-react";
 
 import {useAppDispatch} from "@redux/store";
@@ -37,11 +37,10 @@ export const LoginForm: FC = () => {
         if (login.rejected.match(result) && result.payload) {
             ('errors' in result.payload) ?
                 setErrors(result.payload.errors) :
-                toast({
-                    variant: "destructive",
-                    title: "Uh oh! Something went wrong.",
-                    description: result.payload.message,
-                });
+                toast(
+                    buildToast("error")
+                        .setDescription(result.payload.message)
+                );
         }
     }
 

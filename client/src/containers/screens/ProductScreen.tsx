@@ -3,7 +3,7 @@ import type {FC} from 'react';
 import {isAxiosError} from "axios";
 
 import {useQuery} from "@tanstack/react-query";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {useRouter} from "next/router";
 
 import ProductService from "@api/services/product.service";
@@ -32,11 +32,9 @@ export const ProductScreen: FC<ProductScreenProps> = ({slug}) => {
         select: ({data}) => data,
         enabled: !!slug,
         onError: (err) => {
-            toast({
-                variant: "destructive",
-                title: "Uh Oh! Something went wrong",
-                description: isAxiosError(err) ? err.response?.data.message : "Unhandled error occurred!"
-            })
+            toast(buildToast("error", {
+                error: isAxiosError(err) ? err.response?.data.message : "Unhandled error occurred!"
+            }).toast);
         },
         onSettled: (data) => {
             if (!data) return router.back();

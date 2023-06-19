@@ -6,7 +6,7 @@ import {Button} from "@ui/Button";
 import {useState} from "react";
 import {useMutation} from "@tanstack/react-query";
 import PromoCodeService from "@api/services/promo-code.service";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {Loader2} from "lucide-react";
 
@@ -29,9 +29,7 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
             }
         },
         onSuccess: ({data}) => {
-            toast({
-                description: `✅ You have successfully applied promo-code: ${data.name}`
-            });
+            toast(buildToast("promoCode.success", { promoName: data.name }).toast);
             setPromo(data);
         },
         onSettled: () => {

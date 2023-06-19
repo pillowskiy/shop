@@ -11,7 +11,7 @@ import {DialogClose} from "@radix-ui/react-dialog";
 import {Gender} from "@/types/user.interface";
 import {useMutation} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {PhoneInput} from "@components/PhoneInput";
 import {AccountContext} from "@containers/screens/UserWorkshopScreen";
@@ -52,9 +52,7 @@ export const ProfileTab: FC = () => {
         return UserService.update(formData);
     }, {
         onSuccess: ({data}) => {
-            toast({
-                description: "✅ Your profile was successfully updated"
-            });
+            toast(buildToast("users.profile.update.success").toast);
             setNewProfile(data);
         },
         onError: (err) => {
@@ -63,11 +61,9 @@ export const ProfileTab: FC = () => {
             if (errors) {
                 setErrors(errors);
             } else {
-                toast({
-                    variant: "destructive",
-                    title: "Uh Oh! Something went wrong.",
-                    description: err.response?.data?.message || "Unhandled error occurred"
-                });
+                toast(buildToast("error", {
+                    error: err.response?.data?.message || "Unhandled error occurred"
+                }).toast);
             }
         }
     })

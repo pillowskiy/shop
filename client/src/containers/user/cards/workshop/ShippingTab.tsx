@@ -8,7 +8,7 @@ import {useContext, useState} from "react";
 import {DeliveryAddressForm} from "@containers/shipping/forms/DeliveryAddressForm";
 import {useMutation} from "@tanstack/react-query";
 import ShippingService from "@api/services/shipping.service";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {PhoneInput} from "@components/PhoneInput";
 import {HoverInfoCard} from "@components/HoverInfoCard";
@@ -43,9 +43,7 @@ export const ShippingTab: FC = () => {
     }, {
         onMutate: () => setErrors({}),
         onSuccess: () => {
-            toast({
-                description: "✅ You have successfully added a new delivery address"
-            });
+            toast(buildToast("users.delivery.creation.success").toast);
             setData(INITIAL_SHIPPING_DATA);
         },
         onError: (err) => {
@@ -54,11 +52,9 @@ export const ShippingTab: FC = () => {
             if (errors) {
                 setErrors(errors);
             } else {
-                toast({
-                    variant: "destructive",
-                    title: "Uh, Oh! Something went wrong.",
-                    description: err.response?.data?.message || "Unhandled error occurred!",
-                });
+                toast(buildToast("error", {
+                    error: err.response?.data?.message || "Unhandled error occurred!"
+                }).toast);
             }
         }
     });

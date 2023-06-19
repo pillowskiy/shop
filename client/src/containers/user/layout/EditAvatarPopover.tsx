@@ -9,7 +9,7 @@ import {cn} from "@lib/utils";
 import {useMutation} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
 import {isAxiosError} from "axios";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {useProfile} from "@hooks/useProfile";
 import {HoverInfoCard} from "@components/HoverInfoCard";
 
@@ -27,21 +27,17 @@ export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
             onError: (err) => {
                 if (!isAxiosError(err)) return;
 
-                const badRequestError = err.response.data?.errors?.avatarURL
+                const badRequestError = err.response?.data?.errors?.avatarURL
                 if (badRequestError) {
                     setError(badRequestError);
                 } else {
-                    toast({
-                        variant: "destructive",
-                        title: "Uh Oh! something went wrong.",
-                        description: err.response?.data?.message || "Unhandled error"
-                    });
+                    toast(buildToast("error", {
+                        error: err.response?.data?.message || "Unhandled error occurred!"
+                    }).toast);
                 }
             },
             onSuccess: () => {
-                toast({
-                    description: "✅ You have successfully changed avatar"
-                });
+                toast(buildToast("users.profile.update.avatar.success").toast);
                 setImage(null);
             }
         }
@@ -49,7 +45,7 @@ export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
 
     const onUpload = ({target}: ChangeEvent<HTMLInputElement>) => {
         if (!target.files?.length) return;
-        const file = target.files.item(0);
+        const file = target.files.item(0)!;
         const preview = URL.createObjectURL(file);
         setImage({preview, file});
     }

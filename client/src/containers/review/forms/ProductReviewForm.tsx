@@ -8,7 +8,7 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Textarea} from "@ui/Textarea";
 import {Button} from "@ui/Button";
 
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 
 import {cn} from "@lib/utils";
 import ReviewService from "@api/services/review.service";
@@ -35,20 +35,18 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
     }, {
         onSuccess: () => {
             setReview(INITIAL_REVIEW);
-            toast({
-                description: "✅ Your review has been sent."
-            });
+            toast(buildToast("review.post.success").toast);
             return queryClient.invalidateQueries(['get reviews', productId]);
         },
         onError: (err) => {
-            if (isAxiosError(err)) {
-                setErrors(err.response?.data.errors);
+            if (!isAxiosError(err)) return;
+            const errors = err.response?.data?.errors
+            if (errors) {
+                setErrors(errors);
             } else {
-                toast({
-                    variant: "destructive",
-                    title: "Uh oh! Something went wrong",
-                    description: "Unhandled error"
-                });
+                toast(buildToast("error", {
+                    error: err.response?.data?.message || "Unhandled error occurred"
+                }).toast);
             }
         },
         onSettled: () => {

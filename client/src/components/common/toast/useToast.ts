@@ -1,5 +1,6 @@
 // Inspired by react-hot-toast library
 import * as React from "react"
+import * as toasts from "./toasts.json";
 
 import { ToastActionElement, type ToastProps } from "./Toast";
 
@@ -135,7 +136,7 @@ function dispatch(action: Action) {
   })
 }
 
-type Toast = Omit<ToasterToast, "id">;
+export type Toast = Omit<ToasterToast, "id">;
 
 function toast({ ...props }: Toast) {
   const id = genId()
@@ -186,4 +187,32 @@ function useToast() {
   }
 }
 
-export { useToast, toast }
+function buildToast(name: keyof typeof toasts, props?: Record<string, string | number>) {
+  const toast = {...toasts[name]} as Toast;
+  if (toast.description && props) {
+    for (const prop in props) {
+      toast.description = toast.description.toString().replaceAll(
+          `{ ${prop} }`, String(props[prop])
+      );
+    }
+  }
+
+  const setDescription = (description: string) => {
+    toast.description = description;
+    return toast;
+  }
+
+  const setTitle = (title: string) => {
+    toast.title = title;
+    return toast;
+  }
+
+  const setAction = (element: ToastActionElement) => {
+    toast.action = element;
+    return toast;
+  }
+
+  return {toast, setDescription, setTitle, setAction};
+}
+
+export { useToast, toast, buildToast }

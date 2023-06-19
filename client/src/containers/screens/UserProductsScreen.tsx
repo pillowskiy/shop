@@ -8,7 +8,7 @@ import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {isAxiosError} from "axios";
 import {useRouter} from "next/router";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {useState} from "react";
 import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
 
@@ -32,11 +32,9 @@ export const UserProductsScreen: FC<UserProductsScreenProps> = ({userId}) => {
         select: ({data}) => data,
         enabled: !!userId,
         onError: (err) => {
-            toast({
-                variant: "destructive",
-                title: "Uh Oh! Something went wrong",
-                description: isAxiosError(err) ? err.response?.data.message : "Unhandled error occurred!"
-            })
+            toast(buildToast("error", {
+                error: isAxiosError(err) ? err.response?.data.message : "Unhandled error occurred!"
+            }).toast);
         },
         onSuccess: () => setTimeout(() => setIsLoaded(true), 400),
         onSettled: (data) => {
@@ -49,7 +47,7 @@ export const UserProductsScreen: FC<UserProductsScreenProps> = ({userId}) => {
             <Main className="min-h-screen-64">
                 {
                     Array.from({length: 10}, (_, index) => (
-                        <HorizontalSkeleton key={index} />
+                        <HorizontalSkeleton key={index}/>
                     ))
                 }
             </Main>

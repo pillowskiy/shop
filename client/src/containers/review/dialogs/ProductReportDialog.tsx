@@ -12,15 +12,13 @@ import {
 import {Button} from "@ui/Button";
 import {Textarea} from "@ui/Textarea";
 import {FormCheckbox} from "@components/FormCheckbox";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 
 export const ProductReportDialog: FC<PropsWithChildren> = ({children}) => {
     const {toast} = useToast();
     const onSubmit = (event: FormEvent) => {
         event.preventDefault();
-        toast({
-            description: "✅ Your complaint has been sent"
-        });
+        toast(buildToast("review.report.success").toast);
     }
 
     return (

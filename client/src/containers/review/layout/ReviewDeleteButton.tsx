@@ -5,7 +5,7 @@ import {Role} from "@types/user.interface";
 import {Button, ButtonProps} from "@ui/Button";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {Trash2} from "lucide-react";
 import {cn} from "@lib/utils";
@@ -31,18 +31,14 @@ export const ReviewDeleteButton: FC<PropsWithChildren<ReviewDeleteButtonProps>> 
         return ReviewService.delete(review.id);
     }, {
         onSuccess: () => {
-            toast({
-                description: "✅ You have successfully deleted a review"
-            });
+            toast(buildToast("review.delete.success").toast);
             return queryClient.invalidateQueries(['get reviews', productId])
         },
         onError: (err) => {
             if (!isAxiosError(err)) return;
-            toast({
-                variant: "destructive",
-                title: "Uh Oh! Something went wrong.",
-                description: err.response?.data?.message || "Unhandled error occurred!",
-            });
+            toast(buildToast("error", {
+                error: err.response?.data?.message || "Unhandled error occurred!"
+            }).toast);
         }
     })
 

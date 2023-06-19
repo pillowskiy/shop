@@ -2,7 +2,7 @@ import type {FC} from 'react';
 import {cn} from "@lib/utils";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import PaymentService from "@api/services/payment.service";
-import {useToast} from "@common/toast/useToast";
+import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 
 export const MagicCardCreation: FC = () => {
@@ -14,16 +14,12 @@ export const MagicCardCreation: FC = () => {
     }, {
         onError: (err) => {
             if (!isAxiosError(err)) return;
-            toast({
-                title: "Uh On! Something went wrong.",
-                description: err.response?.data?.message || "Unhandled error occurred!",
-            });
+            toast(buildToast("error", {
+                error: err.response?.data?.message || "Unhandled error occurred!"
+            }).toast);
         },
         onSuccess: () => {
-            toast({
-                title: "Yay, now you are rich!",
-                description: "You successfully opened magic card",
-            });
+            toast(buildToast("magic.creation.success").toast);
             return queryClient.invalidateQueries(['get payments'])
         }
     })

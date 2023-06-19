@@ -4,7 +4,7 @@ import {FormCheckbox} from "@components/FormCheckbox";
 import {Anchor} from "@ui/Anchor";
 import {Button} from "@ui/Button";
 import {useRouter} from "next/router";
-import {useToast} from "@layout/../../components/common/toast/useToast";
+import {buildToast, useToast} from "@layout/../../components/common/toast/useToast";
 import {useAuth} from "@hooks/useAuth";
 import {Loader2} from "lucide-react";
 import {FormEvent, useState} from "react";
@@ -41,11 +41,9 @@ export const RegisterForm: FC = () => {
         if (register.rejected.match(result) && result.payload) {
             ('errors' in result.payload) ?
                 setErrors(result.payload.errors) :
-                toast({
-                    variant: "destructive",
-                    title: "Uh oh! Something went wrong.",
-                    description: result.payload.message,
-                });
+                toast(buildToast("error", {
+                    error: result.payload.message
+                }).toast);
         }
     }
 
