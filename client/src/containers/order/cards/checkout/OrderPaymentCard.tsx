@@ -31,7 +31,7 @@ export const OrderPaymentCard: FC = () => {
                 onValueChange={(value) => updateDetails({paymentId: +value})}
             >
                 {payments?.map(payment => (
-                    <div key={payment.id} className={cn("transition-all rounded-lg", {
+                    <div key={payment.id} className={cn("transition-all rounded-lg overflow-x-auto", {
                         "border p-2": paymentId === payment.id
                     })}>
                         <div className="flex items-center space-x-2">

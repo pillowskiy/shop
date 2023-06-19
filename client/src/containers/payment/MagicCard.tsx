@@ -17,8 +17,8 @@ export const MagicCard: FC<MagicCardProps> = ({className, payment, ...props}) =>
     return (
         <main
             className={cn(
-                "relative rounded-lg bg-white font-consolas",
-                "text-center overflow-hidden w-[340px] h-fit select-none", className
+                "relative rounded-lg bg-white font-consolas overflow-x-auto",
+                "text-center overflow-hidden min-w-[240px] w-[240px] sm:w-[300px] md:w-[340px] h-fit select-none", className
             )}
             {...props}
         >
@@ -35,19 +35,19 @@ export const MagicCard: FC<MagicCardProps> = ({className, payment, ...props}) =>
             </section>
 
 
-            <section className="backdrop-blur-[8px] bg-transparent p-6 pt-8 pb-2 rounded-lg">
+            <section className="backdrop-blur-[8px] bg-transparent p-2 sm:p-6 pt-6 sm:pt-8 pb-2 rounded-lg">
                 <div className="flex items-center gap-2">
                     <Wifi className="rotate-[90deg] text-primary opacity-90"/>
-                    <div className="w-12 h-8 rounded-lg bg-warning" />
+                    <div className="w-8 h-6 sm:w-12 sm:h-8 rounded-lg bg-warning" />
                 </div>
 
-                <h2 className="text-2xl text-primary my-2">{cardNumberFormat(payment.cardNumber)}</h2>
+                <h2 className="text-xl sm:text-2xl text-primary my-2">{cardNumberFormat(payment.cardNumber)}</h2>
 
-                <footer className="relative text-left uppercase text-sm text-primary font-medium">
+                <footer className="relative text-left uppercase text-xs sm:text-sm text-primary font-medium">
                     <p className="lowercase text-[10px] leading-3 opacity-90">valid thru</p>
                     <h3 className="leading-3">
                         {expiresEnd.getMonth().toString().padStart(2, '0')}/
-                        {expiresEnd.getFullYear()%1000}
+                        {expiresEnd.getFullYear() % 1000}
                     </h3>
                     <h3 className="opacity-90 leading-3">{profile?.name}</h3>
                     <h3 className="opacity-80 leading-3">USD</h3>
