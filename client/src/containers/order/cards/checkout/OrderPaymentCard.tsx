@@ -11,6 +11,7 @@ import Link from "next/link";
 import {useProfile} from "@hooks/useProfile";
 import {Info} from "lucide-react";
 import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 export const OrderPaymentCard: FC = () => {
     const {paymentId, updateDetails} = useContext(OrderCheckoutContext);
@@ -43,16 +44,21 @@ export const OrderPaymentCard: FC = () => {
                 ))}
 
                 {(!payments?.length && profile) && (
-                    <Link
-                        className={cn(
-                            "mt-2 bg-white shadow-sm border border hover:border-warning hover:underline",
-                            "transition-all p-2 rounded-lg text-center hidden sm:flex gap-1 justify-center"
-                        )}
-                        href={`/users/${profile.id}`}
+                    <HoverInfoCard
+                        title="Billing"
+                        description="Optimize order creation by adding a payment method to your profile."
                     >
-                        <p>You do not have any payment method, add it to your profile</p>
-                        <Info className="w-4 h-4 text-primary opacity-90"/>
-                    </Link>
+                        <Link
+                            className={cn(
+                                "mt-2 bg-white shadow-sm border border hover:border-warning hover:underline",
+                                "transition-all p-2 rounded-lg text-center hidden sm:flex gap-1 justify-center"
+                            )}
+                            href="/profile?tab=billing"
+                        >
+                            <p>You do not have any payment method, add it to your profile</p>
+                            <Info className="w-4 h-4 text-primary opacity-90"/>
+                        </Link>
+                    </HoverInfoCard>
                 )}
             </RadioGroup>
         </Card>

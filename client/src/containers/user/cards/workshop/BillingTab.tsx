@@ -10,6 +10,7 @@ import {useQuery} from "@tanstack/react-query";
 import PaymentService from "@api/services/payment.service";
 import {PaymentMethod} from "@containers/payment/layout/PaymentMethod";
 import {MagicCardCreation} from "@containers/payment/MagicCardCreation";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 export const BillingTab: FC = () => {
     const {data: payments} = useQuery(['get payments'], () => {
@@ -25,13 +26,20 @@ export const BillingTab: FC = () => {
                 <CardDescription>
                     Add a payment method to shop in two clicks.
                 </CardDescription>
-                <div
-                    className="bg-white p-2 rounded-lg text-center border border-warning shadow-sm flex justify-center">
-                    <h2 className="font-medium text-sm md:hover:underline transition-all cursor-pointer">
-                        You can always use other independent methods.
-                    </h2>
-                    <Info className="w-4 h-4 ml-1 text-primary opacity-90 cursor-pointer"/>
-                </div>
+                <HoverInfoCard
+                    title="Independent methods"
+                    description="These are payment methods that are not tied to our store (google pay, apple pay, etc...)."
+                >
+                    <div className={cn(
+                        "bg-white p-2 rounded-lg text-center border",
+                        "border-warning shadow-sm flex justify-center"
+                    )}>
+                        <h2 className="font-medium text-sm md:hover:underline transition-all cursor-pointer">
+                            You can always use other independent methods.
+                        </h2>
+                        <Info className="w-4 h-4 ml-1 text-primary opacity-90 cursor-pointer"/>
+                    </div>
+                </HoverInfoCard>
             </CardHeader>
             <CardContent className="md:max-h-[600px] overflow-y-auto rounded-lg">
                 <section className="flex flex-col gap-2">
