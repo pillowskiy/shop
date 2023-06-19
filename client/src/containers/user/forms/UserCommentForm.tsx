@@ -5,11 +5,10 @@ import {useProfile} from "@hooks/useProfile";
 import {UserAvatar} from "@components/UserAvatar";
 import {Button} from "@ui/Button";
 
-export const UserCommentCard: FC = () => {
+export const UserCommentForm: FC = () => {
     const {profile} = useProfile();
 
     if (!profile) return null;
-    // TEMP: to form folder
     return (
         <Card id="feed-back" className="p-4 mt-4 bg-popover">
             <form className="w-full sm:flex">
