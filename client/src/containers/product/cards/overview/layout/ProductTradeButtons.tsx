@@ -1,17 +1,18 @@
-import type {FC} from 'react';
+import {type FC, useContext} from 'react';
 import {cn} from "@lib/utils";
 import {Button} from "@ui/Button";
 import {Zap} from "lucide-react";
 import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
-import {ProductFullest} from "@/types/product.interface";
 import {CartButton} from "@containers/cart/layout/CartButton";
 import {HoverInfoCard} from "@components/HoverInfoCard";
+import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
 
-interface ProductTradeContainerProps {
-    product: ProductFullest;
-}
+export const ProductTradeButtons: FC = () => {
+    const product = useContext(OverviewProductContext);
 
-export const ProductTradeButtons: FC<ProductTradeContainerProps> = ({product}) => {
+    // TEMP
+    if (!product) return null;
+
     return (
         <section
             className={cn(

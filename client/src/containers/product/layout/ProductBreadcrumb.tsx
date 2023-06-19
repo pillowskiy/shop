@@ -1,13 +1,14 @@
-import {type FC, Fragment} from 'react';
-import type {Product} from "@/types/product.interface";
+import {type FC, Fragment, useContext} from 'react';
 import {Anchor} from "@ui/Anchor";
 import {ChevronRight, Home} from 'lucide-react';
+import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
 
-interface BreadcrumbProps {
-    product: Product;
-}
+export const ProductBreadcrumb: FC = () => {
+    const product = useContext(OverviewProductContext);
 
-export const ProductBreadcrumb: FC<BreadcrumbProps> = ({product}) => {
+    // TEMP
+    if (!product) return null;
+
     return (
         <section className="hidden lg:flex gap-2 items-center py-2 px-4 rounded-md w-full bg-muted overflow-x-auto">
             <Anchor href="/">

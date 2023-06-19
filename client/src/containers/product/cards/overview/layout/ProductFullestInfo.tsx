@@ -1,15 +1,15 @@
-import type {FC} from 'react';
-import type {ProductFullest} from "@/types/product.interface";
+import {type FC, useContext} from 'react';
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
 import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
-import {priceFormat} from "@lib/formatter";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
+import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
 
-interface ProductInfoContainerProps {
-    product: ProductFullest;
-}
+export const ProductFullestInfo: FC = () => {
+    const product = useContext(OverviewProductContext);
 
-export const ProductFullestInfo: FC<ProductInfoContainerProps> = ({product}) => {
+    // TEMP
+    if (!product) return null;
+
     return (
         <section>
             <h2 className="mt-4 text-2xl md:text-3xl font-bold">
