@@ -24,9 +24,10 @@ export class CreateOrderDto {
   @Min(0)
   public readonly paymentId: number;
 
-  @IsString()
+  @IsInt()
+  @Min(0)
   @IsOptional()
-  public readonly promo?: string;
+  public readonly promoId?: number;
 }
 
 export class OrderItemDto {

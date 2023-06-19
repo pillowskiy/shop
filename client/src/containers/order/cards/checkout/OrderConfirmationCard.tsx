@@ -1,4 +1,5 @@
 import type {FC} from 'react';
+import type {PromoCode} from "@/types/promo-code.interface";
 import {Card} from "@common/Card";
 import {Button} from "@ui/Button";
 import {Anchor} from "@ui/Anchor";
@@ -16,17 +17,22 @@ import {useRouter} from "next/router";
 import {useContext} from "react";
 import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
 import {InfoRow} from "@components/InfoRow";
+import {makeDiscount} from "@lib/utils";
 
-export const OrderConfirmationCard: FC = () => {
+interface OrderConfirmationCardProps {
+    promo: PromoCode | null;
+}
+
+export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) => {
     const {totalItems, totalCost} = useCart();
-    const {items, shippingId, paymentId, promo} = useContext(OrderCheckoutContext);
+    const {items, shippingId, paymentId} = useContext(OrderCheckoutContext);
 
     const {toast} = useToast();
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     const {mutate} = useMutation(['create order'], () => {
-        return OrderService.createOrder({items, shippingId, paymentId, promo});
+        return OrderService.createOrder({items, shippingId, paymentId, promoId: promo?.id});
     }, {
         onSuccess: async () => {
             await router.push('/');
@@ -61,10 +67,17 @@ export const OrderConfirmationCard: FC = () => {
                 <InfoRow className="text-xs" title="Delivery cost">
                     at the carrier tariffs
                 </InfoRow>
+                {!!promo && (
+                    <InfoRow className="text-xs" title="Promo-Code">
+                        {`-${promo.discountPercent}%`}
+                    </InfoRow>
+                )}
             </section>
             <div className="flex justify-between items-center">
                 <p className="font-medium">To be paid</p>
-                <h2 className="text-2xl">{priceFormat(totalCost)}</h2>
+                <h2 className="text-2xl">
+                    {priceFormat(makeDiscount(totalCost, promo?.discountPercent || 0))}
+                </h2>
             </div>
             <hr className="my-2"/>
             <footer>

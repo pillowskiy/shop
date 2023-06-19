@@ -12,6 +12,7 @@ import {HoverInfoCard} from "@components/HoverInfoCard";
 import {getShippingName} from "@lib/csc";
 import {InfoRow} from "@components/InfoRow";
 import Link from "next/link";
+import {makeDiscount} from "@lib/utils";
 
 interface OrderDetailedInfoProps {
     order: Order;
@@ -41,7 +42,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
 
                 <div className="mt-4">
                     <InfoRow title="Name">
-                        {order.shipping.name} {order.shipping.surname}
+                        {`${order.shipping.name} ${order.shipping.surname}`}
                     </InfoRow>
                     <InfoRow title="Phone">
                         {order.shipping.phone}
@@ -76,13 +77,18 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                 </Accordion>
 
                 <InfoRow title="Payment">
-                    *{order.payment.cardNumber.slice(16 - 4)}
+                    {`*${order.payment.cardNumber.slice(16 - 4)}`}
                 </InfoRow>
                 <InfoRow title="Delivery">
                     at the carrier tariffs
                 </InfoRow>
+                {order.promoCode && (
+                    <InfoRow title="Promo-Code">
+                        {`-${order.promoCode.discountPercent}%`}
+                    </InfoRow>
+                )}
                 <InfoRow className="mt-2 text-lg" title="Amount">
-                    {priceFormat(price)}
+                    {priceFormat(makeDiscount(price, order.promoCode?.discountPercent || 0))}
                 </InfoRow>
 
                 <div className="flex gap-2 md:gap-4 flex-col md:flex-row mt-4">

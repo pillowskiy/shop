@@ -21,7 +21,7 @@ export class OrderService {
   }
 
   public async create(
-    { items, shippingId, paymentId }: CreateOrderDto,
+    { items, shippingId, paymentId, promoId }: CreateOrderDto,
     userId: number,
   ) {
     const productIds = items.map((item) => item.productId);
@@ -53,6 +53,9 @@ export class OrderService {
         },
         payment: {
           connect: { id: paymentId },
+        },
+        promoCode: {
+          connect: { id: promoId },
         },
       },
       select: orderSelect,

@@ -34,13 +34,14 @@ const CheckoutContainer: FC<PropsWithChildren> = ({children}) => {
 export const CheckoutScreen: FC = () => {
     const {items: cartItems} = useCart();
 
+    // TEMP
     const [promo, setPromo] = useState<PromoCode | null>(null);
     const [details, setDetails] = useState<OrderDetailsValues>({paymentId: -1, shippingId: -1})
     const [items, setItems] = useState<CreateOrderItem[]>(
         cartItems.map(item => ({productId: item.id, quantity: item.count}))
     );
 
-    if (!items.length) {
+    if (!cartItems.length) {
         return (
             <CheckoutContainer>
                 <EmptyItems>You have no items in your cart.</EmptyItems>
@@ -67,7 +68,7 @@ export const CheckoutScreen: FC = () => {
                     </section>
                     <section className="w-full sm:w-4/12 lg:w-3/12 h-fit sm:sticky top-[72px]">
                         <Checkout.OrderPromoCodeCard promo={promo} setPromo={setPromo}/>
-                        <Checkout.OrderConfirmationCard/>
+                        <Checkout.OrderConfirmationCard promo={promo}/>
                     </section>
                 </section>
             </OrderCheckoutContext.Provider>

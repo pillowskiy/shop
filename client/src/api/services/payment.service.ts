@@ -12,7 +12,7 @@ export default class PaymentService {
 
     static async createPayment(data: CreatePaymentData)
         : Promise<AxiosResponse<Payment>> {
-        return $api.post<Payment>(`${this.controller}`);
+        return $api.post<Payment>(`${this.controller}`, data);
     }
 
     static async deletePayment(paymentId: number)

@@ -9,10 +9,9 @@ import PromoCodeService from "@api/services/promo-code.service";
 import {useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {Loader2} from "lucide-react";
-import {HoverInfoCard} from "@components/HoverInfoCard";
 
 interface OrderPromoCodeCard {
-    promo: PromoCode;
+    promo: PromoCode | null;
     setPromo: Dispatch<SetStateAction<PromoCode | null>>;
 }
 
@@ -51,25 +50,25 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
                 placeholder="SUMMER2023"
                 disabled={!!promo}
             />
-            <HoverInfoCard
-                title="Promo code activated"
-                description="You have already activated the promo code"
-                disabled={!promo}
+            <Button
+                className="my-2 w-full flex"
+                onClick={() => {
+                    if (!value) return;
+                    mutate();
+                }}
+                disabled={isLoading || !!promo}
             >
-                <div>
-                    <Button
-                        className="mt-2 w-full flex"
-                        onClick={() => {
-                            if (!value) return;
-                            mutate();
-                        }}
-                        disabled={isLoading || !!promo}
-                    >
-                        {isLoading && <Loader2 className="w-5 h-5 mr-2 animate-spin"/>}
-                        <p>Apply</p>
-                    </Button>
-                </div>
-            </HoverInfoCard>
+                {isLoading && <Loader2 className="w-5 h-5 mr-2 animate-spin"/>}
+                <p>Apply</p>
+            </Button>
+            {!!promo && (
+                <p
+                    className="text-xs text-muted-foreground md:hover:underline cursor-pointer transition-all"
+                    onClick={() => setPromo(null)}
+                >
+                    Dismiss promo-code
+                </p>
+            )}
         </Card>
     );
 };

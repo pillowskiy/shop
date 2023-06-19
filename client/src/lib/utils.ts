@@ -28,3 +28,7 @@ export const setLocalStorage = (key: string, value: string) => {
 export const getStringFromQuery = (slug: string | string[] | undefined) => {
   return typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
 }
+
+export const makeDiscount = (price: number, discountPercent: number) => {
+  return price - (price * discountPercent) / 100;
+}
