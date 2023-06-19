@@ -4,10 +4,17 @@ import {ProfileTab} from "@containers/user/cards/workshop/ProfileTab";
 import {ShippingTab} from "@containers/user/cards/workshop/ShippingTab";
 import {PrivacyTab} from "@containers/user/cards/workshop/PrivacyTab";
 import {BillingTab} from "@containers/user/cards/workshop/BillingTab";
+import {useRouter} from "next/router";
+import {getStringFromQuery} from "@lib/utils";
 
 export const ProfileWorkshopTab: FC = () => {
+    const router = useRouter();
+
     return (
-        <Tabs defaultValue="profile" className="absolute top-0 mt-4 w-full md:w-[600px] pb-14">
+        <Tabs
+            className="mt-2 w-full md:w-[600px]"
+            defaultValue={getStringFromQuery(router.query.tab) || "profile"}
+        >
             <TabsList
                 className="flex gap-1 overflow-x-auto justify-between h-fit select-none [&>*]:flex-1">
                 <TabsTrigger value="profile">Profile</TabsTrigger>

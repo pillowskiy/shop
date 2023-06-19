@@ -13,7 +13,7 @@ export const UserWorkshopScreen: FC = () => {
     return (
         <Meta title={`Profile ${profile?.name || ""}`}>
             <AuthProvider forAuth={true}>
-                <Main className="flex flex-col items-center justify-start min-h-screen-64 relative">
+                <Main className="flex flex-col items-center justify-start min-h-screen-64">
                     <AccountContext.Provider value={profile}>
                         <ProfileWorkshopTab/>
                     </AccountContext.Provider>
