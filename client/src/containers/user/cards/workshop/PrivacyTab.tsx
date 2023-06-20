@@ -3,11 +3,11 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 import {Button} from "@ui/Button";
 import {Label} from "@ui/Label";
 import {Checkbox} from "@ui/Checkbox";
-import {DialogClose} from "@radix-ui/react-dialog";
 import React, {useContext} from "react";
 import {Select, SelectGroup, SelectValue} from "@radix-ui/react-select";
 import {SelectContent, SelectItem, SelectTrigger} from "@common/Select";
 import {AccountContext} from "@containers/screens/UserWorkshopScreen";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 
 export const PrivacyTab: FC = () => {
     const profile = useContext(AccountContext);
@@ -84,7 +84,7 @@ export const PrivacyTab: FC = () => {
 
                 <hr className="my-4"/>
 
-                <Select>
+                <Select defaultValue="all">
                     <Label className="text-sm">Who can view your newsfeed?</Label>
                     <SelectTrigger className="w-full bg-white mt-2" defaultValue="all">
                         <SelectValue placeholder="Select something" />
@@ -99,7 +99,14 @@ export const PrivacyTab: FC = () => {
                 </Select>
             </CardContent>
             <CardFooter className="pt-2">
-                <Button>Save changes</Button>
+                <HoverInfoCard
+                    title="Sorry for the inconvenience"
+                    description="This feature is currently under development"
+                >
+                    <div>
+                        <Button disabled>Save changes</Button>
+                    </div>
+                </HoverInfoCard>
             </CardFooter>
         </Card>
     );
