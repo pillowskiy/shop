@@ -22,6 +22,7 @@ export interface Review {
     text: string;
     rating: number;
     helpful: ReviewHelpful[];
+    attachments?: string[];
     createdAt: string;
 };
 

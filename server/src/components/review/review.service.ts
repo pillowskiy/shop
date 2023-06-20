@@ -11,12 +11,14 @@ import type { FilterDto } from './dto/filter.dto';
 import { Prisma, User as PrismaUser } from '@prisma/client';
 import { ReviewSort } from './dto/filter.dto';
 import { matchRoles } from '../../utils/Util';
+import { UploadService } from './../upload/upload.service';
 
 @Injectable()
 export class ReviewService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly paginationService: PaginationService,
+    private readonly uploadService: UploadService,
   ) {}
 
   public async getAvgRating(productId: number) {
@@ -80,7 +82,19 @@ export class ReviewService {
     };
   }
 
-  public async create(userId: number, productId: number, dto: ReviewDto) {
+  public async create({
+    productId,
+    userId,
+    dto,
+    files,
+    serverUrl,
+  }: {
+    productId: number;
+    userId: number;
+    dto: ReviewDto;
+    files: Express.Multer.File[];
+    serverUrl: string;
+  }) {
     const canPostReview = await this.prisma.review
       .findFirst({
         where: { productId, userId },
@@ -93,6 +107,11 @@ export class ReviewService {
       );
     }
 
+    const uploadData = await this.uploadService.uploadFiles(files);
+    const imagesURLs = uploadData.map(({ fileName, fileExtension }) => {
+      return `${serverUrl}/uploads/${fileName + fileExtension}`;
+    });
+
     try {
       return await this.prisma.review.create({
         data: {
@@ -103,6 +122,7 @@ export class ReviewService {
           product: {
             connect: { id: productId },
           },
+          attachments: imagesURLs,
         },
         select: reviewSelect,
       });

@@ -111,10 +111,11 @@ model Review {
   rating Int
   text   String
 
-  productId Int?     @map("product_id")
-  product   Product? @relation(fields: [productId], references: [id])
+  productId Int     @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
 
   helpful User[]
+  attachments String[]  @default([])
 
   userId Int?  @map("user_id")
   user   User? @relation("author", fields: [userId], references: [id])

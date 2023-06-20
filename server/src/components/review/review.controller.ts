@@ -8,6 +8,8 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
@@ -23,6 +25,8 @@ import {
 import { review } from 'src/config/docs';
 import { FilterDto } from './dto/filter.dto';
 import { User as PrismaUser } from '@prisma/client';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { ServerUrl } from 'src/decorators/server-url.decorator';
 
 @ApiTags('reviews')
 @Controller('reviews')
@@ -58,14 +62,23 @@ export class ReviewController {
   @ApiParam(review.create.param)
   @ApiBody({ type: ReviewDto })
   @Auth()
+  @UseInterceptors(FilesInterceptor('files[]', 10))
   @HttpCode(200)
   @Post('/:id')
   public create(
+    @ServerUrl() serverUrl: string,
     @Param('id', ParseIntPipe) productId: number,
     @Body() dto: ReviewDto,
     @User('id') userId: number,
+    @UploadedFiles() files: Express.Multer.File[],
   ) {
-    return this.reviewService.create(userId, productId, dto);
+    return this.reviewService.create({
+      productId,
+      userId,
+      dto,
+      files,
+      serverUrl,
+    });
   }
 
   @Auth()

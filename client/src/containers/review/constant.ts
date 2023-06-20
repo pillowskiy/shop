@@ -25,7 +25,7 @@ export const STAR_REVIEWS = [
 
 export const INITIAL_ERRORS: ReviewErrors = {
     text: "",
-    rating: ""
+    rating: "",
 } as const;
 
 export const INITIAL_REVIEW: ReviewCreate = {

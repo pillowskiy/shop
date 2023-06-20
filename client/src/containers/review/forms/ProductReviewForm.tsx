@@ -2,7 +2,7 @@ import {type FC, type FormEvent, useState} from 'react';
 import type {ReviewCreate, ReviewErrors} from "@/types/review.interface";
 
 import {isAxiosError} from "axios";
-import {Loader2, Send} from "lucide-react";
+import {Loader2, Image as ImageIcon, Send, MoreHorizontal} from "lucide-react";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 import {Textarea} from "@ui/Textarea";
@@ -16,6 +16,8 @@ import ReviewService from "@api/services/review.service";
 import {INITIAL_ERRORS, INITIAL_REVIEW, STAR_REVIEWS} from "../constant";
 import {StarReview} from "../layout/StarReview";
 import {HoverInfoCard} from "@components/HoverInfoCard";
+import {DropdownMenuContent, DropdownMenu, DropdownMenuTrigger} from "@common/DropdownMenu";
+import Image from "next/image";
 
 interface ProductReviewFormProps {
     hasAccess: boolean;
@@ -23,6 +25,7 @@ interface ProductReviewFormProps {
 }
 
 export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAccess}) => {
+    const [attachments, setAttachments] = useState<{ preview: string, file: File }[]>([]);
     const [review, setReview] = useState<ReviewCreate>(INITIAL_REVIEW);
     const [errors, setErrors] = useState<ReviewErrors>(INITIAL_ERRORS);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,8 +33,8 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
     const {toast} = useToast();
 
     const queryClient = useQueryClient();
-    const {mutate} = useMutation(['create review', productId], () => {
-        return ReviewService.create(productId, review);
+    const {mutate} = useMutation(['create review', productId], ({formData}: {formData: FormData}) => {
+        return ReviewService.create(productId, formData);
     }, {
         onSuccess: () => {
             setReview(INITIAL_REVIEW);
@@ -59,7 +62,17 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
         event.preventDefault();
         setIsLoading(true);
         setErrors(INITIAL_ERRORS);
-        mutate();
+
+        const formData = new FormData();
+        attachments.forEach(({file}) => {
+            formData.append('files[]', file);
+        });
+
+        Object.entries(review).forEach(([key, value]) => {
+            formData.append(key, value);
+        })
+
+        mutate({formData});
     }
 
     const setReviewRate = (rating: number) => {
@@ -70,20 +83,71 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
         <form onSubmit={onSubmit} className="pb-4 border-b">
             <h2 className="text-xl md:text-2xl font-medium">Review this product</h2>
             <p className="text-primary opacity-90">Share your thoughts with other customers</p>
-            <Textarea
-                className={cn("mt-4 bg-white", {
-                    'border-destructive': errors.text
-                })}
-                value={review.text}
-                onChange={({target}) => setReview({ ...review, text: target.value})}
-                placeholder="Start entering comments here."
-                maxLength={1024}
-                required
-                disabled={isLoading || !hasAccess}
-            />
-            {errors.text && <p className="text-xs text-destructive">{errors.text}</p>}
+            <section className="relative">
+                <Textarea
+                    className={cn("mt-4 bg-white h-[120px]", {
+                        'border-destructive': errors.text
+                    })}
+                    value={review.text}
+                    onChange={({target}) => setReview({...review, text: target.value})}
+                    placeholder="Start entering comments here."
+                    maxLength={1024}
+                    required
+                    disabled={isLoading || !hasAccess}
+                />
+                <DropdownMenu modal>
+                    <DropdownMenuTrigger className="absolute top-0 right-0 p-2 cursor-pointer text-muted-foreground">
+                        <MoreHorizontal className="w-5 h-5"/>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <div
+                            className="px-2 py-1 transition-all hover:bg-muted-foreground rounded-md hover:text-white cursor-pointer">
+                            <input
+                                id="files"
+                                onChange={({target}) => {
+                                    if (!target.files?.length) return;
+                                    const newImages = Array.from(target.files, (file => ({
+                                        preview: URL.createObjectURL(file),
+                                        file,
+                                    })))
+                                    setAttachments([...attachments, ...newImages])
+                                }}
+                                className="hidden"
+                                type="file"
+                                accept="image/,.png,.jpg,.jpeg,.webp"
+                                multiple
+                            />
+                            <label className="flex items-center cursor-pointer" htmlFor="files">
+                                <ImageIcon className="w-4 h-4 mr-2"/>
+                                <span>Upload image</span>
+                            </label>
+                        </div>
+                    </DropdownMenuContent>
+                </DropdownMenu>
 
-            <div className="w-full flex justify-between px-4 mt-2 cursor-pointer" aria-disabled={isLoading || !hasAccess}>
+                {!!attachments.length && (
+                    <div className="p-1 flex space-x-2 w-full overflow-x-auto h-fit rounded-lg bg-white mt-2 border">
+                        {attachments.map(({preview: src}, index) => (
+                            <Image
+                                className="h-[48px] w-auto p-1 rounded-lg border object-cover object-center cursor-pointer hover:border-destructive transition-all"
+                                onClick={() => setAttachments(attachments => {
+                                    return attachments.filter(({preview}) => preview !== src)
+                                })}
+                                key={index}
+                                src={src}
+                                alt="Review Attachments"
+                                width={128}
+                                height={128}
+                            />
+                        ))}
+                    </div>
+                )}
+
+                {errors.text && <p className="text-xs text-destructive">{errors.text}</p>}
+            </section>
+
+            <div className="w-full flex justify-between px-4 mt-2 cursor-pointer"
+                 aria-disabled={isLoading || !hasAccess}>
                 {
                     STAR_REVIEWS.map((el, index) => (
                         <StarReview
@@ -107,8 +171,8 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
                         <p>Send</p>
                         {
                             isLoading ?
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin"/>:
-                                <Send className="font-normal w-4 h-4 ml-1" />
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin"/> :
+                                <Send className="font-normal w-4 h-4 ml-1"/>
                         }
                     </Button>
                 </div>

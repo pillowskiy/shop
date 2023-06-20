@@ -22,7 +22,7 @@ export default class ReviewService {
   }
   static async create(
     productId: number,
-    data: ReviewCreate
+    data: FormData
   ): Promise<AxiosResponse<ReviewCreateResponse>> {
     return $api.post<ReviewCreateResponse>(`/${ReviewService.controller}/${productId}`, data);
   }

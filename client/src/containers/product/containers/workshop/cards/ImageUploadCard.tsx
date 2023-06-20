@@ -53,7 +53,7 @@ export const ImageUploadCard: FC<ImageUploadCardProps> = ({setImages, images, de
                 {images.length ?
                     images.map(src => (
                         <Image
-                            className="rounded-lg cursor-pointer border h-[96px] w-auto hover:border-destructive object-cover object-top"
+                            className="rounded-lg cursor-pointer border h-[96px] w-auto hover:border-destructive transition-all object-cover object-top"
                             key={Math.random() * Date.now()}
                             onClick={() => deleteImage(src)}
                             src={src}

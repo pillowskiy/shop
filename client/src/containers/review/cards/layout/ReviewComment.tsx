@@ -11,6 +11,7 @@ import {useProfile} from "@hooks/useProfile";
 import {cn} from "@lib/utils";
 import {ProfileHoverCard} from "@containers/user/cards/popover/ProfileHoverCard";
 import {ReviewDeleteButton} from "@containers/review/layout/ReviewDeleteButton";
+import Image from "next/image";
 
 interface ReviewCommentProps {
     hasAccess: boolean;
@@ -23,7 +24,6 @@ const ReviewComment = memo<ReviewCommentProps>(({review, productId, hasAccess}) 
     const {profile} = useProfile();
     const helpfulCount = review.helpful.length;
     const isHelpful = review.helpful.some(({id}) => profile?.id === id);
-
     const {mutate, isLoading} = useMutation(['toggle helpful', review.id], () => {
         return UserService.toggleHelpful(review.id);
     }, {
@@ -63,7 +63,22 @@ const ReviewComment = memo<ReviewCommentProps>(({review, productId, hasAccess}) 
                 <span>{review.text}</span>
             </div>
 
-            <footer className="mt-4 flex space-x-2">
+            {!!review.attachments?.length && (
+                <div className="pt-2 border-t h-fit w-full overflow-x-auto mt-2">
+                    {review.attachments.map((src, index) => (
+                        <Image
+                            key={index}
+                            className="h-[48px] w-auto p-1 border bg-white rounded-lg cursor-pointer"
+                            src={src}
+                            alt="Review Attachment"
+                            width={128}
+                            height={128}
+                        />
+                    ))}
+                </div>
+            )}
+
+            <footer className="mt-2 pt-2 border-t flex space-x-2">
                 <Toggle
                     pressed={isHelpful}
                     className="h-6"

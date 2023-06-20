@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsNumber,
   IsString,
@@ -20,6 +21,7 @@ export class ReviewDto {
   @Min(1, {
     message: 'Rating must be greater or equals 1',
   })
+  @Type(() => Number)
   @IsNumber({}, { message: 'This field is required' })
   public rating: number;
 
