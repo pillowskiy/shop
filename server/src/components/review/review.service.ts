@@ -2,7 +2,10 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { ReviewDto } from './dto/review.dto';
 import { reviewSelect } from './prisma.partials';
-import { NotFoundException } from '@nestjs/common/exceptions';
+import {
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common/exceptions';
 import { PaginationService } from '../pagination/pagination.service';
 import type { FilterDto } from './dto/filter.dto';
 import { Prisma, User as PrismaUser } from '@prisma/client';
@@ -78,6 +81,18 @@ export class ReviewService {
   }
 
   public async create(userId: number, productId: number, dto: ReviewDto) {
+    const canPostReview = await this.prisma.review
+      .findFirst({
+        where: { productId, userId },
+      })
+      .then((review) => !review);
+
+    if (!canPostReview) {
+      throw new ForbiddenException(
+        `You already have a review for this product`,
+      );
+    }
+
     try {
       return await this.prisma.review.create({
         data: {
@@ -91,8 +106,10 @@ export class ReviewService {
         },
         select: reviewSelect,
       });
-    } catch {
-      throw new NotFoundException('Product not found');
+    } catch (_) {
+      throw new InternalServerErrorException(
+        'The attempt to create a review failed',
+      );
     }
   }
 
