@@ -13,16 +13,30 @@ import {getShippingName} from "@lib/csc";
 import {InfoRow} from "@components/InfoRow";
 import Link from "next/link";
 import {makeDiscount} from "@lib/utils";
+import {CartDialog} from "@containers/cart/dialogs/CartDialog";
+
+import type {CartItem} from "@/types";
+import {useAppDispatch} from "@redux/store";
+import {addToCart} from "@redux/cart/cart.slice";
 
 interface OrderDetailedInfoProps {
     order: Order;
-    items: OrderItem[]
+    items: OrderItem[];
 }
 
 export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) => {
     const {profile} = useProfile();
+    const dispatch = useAppDispatch();
+
     if (!profile) return null;
     const price = items.reduce((prev, cur) => prev + cur.price, 0);
+
+    const addManyToCart = () => {
+        const cartItems: CartItem[] = order.items.map((item): CartItem =>
+            ({...item.product, count: item.quantity})
+        );
+        cartItems.forEach(item => dispatch(addToCart(item)));
+    }
 
     return (
         <main className="flex flex-col sm:flex-row gap-4 mt-4">
@@ -112,7 +126,15 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                             </Button>
                         </div>
                     </HoverInfoCard>
-                    <Button className="w-full md:w-auto">Repeat the order</Button>
+
+                    <CartDialog>
+                        <Button
+                            className="w-full md:w-auto"
+                            onClick={addManyToCart}
+                        >
+                            Repeat the order
+                        </Button>
+                    </CartDialog>
                     <Button
                         className="w-full md:w-auto md:ml-auto"
                         variant="destructive"

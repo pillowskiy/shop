@@ -6,7 +6,7 @@ import {NumberFormInput} from "@components/NumberFormInput";
 import {useEffect, useState} from "react";
 import {Button} from "@ui/Button";
 import {useAppDispatch} from "@redux/store";
-import {removeFromCart, updateCart} from "@redux/cart/cart.slice";
+import {removeFromCart, updateCartItem} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
@@ -22,7 +22,7 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
 
     useEffect(() => {
         if (debounce === quantity) {
-            dispatch(updateCart({ ...product, count: quantity }));
+            dispatch(updateCartItem({ ...product, count: quantity }));
         }
     }, [debounce]);
 
@@ -31,11 +31,11 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
             <section className="relative w-full">
                 <ProductHorizontalInfo product={product} />
                 <Button
-                    className="absolute right-0 top-0"
+                    className="absolute right-0 top-0 p-2"
                     variant="secondary"
                     onClick={() => dispatch(removeFromCart(product))}
                 >
-                    <Trash className="w-6 h-6"/>
+                    <Trash className="h-4 w-6 md:h-6 md:w-6"/>
                 </Button>
             </section>
             <section className="-mt-2 flex justify-between items-end">
