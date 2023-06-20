@@ -72,7 +72,6 @@ export class UserDto {
   @IsString()
   public aboutMe?: string;
 
-  @IsDateString()
   @MinDate(new Date(1950, 0, 1))
   @MaxDate(new Date(2014, 0, 1))
   @Type(() => Date)
