@@ -1,5 +1,5 @@
-import {User} from "./user.interface";
-import {Pagination, WithPaginationResponse} from "@/types/";
+import type {User} from "./user.interface";
+import type {Pagination, WithPaginationResponse} from "@/types/";
 
 export enum ReviewSort {
     Newest = 'NEWEST',
@@ -27,7 +27,9 @@ export interface Review {
 
 export type ReviewErrors = Record<keyof ReviewCreate, string>;
 
-export type GetAlLReviewsResponse = WithPaginationResponse<"reviews", Review[]>;
+export interface GetAlLReviewsResponse extends WithPaginationResponse {
+    reviews: Review[];
+};
 
 export interface ReviewStatistic {
     avg: number;
