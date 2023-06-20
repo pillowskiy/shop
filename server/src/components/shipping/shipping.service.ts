@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { ShippingDto } from './dto/shipping.dto';
+import { OrderStatus } from '@prisma/client';
 
 @Injectable()
 export class ShippingService {
@@ -22,6 +23,7 @@ export class ShippingService {
   public async delete(shippingId: number, userId: number) {
     const shipping = await this.prisma.shipping.findUnique({
       where: { id: shippingId },
+      select: { id: true, userId: true, orders: true },
     });
 
     if (!shipping) {
@@ -32,8 +34,17 @@ export class ShippingService {
       throw new ForbiddenException('You cannot delete this shipping method!');
     }
 
+    const isSomeOrdersPending = shipping.orders.some(
+      (order) => order.status === OrderStatus.PENDING,
+    );
+    if (isSomeOrdersPending) {
+      throw new ForbiddenException(
+        `You cannot delete the delivery method to which an active order is linked`,
+      );
+    }
+
     return this.prisma.shipping.delete({
-      where: { id: userId },
+      where: { id: shippingId },
     });
   }
 

@@ -15,7 +15,7 @@ export default class ShippingService {
         return $api.post<Shipping>(`${this.controller}`, data);
     }
 
-    static async deletePayment(shippingId: number)
+    static async deleteShipping(shippingId: number)
         : Promise<AxiosResponse<Shipping>> {
         return $api.delete<Shipping>(`${this.controller}/${shippingId}`);
     }

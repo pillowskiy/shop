@@ -2,17 +2,17 @@ import type {FC} from 'react';
 import type {CreateShippingData} from "@/types/shipping.interface";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
 import {FormInput, FormInputProps} from "@components/FormInput";
-import {DialogClose} from "@radix-ui/react-dialog";
 import {Button} from "@ui/Button";
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {DeliveryAddressForm} from "@containers/shipping/forms/DeliveryAddressForm";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import ShippingService from "@api/services/shipping.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {PhoneInput} from "@components/PhoneInput";
 import {HoverInfoCard} from "@components/HoverInfoCard";
 import {AccountContext} from "@containers/screens/UserWorkshopScreen";
+import {DeliveryMethod} from "@containers/shipping/layout/DeliveryMethod";
 
 const INITIAL_SHIPPING_DATA: Omit<CreateShippingData, 'temp'> = {
     country: "",
@@ -59,6 +59,12 @@ export const ShippingTab: FC = () => {
         }
     });
 
+    const {data: shipping} = useQuery(['get shipping'], () => {
+        return ShippingService.getAll();
+    }, {
+        select: ({data}) => data,
+    });
+
     return (
         <Card className="bg-popover animate-card-in px-1">
             <CardHeader>
@@ -68,14 +74,27 @@ export const ShippingTab: FC = () => {
                 </CardDescription>
             </CardHeader>
             <CardContent className="md:max-h-[600px] overflow-y-auto rounded-lg z-40">
+                <section className="flex flex-col space-y-1.5">
+                    <h2 className="font-medium">Delivery Methods:</h2>
+                    {
+                        shipping?.length ? shipping.map(method => (
+                            <DeliveryMethod key={method.id} shipping={method} />
+                        )) : (
+                            <div className="text-center text-lg font-medium p-2 rounded-lg border bg-white">
+                                🚩 There are no delivery methods yet.
+                            </div>
+                        )
+                    }
+                </section>
+
                 <section className="flex gap-4">
                     <FormInput className="bg-white" label="Name" {...formInputProps("name")}/>
                     <FormInput className="bg-white" label="Surname" {...formInputProps("surname")}/>
                 </section>
-                <div>
+                <section>
                     <PhoneInput value={data.phone} onChange={(phone) => setData({...data, phone})}/>
                     {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
-                </div>
+                </section>
 
                 <HoverInfoCard
                     title="Email Address"

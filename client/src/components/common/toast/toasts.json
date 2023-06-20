@@ -43,5 +43,9 @@
   "users.delivery.creation.success": {
     "title": "🚩 Creating a delivery",
     "description": "You have successfully added a new delivery address"
+  },
+  "users.delivery.delete.success": {
+    "title": "🚩 Deletion a delivery",
+    "description": "You have successfully deleted the delivery address"
   }
 }

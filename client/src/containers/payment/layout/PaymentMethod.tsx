@@ -13,7 +13,7 @@ interface PaymentMethodProps {
 
 export const PaymentMethod: FC<PaymentMethodProps> = ({payment, badges = []}) => {
     return (
-        <div className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row border">
+        <section className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row border">
             <div>
                 <div className="flex gap-1 items-center">
                     {payment.type === PaymentType.MAGIC ?
@@ -37,6 +37,6 @@ export const PaymentMethod: FC<PaymentMethodProps> = ({payment, badges = []}) =>
                 ))}
             </div>
             <Button className="w-full sm:w-auto ml-auto" variant="secondary">Edit</Button>
-        </div>
+        </section>
     );
 };
