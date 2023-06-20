@@ -9,6 +9,7 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import ShippingService from "@api/services/shipping.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
+import {cn} from "@lib/utils";
 
 interface DeliveryMethodProps {
     shipping: Shipping;
@@ -35,7 +36,10 @@ export const DeliveryMethod: FC<DeliveryMethodProps> = ({shipping}) => {
     })
 
     return (
-        <section className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row border">
+        <section className={cn(
+            "p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2",
+            "sm:flex-row border", {"opacity-80": !!shipping.temp},
+        )} aria-disabled={!!shipping.temp}>
             <div>
                 <div className="flex gap-1 items-center">
                     <Package className="h-5 sm:h-4 w-auto"/>
@@ -43,7 +47,10 @@ export const DeliveryMethod: FC<DeliveryMethodProps> = ({shipping}) => {
                         {getShippingName(shipping)}
                     </p>
                 </div>
-                <p className="text-sm sm:text-xs">Created: {new Date(shipping.createdAt).toLocaleDateString()}</p>
+                <p className="text-sm sm:text-xs">{shipping.temp ?
+                    "This method is temporary" :
+                    `Created: ${new Date(shipping.createdAt).toLocaleDateString()}`
+                }</p>
             </div>
             <ConfirmDialog
                 title="Shipping Deletion"
@@ -59,7 +66,7 @@ export const DeliveryMethod: FC<DeliveryMethodProps> = ({shipping}) => {
                     className="w-full sm:w-auto ml-auto"
                     variant="secondary"
                     onClick={() => setIsConfirmationOpen(true)}
-                    disabled={isLoading}
+                    disabled={isLoading || !!shipping.temp}
                 >
                     Delete
                 </Button>

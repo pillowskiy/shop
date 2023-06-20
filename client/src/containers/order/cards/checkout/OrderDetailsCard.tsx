@@ -34,9 +34,9 @@ export const OrderDetailsCard: FC = () => {
                         { currentShipping ? getShippingName(currentShipping) : "Select other details"}
                     </SelectTrigger>
                     <SelectContent>
-                        {shipping?.map(item => (
-                            <SelectItem key={item.id} value={item.id.toString()}>
-                                {getShippingName(item)}
+                        {shipping?.map(method => (
+                            <SelectItem key={method.id} value={method.id.toString()} disabled={!!method.temp}>
+                                {getShippingName(method)}
                             </SelectItem>
                         ))}
                     </SelectContent>
