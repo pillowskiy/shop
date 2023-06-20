@@ -8,7 +8,6 @@ import {
   ParseIntPipe,
   Post,
   Query,
-  Req,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -28,7 +27,7 @@ import {
 } from '@nestjs/swagger';
 import { product } from 'src/config/docs';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import type { Request } from 'express';
+import { ServerUrl } from 'src/decorators/server-url.decorator';
 
 @ApiTags('products')
 @Controller('products')
@@ -109,13 +108,12 @@ export class ProductController {
   @Post(':id')
   @UseInterceptors(FilesInterceptor('files[]', 10))
   public async upsertProduct(
-    @Req() req: Request,
+    @ServerUrl() serverUrl: string,
     @Param('id', ParseIntPipe) productId: number,
     @User() user: PrismaUser,
     @UploadedFiles() files: Express.Multer.File[],
     @Body() dto: ProductDto,
   ) {
-    const serverUrl = `${req.protocol}://${req.get('host')}/api`;
     return this.productService.upsert({
       productId,
       user,

@@ -7,7 +7,6 @@ import {
   ParseIntPipe,
   Patch,
   Put,
-  Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -25,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { user } from 'src/config/docs';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Request } from 'express';
+import { ServerUrl } from 'src/decorators/server-url.decorator';
 
 @ApiTags('users')
 @Controller('users')
@@ -57,12 +56,11 @@ export class UserController {
   @Put('profile')
   @UseInterceptors(FileInterceptor('file'))
   public updateProfile(
-    @Req() req: Request,
+    @ServerUrl() serverUrl: string,
     @User('id') userId: number,
     @UploadedFile() file: Express.Multer.File,
     @Body() userDto: UserDto,
   ) {
-    const serverUrl = `${req.protocol}://${req.get('host')}/api`;
     return this.userService.updateProfile(userId, userDto, file, serverUrl);
   }
 
