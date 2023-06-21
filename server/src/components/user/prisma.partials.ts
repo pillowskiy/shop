@@ -19,10 +19,4 @@ export const userSelect: Prisma.UserSelect = {
   roles: true,
 };
 
-export const productSelect: Prisma.ProductSelect = {
-  id: true,
-  name: true,
-  price: true,
-  images: true,
-  slug: true,
-};
+export { productSelect } from '../product/prisma.partials';

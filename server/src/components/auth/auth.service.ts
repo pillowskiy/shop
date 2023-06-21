@@ -77,9 +77,7 @@ export class AuthService {
     });
 
     if (!userData) {
-      throw new NotFoundException(
-        'You have entered an incorrect login or password',
-      );
+      throw new NotFoundException('The user with this login does not exist');
     }
 
     const isPasswordValid = await verify(userData.password, password);

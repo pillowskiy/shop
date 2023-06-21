@@ -17,7 +17,6 @@ export const orderSelect: Prisma.OrderSelect = {
   createdAt: true,
   updatedAt: true,
 
-  // TEMP
   payment: {
     select: paymentSelect,
   },

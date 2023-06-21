@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { userSelect } from '../auth/prisma.partials';
+import { userSelect } from '../user/prisma.partials';
 
 export const reviewSelect: Prisma.ReviewSelect = {
   id: true,
