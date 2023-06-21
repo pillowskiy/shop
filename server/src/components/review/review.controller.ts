@@ -84,7 +84,7 @@ export class ReviewController {
   @Auth()
   @HttpCode(200)
   @Delete(':id')
-  public async deleteProduct(
+  public async deleteReview(
     @User() user: PrismaUser,
     @Param('id', ParseIntPipe) reviewId: number,
   ) {

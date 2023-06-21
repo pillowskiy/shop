@@ -149,9 +149,14 @@ export class ReviewService {
       throw new ForbiddenException('You are not allowed to do this action');
     }
 
-    return this.prisma.review.delete({
-      where: { id: reviewId },
-    });
+    return this.prisma.review
+      .delete({
+        where: { id: reviewId },
+      })
+      .then((res) => {
+        this.uploadService.unlinkFromPaths(res.attachments);
+        return res;
+      });
   }
 
   private async countReviews(productId: number) {
