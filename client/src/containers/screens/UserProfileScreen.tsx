@@ -3,29 +3,32 @@ import {useQuery} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
 import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
-import {useState} from "react";
 import {Loader} from "@containers/Loader";
 import {UserActionCard} from "@containers/user/cards/profile/UserActionCard";
 import {UserInfoCard} from "@containers/user/cards/profile/UserInfoCard";
 import {UserTabsBreadcrumbCard} from "@containers/user/cards/profile/UserTabsBreadcrumbCard";
 import {UserCommentForm} from "@containers/comment/forms/UserCommentForm";
 import {UserTabCard} from "@containers/user/cards/profile/UserTabCard";
+import {NotFoundScreen} from "@containers/NotFoundScreen";
 
 interface ProfileScreenProps {
     userId: number;
 }
 
 export const UserProfileScreen: FC<ProfileScreenProps> = ({userId}) => {
-    const [isLoaded, setIsLoaded] = useState(false);
-    const {data: user} = useQuery(['get user', userId], () => {
+    const {data: user, isLoading} = useQuery(['get user', userId], () => {
         return UserService.getById(userId)
     }, {
         select: ({data}) => data,
-        onSettled: () => setTimeout(() => setIsLoaded(true), 400),
-        enabled: !!userId
+        enabled: !!userId,
+        refetchInterval: false,
     });
 
-    if (!user || !isLoaded) {
+    if (!user && !isLoading) {
+        return <NotFoundScreen errorMessage="User not found"/>
+    }
+
+    if (!user || isLoading) {
         return <Loader/>
     }
 

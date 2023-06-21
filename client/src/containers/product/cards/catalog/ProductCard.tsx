@@ -1,16 +1,16 @@
 import type {FC} from 'react';
-import type {ProductFullest} from "@/types/product.interface";
+import type {Product} from "@/types/product.interface";
 import {Card, CardContent} from "@common/Card";
 import {FavoriteButton} from "../../layout/FavoriteButton";
 import Image from "next/image";
-import {cn} from "@lib/utils";;
+import {cn} from "@lib/utils";
 import Link from "next/link";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {StarRating} from "@containers/product/layout/StarRating";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
 
 interface ProductItemProps {
-    product: ProductFullest;
+    product: Product;
 }
 
 export const ProductCard: FC<ProductItemProps> = ({product}) => {

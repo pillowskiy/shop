@@ -15,6 +15,7 @@ import {Loader} from "@containers/Loader";
 import {OverviewProductCard} from "@containers/product";
 import {ProductReviewCard} from "@containers/review";
 import {SimilarProducts} from "@containers/product/cards/SimilarProducts";
+import {NotFoundScreen} from "@containers/NotFoundScreen";
 
 interface ProductScreenProps {
     slug: string;
@@ -24,7 +25,7 @@ export const ProductScreen: FC<ProductScreenProps> = ({slug}) => {
     const router = useRouter();
     const {toast} = useToast();
 
-    const {data: product} = useQuery([
+    const {data: product, isLoading} = useQuery([
         'get product by slug', slug
     ], () => {
         return ProductService.getByValue("slug", slug);
@@ -36,12 +37,14 @@ export const ProductScreen: FC<ProductScreenProps> = ({slug}) => {
                 error: isAxiosError(err) ? err.response?.data.message : "Unhandled error occurred!"
             }).toast);
         },
-        onSettled: (data) => {
-            if (!data) return router.back();
-        },
+        refetchInterval: false,
     });
 
-    if (!product) {
+    if (!product && !isLoading) {
+        return <NotFoundScreen errorMessage="Products not found"/>
+    }
+
+    if (!product && isLoading) {
         return <Loader/>
     }
 

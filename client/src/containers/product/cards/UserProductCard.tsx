@@ -1,5 +1,5 @@
 import type {FC} from 'react';
-import type {ProductFullest} from "@/types/product.interface";
+import type {Product} from "@/types/product.interface";
 import {cn} from "@lib/utils";
 import {Card} from "@common/Card";
 import {useRouter} from "next/router";
@@ -10,7 +10,7 @@ import {DeleteButton} from "@containers/product/layout/DeleteButton";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 
 interface FavoriteProductProps {
-    product: ProductFullest;
+    product: Product;
     ownerId: number;
 }
 

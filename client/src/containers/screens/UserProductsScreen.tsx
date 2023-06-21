@@ -1,5 +1,4 @@
 import type {FC} from 'react';
-import {Loader} from "@containers/Loader";
 import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 import {EmptyItems} from "@containers/EmptyItems";
@@ -7,10 +6,10 @@ import {UserProductCard} from "@containers/product";
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {isAxiosError} from "axios";
-import {useRouter} from "next/router";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {useState} from "react";
 import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
+import {NotFoundScreen} from "@containers/NotFoundScreen";
 
 interface UserProductsScreenProps {
     userId: string;
@@ -18,7 +17,6 @@ interface UserProductsScreenProps {
 
 export const UserProductsScreen: FC<UserProductsScreenProps> = ({userId}) => {
     const [isLoaded, setIsLoaded] = useState(false);
-    const router = useRouter();
     const {toast} = useToast();
 
     const {data} = useQuery([
@@ -37,10 +35,12 @@ export const UserProductsScreen: FC<UserProductsScreenProps> = ({userId}) => {
             }).toast);
         },
         onSuccess: () => setTimeout(() => setIsLoaded(true), 400),
-        onSettled: (data) => {
-            if (!data) return router.back();
-        },
+        refetchInterval: false,
     });
+
+    if (!data && isLoaded) {
+        return <NotFoundScreen errorMessage="Products not found"/>
+    }
 
     if (!isLoaded) {
         return (
