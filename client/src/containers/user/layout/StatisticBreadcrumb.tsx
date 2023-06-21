@@ -14,12 +14,12 @@ export const StatisticBreadcrumb: FC<StatisticBreadcrumbProps> = ({userId}) => {
     });
 
     return (
-        <section className="flex justify-center gap-6 overflow-x-auto mt-2 text-center">
+        <section className="flex justify-center gap-6 overflow-x-auto mt-4 text-center">
             {statistic?.length ?
                 statistic.map((stat, index) => (
                     <div key={index} className="w-fit">
-                        <h2 className="text-xl font-medium text-primary">{stat.value}</h2>
-                        <span className="opacity-80">{stat.name}</span>
+                        <h2 className="text-lg sm:text-xl font-medium text-primary leading-3">{stat.value}</h2>
+                        <span className="text-xs sm:text-base opacity-80">{stat.name}</span>
                     </div>
                 )): (
                     <div>🙅 There are not statistic yet.</div>
