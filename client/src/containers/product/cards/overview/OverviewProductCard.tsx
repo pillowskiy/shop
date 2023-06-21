@@ -21,7 +21,7 @@ export const OverviewProductCard: FC<SingleProductProps> = ({product}) => {
                 <AsideProductContainer>
                     <ProductBreadcrumb/>
                     <ProductFullestInfo/>
-                    <ProductTradeButtons product={product} />
+                    <ProductTradeButtons/>
                 </AsideProductContainer>
             </OverviewProductContext.Provider>
         </Card>

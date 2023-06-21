@@ -84,7 +84,7 @@ const ReviewComment = memo<ReviewCommentProps>(({review, productId, hasAccess}) 
                     className="h-6"
                     variant="outline"
                     disabled={!hasAccess || isLoading}
-                    onClick={mutate}
+                    onClick={() => mutate()}
                 >
                     👍 {helpfulCount}
                 </Toggle>

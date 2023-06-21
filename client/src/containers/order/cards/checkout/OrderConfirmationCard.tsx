@@ -50,7 +50,7 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
                 }).toast);
             }
         }
-    })
+    });
 
     return (
         <Card className="bg-popover p-4 px-6 sm:px-4 mt-4">

@@ -96,6 +96,9 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                 <InfoRow title="Delivery">
                     at the carrier tariffs
                 </InfoRow>
+                <InfoRow title="Payment status">
+                    {order.payment ? "paid" : "waiting for payment"}
+                </InfoRow>
                 {order.promoCode && (
                     <InfoRow title="Promo-Code">
                         {`-${order.promoCode.discountPercent}%`}

@@ -28,16 +28,22 @@ export const OrderPaymentCard: FC = () => {
             <h2 className="font-medium text-xl mb-2">Payment:</h2>
 
             <RadioGroup
+                defaultValue={paymentId.toString()}
                 className="flex flex-col gap-2 ml-2 rounded-lg"
                 onValueChange={(value) => updateDetails({paymentId: +value})}
             >
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem id="receipt" value={(-1).toString()}/>
+                    <Label htmlFor="receipt" className="text-lg font-normal">Payment upon receipt of goods</Label>
+                </div>
+
                 {payments?.map(payment => (
                     <div key={payment.id} className={cn("transition-all rounded-lg overflow-x-auto", {
                         "border p-2": paymentId === payment.id
                     })}>
                         <div className="flex items-center space-x-2">
-                            <RadioGroupItem value={payment.id.toString()}/>
-                            <Label className="text-lg font-normal">Magic card</Label>
+                            <RadioGroupItem id={payment.createdAt} value={payment.id.toString()}/>
+                            <Label htmlFor={payment.createdAt} className="text-lg font-normal">Magic card</Label>
                         </div>
                         {paymentId === payment.id && <MagicCard className="my-2 mx-auto" payment={payment}/>}
                     </div>

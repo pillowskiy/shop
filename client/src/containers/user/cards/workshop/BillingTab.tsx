@@ -42,7 +42,7 @@ export const BillingTab: FC = () => {
                 </HoverInfoCard>
             </CardHeader>
             <CardContent className="md:max-h-[600px] overflow-y-auto rounded-lg">
-                <section className="flex flex-col gap-2">
+                <section className="flex flex-col space-y-1.5">
                     <h2 className="font-medium">Payment Methods:</h2>
                     {
                         payments?.length ? payments.map(payment => (

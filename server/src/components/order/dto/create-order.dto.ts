@@ -3,7 +3,6 @@ import {
   IsArray,
   IsInt,
   IsOptional,
-  IsString,
   Min,
   ValidateNested,
 } from 'class-validator';
@@ -22,7 +21,8 @@ export class CreateOrderDto {
 
   @IsInt()
   @Min(0)
-  public readonly paymentId: number;
+  @IsOptional()
+  public readonly paymentId?: number;
 
   @IsInt()
   @Min(0)
