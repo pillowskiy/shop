@@ -8,6 +8,8 @@ import {useProfile} from "@hooks/useProfile";
 import {ReviewComments} from "@containers/review/layout/ReviewComments";
 import {useQuery} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
+import {Loader} from "@containers/Loader";
+import {Skeleton} from "@ui/Skeleton";
 
 interface ProductReviewProps {
     productId: number;
@@ -16,7 +18,7 @@ interface ProductReviewProps {
 export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
     const {profile} = useProfile();
 
-    const {data: reviewStatistic} = useQuery(['get review statistic', productId], () => {
+    const {data: reviewStatistic, isLoading} = useQuery(['get review statistic', productId], () => {
         return ReviewService.getStatistic(productId);
     }, {
         select: ({data}) => data,
@@ -30,7 +32,7 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                     <h2 className="text-xl md:text-2xl font-medium">Customer reviews</h2>
                     <StarRating rating={reviewStatistic?.avg || 0}/>
                     <hr className="my-4"/>
-                    {   reviewStatistic &&
+                    {   (reviewStatistic && !isLoading) ?
                         reviewStatistic.intervalCounts.map(({intervalCounts, percentages, rate}) => (
                             <ReviewProgressBar
                                 key={rate}
@@ -38,6 +40,12 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                                 percentages={percentages}
                                 starCount={rate}
                             />
+                        )) : Array.from({length: 5}, (_, index) => (
+                            <div key={index} className="mt-4 flex justify-between space-x-4">
+                                <Skeleton className="w-[48px] h-4"/>
+                                <Skeleton className="rounded-lg h-4 w-full"/>
+                                <Skeleton className="w-[64px] h-4"/>
+                            </div>
                         ))
                     }
                     <hr className="my-4"/>

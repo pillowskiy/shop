@@ -1,11 +1,11 @@
 import type {FC} from 'react';
+import {ReviewSort} from "@/types/review.interface";
 import {SortButtons} from "@containers/review/layout/SortButtons";
 import {ReviewComment} from "@containers/review/cards/layout/ReviewComment";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
 import {Button} from "@ui/Button";
 import {REVIEWS_PER_PAGE} from "@containers/review/constant";
-import {ReviewSort} from "@types/review.interface";
 
 interface ReviewCommentsProps {
     productId: number;
