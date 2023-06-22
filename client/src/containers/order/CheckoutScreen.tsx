@@ -14,7 +14,6 @@ import {OrderDetailsValues} from "@/types/order.interface";
 export const OrderCheckoutContext = createContext<CheckoutOrderContext>({
     items: [],
     shippingId: -1,
-    paymentId: -1,
     updateDetails: () => {
     },
     setItems: () => {
@@ -34,9 +33,8 @@ const CheckoutContainer: FC<PropsWithChildren> = ({children}) => {
 export const CheckoutScreen: FC = () => {
     const {items: cartItems} = useCart();
 
-    // TEMP
     const [promo, setPromo] = useState<PromoCode | null>(null);
-    const [details, setDetails] = useState<OrderDetailsValues>({paymentId: -1, shippingId: -1})
+    const [details, setDetails] = useState<OrderDetailsValues>({shippingId: -1})
     const [items, setItems] = useState<CreateOrderItem[]>(
         cartItems.map(item => ({productId: item.id, quantity: item.count}))
     );

@@ -11,7 +11,10 @@ export interface UserInitialState {
   isLoading: boolean;
 }
 
-export type CartItem = Product & {count: number}
+// TEMP
+export interface CartItem extends Product {
+  count: number
+}
 
 export interface CartInitialState {
   items: CartItem[];
@@ -51,7 +54,6 @@ export interface Pagination {
   perPage?: number;
 }
 
-export interface WithPaginationResponse<Key extends string, Type extends Array<unknown>> {
+export interface WithPaginationResponse {
   length: number;
-  [Key]: Type;
 }

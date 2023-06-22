@@ -90,9 +90,11 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                     </AccordionItem>
                 </Accordion>
 
-                <InfoRow title="Payment">
-                    {`*${order.payment.cardNumber.slice(16 - 4)}`}
-                </InfoRow>
+                {order.payment && (
+                    <InfoRow title="Payment">
+                        {`*${order.payment.cardNumber.slice(16 - 4)}`}
+                    </InfoRow>
+                )}
                 <InfoRow title="Delivery">
                     at the carrier tariffs
                 </InfoRow>

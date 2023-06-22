@@ -21,16 +21,16 @@ export const OrderPaymentCard: FC = () => {
         return PaymentService.getAll();
     }, {
         select: ({data}) => data,
-    })
+    });
 
     return (
         <Card className="bg-popover p-4 mt-4">
             <h2 className="font-medium text-xl mb-2">Payment:</h2>
 
             <RadioGroup
-                defaultValue={paymentId.toString()}
+                defaultValue={paymentId?.toString() || "receipt"}
                 className="flex flex-col gap-2 ml-2 rounded-lg"
-                onValueChange={(value) => updateDetails({paymentId: +value})}
+                onValueChange={(value) => updateDetails({paymentId: value === "receipt" ? void 0 : +value})}
             >
                 <div className="flex items-center space-x-2">
                     <RadioGroupItem id="receipt" value={(-1).toString()}/>

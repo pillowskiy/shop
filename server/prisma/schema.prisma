@@ -34,6 +34,9 @@ model User {
   promoCodes PromoCode[] @relation("owner")
   payments   Payment[]
   shipping   Shipping[]
+
+  authoredComments   Comment[] @relation("author")
+  comments  Comment[]
 }
 
 enum Gender {
@@ -114,8 +117,8 @@ model Review {
   productId Int     @map("product_id")
   product   Product @relation(fields: [productId], references: [id])
 
-  helpful User[]
-  attachments String[]  @default([])
+  helpful     User[]
+  attachments String[] @default([])
 
   userId Int?  @map("user_id")
   user   User? @relation("author", fields: [userId], references: [id])
@@ -207,4 +210,19 @@ model Shipping {
   temp Boolean?
 
   orders Order[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  rating Int?
+  text   String
+
+  userId Int @map("user_id")
+  user  User @relation(fields: [userId], references: [id])
+
+  authorId Int  @map("author_id")
+  author   User @relation("author", fields: [authorId], references: [id])
 }

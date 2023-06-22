@@ -40,24 +40,28 @@ export class OrderService {
         price: product.price,
       }));
 
-    return this.prisma.order.create({
-      data: {
-        user: {
-          connect: { id: userId },
-        },
-        items: {
-          createMany: { data },
-        },
-        shipping: {
-          connect: { id: shippingId },
-        },
-        payment: {
-          connect: { id: paymentId },
-        },
-        promoCode: {
-          connect: { id: promoId },
-        },
+    const createData: Prisma.OrderCreateInput = {
+      user: {
+        connect: { id: userId },
       },
+      items: {
+        createMany: { data },
+      },
+      shipping: {
+        connect: { id: shippingId },
+      },
+    };
+
+    if (paymentId) {
+      createData.payment = { connect: { id: paymentId } };
+    }
+
+    if (promoId) {
+      createData.promoCode = { connect: { id: promoId } };
+    }
+
+    return this.prisma.order.create({
+      data: createData,
       select: orderSelect,
     });
   }

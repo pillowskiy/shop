@@ -15,7 +15,7 @@ export interface Order {
     createdAt: string;
     updatedAt: string;
 
-    payment: Payment;
+    payment?: Payment;
     items: CartItem[];
     shipping: Shipping;
     promoCode?: PromoCode;
@@ -27,7 +27,7 @@ export interface Order {
 export interface CreateOrderData {
     items: CreateOrderItem[];
     shippingId: number;
-    paymentId: number;
+    paymentId?: number;
     promoId?: number;
 }
 
