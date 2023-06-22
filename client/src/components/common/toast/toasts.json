@@ -32,6 +32,14 @@
     "title": "🗑️ Review deletion",
     "description": "You have successfully deleted a review"
   },
+  "comment.post.success": {
+    "title": "✅ Your comment has been sent!",
+    "description": "Thank you for helping to improve the quality of our resource."
+  },
+  "comment.delete.success": {
+    "title": "🗑️ Comment deletion",
+    "description": "You have successfully deleted a comment"
+  },
   "users.profile.update.success": {
     "title": "👤 Profile updating",
     "description": "You have successfully updated your profile"
