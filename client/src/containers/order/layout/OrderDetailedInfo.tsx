@@ -64,7 +64,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                     <InfoRow title="Email">
                         {profile.email}
                     </InfoRow>
-                    {!order.shipping.temp && (
+                    {order.shipping.temp && (
                         <HoverInfoCard
                             title="Temp shipping method."
                             description="This is a delivery method from which data will be lost as soon as the order is completed or canceled"
@@ -72,7 +72,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                             <div
                                 className="mt-4 flex space-x-1 items-start md:hover:underline transition-all cursor-pointer w-fit">
                                 <p className="text-sm text-muted-foreground">Temp shipping method</p>
-                                <Info className="w-4 h-4 text-primary opacity-90"/>
+                                <Info className="w-3 h-3 text-primary opacity-90"/>
                             </div>
                         </HoverInfoCard>
                     )}

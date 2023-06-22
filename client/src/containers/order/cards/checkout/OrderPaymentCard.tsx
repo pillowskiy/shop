@@ -28,12 +28,12 @@ export const OrderPaymentCard: FC = () => {
             <h2 className="font-medium text-xl mb-2">Payment:</h2>
 
             <RadioGroup
-                defaultValue={paymentId?.toString() || "receipt"}
+                defaultValue={paymentId?.toString() || "-1"}
                 className="flex flex-col gap-2 ml-2 rounded-lg"
-                onValueChange={(value) => updateDetails({paymentId: value === "receipt" ? void 0 : +value})}
+                onValueChange={(value) => updateDetails({paymentId: value === "-1" ? void 0 : +value})}
             >
                 <div className="flex items-center space-x-2">
-                    <RadioGroupItem id="receipt" value={(-1).toString()}/>
+                    <RadioGroupItem id="receipt" value="-1"/>
                     <Label htmlFor="receipt" className="text-lg font-normal">Payment upon receipt of goods</Label>
                 </div>
 

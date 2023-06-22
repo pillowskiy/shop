@@ -1,19 +1,17 @@
-export interface Shipping {
+export interface Shipping extends CreateShippingData {
     id: number;
     createdAt: string;
+    userId: number;
+}
 
+export interface CreateShippingData {
     name: string;
     surname: string;
 
     country: string;
     state: string;
-    city: string;
+    city?: string;
 
     phone: string;
-
-    userId: number;
-
     temp?: boolean;
 }
-
-export type CreateShippingData = Omit<Shipping, 'id' | 'createdAt' | 'userId'>;

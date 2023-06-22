@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class ShippingDto {
   @IsString()
@@ -22,10 +28,14 @@ export class ShippingDto {
   state: string;
 
   @IsString()
-  @IsNotEmpty()
-  city: string;
+  @IsOptional()
+  city?: string;
 
   @IsString()
   @IsNotEmpty()
   phone: string;
+
+  @IsBoolean()
+  @IsOptional()
+  temp?: boolean;
 }

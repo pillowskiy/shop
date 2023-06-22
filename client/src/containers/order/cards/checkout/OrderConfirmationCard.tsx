@@ -1,4 +1,4 @@
-import type {FC} from 'react';
+import type {FC, MouseEvent} from 'react';
 import type {PromoCode} from "@/types/promo-code.interface";
 import {Card} from "@common/Card";
 import {Button} from "@ui/Button";
@@ -15,9 +15,22 @@ import {useAppDispatch} from "@redux/store";
 import {clearCart} from "@redux/cart/cart.slice";
 import {useRouter} from "next/router";
 import {useContext} from "react";
-import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
+import {OrderCheckoutContext, OrderShippingContext} from "@containers/order/CheckoutScreen";
 import {InfoRow} from "@components/InfoRow";
 import {makeDiscount} from "@lib/utils";
+import ShippingService from "@api/services/shipping.service";
+import {CreateShippingData} from "@types/shipping.interface";
+import {
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialog,
+    AlertDialogTrigger,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogCancel,
+    AlertDialogAction,
+} from "@common/AlertDialog";
 
 interface OrderConfirmationCardProps {
     promo: PromoCode | null;
@@ -25,14 +38,20 @@ interface OrderConfirmationCardProps {
 
 export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) => {
     const {totalItems, totalCost} = useCart();
-    const {items, shippingId, paymentId} = useContext(OrderCheckoutContext);
+    const {items, shippingId, paymentId, updateDetails} = useContext(OrderCheckoutContext);
+    const {data, setErrors} = useContext(OrderShippingContext);
 
     const {toast} = useToast();
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const {mutate} = useMutation(['create order'], () => {
-        return OrderService.createOrder({items, shippingId, paymentId, promoId: promo?.id});
+    const {mutate: createOrder} = useMutation(['create order'], (customShippingId?: number) => {
+        return OrderService.createOrder({
+            items,
+            shippingId: customShippingId || shippingId,
+            paymentId,
+            promoId: promo?.id
+        });
     }, {
         onSuccess: async () => {
             await router.push('/');
@@ -51,6 +70,36 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
             }
         }
     });
+
+    const {mutate: createShipping} = useMutation(['create shipping'], ({data}: { data: CreateShippingData }) => {
+        return ShippingService.createShipping(data);
+    }, {
+        onMutate: () => {
+            setErrors({});
+        },
+        onSuccess: ({data}) => {
+            updateDetails({shippingId: data.id});
+            createOrder(data.id);
+        },
+        onError: (err) => {
+            if (!isAxiosError(err)) return;
+            const errors = err.response?.data.errors;
+            if (!errors) {
+                toast(buildToast("error", {
+                    error: err.response?.data.message || "Unhandled error occurred!"
+                }).toast);
+            } else {
+                setErrors(errors);
+            }
+        }
+    });
+
+    const onConfirm = (event: MouseEvent<HTMLButtonElement>) => {
+        if (shippingId > -1) {
+            event.preventDefault();
+            createOrder();
+        }
+    }
 
     return (
         <Card className="bg-popover p-4 px-6 sm:px-4 mt-4">
@@ -76,9 +125,34 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
             </div>
             <hr className="my-2"/>
             <footer>
-                <Button className="w-full" onClick={() => mutate()}>
-                    Confirm the order
-                </Button>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button className="w-full" onClick={onConfirm}>
+                            Confirm the order
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Delivery method not created</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This shipping method was not found. Would you like to save it for future orders?
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        {data && (
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>
+                                    Cancel
+                                </AlertDialogCancel>
+                                <AlertDialogCancel onClick={() => createShipping({data: {...data, temp: true}})}>
+                                    Leave it as a one-time use
+                                </AlertDialogCancel>
+                                <AlertDialogAction onClick={() => createShipping({data: {...data}})}>
+                                    Save
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        )}
+                    </AlertDialogContent>
+                </AlertDialog>
 
                 <section className="mt-2 text-xs">
                     <p className="font-medium mb-1">
