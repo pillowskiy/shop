@@ -8,6 +8,10 @@
     "title": "✅ Order creation",
     "description": "You have successfully placed an order."
   },
+  "order.cancellation.success": {
+    "title": "✅ You have successfully cancelled an order",
+    "description": "If you have any complaints about your order, please contact our administrators"
+  },
   "promoCode.success": {
     "title": "✅ Promo-Code",
     "description": "Promo-Code { promoName } has been successfully activated."

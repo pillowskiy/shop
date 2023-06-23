@@ -3,9 +3,9 @@ import {
   Controller,
   Get,
   Post,
-  HttpCode,
   Param,
   ParseIntPipe,
+  Patch,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Auth } from 'src/decorators/auth.decorator';
@@ -28,7 +28,6 @@ export class OrderController {
   @ApiParam(order.getByUserId.param)
   @ApiOkResponse(order.getByUserId.response)
   @Auth()
-  @HttpCode(200)
   @Get()
   public async getUserOrders(@User('id') userId: number) {
     return this.orderService.getUserOrders(userId);
@@ -41,12 +40,20 @@ export class OrderController {
   }
 
   @Auth()
-  @HttpCode(200)
-  @Get('/items/:orderId')
-  public get(
-    @Param('orderId', ParseIntPipe) orderId: number,
+  @Get('/items/:id')
+  public getOrderItems(
+    @Param('id', ParseIntPipe) orderId: number,
     @User('id') userId: number,
   ) {
     return this.orderService.getItems(orderId, userId);
+  }
+
+  @Patch('/:id')
+  @Auth()
+  public cancelOrder(
+    @Param('id', ParseIntPipe) orderId: number,
+    @User('id') userId: number,
+  ) {
+    return this.orderService.cancel(orderId, userId);
   }
 }

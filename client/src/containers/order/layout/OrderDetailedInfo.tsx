@@ -18,6 +18,7 @@ import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import type {CartItem} from "@/types";
 import {useAppDispatch} from "@redux/store";
 import {addToCart} from "@redux/cart/cart.slice";
+import {CancelOrderButton} from "@containers/order/layout/CancelOrderButton";
 
 interface OrderDetailedInfoProps {
     order: Order;
@@ -140,13 +141,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                             Repeat the order
                         </Button>
                     </CartDialog>
-                    <Button
-                        className="w-full md:w-auto md:ml-auto"
-                        variant="destructive"
-                        disabled={order.status !== OrderStatus.PENDING}
-                    >
-                        Cancel
-                    </Button>
+                    <CancelOrderButton order={order} />
                 </div>
 
                 <footer className="flex justify-between mt-4 text-sm text-muted-foreground">

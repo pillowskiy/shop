@@ -1,11 +1,12 @@
 import {
   ForbiddenException,
+  GoneException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { Prisma } from '@prisma/client';
+import { OrderStatus, Prisma } from '@prisma/client';
 import { orderItemSelect, orderSelect } from './prisma.partials';
 
 @Injectable()
@@ -67,13 +68,7 @@ export class OrderService {
   }
 
   public async getItems(orderId: number, userId: number) {
-    const order = await this.prisma.order.findUnique({
-      where: { id: orderId },
-    });
-
-    if (!order) {
-      throw new NotFoundException(`No products found to order #${orderId}`);
-    }
+    const order = await this.findOrderById(orderId);
 
     if (order.userId !== userId) {
       throw new ForbiddenException("You cannot view other people's orders");
@@ -83,5 +78,36 @@ export class OrderService {
       where: { orderId },
       select: orderItemSelect,
     });
+  }
+
+  public async cancel(orderId: number, userId: number) {
+    const order = await this.findOrderById(orderId);
+
+    if (order.userId !== userId) {
+      throw new ForbiddenException("You cannot cancel someone else's order");
+    }
+
+    if (order.status === OrderStatus.CANCELLED) {
+      throw new GoneException('The order has already been canceled.');
+    }
+
+    return this.prisma.order.update({
+      where: { id: orderId },
+      data: {
+        status: OrderStatus.CANCELLED,
+      },
+    });
+  }
+
+  private async findOrderById(orderId: number) {
+    const order = await this.prisma.order.findUnique({
+      where: { id: orderId },
+    });
+
+    if (!order) {
+      throw new NotFoundException(`No products found to order #${orderId}`);
+    }
+
+    return order;
   }
 }
