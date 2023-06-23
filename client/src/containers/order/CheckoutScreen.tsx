@@ -12,6 +12,7 @@ import {EmptyItems} from "@containers/EmptyItems";
 import {OrderDetailsValues} from "@/types/order.interface";
 import {CreateShippingData} from "@types/shipping.interface";
 import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
+import AuthProvider from "@providers/AuthProvider";
 
 export const OrderCheckoutContext = createContext<CheckoutOrderContext>({
     items: [],
@@ -30,17 +31,21 @@ export const OrderShippingContext = createContext<{
     setErrors: (newErrors: ShippingErrors) => void,
 }>({
     data: INITIAL_SHIPPING_DATA,
-    setData: () => {},
+    setData: () => {
+    },
     errors: {},
-    setErrors: () => {},
+    setErrors: () => {
+    },
 })
 
 const CheckoutContainer: FC<PropsWithChildren> = ({children}) => {
     return (
         <Meta title="Checkout">
-            <Main className="min-h-screen-64 h-auto flex justify-center">
-                {children}
-            </Main>
+            <AuthProvider forAuth={true}>
+                <Main className="min-h-screen-64 h-auto flex justify-center">
+                    {children}
+                </Main>
+            </AuthProvider>
         </Meta>
     );
 }
@@ -80,7 +85,8 @@ export const CheckoutScreen: FC = () => {
                     errors: shippingErrors,
                     setErrors: setShippingErrors
                 }}>
-                    <section className="w-full md:w-full lg:w-[920px] xl:w-[1080px] sm:p-4 flex-col sm:flex-row flex gap-4">
+                    <section
+                        className="w-full md:w-full lg:w-[920px] xl:w-[1080px] sm:p-4 flex-col sm:flex-row flex gap-4">
                         <section className="w-full sm:w-8/12 lg:w-9/12">
                             <Checkout.OrderInfoCard/>
                             <Checkout.OrderContactsCard/>

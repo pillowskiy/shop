@@ -1,4 +1,4 @@
-import {type FC, useState} from 'react';
+import {type FC, FormEvent, useRef, useState} from 'react';
 import {cn} from "@lib/utils";
 import {useComponentVisible} from "@hooks/useComponentVisible";
 
@@ -7,13 +7,17 @@ import {SearchInput, List} from "./layout";
 import ProductService from "@api/services/product.service";
 import {useDebounce} from "@hooks/useDebounce";
 import {useQuery} from "@tanstack/react-query";
+import {useRouter} from "next/router";
 
 export const SearchBar: FC = () => {
     const [value, setValue] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
 
     const {ref, isComponentVisible, setIsComponentVisible} = useComponentVisible();
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const {debounce} = useDebounce(value, 500);
+    const router = useRouter();
 
     const {data} = useQuery(['get products by term', debounce], () => {
         setIsLoading(true);
@@ -28,8 +32,16 @@ export const SearchBar: FC = () => {
         select: ({data}) => data,
     });
 
+    const onSubmit = (event: FormEvent) => {
+        event.preventDefault();
+        if (!debounce) return;
+        setIsComponentVisible(false);
+        inputRef.current?.blur();
+        return router.replace(`/?term=${debounce}`);
+    }
+
     return (
-        <form className="w-full md:w-3/4 lg:w-2/5 transition-all relative">
+        <form onSubmit={onSubmit} className="w-full md:w-3/4 lg:w-2/5 transition-all relative">
             <div
                 ref={ref}
                 className={cn(
@@ -38,6 +50,7 @@ export const SearchBar: FC = () => {
                 )}
             >
                 <SearchInput
+                    ref={inputRef}
                     value={value}
                     onClear={() => setValue('')}
                     onFocus={() => setIsComponentVisible(true)}
