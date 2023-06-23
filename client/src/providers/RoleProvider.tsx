@@ -18,7 +18,7 @@ const RoleProvider: FC<PropsWithChildren<AuthFields>> = ({
 
   router.pathname !== '/' && router.replace('/').then(() => (
       toast(buildToast("error", {
-        error: "You should be authorized to see this page!"
+        error: `You should be ${forAuth ? "authorized" : "unauthorized"} to see this page!`
       }).toast)
   ));
   return null;

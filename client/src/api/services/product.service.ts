@@ -12,7 +12,8 @@ export default class ProductService {
 
   static async getAll(filterParams?: Filter)
     : Promise<AxiosResponse<GetAllProductsResponse>> {
-    return $api.get<GetAllProductsResponse>(`${this.controller}`, { params: filterParams || {} });
+    const identifiers = filterParams?.ids?.length ? { ids: filterParams?.ids.toString() } : {};
+    return $api.get<GetAllProductsResponse>(`${this.controller}`, { params: {...filterParams, ...identifiers} || {} });
   }
 
   static async getUserProducts(userId: number, filterParams?: Filter)

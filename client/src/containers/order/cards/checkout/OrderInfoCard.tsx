@@ -7,7 +7,7 @@ import {cn} from "@lib/utils";
 export const OrderInfoCard = () => {
     const {items} = useCart();
     // TEMP
-    const isWarning = items.some(item => item.id !== items[0].id);
+    const isWarning = items.some(item => item.product.id !== items[0].product.id);
 
     if (!isWarning) return null;
 

@@ -39,6 +39,7 @@ export class ProductController {
   @ApiQuery({ type: FilterDto })
   @Get()
   public async getProducts(@Query() dto: FilterDto) {
+    console.log(dto);
     return this.productService.getProducts(dto);
   }
 

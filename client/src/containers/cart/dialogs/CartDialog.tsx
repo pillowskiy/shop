@@ -22,7 +22,7 @@ export const CartDialog: FC<PropsWithChildren> = ({children}) => {
                 <section className="w-full h-full overflow-y-auto">
                     {
                         items.length ? items.map((item, index) => (
-                            <CartProductCard product={item} key={index}/>
+                            <CartProductCard item={item} key={index}/>
                         )) : <EmptyItems>There are not products yet.</EmptyItems>
                     }
                 </section>

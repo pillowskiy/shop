@@ -63,6 +63,10 @@ export class ProductService {
       quantity: { gt: 0 },
     };
 
+    if (dto.ids) {
+      whereInput.id = { in: dto.ids };
+    }
+
     const products = await this.prisma.product.findMany({
       where: whereInput,
       orderBy: prismaSort,

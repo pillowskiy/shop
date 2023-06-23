@@ -34,7 +34,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
 
     const addManyToCart = () => {
         const cartItems: CartItem[] = order.items.map((item): CartItem =>
-            ({...item.product, count: item.quantity})
+            ({productId: item.product.id, count: item.quantity})
         );
         cartItems.forEach(item => dispatch(addToCart(item)));
     }

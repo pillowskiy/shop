@@ -9,8 +9,6 @@ import {OverviewProductContext} from "@containers/product/cards/overview/Overvie
 
 export const ProductTradeButtons: FC = () => {
     const product = useContext(OverviewProductContext);
-
-    // TEMP
     if (!product) return null;
 
     return (

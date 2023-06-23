@@ -10,30 +10,31 @@ import {removeFromCart, updateCartItem} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
+import {CartFullestItem} from "@types/cart.interface";
 
 interface CartProductCardProps {
-    product: CartItem;
+    item: CartFullestItem;
 }
 
-export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
-    const [quantity, setQuantity] = useState(product.count);
+export const CartProductCard: FC<CartProductCardProps> = ({item}) => {
+    const [quantity, setQuantity] = useState(item.count);
     const {debounce} = useDebounce(quantity, 1000);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (debounce === quantity) {
-            dispatch(updateCartItem({ ...product, count: quantity }));
+            dispatch(updateCartItem({ productId: item.productId, count: quantity }));
         }
     }, [debounce]);
 
     return (
         <Card className="p-2 h-fit w-full mb-4">
             <section className="relative w-full">
-                <ProductHorizontalInfo product={product} />
+                <ProductHorizontalInfo product={item.product} />
                 <Button
                     className="absolute right-0 top-0 p-2"
                     variant="secondary"
-                    onClick={() => dispatch(removeFromCart(product))}
+                    onClick={() => dispatch(removeFromCart(item.product))}
                 >
                     <Trash className="h-4 w-6 md:h-6 md:w-6"/>
                 </Button>
@@ -45,11 +46,11 @@ export const CartProductCard: FC<CartProductCardProps> = ({product}) => {
                     setValue={setQuantity}
                     value={quantity}
                     step={1}
-                    max={product.quantity > 10 ? 10 : product.quantity}
+                    max={item.product.quantity > 10 ? 10 : item.product.quantity}
                     min={1}
                 />
                 <div className="p-2 h-10 flex space-x-2 items-center select-none">
-                    <ProductPrice size="lg" product={product} />
+                    <ProductPrice size="lg" product={item.product} />
                 </div>
             </section>
         </Card>

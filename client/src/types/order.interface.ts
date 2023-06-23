@@ -16,12 +16,20 @@ export interface Order {
     updatedAt: string;
 
     payment?: Payment;
-    items: CartItem[];
+    items: OrderItem[];
     shipping: Shipping;
     promoCode?: PromoCode;
 
     status: OrderStatus;
     userId: number;
+}
+
+interface OrderItem {
+    id: number,
+    orderId: number,
+    product: Product,
+    price: number,
+    quantity: number,
 }
 
 export interface CreateOrderData {

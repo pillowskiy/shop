@@ -1,8 +1,14 @@
-import  { Product } from './product.interface';
+import {Product} from "@types/product.interface";
 
 export interface CartItem {
-  id: number;
+  productId: number;
+  count: number
+}
+
+export interface CartFullestItem extends  CartItem {
   product: Product;
-  quantity: number;
-  price: number;
+}
+
+export interface CartInitialState {
+  items: CartItem[];
 }

@@ -9,7 +9,6 @@ import Image from "next/image";
 
 export const CartNotificationCard: FC = () => {
     const {items, totalCost} = useCart();
-
     if (!items.length) return null;
 
     return (
@@ -23,9 +22,9 @@ export const CartNotificationCard: FC = () => {
                 {
                     items.slice(0, 4).map(item => (
                         <Image
-                            key={item.id}
+                            key={item.product.id}
                             className="w-[64px] h-[64px] rounded-lg border object-cover"
-                            src={item.images[0]}
+                            src={item.product.images[0]}
                             alt="Product Image"
                             width={96}
                             height={96}

@@ -30,6 +30,7 @@ export interface Product {
 export interface Filter extends Pagination {
     sort?: ProductSort;
     term?: string;
+    ids?: number[];
 }
 
 export interface UpdateProductData {

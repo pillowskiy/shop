@@ -1,6 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsEnum,
+  IsInt,
+  IsOptional,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 import { PaginationDto } from '../../../dto/pagination.dto';
+import { Transform } from 'class-transformer';
 
 export enum ProductSort {
   HighPrice = 'HIGHT_PRICE',
@@ -32,4 +41,12 @@ export class FilterDto extends PaginationDto {
   @IsString({ message: 'String expected' })
   @IsOptional()
   public readonly term?: string;
+
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
+  @Transform((params) => params.value.split(',').map(Number))
+  @IsOptional()
+  public readonly ids?: number[];
 }

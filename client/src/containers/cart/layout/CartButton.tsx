@@ -14,7 +14,7 @@ interface CartButtonProps extends ButtonProps {
 
 export const CartButton: FC<CartButtonProps> = ({className, product, ...props}) => {
     const {items} = useCart();
-    const isExist = items.some(item => item.id === product.id);
+    const isExist = items.some(item => item.productId === product.id);
     const dispatch = useAppDispatch();
 
     if (isExist) {
@@ -37,7 +37,7 @@ export const CartButton: FC<CartButtonProps> = ({className, product, ...props}) 
             className={className}
             disabled={!product.quantity}
             onClick={() => {
-                dispatch(addToCart(product))
+                dispatch(addToCart({ productId: product.id }));
             }}
             {...props}
         >
