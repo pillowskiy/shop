@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreatePromoCodeDto } from './dto/promo-code.dto';
+import { PromoCodeDto } from './dto/promo-code.dto';
 import { PrismaService } from '../../prisma.service';
 import { Prisma } from '@prisma/client';
 
@@ -11,7 +11,7 @@ import { Prisma } from '@prisma/client';
 export class PromoCodeService {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async create(dto: CreatePromoCodeDto) {
+  public async create(dto: PromoCodeDto) {
     const promoCode = await this.prisma.promoCode.findUnique({
       where: {
         name: dto.name,

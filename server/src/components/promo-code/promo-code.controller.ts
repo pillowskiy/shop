@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { PromoCodeService } from './promo-code.service';
-import { CreatePromoCodeDto } from './dto/promo-code.dto';
+import { PromoCodeDto } from './dto/promo-code.dto';
 import { Auth } from '../../decorators/auth.decorator';
 import { Role, Roles } from '../../decorators/roles.decorator';
 
@@ -19,8 +19,8 @@ export class PromoCodeController {
   @Post()
   @Auth()
   @Roles(Role.Admin)
-  create(@Body() createPromoCodeDto: CreatePromoCodeDto) {
-    return this.promoCodesService.create(createPromoCodeDto);
+  create(@Body() promoCodeDto: PromoCodeDto) {
+    return this.promoCodesService.create(promoCodeDto);
   }
 
   @Get(':name')
