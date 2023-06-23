@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CategoryDto {
@@ -6,6 +6,10 @@ export class CategoryDto {
     example: 'Digital Music',
     description: 'The category name',
   })
-  @IsString()
-  public name: string;
+  @IsString({ message: 'String expected' })
+  @MaxLength(64, {
+    message: 'The category name should not exceed 64 characters',
+  })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly name: string;
 }

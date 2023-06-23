@@ -1,12 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsInt,
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
   IsString,
   Max,
   MaxLength,
-  MinLength,
 } from 'class-validator';
 import { product } from 'src/config/docs/swagger.entity';
 import { Transform, Type } from 'class-transformer';
@@ -16,42 +17,51 @@ export class ProductDto {
     example: 'Toy Car',
     description: 'The product name',
   })
-  @IsString()
-  @MinLength(3)
-  @MaxLength(64)
-  public name: string;
+  @IsString({ message: 'String exptected' })
+  @MaxLength(64, {
+    message: 'The product name should not exceed 64 characters',
+  })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly name: string;
 
   @ApiProperty({
     example: product.price,
     description: 'The product price',
   })
   @Type(() => Number)
-  @IsPositive()
-  @IsNumber()
-  public price: number;
+  @IsPositive({
+    message: 'The discount percentage should be a positive number',
+  })
+  @IsNumber({}, { message: 'Number expected' })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly price: number;
 
-  @IsPositive()
-  @Max(99)
-  @IsNumber()
-  @IsOptional()
   @Type(() => Number)
-  public discountPercent?: number = 0;
+  @Max(99, { message: 'The discount percentage cannot exceed 99%' })
+  @IsPositive({
+    message: 'The discount percentage should be a positive number',
+  })
+  @IsNumber({}, { message: 'Number expected' })
+  @IsOptional()
+  public readonly discountPercent?: number = 0;
 
   @ApiProperty({
     example: product.quantity,
     description: 'The product quantity',
   })
   @Type(() => Number)
-  @IsPositive()
-  @IsNumber()
-  public quantity: number;
+  @IsPositive({ message: 'The quantity must be an positive integer value' })
+  @IsInt({ message: 'The quantity must be an positive integer value' })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly quantity: number;
 
   @ApiProperty({
     example: product.description,
-    description: 'The product description (optional)',
+    description: 'The product description',
   })
-  @IsString()
-  public description: string;
+  @IsString({ message: 'String expected' })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly description: string;
 
   @ApiProperty({
     example: product.images,
@@ -59,7 +69,7 @@ export class ProductDto {
   })
   @Transform(({ value }) => value.toString().split(','))
   @IsString({ each: true })
-  public images: string[];
+  public readonly images: string[];
 
   @ApiProperty({
     example: [1],
@@ -72,5 +82,5 @@ export class ProductDto {
       .map((newValue) => +newValue),
   )
   @IsNumber({}, { each: true })
-  public categories: number[];
+  public readonly categories: number[];
 }

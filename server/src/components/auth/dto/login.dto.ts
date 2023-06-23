@@ -6,13 +6,9 @@ export class LoginDto {
     example: 'shop_user@gmail.com',
     description: 'User name or email',
   })
-  @IsString({
-    message: 'This is required field',
-  })
-  @IsNotEmpty({
-    message: 'This is required field',
-  })
-  public pseudonym: string;
+  @IsString({ message: 'String expected' })
+  @IsNotEmpty({ message: 'This is required field' })
+  public readonly pseudonym: string;
 
   @ApiProperty({
     example: '123456',
@@ -24,8 +20,7 @@ export class LoginDto {
   @MaxLength(32, {
     message: 'Password must not exceed 32 characters',
   })
-  @IsString({
-    message: 'This is required field',
-  })
-  public password: string;
+  @IsString({ message: 'String expected' })
+  @IsNotEmpty({ message: 'This is required field' })
+  public readonly password: string;
 }

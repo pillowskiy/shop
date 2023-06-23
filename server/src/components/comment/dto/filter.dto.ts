@@ -8,5 +8,5 @@ export enum CommentSort {
 
 export class FilterDto extends PaginationDto {
   @IsEnum(CommentSort)
-  public sort?: CommentSort;
+  public readonly sort?: CommentSort;
 }

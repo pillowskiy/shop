@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreatePromoCodeDto } from './dto/create-promo-code.dto';
+import { CreatePromoCodeDto } from './dto/promo-code.dto';
 import { PrismaService } from '../../prisma.service';
 import { Prisma } from '@prisma/client';
 

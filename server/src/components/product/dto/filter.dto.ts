@@ -23,13 +23,13 @@ export class FilterDto extends PaginationDto {
   })
   @IsOptional()
   @IsEnum(ProductSort)
-  public sort?: ProductSort;
+  public readonly sort?: ProductSort;
 
   @ApiProperty({
     example: 'car',
     description: `Term`,
   })
+  @IsString({ message: 'String expected' })
   @IsOptional()
-  @IsString()
-  public term?: string;
+  public readonly term?: string;
 }

@@ -12,29 +12,23 @@ export class CreateUserDto {
     example: 'shop_user@gmail.com',
     description: 'Valid email address',
   })
-  @IsNotEmpty({
-    message: 'This field is required',
-  })
-  @IsEmail({}, { message: 'This field must be an email' })
-  public email: string;
+  @IsEmail({}, { message: 'Email address is incorrect' })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly email: string;
 
   @ApiProperty({
     example: '123456',
     description: 'User password (min length - 6, max length - 32 characters',
   })
-  @IsNotEmpty({
-    message: 'This field is required',
-  })
-  @IsString({
-    message: 'Invalid value',
-  })
+  @IsString({ message: 'String expected' })
   @MinLength(6, {
     message: 'Password must be at least 6 characters long',
   })
   @MaxLength(32, {
     message: 'Password must not exceed 32 characters',
   })
-  public password: string;
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly password: string;
 
   @ApiProperty({
     example: 'User',
@@ -43,11 +37,7 @@ export class CreateUserDto {
   @MaxLength(36, {
     message: 'User name must not exceed 24 characters',
   })
-  @IsString({
-    message: 'Invalid value',
-  })
-  @IsNotEmpty({
-    message: 'This field is required',
-  })
-  public name: string;
+  @IsString({ message: 'String expected' })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly name: string;
 }

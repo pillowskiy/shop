@@ -10,5 +10,5 @@ export enum ReviewSort {
 
 export class FilterDto extends PaginationDto {
   @IsEnum(ReviewSort)
-  public sort?: ReviewSort;
+  public readonly sort?: ReviewSort;
 }

@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { PromoCodeService } from './promo-code.service';
-import { CreatePromoCodeDto } from './dto/create-promo-code.dto';
+import { CreatePromoCodeDto } from './dto/promo-code.dto';
 import { Auth } from '../../decorators/auth.decorator';
 import { Role, Roles } from '../../decorators/roles.decorator';
 

@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
-  IsDateString,
   IsEmail,
   IsEnum,
   IsInt,
+  IsNotEmpty,
   IsOptional,
   IsString,
   MaxDate,
@@ -16,48 +16,49 @@ import { user } from 'src/config/docs/swagger.entity';
 import { Gender } from '@prisma/client';
 
 export class UserDto {
-  @IsInt()
+  @IsInt({ message: 'The id must be an integer value' })
   @Type(() => Number)
-  public id: number;
+  @IsNotEmpty({ message: 'User ID is a required field' })
+  public readonly id: number;
 
   @ApiProperty({
     example: user.email,
     description: 'The user email address',
   })
-  @IsEmail()
+  @IsEmail({}, { message: 'Email address is incorrect' })
   @IsOptional()
-  public email?: string;
+  public readonly email?: string;
 
   @ApiProperty({
     example: user.name + '_Modify',
     description: 'The user username (optional)',
   })
-  @IsOptional()
   @IsString()
-  @MinLength(2)
-  @MaxLength(42)
-  public name?: string;
+  @MinLength(2, { message: 'Username must be more than 2 characters long' })
+  @MaxLength(42, { message: 'The username should not exceed 42 characters' })
+  @IsOptional()
+  public readonly name?: string;
 
   @ApiProperty({
     example: user.avatarURL,
     description: 'The user avatar url (optional)',
   })
-  @IsOptional()
   @IsString()
-  public avatarURL?: string;
+  @IsOptional()
+  public readonly avatarURL?: string;
 
   @ApiProperty({
     example: user.avatarURL,
     description: 'The user password (optional)',
   })
-  @IsOptional()
   @MaxLength(36, {
     message: 'User name must not exceed 24 characters',
   })
   @IsString({
     message: 'Invalid value',
   })
-  public password?: string;
+  @IsOptional()
+  public readonly password?: string;
 
   @ApiProperty({
     example: user.avatarURL,
@@ -65,20 +66,24 @@ export class UserDto {
   })
   @IsOptional()
   @IsString()
-  public phone?: string;
+  public readonly phone?: string;
 
-  @MaxLength(256)
+  @MaxLength(256, { message: 'About me must not exceed 256 characters' })
   @IsOptional()
   @IsString()
-  public aboutMe?: string;
+  public readonly aboutMe?: string;
 
-  @MinDate(new Date(1950, 0, 1))
-  @MaxDate(new Date(2014, 0, 1))
+  @MinDate(new Date(new Date().getFullYear() - 110, 0, 1), {
+    message: 'Are you sure you are 110 years old?',
+  })
+  @MaxDate(new Date(new Date().getFullYear() - 12, 0, 1), {
+    message: 'The store can be used by persons over 12 years old',
+  })
   @Type(() => Date)
   @IsOptional()
-  public birthDate?: Date;
+  public readonly birthDate?: Date;
 
   @IsEnum(Gender)
   @IsOptional()
-  public gender?: Gender;
+  public readonly gender?: Gender;
 }

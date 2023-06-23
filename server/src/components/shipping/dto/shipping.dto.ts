@@ -8,34 +8,42 @@ import {
 
 export class ShippingDto {
   @IsString()
-  @MaxLength(24)
-  @IsNotEmpty()
-  name: string;
+  @MaxLength(32, {
+    message: "The customer's name should not exceed 32 characters",
+  })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly name: string;
 
-  @IsString()
-  @MaxLength(24)
-  @IsNotEmpty()
-  surname: string;
+  @IsString({ message: 'Invalid value' })
+  @MaxLength(32, {
+    message: "The customer's name should not exceed 32 characters",
+  })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly surname: string;
 
-  @IsString()
-  @MaxLength(3)
-  @IsNotEmpty()
-  country: string;
+  @IsString({ message: 'Invalid value' })
+  @MaxLength(3, {
+    message: 'The country should not exceed 3 characters',
+  })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly country: string;
 
-  @IsString()
-  @MaxLength(3)
-  @IsNotEmpty()
-  state: string;
+  @IsString({ message: 'Invalid value' })
+  @MaxLength(12, {
+    message: 'The state should not exceed 12 characters',
+  })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly state: string;
 
-  @IsString()
-  @IsOptional()
-  city?: string;
+  @IsString({ message: 'Invalid value' })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly city?: string;
 
-  @IsString()
-  @IsNotEmpty()
-  phone: string;
+  @IsString({ message: 'Invalid value' })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly phone: string;
 
   @IsBoolean()
   @IsOptional()
-  temp?: boolean;
+  public readonly temp?: boolean;
 }

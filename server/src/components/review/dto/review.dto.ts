@@ -6,7 +6,7 @@ import {
   Max,
   Min,
   MaxLength,
-  MinLength,
+  IsNotEmpty,
 } from 'class-validator';
 import { review } from 'src/config/docs/swagger.entity';
 
@@ -22,8 +22,9 @@ export class ReviewDto {
     message: 'Rating must be greater or equals 1',
   })
   @Type(() => Number)
-  @IsNumber({}, { message: 'This field is required' })
-  public rating: number;
+  @IsNumber({}, { message: 'Invalid value' })
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly rating: number;
 
   @ApiProperty({
     example: review.text,
@@ -32,11 +33,9 @@ export class ReviewDto {
   @MaxLength(1024, {
     message: 'The length of the comment should not exceed 1024 characters',
   })
-  @MinLength(1, {
-    message: 'This field is required',
-  })
   @IsString({
     message: 'String expected',
   })
-  public text: string;
+  @IsNotEmpty({ message: 'This field is required' })
+  public readonly text: string;
 }

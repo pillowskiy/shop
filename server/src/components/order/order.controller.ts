@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { order } from 'src/config/docs';
 import { User } from '../../decorators/user.decorator';
-import { CreateOrderDto } from './dto/create-order.dto';
+import { OrderDto } from './dto/order.dto';
 
 @ApiTags('orders')
 @Controller('orders')
@@ -35,7 +35,7 @@ export class OrderController {
 
   @Auth()
   @Post()
-  public createOrder(@Body() dto: CreateOrderDto, @User('id') userId: number) {
+  public createOrder(@Body() dto: OrderDto, @User('id') userId: number) {
     return this.orderService.create(dto, userId);
   }
 

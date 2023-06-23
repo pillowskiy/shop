@@ -1,4 +1,4 @@
-import {Controller, Post, Body, Delete, Param, Get} from '@nestjs/common';
+import { Controller, Post, Body, Delete, Param, Get } from '@nestjs/common';
 import { ShippingService } from './shipping.service';
 import { ShippingDto } from './dto/shipping.dto';
 import { User } from 'src/decorators/user.decorator';

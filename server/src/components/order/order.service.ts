@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateOrderDto } from './dto/create-order.dto';
+import { OrderDto } from './dto/order.dto';
 import { OrderStatus, Prisma } from '@prisma/client';
 import { orderItemSelect, orderSelect } from './prisma.partials';
 
@@ -22,7 +22,7 @@ export class OrderService {
   }
 
   public async create(
-    { items, shippingId, paymentId, promoId }: CreateOrderDto,
+    { items, shippingId, paymentId, promoId }: OrderDto,
     userId: number,
   ) {
     const productIds = items.map((item) => item.productId);
