@@ -36,6 +36,10 @@
     "title": "🗑️ Review deletion",
     "description": "You have successfully deleted a review"
   },
+  "payment.delete.success": {
+    "title": "🗑️ Payment deletion",
+    "description": "You have successfully deleted a payment method"
+  },
   "comment.post.success": {
     "title": "✅ Your comment has been sent!",
     "description": "Thank you for helping to improve the quality of our resource."

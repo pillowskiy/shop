@@ -5,6 +5,10 @@ import {PaymentType} from "@/types/payment.interface";
 import {CreditCard, Wand} from "lucide-react";
 import {Badge} from "@ui/Badge";
 import {Button} from "@ui/Button";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import PaymentService from "@api/services/payment.service";
+import {isAxiosError} from "axios";
+import {buildToast, useToast} from "@common/toast/useToast";
 
 interface PaymentMethodProps {
     payment: Payment;
@@ -12,6 +16,23 @@ interface PaymentMethodProps {
 }
 
 export const PaymentMethod: FC<PaymentMethodProps> = ({payment, badges = []}) => {
+    const {toast} = useToast();
+    const queryClient = useQueryClient();
+    const {mutate} = useMutation(['delete payment', payment.id], () => {
+        return PaymentService.deletePayment(payment.id);
+    }, {
+        onSuccess: () => {
+            toast(buildToast("payment.delete.success").toast);
+            return queryClient.invalidateQueries(['get payments']);
+        },
+        onError: (err) => {
+            if (!isAxiosError(err)) return;
+            toast(buildToast("error", {
+                error: err.response?.data.message || "Unhandled error occurred."
+            }).toast);
+        }
+    });
+
     return (
         <section className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row border">
             <div>
@@ -36,7 +57,13 @@ export const PaymentMethod: FC<PaymentMethodProps> = ({payment, badges = []}) =>
                     </Badge>
                 ))}
             </div>
-            <Button className="w-full sm:w-auto ml-auto" variant="secondary">Edit</Button>
+            <Button
+                className="w-full sm:w-auto ml-auto"
+                variant="secondary"
+                onClick={() => mutate()}
+            >
+                Delete
+            </Button>
         </section>
     );
 };

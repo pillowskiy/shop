@@ -7,4 +7,5 @@ export const paymentSelect: Prisma.PaymentSelect = {
   cardExpiresAt: true,
   cardCvv: false,
   type: true,
+  userId: true,
 };

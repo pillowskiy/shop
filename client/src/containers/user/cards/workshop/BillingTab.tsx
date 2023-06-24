@@ -1,7 +1,6 @@
 import type {FC} from 'react';
 import {PaymentType} from "@/types/payment.interface";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
-import {DialogClose} from "@radix-ui/react-dialog";
 import {Button} from "@ui/Button";
 import React from "react";
 import {Info, Plus} from "lucide-react";

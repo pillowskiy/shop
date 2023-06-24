@@ -34,7 +34,7 @@ export class PaymentController {
   @Delete(':id')
   public delete(
     @User('id') userId: number,
-    @Param(':id', ParseIntPipe) paymentId: number,
+    @Param('id', ParseIntPipe) paymentId: number,
   ) {
     return this.paymentService.deletePayment(userId, paymentId);
   }
