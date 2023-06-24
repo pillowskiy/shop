@@ -5,21 +5,23 @@ import ProductService from "@api/services/product.service";
 
 export const useCart = () => {
     const {items} = useSelector(state => state.cart);
-    const {data, isLoading} = useQuery(['get cart products', items.map(({productId}) => productId).toString()], () => {
-        return ProductService.getAll({ ids: items.map(({productId}) => productId) })
+    const ids = items.map(({productId}) => productId);
+    const {data, isLoading} = useQuery(['get cart products', ids.toString()], () => {
+        return ProductService.getAll({ ids })
     }, {
         select: ({data}) => data,
         refetchInterval: false,
         keepPreviousData: true,
+        enabled: !!items.length,
     });
 
-    const fullestItems: CartFullestItem[] = data?.products.map(product => {
+    const fullestItems: CartFullestItem[] = (items.length && data?.length) ? data?.products.map(product => {
         return {
             productId: product.id,
             product,
             count: items.find(({productId}) => product.id === productId)?.count || 1
         }
-    }) || [];
+    }) : [];
 
     const totalCost = fullestItems.reduce((acc, current) => {
         return (current.product.finalPrice * current.count) + acc

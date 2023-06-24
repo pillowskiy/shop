@@ -6,6 +6,7 @@ import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
 import {CartButton} from "@containers/cart/layout/CartButton";
 import {HoverInfoCard} from "@components/HoverInfoCard";
 import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
+import {BuyNowButton} from "@containers/cart/layout/BuyNowButton";
 
 export const ProductTradeButtons: FC = () => {
     const product = useContext(OverviewProductContext);
@@ -24,10 +25,14 @@ export const ProductTradeButtons: FC = () => {
                 disabled={!!product.quantity}
             >
                 <div className="w-full lg:w-1/2">
-                    <Button className="w-full" disabled={!product.quantity}>
+                    <BuyNowButton
+                        className="w-full"
+                        items={[{productId: product.id, count: 1}]}
+                        disabled={!product.quantity}
+                    >
                         <Zap className="font-normal"/>
                         <p className="font-medium ml-1">Buy now!</p>
-                    </Button>
+                    </BuyNowButton>
                 </div>
             </HoverInfoCard>
 

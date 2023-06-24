@@ -60,7 +60,7 @@ export const CheckoutScreen: FC = () => {
     const [details, setDetails] = useState<OrderDetailsValues>({shippingId: -1});
 
     const [items, setItems] = useState<CreateOrderItem[]>(
-        cartItems.map(item => ({productId: item.id, quantity: item.count}))
+        cartItems.map(item => ({productId: item.product.id, quantity: item.count}))
     );
 
     if (!cartItems.length) {

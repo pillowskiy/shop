@@ -15,10 +15,11 @@ import Link from "next/link";
 import {makeDiscount} from "@lib/utils";
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 
-import type {CartItem} from "@/types";
+import type {CartItem} from "@/types/cart.interface";
 import {useAppDispatch} from "@redux/store";
 import {addToCart} from "@redux/cart/cart.slice";
 import {CancelOrderButton} from "@containers/order/layout/CancelOrderButton";
+import {BuyNowButton} from "@containers/cart/layout/BuyNowButton";
 
 interface OrderDetailedInfoProps {
     order: Order;
@@ -85,7 +86,11 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                         <AccordionTrigger className="font-medium text-xl select-none p-0 pb-2">Items</AccordionTrigger>
                         <AccordionContent className="max-h-[300px] overflow-y-auto rounded-lg p-4 pb-0 my-4 border">
                             {items.map(item => (
-                                <CartReadonlyItemCard key={item.id} item={{...item.product, count: item.quantity}}/>
+                                <CartReadonlyItemCard key={item.id} item={{
+                                    productId: item.product.id,
+                                    product: item.product,
+                                    count: item.quantity
+                                }}/>
                             ))}
                         </AccordionContent>
                     </AccordionItem>
@@ -133,14 +138,11 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                         </div>
                     </HoverInfoCard>
 
-                    <CartDialog>
-                        <Button
-                            className="w-full md:w-auto"
-                            onClick={addManyToCart}
-                        >
-                            Repeat the order
-                        </Button>
-                    </CartDialog>
+                    <BuyNowButton
+                        items={order.items.map(item => ({productId: item.id, count: 1}))}
+                    >
+                        Repeat the order
+                    </BuyNowButton>
                     <CancelOrderButton order={order} />
                 </div>
 

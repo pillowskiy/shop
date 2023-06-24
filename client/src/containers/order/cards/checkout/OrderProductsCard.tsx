@@ -24,7 +24,7 @@ export const OrderProductsCard: FC = () => {
             <section className="relative rounded-lg max-h-[400px] overflow-y-auto">
                 {
                     items.map(item => (
-                        <CartReadonlyItemCard key={item.id} item={item} />
+                        <CartReadonlyItemCard key={item.product.id} item={item} />
                     ))
                 }
             </section>
