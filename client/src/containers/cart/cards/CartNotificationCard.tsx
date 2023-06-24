@@ -36,7 +36,7 @@ export const CartNotificationCard: FC = () => {
     }
 
     return (
-        <Card className="w-full bg-popover p-4 flex flex-col md:flex-row gap-2 justify-between mt-4 items-center">
+        <Card className="w-full bg-popover p-4 flex flex-col md:flex-row gap-2 justify-between mt-4 items-center animate-catalog-mount">
             <section className="text-center md:text-left">
                 <h2 className="font-medium text-xl">There are {items.length} product(-s)</h2>
                 <p className="text-primary opacity-90">worth {priceFormat(totalCost)}</p>

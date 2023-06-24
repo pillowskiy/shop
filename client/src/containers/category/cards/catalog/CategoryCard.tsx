@@ -13,7 +13,7 @@ export const CategoryCard: FC<CategoryItemProps> = ({category}) => {
     return (
         <Card className={
             cn(
-                "flex-1 shadow-md rounded-lg bg-popover cursor-pointer",
+                "flex-1 shadow-md rounded-lg bg-popover cursor-pointer animate-catalog-mount",
                 "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border"
             )
         }>

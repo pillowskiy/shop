@@ -97,6 +97,10 @@ module.exports = {
           from: { transform: "rotate(180deg)" },
           to: { transform: "rotate(0)" },
         },
+        "card-mount": {
+          from: { opacity: 0 },
+          to: {opacity: 1 },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -104,7 +108,8 @@ module.exports = {
         "card-in": "card-in .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;",
         "randomly-x": "randomly-x 2.6s linear infinite alternate",
         "randomly-y": "randomly-y .8s linear infinite alternate",
-        "180-rotate": "180-rotate .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;"
+        "180-rotate": "180-rotate .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;",
+        "catalog-mount": "card-mount .3s ease-in-out forwards;"
       },
       fontFamily: {
         consolas: ['Consolas', 'monospace']

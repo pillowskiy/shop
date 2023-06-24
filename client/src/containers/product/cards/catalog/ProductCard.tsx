@@ -19,7 +19,7 @@ export const ProductCard: FC<ProductItemProps> = ({product}) => {
     return (
         <Card
             className={cn(
-                "flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-[210px] shadow-md rounded-lg bg-popover",
+                "flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-[210px] shadow-md rounded-lg bg-popover animate-catalog-mount",
                 "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border cursor-pointer"
             )}
         >
