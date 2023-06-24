@@ -6,9 +6,10 @@ import {useProfile} from "@hooks/useProfile";
 import Image from "next/image";
 import {Button} from "@ui/Button";
 import Link from "next/link";
+import {Skeleton} from "@ui/Skeleton";
 
 export const Header: FC = () => {
-    const {profile} = useProfile();
+    const {profile, isInitialLoading} = useProfile();
 
     return (
         <header
@@ -20,7 +21,9 @@ export const Header: FC = () => {
             <SearchBar/>
             <section className="absolute right-0 md:mr-[48px] lg:mr-[126px] hidden md:block">
                 {
-                    profile ? (
+                    isInitialLoading ? (
+                        <Skeleton className="w-11 h-11 rounded-full border cursor-pointer" />
+                    ): profile ? (
                         <ProfilePopover profile={profile}>
                             <Image
                                 className="w-11 h-11 object-cover object-top rounded-full border cursor-pointer select-none"

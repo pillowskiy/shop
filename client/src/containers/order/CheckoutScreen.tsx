@@ -1,5 +1,7 @@
 import type {FC, PropsWithChildren} from 'react';
 import type {CreateOrderItem, CheckoutOrderContext} from "@/types/order.interface";
+import type {OrderDetailsValues} from "@/types/order.interface";
+import type {CreateShippingData} from "@/types/shipping.interface";
 import type {PromoCode} from "@/types/promo-code.interface";
 
 import {Meta} from "@containers/Meta";
@@ -9,8 +11,6 @@ import {Checkout} from "./";
 import {createContext, useState} from "react";
 import {useCart} from "@hooks/useCart";
 import {EmptyItems} from "@containers/EmptyItems";
-import {OrderDetailsValues} from "@/types/order.interface";
-import {CreateShippingData} from "@types/shipping.interface";
 import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
 import AuthProvider from "@providers/AuthProvider";
 

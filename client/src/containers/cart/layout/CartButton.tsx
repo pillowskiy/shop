@@ -1,7 +1,7 @@
 import type {FC} from 'react';
+import type {Product} from "@/types/product.interface";
 import {Button, type ButtonProps} from "@ui/Button";
 import {ShoppingCart} from "lucide-react";
-import {Product} from "@/types/product.interface";
 import {useCart} from "@hooks/useCart";
 import {useAppDispatch} from "@redux/store";
 import {addToCart} from "@redux/cart/cart.slice";

@@ -9,16 +9,10 @@ import {useContext, useEffect} from "react";
 import {OrderCheckoutContext, OrderShippingContext} from "@containers/order/CheckoutScreen";
 import {getShippingName} from "@lib/csc";
 import Link from "next/link";
-import {Shipping} from "@types/shipping.interface";
 import {CreateDeliveryForm} from "@containers/shipping/forms/CreateDeliveryForm";
 import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
 
-interface OrderDetailsCardProps {
-    shipping: Shipping | null;
-    setData: (newData: Shipping | null) => void;
-}
-
-export const OrderDetailsCard: FC<OrderDetailsCardProps> = () => {
+export const OrderDetailsCard: FC = () => {
     const {shippingId, updateDetails} = useContext(OrderCheckoutContext);
     const {errors, data, setData} = useContext(OrderShippingContext);
 

@@ -9,12 +9,13 @@ import Image from "next/image";
 import {Skeleton} from "@ui/Skeleton";
 
 export const CartNotificationCard: FC = () => {
-    const {items, totalCost, isLoading} = useCart();
-    if (!items.length && !isLoading) {
+    const {items, totalCost, isInitialLoading} = useCart();
+
+    if (!items.length && !isInitialLoading) {
         return null;
     }
 
-    if (!items.length) {
+    if (!items.length && isInitialLoading) {
         return (
             <Card className="w-full bg-popover p-4 flex flex-col md:flex-row gap-2 justify-between mt-4 items-center">
                 <section>

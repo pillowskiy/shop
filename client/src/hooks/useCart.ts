@@ -6,7 +6,7 @@ import ProductService from "@api/services/product.service";
 export const useCart = () => {
     const {items} = useSelector(state => state.cart);
     const ids = items.map(({productId}) => productId);
-    const {data, isLoading} = useQuery(['get cart products', ids.toString()], () => {
+    const {data, isInitialLoading} = useQuery(['get cart products', ids.toString()], () => {
         return ProductService.getAll({ ids })
     }, {
         select: ({data}) => data,
@@ -30,5 +30,5 @@ export const useCart = () => {
         return acc + count;
     }, 0);
 
-    return { items: fullestItems, totalCost, totalItems, isLoading };
+    return { items: fullestItems, totalCost, totalItems, isInitialLoading };
 }
