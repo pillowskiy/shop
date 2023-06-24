@@ -6,10 +6,33 @@ import {Button} from "@ui/Button";
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import Link from "next/link";
 import Image from "next/image";
+import {Skeleton} from "@ui/Skeleton";
 
 export const CartNotificationCard: FC = () => {
-    const {items, totalCost} = useCart();
-    if (!items.length) return null;
+    const {items, totalCost, isLoading} = useCart();
+    if (!items.length && !isLoading) {
+        return null;
+    }
+
+    if (!items.length) {
+        return (
+            <Card className="w-full bg-popover p-4 flex flex-col md:flex-row gap-2 justify-between mt-4 items-center">
+                <section>
+                    <Skeleton className="w-[96px] md:w-[256px] h-7"/>
+                    <Skeleton className="mt-2 w-[64px] md:w-[156px] h-5"/>
+                </section>
+                <section className="flex gap-2 select-none max-w-full overflow-x-auto">
+                    {Array.from({length: 5}, (_, index) => (
+                        <Skeleton key={index} className="w-[64px] h-[64px]"/>
+                    ))}
+                </section>
+                <section className="flex gap-2 flex-col lg:flex-row w-full md:w-4/12 lg:w-3/12 justify-end items-end">
+                    <Skeleton className="w-full md:w-[128px] h-10" />
+                    <Skeleton className="w-full md:w-[128px] h-10" />
+                </section>
+            </Card>
+        )
+    }
 
     return (
         <Card className="w-full bg-popover p-4 flex flex-col md:flex-row gap-2 justify-between mt-4 items-center">
