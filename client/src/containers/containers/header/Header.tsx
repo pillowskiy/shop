@@ -1,4 +1,4 @@
-import type {FC} from 'react';
+import {memo} from 'react';
 import {SearchBar} from "./forms/SearchBar";
 import {cn} from "@lib/utils";
 import {ProfilePopover} from "@containers/user/layout/ProfilePopover";
@@ -8,7 +8,7 @@ import {Button} from "@ui/Button";
 import Link from "next/link";
 import {Skeleton} from "@ui/Skeleton";
 
-export const Header: FC = () => {
+const Header = memo(() => {
     const {profile, isInitialLoading} = useProfile();
 
     return (
@@ -42,4 +42,6 @@ export const Header: FC = () => {
             </section>
         </header>
     );
-};
+});
+Header.displayName = "Header";
+export {Header};

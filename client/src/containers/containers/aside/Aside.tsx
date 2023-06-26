@@ -1,4 +1,4 @@
-import type {FC} from 'react';
+import {memo} from 'react';
 import {ShoppingCart, Heart, List, Home} from "lucide-react";
 import {cn} from "@lib/utils";
 
@@ -6,9 +6,8 @@ import * as SideBar from './layout';
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import {useCart} from "@hooks/useCart";
 
-export const Aside: FC = () => {
+const Aside = memo(() => {
     const {totalItems} = useCart();
-
     return (
         <aside
             className={cn(
@@ -38,4 +37,6 @@ export const Aside: FC = () => {
             </SideBar.Items>
         </aside>
     );
-};
+});
+Aside.displayName = "Aside";
+export {Aside};
