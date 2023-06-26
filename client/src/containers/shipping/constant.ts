@@ -1,4 +1,4 @@
-import {CreateShippingData} from "@types/shipping.interface";
+import type {CreateShippingData} from "@/types/shipping.interface";
 
 export const INITIAL_SHIPPING_DATA: Omit<CreateShippingData, 'temp'> = {
     country: "",

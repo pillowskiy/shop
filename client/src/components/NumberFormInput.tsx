@@ -8,11 +8,13 @@ interface NumberFormInput extends FormInputProps {
     value: number;
     step: number;
     label?: string;
+    min?: number;
+    max?: number;
 }
 
-export const NumberFormInput: FC<NumberFormInput> = ({className, step, value, setValue, min = 0, max, ...props}) => {
+export const NumberFormInput: FC<NumberFormInput> = ({className, step, value, setValue, min = 0, max = Infinity, ...props}) => {
     const validateValue = (newValue: string): number => {
-        if (!newValue.length) return +min;
+        if (!newValue.length) return min;
         const mutatedValue = +newValue
             .toString()
             .replace(/[^0-9.]/g, '')

@@ -12,7 +12,7 @@ export default class ReviewService {
   private static controller = 'reviews';
 
   static async getById(productId: number, filterParams?: Filter): Promise<AxiosResponse<GetAlLReviewsResponse>> {
-    return $api.get<Review[]>(`/${ReviewService.controller}/${productId}`, {params: filterParams || {}});
+    return $api.get<GetAlLReviewsResponse>(`/${ReviewService.controller}/${productId}`, {params: filterParams || {}});
   }
   static async getAvg(productId: number): Promise<AxiosResponse<number>> {
     return $api.get<number>(`/${ReviewService.controller}/avg/${productId}`);

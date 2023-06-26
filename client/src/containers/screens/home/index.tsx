@@ -20,7 +20,7 @@ export const HomeScreen: FC = () => {
         return (
             <Meta title="Online Shop">
                 <Main>
-                    <CartNotificationCard />
+                    <CartNotificationCard/>
                     <Carousel/>
                     <GoodsHeading href="/categories">Categories</GoodsHeading>
                     <CategoryCatalog perPage={4} page={1}/>
@@ -41,9 +41,9 @@ export const HomeScreen: FC = () => {
     return (
         <Meta title="Products">
             <Main className="min-h-screen-64">
-                <CartNotificationCard />
+                <CartNotificationCard/>
                 <Carousel/>
-                <CatalogWithQuery query={router.query} />
+                <CatalogWithQuery query={router.query}/>
             </Main>
         </Meta>
     );

@@ -8,7 +8,7 @@ export const SortButtons = memo(() => {
     return (
         <section className="mt-2 mb-4 flex gap-2 bg-muted p-2 rounded-md overflow-x-auto">
             {
-                Object.values(ReviewSort).map(value => (
+                Object.values<ReviewSort>(ReviewSort).map((value) => (
                     <HoverInfoCard
                         key={value}
                         title="Review sorting"
@@ -21,7 +21,7 @@ export const SortButtons = memo(() => {
                                 key={value}
                                 className="capitalize"
                                 value={value}
-                                onValueChange={(newValue) => setSortMethod(newValue)}
+                                onValueChange={(newValue) => setSortMethod(newValue as ReviewSort)}
                                 variant={sortMethod === value ? "default" : "secondary"}
                                 disabled={sortMethod === value}
                             >

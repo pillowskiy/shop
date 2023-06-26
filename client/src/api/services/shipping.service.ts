@@ -1,4 +1,4 @@
-import type {CreateShippingData, Shipping} from "@types/shipping.interface";
+import type {CreateShippingData, Shipping} from "@/types/shipping.interface";
 import type {AxiosResponse} from "axios";
 import {$api} from "@api/api.interceptor";
 

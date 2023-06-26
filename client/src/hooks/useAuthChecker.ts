@@ -16,6 +16,8 @@ export const useAuthChecker = () => {
         }
 
         TokenService.getToken() && !user ? dispatchAuth() : setTimeout(() => setIsLoaded(true), 200);
+
+        return () => setIsLoaded(true);
     }, [dispatch]);
 
     return {isLoaded, user};

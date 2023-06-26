@@ -26,7 +26,7 @@ export const CatalogWithQuery: FC<CatalogWithQueryProps> = ({query}) => {
         return (
             <section className="h-fit w-full flex flex-wrap gap-4 box-border">
                 {Array.from({length: 8}, () => (
-                    <Catalog.ProductSkeleton key={Date.now() * Math.random()}/>
+                    <Catalog.Skeleton.Product key={Date.now() * Math.random()}/>
                 ))}
             </section>
         )
@@ -36,7 +36,7 @@ export const CatalogWithQuery: FC<CatalogWithQueryProps> = ({query}) => {
         <section className="mt-4 h-fit w-full flex flex-wrap gap-4 box-border">
             {data?.length ?
                 data.products.map(product => (
-                    <Catalog.ProductCard key={product.id} product={product}/>
+                    <Catalog.Card.MProduct key={product.id} product={product}/>
                 )) :
                 <div className="p-4 rounded-lg bg-popover w-full text-2xl text-center font-medium select-none">
                     🙅There are no products yet!

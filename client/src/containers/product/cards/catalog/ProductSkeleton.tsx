@@ -3,7 +3,7 @@ import {Card, CardContent} from "@common/Card";
 import {Skeleton} from "@ui/Skeleton";
 import {motion} from "framer-motion";
 
-const Product = forwardRef<HTMLDivElement>(({}, ref) => {
+const Product = forwardRef<HTMLDivElement, Object>((_, ref) => {
     return (
         <Card ref={ref} className="flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-none shadow-md rounded-lg duration-500 bg-popover">
             <Skeleton
@@ -26,5 +26,5 @@ const Product = forwardRef<HTMLDivElement>(({}, ref) => {
 });
 
 Product.displayName = "Product";
-const MProduct = motion<{}>(Product);
+const MProduct = motion<Object>(Product);
 export {MProduct, Product};

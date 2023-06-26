@@ -8,7 +8,7 @@ import {Carousel} from "@containers/swiper/Carousel";
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {Loader} from "@containers/Loader";
-import {ProductCard} from "@containers/product/cards/catalog";
+import {Catalog} from "@containers/product";
 import {NotFoundScreen} from "@containers/NotFoundScreen";
 import {EmptyItems} from "@containers/EmptyItems";
 
@@ -37,9 +37,9 @@ export const CategoryProductsScreen: FC<CategoryProductsScreenProps> = ({slug}) 
             <Main className="min-h-screen-64">
                 <Carousel/>
                 <section className="relative h-fit w-full flex flex-wrap gap-4 box-border">
-                    {products.length ?
+                    {products?.length ?
                         products.map(product => (
-                            <ProductCard key={product.id} product={product} />
+                            <Catalog.Card.MProduct key={product.id} product={product} />
                         )): (
                             <EmptyItems className="mt-4 p-4 bg-popover rounded-lg border">
                                 There are no products yet.

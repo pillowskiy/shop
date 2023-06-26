@@ -8,7 +8,7 @@ interface SwiperSlickProps {
 
 export const SwiperSlick = memo<SwiperSlickProps>(({activeIndex}) => {
     return (
-        <footer className="mt-2 flex justify-center space-x-4">
+        <footer className="my-2 flex justify-center space-x-4">
             {Array.from({length: ITEMS.length}, (_, index) => (
                 <span
                     key={index}

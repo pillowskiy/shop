@@ -7,16 +7,13 @@ import {cn} from "@lib/utils";
 interface PhoneInputProps extends LibPhoneInputProps {}
 
 export const PhoneInput: FC<PhoneInputProps> = ({ ...props }) => {
-    const [phone, setPhone] = useState("");
-    const id = useId();
     return (
         <div className="flex flex-col space-y-1.5 mt-4">
-            <label htmlFor={id} className="text-sm font-medium">
+            <label className="text-sm font-medium">
                 Phone number
             </label>
             <div className="relative bg-white rounded-lg">
                 <LibPhoneInput
-                    id={id}
                     inputStyle={{
                         height: "2.5rem",
                         width: "100%",

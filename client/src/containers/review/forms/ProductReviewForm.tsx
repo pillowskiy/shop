@@ -69,7 +69,7 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
         });
 
         Object.entries(review).forEach(([key, value]) => {
-            formData.append(key, value);
+            formData.append(key, value.toString());
         })
 
         mutate({formData});

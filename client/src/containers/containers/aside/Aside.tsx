@@ -17,7 +17,7 @@ const Aside = memo(() => {
         >
             <SideBar.Items>
                 <SideBar.Item href="/" Icon={Home} title="Home"/>
-                <CartDialog className="relative">
+                <CartDialog>
                     <SideBar.Item Icon={ShoppingCart} title="Cart">
                         <p
                             className={cn(

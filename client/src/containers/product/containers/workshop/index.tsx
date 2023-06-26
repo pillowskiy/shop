@@ -11,7 +11,7 @@ import {ImageUploadCard} from "./cards/ImageUploadCard";
 import {TextareaCard} from "./cards/TextareaCard";
 import {useMutation} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
-import {INITIAL_PRODUCT_ERRORS} from "./constant";
+import {INITIAL_PRODUCT, INITIAL_PRODUCT_ERRORS} from "./constant";
 import {isAxiosError} from "axios";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {Loader} from "@containers/Loader";
@@ -25,7 +25,11 @@ interface WorkShopContextValue extends ProductWorkShopProps {
     errors: UpdateProductDataErrors;
 }
 
-export const WorkShopContext = createContext<WorkShopContextValue | null>(null);
+export const WorkShopContext = createContext<WorkShopContextValue>({
+    product: undefined,
+    newProduct: INITIAL_PRODUCT,
+    errors: INITIAL_PRODUCT_ERRORS
+});
 
 export const ProductWorkShop: FC<ProductWorkShopProps> = ({product}) => {
     const [newProduct, setNewProduct] = useState<UpdateProductData>(getInitialProductState(product));

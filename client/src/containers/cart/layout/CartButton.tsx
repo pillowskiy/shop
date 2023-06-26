@@ -37,7 +37,7 @@ export const CartButton: FC<CartButtonProps> = ({className, product, ...props}) 
             className={className}
             disabled={!product.quantity}
             onClick={() => {
-                dispatch(addToCart({ productId: product.id }));
+                dispatch(addToCart({ productId: product.id, count: 1 }));
             }}
             {...props}
         >

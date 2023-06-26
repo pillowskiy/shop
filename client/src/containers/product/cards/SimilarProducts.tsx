@@ -3,7 +3,7 @@ import {Card} from "@common/Card";
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {useState} from "react";
-import {ProductCard, ProductSkeleton} from "@containers/product/cards/catalog";
+import {Catalog} from "@containers/product";
 
 interface SimilarProductsProps {
     productId: number;
@@ -18,16 +18,14 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
         onSettled: () => setTimeout(() => setIsLoaded(true), 200),
     });
 
-    // TEMP
-
     if (!isLoaded) {
         return <Card className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] p-4 mt-4 bg-popover overflow-x-auto">
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
-            <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-ful borderl">
+            <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-ful border-lg">
                 {
                     Array.from({length: 6}, (_, index) => (
-                        <ProductSkeleton key={index}/>
+                        <Catalog.Skeleton.Product key={index}/>
                     ))
                 }
             </div>
@@ -42,7 +40,7 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
                 {
                     products?.length ? (
                         products.map(product => (
-                            <ProductCard key={product.id} product={product} />
+                            <Catalog.Card.MProduct key={product.id} product={product} />
                         ))
                     ): (
                         <h2 className="m-auto font-medium text-xl">

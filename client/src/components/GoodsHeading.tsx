@@ -1,13 +1,14 @@
-import type {FC, HTMLAttributes, PropsWithChildren} from 'react';
+import type {FC} from 'react';
 import {cn} from "@lib/utils";
 import {ChevronRight} from "lucide-react";
 import {Badge} from "@ui/Badge";
 import Link, {LinkProps} from "next/link";
 
 interface GoodsHeadingProps extends LinkProps {
-    children: string;
     href: string;
     badge?: string;
+    children: string;
+    className?: string;
 }
 
 export const GoodsHeading: FC<GoodsHeadingProps> = ({href, children, badge, className, ...props}) => {

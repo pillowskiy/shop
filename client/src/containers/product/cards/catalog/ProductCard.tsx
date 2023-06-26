@@ -56,4 +56,4 @@ const Product = forwardRef<HTMLDivElement, ProductItemProps>(({product}, ref) =>
 
 Product.displayName = "Product";
 const MProduct = motion<ProductItemProps>(Product);
-export {Product, MProduct}
+export {Product, MProduct};

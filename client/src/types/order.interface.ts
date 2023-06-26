@@ -24,7 +24,7 @@ export interface Order {
     userId: number;
 }
 
-interface OrderItem {
+export interface OrderItem {
     id: number,
     orderId: number,
     product: Product,

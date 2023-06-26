@@ -1,5 +1,5 @@
 import type {FC} from 'react';
-import type {CartItem} from "@/types";
+import type {CartFullestItem} from "@/types/cart.interface";
 import {Card} from "@common/Card";
 import {Trash} from "lucide-react";
 import {NumberFormInput} from "@components/NumberFormInput";
@@ -10,7 +10,6 @@ import {removeFromCart, updateCartItem} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
-import {CartFullestItem} from "@types/cart.interface";
 
 interface CartProductCardProps {
     item: CartFullestItem;

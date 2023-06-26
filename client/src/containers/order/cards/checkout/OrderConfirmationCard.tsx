@@ -1,5 +1,6 @@
 import type {FC, MouseEvent} from 'react';
 import type {PromoCode} from "@/types/promo-code.interface";
+import type {CreateShippingData} from "@/types/shipping.interface";
 import {Card} from "@common/Card";
 import {Button} from "@ui/Button";
 import {Anchor} from "@ui/Anchor";
@@ -19,7 +20,6 @@ import {OrderCheckoutContext, OrderShippingContext} from "@containers/order/Chec
 import {InfoRow} from "@components/InfoRow";
 import {makeDiscount} from "@lib/utils";
 import ShippingService from "@api/services/shipping.service";
-import {CreateShippingData} from "@types/shipping.interface";
 import {
     AlertDialogContent,
     AlertDialogHeader,
@@ -45,10 +45,10 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const {mutate: createOrder} = useMutation(['create order'], (customShippingId?: number) => {
+    const {mutate: createOrder} = useMutation(['create order'], (customShippingId: number) => {
         return OrderService.createOrder({
             items,
-            shippingId: customShippingId || shippingId,
+            shippingId: customShippingId,
             paymentId,
             promoId: promo?.id
         });
@@ -97,7 +97,7 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
     const onConfirm = (event: MouseEvent<HTMLButtonElement>) => {
         if (shippingId > -1) {
             event.preventDefault();
-            createOrder();
+            createOrder(shippingId);
         }
     }
 

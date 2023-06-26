@@ -1,8 +1,6 @@
-import type { AxiosResponse } from 'axios'
-import { $api } from '../api.interceptor'
-import type {
-  User,
-} from '@/types/user.interface'
+import type { AxiosResponse } from 'axios';
+import type { User } from '@/types/user.interface';
+import { $api } from '../api.interceptor';
 
 export default class UserService {
   private static controller = 'users';
