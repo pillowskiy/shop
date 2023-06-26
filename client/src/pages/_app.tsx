@@ -7,6 +7,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {AuthFields} from '@/types/providers/auth-provider';
 import {Toaster} from "@common/toast";
 import {Aside, Header} from "@containers/containers";
+import {AnimatePresence} from "framer-motion";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -15,7 +16,7 @@ const queryClient = new QueryClient({
         }
     }
 });
-export default function App({Component, pageProps}: AppProps & AuthFields) {
+export default function App({Component, pageProps, router}: AppProps & AuthFields) {
     return (
         <QueryClientProvider client={queryClient}>
             <Provider store={store}>
@@ -23,7 +24,9 @@ export default function App({Component, pageProps}: AppProps & AuthFields) {
                     <Toaster/>
                     <Header/>
                     <Aside/>
-                    <Component {...pageProps}/>
+                    <AnimatePresence mode="wait" initial={false}>
+                        <Component {...pageProps} key={router.asPath}/>
+                    </AnimatePresence>
                 </PersistGate>
             </Provider>
         </QueryClientProvider>
