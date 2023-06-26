@@ -6,19 +6,19 @@ import {EmptyItems} from "@containers/EmptyItems";
 import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 
-import {FavoriteProductCard} from "@containers/product";
 import {useFavorites} from "@hooks/useFavorites";
 import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
+import {MFavoriteProductCard} from "@containers/product/cards/FavoriteProductCard";
 
 export const FavoritesScreen: FC = () => {
-    const {data, isLoaded} = useFavorites();
+    const {data, isLoading} = useFavorites();
 
     return (
         <Meta title="Favorites">
             <AuthProvider forAuth={true}>
                 <Main className="min-h-screen-64">
                     {
-                        !isLoaded ? (
+                        isLoading ? (
                             <div>
                                 {Array.from({length: 20}, (_, index) => (
                                     <HorizontalSkeleton key={index}/>
@@ -26,8 +26,17 @@ export const FavoritesScreen: FC = () => {
                             </div>
                         ) : !data?.products.length ? (
                             <EmptyItems>There are not favorite items yet</EmptyItems>
-                        ) : data.products.map(product => (
-                            <FavoriteProductCard key={product.id} product={product}/>
+                        ) : data.products.map((product, index) => (
+                            <MFavoriteProductCard
+                                initial="initial"
+                                animate="animate"
+                                variants={{
+                                    initial: { opacity: 0 },
+                                    animate: { opacity: 1, transition: {delay: index * 0.1} }
+                                }}
+                                key={product.id}
+                                product={product}
+                            />
                         ))
                     }
                 </Main>
