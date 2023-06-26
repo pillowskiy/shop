@@ -1,4 +1,4 @@
-import type {FC} from 'react';
+import {forwardRef} from 'react';
 import type {Product} from "@/types/product.interface";
 import {Card, CardContent} from "@common/Card";
 import {FavoriteButton} from "../../layout/FavoriteButton";
@@ -8,16 +8,18 @@ import Link from "next/link";
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {StarRating} from "@containers/product/layout/StarRating";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
+import {motion} from "framer-motion";
 
 interface ProductItemProps {
     product: Product;
 }
 
-export const ProductCard: FC<ProductItemProps> = ({product}) => {
+const Product = forwardRef<HTMLDivElement, ProductItemProps>(({product}, ref) => {
     const rating = useProductRateAvg(product.id);
 
     return (
         <Card
+            ref={ref}
             className={cn(
                 "flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-[210px] shadow-md rounded-lg bg-popover animate-catalog-mount",
                 "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border cursor-pointer"
@@ -50,4 +52,8 @@ export const ProductCard: FC<ProductItemProps> = ({product}) => {
             </CardContent>
         </Card>
     );
-};
+});
+
+Product.displayName = "Product";
+const MProduct = motion<ProductItemProps>(Product);
+export {Product, MProduct}

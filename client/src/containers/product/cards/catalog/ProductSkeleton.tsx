@@ -1,10 +1,11 @@
-import type {FC} from 'react';
+import {forwardRef} from 'react';
 import {Card, CardContent} from "@common/Card";
 import {Skeleton} from "@ui/Skeleton";
+import {motion} from "framer-motion";
 
-export const ProductSkeleton: FC = () => {
+const Product = forwardRef<HTMLDivElement>(({}, ref) => {
     return (
-        <Card className="flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-none shadow-md rounded-lg duration-500 bg-popover">
+        <Card ref={ref} className="flex-card max-w-1/2 lg:max-w-1/3 xl:max-w-none shadow-md rounded-lg duration-500 bg-popover">
             <Skeleton
                 className="w-full h-[200px] object-cover rounded-t-lg"
             />
@@ -22,4 +23,8 @@ export const ProductSkeleton: FC = () => {
             </CardContent>
         </Card>
     );
-};
+});
+
+Product.displayName = "Product";
+const MProduct = motion<{}>(Product);
+export {MProduct, Product};

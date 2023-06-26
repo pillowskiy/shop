@@ -1,2 +1,2 @@
-export {ProductCard} from './ProductCard';
-export {ProductSkeleton} from './ProductSkeleton';
+export * as Card from './ProductCard';
+export * as Skeleton from './ProductSkeleton';
