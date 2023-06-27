@@ -38,8 +38,7 @@ const UserProductCard = forwardRef<HTMLDivElement, UserProductProps>(({product, 
                         className="ml-auto mt-2 md:mt-0 w-full md:w-fit"
                         onClick={() => router.push(`/products/workshop/${product.id}`)}
                     >
-                        <Edit/>
-                        <p className="ml-2">Edit</p>
+                        <Edit/> Edit
                     </Button>
                     <DeleteButton
                         className="hidden md:block mx-4"

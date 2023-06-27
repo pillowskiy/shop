@@ -34,9 +34,9 @@ const Header = memo(() => {
                             />
                         </ProfilePopover>
                     ) : (
-                        <Link href="/login">
-                            <Button>Login</Button>
-                        </Link>
+                        <Button asChild>
+                            <Link href="/login">Login</Link>
+                        </Button>
                     )
                 }
             </section>

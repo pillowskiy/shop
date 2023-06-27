@@ -1,6 +1,5 @@
 import {type FC, useContext} from 'react';
 import {cn} from "@lib/utils";
-import {Button} from "@ui/Button";
 import {Zap} from "lucide-react";
 import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
 import {CartButton} from "@containers/cart/layout/CartButton";
@@ -26,12 +25,12 @@ export const ProductTradeButtons: FC = () => {
             >
                 <div className="w-full lg:w-1/2">
                     <BuyNowButton
-                        className="w-full"
+                        className="w-full font-medium"
                         items={[{productId: product.id, count: 1}]}
                         disabled={!product.quantity}
                     >
                         <Zap className="font-normal"/>
-                        <p className="font-medium ml-1">Buy now!</p>
+                        <p className="ml-2">Buy now!</p>
                     </BuyNowButton>
                 </div>
             </HoverInfoCard>

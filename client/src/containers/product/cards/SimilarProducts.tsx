@@ -35,7 +35,7 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
     });
 
     if (!isLoaded) {
-        return <SimilarProductsContainer className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] p-4 mt-4 bg-popover overflow-x-auto">
+        return <SimilarProductsContainer>
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
             <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-ful border-lg">
@@ -49,7 +49,7 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
     }
 
     return (
-        <SimilarProductsContainer className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] p-4 mt-4 bg-popover overflow-x-auto">
+        <SimilarProductsContainer>
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
             <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-full border">

@@ -50,9 +50,9 @@ export const CartDialog: FC<PropsWithChildren> = ({children}) => {
                                     {totalCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
                                 </h2>
                                 <DialogClose asChild>
-                                    <Link href="/checkout">
-                                        <Button>Place an order</Button>
-                                    </Link>
+                                    <Button asChild>
+                                        <Link href="/checkout">Place an order</Link>
+                                    </Button>
                                 </DialogClose>
                             </div>
                         )
