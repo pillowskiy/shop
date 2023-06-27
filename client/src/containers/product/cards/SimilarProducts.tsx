@@ -1,12 +1,28 @@
-import type {FC} from 'react';
-import {Card} from "@common/Card";
+import type {FC, PropsWithChildren} from 'react';
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {useState} from "react";
 import {Catalog} from "@containers/product";
 
+import {MCard} from "@common/Card";
+import {opacityListAnimation} from "@lib/animations";
+
 interface SimilarProductsProps {
     productId: number;
+}
+
+const SimilarProductsContainer: FC<PropsWithChildren> = ({children}) => {
+    return (
+        <MCard
+            className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] p-4 mt-4 bg-popover overflow-x-auto"
+            initial="initial"
+            animate="animate"
+            custom={3}
+            variants={opacityListAnimation}
+        >
+            {children}
+        </MCard>
+    )
 }
 
 export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
@@ -19,7 +35,7 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
     });
 
     if (!isLoaded) {
-        return <Card className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] p-4 mt-4 bg-popover overflow-x-auto">
+        return <SimilarProductsContainer className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] p-4 mt-4 bg-popover overflow-x-auto">
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
             <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-ful border-lg">
@@ -29,11 +45,11 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
                     ))
                 }
             </div>
-        </Card>
+        </SimilarProductsContainer>
     }
 
     return (
-        <Card className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] p-4 mt-4 bg-popover overflow-x-auto">
+        <SimilarProductsContainer className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] p-4 mt-4 bg-popover overflow-x-auto">
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
             <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-full border">
@@ -49,6 +65,6 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
                     )
                 }
             </div>
-        </Card>
+        </SimilarProductsContainer>
     );
 };

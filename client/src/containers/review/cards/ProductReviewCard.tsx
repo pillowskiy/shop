@@ -1,15 +1,15 @@
 import type {FC} from 'react';
-import {Card} from "@common/Card";
 import {StarRating} from "@containers/product/layout/StarRating";
-import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {ReviewProgressBar} from "@containers/review/cards/layout/ReviewProgressBar";
 import {ProductReviewForm} from "@containers/review/forms/ProductReviewForm";
 import {useProfile} from "@hooks/useProfile";
 import {ReviewComments} from "@containers/review/layout/ReviewComments";
 import {useQuery} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
-import {Loader} from "@containers/Loader";
 import {Skeleton} from "@ui/Skeleton";
+
+import {MCard} from "@common/Card";
+import {opacityListAnimation} from "@lib/animations";
 
 interface ProductReviewProps {
     productId: number;
@@ -25,7 +25,13 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
     })
 
     return (
-        <Card className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] gap-4 p-4 mt-4 bg-popover">
+        <MCard
+            className="w-full sm:w-[520px] md:w-full lg:w-[920px] xl:w-[1080px] gap-4 p-4 mt-4 bg-popover"
+            initial="initial"
+            animate="animate"
+            custom={2}
+            variants={opacityListAnimation}
+        >
             <h2 className="text-2xl md:text-3xl font-bold">Reviews</h2>
             <section className="mt-2 flex flex-col md:flex-row w-full border-t pt-2">
                 <aside className="w-full md:w-1/3">
@@ -55,6 +61,6 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                     <ReviewComments productId={productId} hasAccess={!!profile} />
                 </aside>
             </section>
-        </Card>
+        </MCard>
     );
 };
