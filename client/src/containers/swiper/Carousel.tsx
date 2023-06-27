@@ -43,7 +43,7 @@ export const Carousel: FC = () => {
     }, [items]);
 
     return (
-        <section className="relative w-full rounded-lg flex flex-col justify-center">
+        <section className="relative w-full rounded-lg flex flex-col justify-center animate-catalog-mount">
             <Swiper>
                 {items.map((item) => (
                     <SwiperItem key={item.key}>

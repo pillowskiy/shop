@@ -1,11 +1,13 @@
 import type {FC} from 'react';
 import type {User} from "@/types/user.interface";
 import {Gender} from "@/types/user.interface";
-import {Card} from "@common/Card";
 import {Package} from "lucide-react";
 import Link from "next/link";
 import {StatisticBreadcrumb} from "@containers/user/layout/StatisticBreadcrumb";
 import {InfoRow} from "@components/InfoRow";
+
+import {MCard} from "@common/Card";
+import {opacityListAnimation} from "@lib/animations";
 
 interface UserInfoCardProps {
     user: User;
@@ -13,7 +15,13 @@ interface UserInfoCardProps {
 
 export const UserInfoCard: FC<UserInfoCardProps> = ({user}) => {
     return (
-        <Card className="h-fit p-4 gap-4 bg-popover mt-4 sm:mt-0">
+        <MCard
+            className="h-fit p-4 gap-4 bg-popover mt-4 sm:mt-0"
+            initial="initial"
+            animate="animate"
+            custom={1}
+            variants={opacityListAnimation}
+        >
             <div className="pb-2 border-b">
                 <h2 className="font-bold text-xl">{user.name}</h2>
                 <span>{user.aboutMe}</span>
@@ -43,6 +51,6 @@ export const UserInfoCard: FC<UserInfoCardProps> = ({user}) => {
             </section>
 
             <StatisticBreadcrumb userId={user.id} />
-        </Card>
+        </MCard>
     );
 };
