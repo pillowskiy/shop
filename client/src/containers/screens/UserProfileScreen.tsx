@@ -7,9 +7,9 @@ import {Loader} from "@containers/Loader";
 import {UserActionCard} from "@containers/user/cards/profile/UserActionCard";
 import {UserInfoCard} from "@containers/user/cards/profile/UserInfoCard";
 import {UserTabsBreadcrumbCard} from "@containers/user/cards/profile/UserTabsBreadcrumbCard";
-import {UserCommentForm} from "@containers/comment/forms/UserCommentForm";
 import {UserTabCard} from "@containers/user/cards/profile/UserTabCard";
 import {NotFoundScreen} from "@containers/NotFoundScreen";
+import {UserCommentCard} from "@containers/user/cards/profile/UserCommentCard";
 
 interface ProfileScreenProps {
     userId: number;
@@ -42,7 +42,7 @@ export const UserProfileScreen: FC<ProfileScreenProps> = ({userId}) => {
                     <section className="w-full sm:w-8/12 lg:w-9/12">
                         <UserInfoCard user={user} />
                         <UserTabsBreadcrumbCard />
-                        <UserCommentForm userId={user.id} />
+                        <UserCommentCard userId={user.id} />
                         <UserTabCard userId={user.id} />
                     </section>
                 </section>

@@ -9,6 +9,7 @@ import {Meta} from "@containers/Meta";
 import {useFavorites} from "@hooks/useFavorites";
 import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
 import {MFavoriteProductCard} from "@containers/product/cards/FavoriteProductCard";
+import {opacityListAnimation} from "@lib/animations";
 
 export const FavoritesScreen: FC = () => {
     const {data, isLoading} = useFavorites();
@@ -30,10 +31,8 @@ export const FavoritesScreen: FC = () => {
                             <MFavoriteProductCard
                                 initial="initial"
                                 animate="animate"
-                                variants={{
-                                    initial: { opacity: 0 },
-                                    animate: { opacity: 1, transition: {delay: index * 0.1} }
-                                }}
+                                custom={index}
+                                variants={opacityListAnimation}
                                 key={product.id}
                                 product={product}
                             />

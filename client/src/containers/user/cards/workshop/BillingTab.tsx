@@ -2,14 +2,15 @@ import type {FC} from 'react';
 import {PaymentType} from "@/types/payment.interface";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
 import {Button} from "@ui/Button";
-import React from "react";
 import {Info, Plus} from "lucide-react";
 import {cn} from "@lib/utils";
 import {useQuery} from "@tanstack/react-query";
 import PaymentService from "@api/services/payment.service";
-import {PaymentMethod} from "@containers/payment/layout/PaymentMethod";
 import {MagicCardCreation} from "@containers/payment/MagicCardCreation";
 import {HoverInfoCard} from "@components/HoverInfoCard";
+
+import {MPaymentMethod} from "@containers/payment/layout/PaymentMethod";
+import {opacityListAnimation} from "@lib/animations";
 
 export const BillingTab: FC = () => {
     const {data: payments} = useQuery(['get payments'], () => {
@@ -44,8 +45,12 @@ export const BillingTab: FC = () => {
                 <section className="flex flex-col space-y-1.5">
                     <h2 className="font-medium">Payment Methods:</h2>
                     {
-                        payments?.length ? payments.map(payment => (
-                            <PaymentMethod
+                        payments?.length ? payments.map((payment, index) => (
+                            <MPaymentMethod
+                                initial="initial"
+                                animate="animate"
+                                custom={index}
+                                variants={opacityListAnimation}
                                 key={payment.id}
                                 payment={payment}
                                 badges={

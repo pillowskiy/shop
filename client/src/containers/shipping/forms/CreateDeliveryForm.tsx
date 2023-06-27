@@ -34,7 +34,7 @@ export const CreateDeliveryForm: FC<CreateDeliveryFormProps> = ({data, setData, 
             </section>
             <section>
                 <PhoneInput value={data.phone} onChange={(phone) => setData({...data, phone})}/>
-                {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
+                {errors.phone && <p className="mt-1 text-xs text-destructive">{errors.phone}</p>}
             </section>
 
             <HoverInfoCard

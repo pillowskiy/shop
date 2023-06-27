@@ -1,4 +1,4 @@
-import type {FC} from 'react';
+import {forwardRef} from 'react';
 import React from "react";
 import type {Payment} from "@/types/payment.interface";
 import {PaymentType} from "@/types/payment.interface";
@@ -9,13 +9,14 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import PaymentService from "@api/services/payment.service";
 import {isAxiosError} from "axios";
 import {buildToast, useToast} from "@common/toast/useToast";
+import {motion} from "framer-motion";
 
 interface PaymentMethodProps {
     payment: Payment;
     badges: string[];
 }
 
-export const PaymentMethod: FC<PaymentMethodProps> = ({payment, badges = []}) => {
+const PaymentMethod = forwardRef<HTMLDivElement, PaymentMethodProps>(({payment, badges = []}, ref) => {
     const {toast} = useToast();
     const queryClient = useQueryClient();
     const {mutate} = useMutation(['delete payment', payment.id], () => {
@@ -34,7 +35,7 @@ export const PaymentMethod: FC<PaymentMethodProps> = ({payment, badges = []}) =>
     });
 
     return (
-        <section className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row border">
+        <section ref={ref} className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row border">
             <div>
                 <div className="flex gap-1 items-center">
                     {payment.type === PaymentType.MAGIC ?
@@ -66,4 +67,9 @@ export const PaymentMethod: FC<PaymentMethodProps> = ({payment, badges = []}) =>
             </Button>
         </section>
     );
-};
+});
+
+PaymentMethod.displayName = "PaymentMethod";
+const MPaymentMethod = motion<PaymentMethodProps>(PaymentMethod);
+export {PaymentMethod, MPaymentMethod};
+
