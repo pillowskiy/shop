@@ -54,26 +54,24 @@ export const UserCommentForm: FC<UserCommentFormProps> = ({userId}) => {
 
     if (!profile) return null;
     return (
-        <Card id="feed-back" className="p-4 mt-4 bg-popover">
-            <form className="w-full sm:flex">
-                <UserAvatar className="hidden sm:block" src={profile.avatarURL}/>
+        <form className="w-full sm:flex">
+            <UserAvatar className="hidden sm:block" src={profile.avatarURL}/>
 
-                <section className="sm:ml-4 w-full">
-                    <Textarea
-                        className="bg-white"
-                        placeholder="Write something"
-                        value={data.text}
-                        onChange={({target}) => setData({ ...data, text: target.value })}
-                        maxLength={420}
-                        required
-                    />
-                    {errors.text && <p className="text-destructive text-xs mt-1">{errors.text}</p>}
-                    <Button className="mt-2 flex" onClick={() => mutate()} disabled={isLoading}>
-                        {isLoading && <Loader2 className="w-4 h-4 mr-2"/>}
-                        <p>Post a comment</p>
-                    </Button>
-                </section>
-            </form>
-        </Card>
+            <section className="sm:ml-4 w-full">
+                <Textarea
+                    className="bg-white"
+                    placeholder="Write something"
+                    value={data.text}
+                    onChange={({target}) => setData({...data, text: target.value})}
+                    maxLength={420}
+                    required
+                />
+                {errors.text && <p className="text-destructive text-xs mt-1">{errors.text}</p>}
+                <Button className="mt-2 flex" onClick={() => mutate()} disabled={isLoading}>
+                    {isLoading && <Loader2 className="w-4 h-4 mr-2"/>}
+                    <p>Post a comment</p>
+                </Button>
+            </section>
+        </form>
     );
 };
