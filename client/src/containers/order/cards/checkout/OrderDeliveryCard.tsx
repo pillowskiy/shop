@@ -1,11 +1,19 @@
 import type {FC} from 'react';
-import {Card} from "@common/Card";
 import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
 import {Label} from "@ui/Label";
 
+import {opacityListAnimation} from "@lib/animations";
+import {MCard} from "@common/Card";
+
 export const OrderDeliveryCard: FC = () => {
     return (
-        <Card className="bg-popover p-4 mt-4">
+        <MCard
+            className="bg-popover p-4 mt-4"
+            initial="initial"
+            animate="animate"
+            custom={3}
+            variants={opacityListAnimation}
+        >
             <h2 className="font-medium text-xl mb-2">Delivery:</h2>
 
             <RadioGroup className="flex flex-col gap-2 ml-2 rounded-lg" defaultValue="courier">
@@ -26,6 +34,6 @@ export const OrderDeliveryCard: FC = () => {
                     Delivery methods may vary depending on the payment method
                 </span>
             </RadioGroup>
-        </Card>
+        </MCard>
     );
 };

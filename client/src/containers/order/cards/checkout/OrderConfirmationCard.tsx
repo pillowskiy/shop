@@ -31,6 +31,8 @@ import {
     AlertDialogCancel,
     AlertDialogAction,
 } from "@common/AlertDialog";
+import {transformBottomY} from "@lib/animations";
+import {motion} from "framer-motion";
 
 interface OrderConfirmationCardProps {
     promo: PromoCode | null;
@@ -102,7 +104,13 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
     }
 
     return (
-        <Card className="bg-popover p-4 px-6 sm:px-4 mt-4">
+        <motion.section
+            className="bg-popover p-4 px-6 sm:px-4 mt-4 rounded-lg border"
+            initial="initial"
+            animate="animate"
+            custom={2}
+            variants={transformBottomY}
+        >
             <h2 className="font-medium text-xl">Total payable</h2>
             <section className="py-2 my-2 border-y flex flex-col space-y-1.5">
                 <InfoRow className="text-xs" title={`${totalItems} products worth`}>
@@ -162,6 +170,6 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
                         and {' '} <Anchor className="opacity-90" href="#">User agreements</Anchor></p>
                 </section>
             </footer>
-        </Card>
+        </motion.section>
     );
 };

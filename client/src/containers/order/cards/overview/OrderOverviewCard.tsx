@@ -1,4 +1,4 @@
-import type {FC} from 'react';
+import {forwardRef} from 'react';
 import type {Order} from "@/types/order.interface";
 import {useQuery} from "@tanstack/react-query";
 import OrderService from "@api/services/order.service";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import {useState} from "react";
 import {OrderDetailedInfo} from "@containers/order/layout/OrderDetailedInfo";
 import {cn} from "@lib/utils";
+import {motion} from "framer-motion";
 
 interface OrderOverviewCardProps {
     defaultOpen?: boolean;
@@ -21,7 +22,7 @@ const STATUS_COLOR: Record<OrderStatus, string> = {
     [OrderStatus.PENDING]: "bg-blue-400"
 }
 
-export const OrderOverviewCard: FC<OrderOverviewCardProps> = ({order, defaultOpen}) => {
+const OrderOverviewCard = forwardRef<HTMLDivElement, OrderOverviewCardProps>(({order, defaultOpen}, ref) => {
     const [isOpen, setIsOpen] = useState(defaultOpen || false);
 
     const {data: orderItems} = useQuery(['get order items', order.id], () => {
@@ -35,7 +36,7 @@ export const OrderOverviewCard: FC<OrderOverviewCardProps> = ({order, defaultOpe
     const price = (orderItems || []).reduce((prev, cur) => prev + cur.price, 0);
 
     return (
-        <main className="bg-popover p-4 mt-4 rounded-lg border shadow-sm">
+        <main ref={ref} className="bg-popover p-4 mt-4 rounded-lg border shadow-sm">
             <section
                 className="flex items-center justify-between z-[10] cursor-pointer"
                 onClick={() => setIsOpen(prev => !prev)}
@@ -99,4 +100,7 @@ export const OrderOverviewCard: FC<OrderOverviewCardProps> = ({order, defaultOpe
             {isOpen && <OrderDetailedInfo order={order} items={orderItems} />}
         </main>
     );
-};
+});
+OrderOverviewCard.displayName = "OrderOverviewCard";
+const MOrderOverviewCard = motion<OrderOverviewCardProps>(OrderOverviewCard);
+export { OrderOverviewCard, MOrderOverviewCard };

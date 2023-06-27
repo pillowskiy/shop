@@ -1,6 +1,5 @@
 import type {FC} from 'react';
-import {useContext, useState} from "react";
-import {Card} from "@common/Card";
+import {useContext} from "react";
 import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
 import {Label} from "@ui/Label";
 import {MagicCard} from "@containers/payment/MagicCard";
@@ -13,6 +12,9 @@ import {Info} from "lucide-react";
 import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
 import {HoverInfoCard} from "@components/HoverInfoCard";
 
+import {opacityListAnimation} from "@lib/animations";
+import {MCard} from "@common/Card";
+
 export const OrderPaymentCard: FC = () => {
     const {paymentId, updateDetails} = useContext(OrderCheckoutContext);
     const {profile} = useProfile();
@@ -24,7 +26,13 @@ export const OrderPaymentCard: FC = () => {
     });
 
     return (
-        <Card className="bg-popover p-4 mt-4">
+        <MCard
+            className="bg-popover p-4 mt-4"
+            initial="initial"
+            animate="animate"
+            custom={4}
+            variants={opacityListAnimation}
+        >
             <h2 className="font-medium text-xl mb-2">Payment:</h2>
 
             <RadioGroup
@@ -67,6 +75,6 @@ export const OrderPaymentCard: FC = () => {
                     </HoverInfoCard>
                 )}
             </RadioGroup>
-        </Card>
+        </MCard>
     );
 };

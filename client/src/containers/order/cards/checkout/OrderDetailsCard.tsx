@@ -1,6 +1,5 @@
 import type {FC} from 'react';
 
-import {Card} from "@common/Card";
 import {useQuery} from "@tanstack/react-query";
 import ShippingService from "@api/services/shipping.service";
 import {Select} from "@radix-ui/react-select";
@@ -11,6 +10,9 @@ import {getShippingName} from "@lib/csc";
 import Link from "next/link";
 import {CreateDeliveryForm} from "@containers/shipping/forms/CreateDeliveryForm";
 import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
+
+import {opacityListAnimation} from "@lib/animations";
+import {MCard} from "@common/Card";
 
 export const OrderDetailsCard: FC = () => {
     const {shippingId, updateDetails} = useContext(OrderCheckoutContext);
@@ -33,7 +35,13 @@ export const OrderDetailsCard: FC = () => {
     const currentShipping = shipping?.find(method => method.id === shippingId);
 
     return (
-        <Card className="bg-popover p-4 mt-4">
+        <MCard
+            className="bg-popover p-4 mt-4"
+            initial="initial"
+            animate="animate"
+            custom={5}
+            variants={opacityListAnimation}
+        >
             <h2 className="font-medium text-xl">Customer info:</h2>
 
             <section className="overflow-y-hidden pt-0 p-2 -mt-2">
@@ -69,6 +77,6 @@ export const OrderDetailsCard: FC = () => {
                     </Link>
                 }
             </section>
-        </Card>
+        </MCard>
     );
 };

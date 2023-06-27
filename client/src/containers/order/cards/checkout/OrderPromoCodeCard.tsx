@@ -10,6 +10,9 @@ import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {Loader2} from "lucide-react";
 
+import {MCard} from "@common/Card";
+import {transformBottomY} from "@lib/animations";
+
 interface OrderPromoCodeCard {
     promo: PromoCode | null;
     setPromo: Dispatch<SetStateAction<PromoCode | null>>;
@@ -38,7 +41,13 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
     });
 
     return (
-        <Card className="bg-popover px-6 sm:px-4 pb-4">
+        <MCard
+            className="bg-popover px-6 sm:px-4 pb-4 rounded-lg border"
+            initial="initial"
+            animate="animate"
+            custom={1}
+            variants={transformBottomY}
+        >
             <FormInput
                 className="bg-white"
                 label="Promo-code"
@@ -67,6 +76,6 @@ export const OrderPromoCodeCard: FC<OrderPromoCodeCard> = ({promo, setPromo}) =>
                     Dismiss promo-code
                 </p>
             )}
-        </Card>
+        </MCard>
     );
 };

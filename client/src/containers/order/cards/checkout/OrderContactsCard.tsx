@@ -9,7 +9,7 @@ export const OrderContactsCard: FC = () => {
     const {profile} = useProfile();
 
     return (
-        <Card className="bg-popover p-4 flex items-center hover:shadow-lg transition-all">
+        <Card className="bg-popover p-4 flex items-center hover:shadow-lg transition-all animate-catalog-mount">
             <MapPin className="w-6 sm:w-8 h-6 sm:h-8 opacity-90 mr-1.5"/>
             <div>
                 <p className="text-xs opacity-90">Automate form filling!</p>

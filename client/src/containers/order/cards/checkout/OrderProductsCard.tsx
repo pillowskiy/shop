@@ -1,16 +1,23 @@
 import type {FC} from 'react';
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import {Edit} from "lucide-react";
-import {Card} from "@common/Card";
 import {useCart} from "@hooks/useCart";
 import {CartReadonlyItemCard} from "@containers/cart/cards/CartReadonlyItemCard";
 
+import {opacityListAnimation} from "@lib/animations";
+import {MCard} from "@common/Card";
+
 export const OrderProductsCard: FC = () => {
-    // TEMP (every cart item should have only id and quantity)
     const {items} = useCart();
 
     return (
-        <Card className="bg-popover p-4 mt-4">
+        <MCard
+            className="bg-popover p-4 mt-4"
+            initial="initial"
+            animate="animate"
+            custom={2}
+            variants={opacityListAnimation}
+        >
             <div className="flex items-center justify-between">
                 <h2 className="font-medium text-xl mb-2">Products:</h2>
                 <CartDialog>
@@ -28,6 +35,6 @@ export const OrderProductsCard: FC = () => {
                     ))
                 }
             </section>
-        </Card>
+        </MCard>
     );
 };

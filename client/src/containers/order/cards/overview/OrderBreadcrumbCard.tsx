@@ -22,7 +22,7 @@ export const OrderBreadcrumbCard: FC<OrderBreadcrumbCardProps> = ({filter, setFi
     const filters = Object.keys(orderDateFilter);
 
     return (
-        <Card className="w-full mt-4 bg-popover p-4 flex gap-4 flex-col sm:flex-row justify-between">
+        <Card className="w-full mt-4 bg-popover p-4 flex gap-4 flex-col sm:flex-row justify-between animate-catalog-mount">
             <section className="px-2 py-1 bg-white border flex gap-4 rounded-lg overflow-x-auto">
                 <Button className="h-8" disabled>All orders</Button>
                 <Button className="h-8" variant="secondary" disabled>Warranty and returns</Button>
