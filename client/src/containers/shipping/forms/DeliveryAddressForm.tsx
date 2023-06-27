@@ -15,28 +15,28 @@ interface DeliveryAddressFormProps {
     updateData: (values: Partial<CreateShippingData>) => void;
 }
 
+const getState = (countryCode: string | null): AddressValue[] => {
+    if (!countryCode) return [];
+    return State.getStatesOfCountry(countryCode).map(state => ({
+        label: state.name,
+        value: state.isoCode,
+    }));
+}
+
+const getCity = (countryCode: string | null, stateCode: string | null): AddressValue[] => {
+    if (!countryCode || !stateCode) return [];
+    return City.getCitiesOfState(countryCode, stateCode).map(city => ({
+        label: city.name,
+        value: city.name,
+    }));
+}
+
 export const DeliveryAddressForm: FC<DeliveryAddressFormProps> = ({data, updateData}) => {
     const countries = Country.getAllCountries();
     const updatedCountries: AddressValue[] = countries.map(country => ({
         label: country.name,
         value: country.isoCode,
     }));
-
-    const getState = (countryCode: string | null): AddressValue[] => {
-        if (!countryCode) return [];
-        return State.getStatesOfCountry(countryCode).map(state => ({
-            label: state.name,
-            value: state.isoCode,
-        }));
-    }
-
-    const getCity = (countryCode: string | null, stateCode: string | null): AddressValue[] => {
-        if (!countryCode || !stateCode) return [];
-        return City.getCitiesOfState(countryCode, stateCode).map(city => ({
-            label: city.name,
-            value: city.name,
-        }));
-    }
 
     return (
         <form className="border rounded-lg p-2 bg-white">

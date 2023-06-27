@@ -7,9 +7,11 @@ import {useMutation, useQuery} from "@tanstack/react-query";
 import ShippingService from "@api/services/shipping.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
-import {DeliveryMethod} from "@containers/shipping/layout/DeliveryMethod";
 import {CreateDeliveryForm} from "@containers/shipping/forms/CreateDeliveryForm";
 import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
+
+import {MDeliveryMethod} from "@containers/shipping/layout/DeliveryMethod";
+import {opacityListAnimation} from "@lib/animations";
 
 export const ShippingTab: FC = () => {
     const [data, setData] = useState<CreateShippingData>(INITIAL_SHIPPING_DATA);
@@ -56,7 +58,14 @@ export const ShippingTab: FC = () => {
                     <h2 className="font-medium">Delivery Methods:</h2>
                     {
                         shipping?.length ? shipping.map(method => (
-                            <DeliveryMethod key={method.id} shipping={method} />
+                            <MDeliveryMethod
+                                key={method.id}
+                                initial="initial"
+                                animate="animate"
+                                custom={3}
+                                variants={opacityListAnimation}
+                                shipping={method}
+                            />
                         )) : (
                             <div className="text-center text-lg font-medium p-2 rounded-lg border bg-white">
                                 🚩 There are no delivery methods yet.

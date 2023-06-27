@@ -1,4 +1,4 @@
-import type {FC} from 'react';
+import {forwardRef} from 'react';
 import type {Shipping} from "@/types/shipping.interface";
 import {Package} from "lucide-react";
 import {Button} from "@ui/Button";
@@ -10,12 +10,13 @@ import ShippingService from "@api/services/shipping.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
 import {cn} from "@lib/utils";
+import {motion} from "framer-motion";
 
 interface DeliveryMethodProps {
     shipping: Shipping;
 }
 
-export const DeliveryMethod: FC<DeliveryMethodProps> = ({shipping}) => {
+const DeliveryMethod = forwardRef<HTMLDivElement, DeliveryMethodProps>(({shipping}) => {
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
     const queryClient = useQueryClient();
     const {toast} = useToast();
@@ -39,7 +40,7 @@ export const DeliveryMethod: FC<DeliveryMethodProps> = ({shipping}) => {
         <section className={cn(
             "p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2",
             "sm:flex-row border", {"opacity-80": !!shipping.temp},
-        )} aria-disabled={!!shipping.temp}>
+        )}>
             <div>
                 <div className="flex gap-1 items-center">
                     <Package className="h-5 sm:h-4 w-auto"/>
@@ -73,4 +74,8 @@ export const DeliveryMethod: FC<DeliveryMethodProps> = ({shipping}) => {
             </ConfirmDialog>
         </section>
     );
-};
+});
+
+DeliveryMethod.displayName = "DeliveryMethod";
+const MDeliveryMethod = motion<DeliveryMethodProps>(DeliveryMethod);
+export {DeliveryMethod, MDeliveryMethod};
