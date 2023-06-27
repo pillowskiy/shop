@@ -1,11 +1,12 @@
 import type {FC, PropsWithChildren} from 'react';
 import {Dialog, DialogTrigger, DialogContent, DialogTitle, DialogFooter} from "@common/Dialog";
 import {useCart} from "@hooks/useCart";
-import {CartProductCard} from "@containers/cart/cards/CartProductCard";
+import {MCartProductCard} from "@containers/cart/cards/CartProductCard";
 import {EmptyItems} from "@containers/EmptyItems";
 import {Button} from "@ui/Button";
 import {DialogClose} from "@radix-ui/react-dialog";
 import Link from "next/link";
+import {opacityListAnimation} from "@lib/animations";
 
 export const CartDialog: FC<PropsWithChildren> = ({children}) => {
     const {items, totalCost} = useCart();
@@ -22,7 +23,14 @@ export const CartDialog: FC<PropsWithChildren> = ({children}) => {
                 <section className="w-full h-full overflow-y-auto">
                     {
                         items.length ? items.map((item, index) => (
-                            <CartProductCard item={item} key={index}/>
+                            <MCartProductCard
+                                key={index}
+                                initial="initial"
+                                animate="animate"
+                                custom={index}
+                                variants={opacityListAnimation}
+                                item={item}
+                            />
                         )) : <EmptyItems>There are not products yet.</EmptyItems>
                     }
                 </section>

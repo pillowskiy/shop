@@ -14,7 +14,7 @@ export const CartReadonlyItemCard: FC<CartReadonlyItemCardProps> = ({item}) => {
         <Card
             key={item.product.id}
             className={cn(
-                "bg-white hover:bg-muted hover:shadow-lg transition-all min-w-[260px] w-full mt-4",
+                "bg-white hover:bg-muted hover:shadow-lg transition-all min-w-[260px] w-full mt-4 animate-catalog-mount",
                 "relative flex flex-col lg:flex-row lg:justify-between lg:items-center shadow-md p-2 lg:p-0"
             )}
         >

@@ -1,21 +1,21 @@
-import type {FC} from 'react';
+import {useEffect, useState, forwardRef} from "react";
 import type {CartFullestItem} from "@/types/cart.interface";
 import {Card} from "@common/Card";
 import {Trash} from "lucide-react";
 import {NumberFormInput} from "@components/NumberFormInput";
-import {useEffect, useState} from "react";
 import {Button} from "@ui/Button";
 import {useAppDispatch} from "@redux/store";
 import {removeFromCart, updateCartItem} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
+import {motion} from "framer-motion";
 
 interface CartProductCardProps {
     item: CartFullestItem;
 }
 
-export const CartProductCard: FC<CartProductCardProps> = ({item}) => {
+const CartProductCard = forwardRef<HTMLDivElement, CartProductCardProps>(({item}, ref) => {
     const [quantity, setQuantity] = useState(item.count);
     const {debounce} = useDebounce(quantity, 1000);
     const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ export const CartProductCard: FC<CartProductCardProps> = ({item}) => {
     }, [debounce]);
 
     return (
-        <Card className="p-2 h-fit w-full mb-4">
+        <Card ref={ref} className="p-2 h-fit w-full mb-4">
             <section className="relative w-full">
                 <ProductHorizontalInfo product={item.product} />
                 <Button
@@ -54,4 +54,9 @@ export const CartProductCard: FC<CartProductCardProps> = ({item}) => {
             </section>
         </Card>
     );
-};
+});
+
+CartProductCard.displayName = "CartProductCard";
+const MCartProductCard = motion<CartProductCardProps>(CartProductCard);
+
+export { CartProductCard, MCartProductCard }
