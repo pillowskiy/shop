@@ -1,25 +1,33 @@
 import type {FC, MouseEvent} from 'react';
 import type {PromoCode} from "@/types/promo-code.interface";
 import type {CreateShippingData} from "@/types/shipping.interface";
-import {Card} from "@common/Card";
+
 import {Button} from "@ui/Button";
 import {Anchor} from "@ui/Anchor";
-import {useCart} from "@hooks/useCart";
+import {InfoRow} from "@components/InfoRow";
+
+import {
+    OrderCheckoutContext,
+    OrderShippingContext
+} from "@containers/order/CheckoutScreen";
+
+
 import {priceFormat} from "@lib/formatter";
-import {useMutation} from "@tanstack/react-query";
+import {makeDiscount} from "@lib/utils";
+
 import OrderService from "@api/services/order.service";
+import ShippingService from "@api/services/shipping.service";
+import {useMutation} from "@tanstack/react-query";
 import {buildToast, useToast} from "@common/toast/useToast";
-import {ToastAction} from "@common/toast/Toast";
-import Link from "next/link";
 import {isAxiosError} from "axios";
+
+import {useContext} from "react";
+import {useCart} from "@hooks/useCart";
+import {useRouter} from "next/router";
+
 import {useAppDispatch} from "@redux/store";
 import {clearCart} from "@redux/cart/cart.slice";
-import {useRouter} from "next/router";
-import {useContext} from "react";
-import {OrderCheckoutContext, OrderShippingContext} from "@containers/order/CheckoutScreen";
-import {InfoRow} from "@components/InfoRow";
-import {makeDiscount} from "@lib/utils";
-import ShippingService from "@api/services/shipping.service";
+
 import {
     AlertDialogContent,
     AlertDialogHeader,
@@ -31,6 +39,7 @@ import {
     AlertDialogCancel,
     AlertDialogAction,
 } from "@common/AlertDialog";
+
 import {transformBottomY} from "@lib/animations";
 import {motion} from "framer-motion";
 
@@ -57,11 +66,7 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
     }, {
         onSuccess: async () => {
             await router.push('/');
-            toast(buildToast("order.creation.success").setAction(
-                <Link href="/orders">
-                    <ToastAction altText="Go to orders">Go to orders</ToastAction>
-                </Link>
-            ));
+            toast(buildToast("order.creation.success").toast);
             dispatch(clearCart())
         },
         onError: (err) => {
@@ -125,51 +130,45 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
                     </InfoRow>
                 )}
             </section>
-            <div className="flex justify-between items-center">
+            <section className="flex justify-between items-center">
                 <p className="font-medium">To be paid</p>
                 <h2 className="text-2xl">
                     {priceFormat(makeDiscount(totalCost, promo?.discountPercent || 0))}
                 </h2>
-            </div>
+            </section>
             <hr className="my-2"/>
-            <footer>
-                <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                        <Button className="w-full" onClick={onConfirm}>
-                            Confirm the order
-                        </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Delivery method not created</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This shipping method was not found. Would you like to save it for future orders?
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        {data && (
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>
-                                    Cancel
-                                </AlertDialogCancel>
-                                <AlertDialogCancel onClick={() => createShipping({data: {...data, temp: true}})}>
-                                    Leave it as a one-time use
-                                </AlertDialogCancel>
-                                <AlertDialogAction onClick={() => createShipping({data: {...data}})}>
-                                    Save
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        )}
-                    </AlertDialogContent>
-                </AlertDialog>
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button className="w-full" onClick={onConfirm}>
+                        Confirm the order
+                    </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delivery method not created</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This shipping method was not found. Would you like to save it for future orders?
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    {data && (
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel onClick={() => createShipping({data: {...data, temp: true}})}>
+                                Leave it as a one-time use
+                            </AlertDialogCancel>
+                            <AlertDialogAction onClick={() => createShipping({data: {...data}})}>
+                                Save
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    )}
+                </AlertDialogContent>
+            </AlertDialog>
 
-                <section className="mt-2 text-xs">
-                    <p className="font-medium mb-1">
-                        By confirming the order, I accept the {' '}
-                        <Anchor className="opacity-90" href="#">Regulations on the personal
-                            data</Anchor> {' '}
-                        and {' '} <Anchor className="opacity-90" href="#">User agreements</Anchor></p>
-                </section>
-            </footer>
+            <p className="mt-2 text-xs font-medium">
+                By confirming the order, I accept the {' '}
+                <Anchor className="opacity-90" href="#">Regulations on the personal data</Anchor>
+                {' and '} <Anchor className="opacity-90" href="#">User agreements</Anchor>
+            </p>
         </motion.section>
     );
 };

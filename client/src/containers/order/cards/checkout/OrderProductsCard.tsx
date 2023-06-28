@@ -1,8 +1,8 @@
 import type {FC} from 'react';
-import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import {Edit} from "lucide-react";
-import {useCart} from "@hooks/useCart";
+import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import {CartReadonlyItemCard} from "@containers/cart/cards/CartReadonlyItemCard";
+import {useCart} from "@hooks/useCart";
 
 import {opacityListAnimation} from "@lib/animations";
 import {MCard} from "@common/Card";

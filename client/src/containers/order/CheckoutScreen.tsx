@@ -4,15 +4,16 @@ import type {OrderDetailsValues} from "@/types/order.interface";
 import type {CreateShippingData} from "@/types/shipping.interface";
 import type {PromoCode} from "@/types/promo-code.interface";
 
+import * as Checkout from "@containers/order/cards/checkout";
 import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
-
-import {Checkout} from "./";
-import {createContext, useState} from "react";
-import {useCart} from "@hooks/useCart";
 import {EmptyItems} from "@containers/EmptyItems";
-import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
+
 import AuthProvider from "@providers/AuthProvider";
+
+import {useCart} from "@hooks/useCart";
+import {createContext, useState} from "react";
+import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
 
 export const OrderCheckoutContext = createContext<CheckoutOrderContext>({
     items: [],

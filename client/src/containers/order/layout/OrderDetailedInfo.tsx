@@ -1,25 +1,25 @@
 import type {FC} from 'react';
 import type {Order, OrderItem} from "@/types/order.interface";
 import {OrderStatus} from "@/types/order.interface";
-import {useProfile} from "@hooks/useProfile";
-import {priceFormat} from "@lib/formatter";
-import {Button} from "@ui/Button";
-import {Info, Package} from "lucide-react";
-import {Accordion} from "@radix-ui/react-accordion";
-import {AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
-import {CartReadonlyItemCard} from "@containers/cart/cards/CartReadonlyItemCard";
-import {HoverInfoCard} from "@components/HoverInfoCard";
-import {getShippingName} from "@lib/csc";
-import {InfoRow} from "@components/InfoRow";
-import Link from "next/link";
-import {makeDiscount} from "@lib/utils";
-import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 
-import type {CartItem} from "@/types/cart.interface";
-import {useAppDispatch} from "@redux/store";
-import {addToCart} from "@redux/cart/cart.slice";
+import {Info, Package} from "lucide-react";
+import {Button} from "@ui/Button";
+import {HoverInfoCard} from "@components/HoverInfoCard";
+import {InfoRow} from "@components/InfoRow";
+
+import {CartReadonlyItemCard} from "@containers/cart/cards/CartReadonlyItemCard";
 import {CancelOrderButton} from "@containers/order/layout/CancelOrderButton";
 import {BuyNowButton} from "@containers/cart/layout/BuyNowButton";
+
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
+
+import Link from "next/link";
+
+import {useProfile} from "@hooks/useProfile";
+
+import {getShippingName} from "@lib/csc";
+import {priceFormat} from "@lib/formatter";
+import {makeDiscount} from "@lib/utils";
 
 interface OrderDetailedInfoProps {
     order: Order;
@@ -28,17 +28,9 @@ interface OrderDetailedInfoProps {
 
 export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) => {
     const {profile} = useProfile();
-    const dispatch = useAppDispatch();
 
     if (!profile) return null;
     const price = items.reduce((prev, cur) => prev + cur.price, 0);
-
-    const addManyToCart = () => {
-        const cartItems: CartItem[] = order.items.map((item): CartItem =>
-            ({productId: item.product.id, count: item.quantity})
-        );
-        cartItems.forEach(item => dispatch(addToCart(item)));
-    }
 
     return (
         <main className="flex flex-col sm:flex-row gap-4 mt-4">

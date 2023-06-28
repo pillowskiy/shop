@@ -1,1 +1,0 @@
-export * as Checkout from "./cards/checkout";

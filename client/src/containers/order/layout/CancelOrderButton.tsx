@@ -1,11 +1,13 @@
 import type {FC} from 'react';
 import {type Order, OrderStatus} from "@/types/order.interface";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {Button, type ButtonProps} from "@ui/Button";
+
 import OrderService from "@api/services/order.service";
-import {Button, ButtonProps} from "@ui/Button";
-import {cn} from "@lib/utils";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
+
+import {cn} from "@lib/utils";
 
 interface CancelOrderButtonProps extends ButtonProps {
     order: Order;

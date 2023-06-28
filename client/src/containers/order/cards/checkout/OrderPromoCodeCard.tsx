@@ -1,14 +1,16 @@
 import type {Dispatch, FC, SetStateAction} from 'react';
 import type {PromoCode} from "@/types/promo-code.interface";
-import {Card} from "@common/Card";
+
+import {Loader2} from "lucide-react";
+import {useState} from "react";
+
 import {FormInput} from "@components/FormInput";
 import {Button} from "@ui/Button";
-import {useState} from "react";
+
 import {useMutation} from "@tanstack/react-query";
 import PromoCodeService from "@api/services/promo-code.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
-import {Loader2} from "lucide-react";
 
 import {MCard} from "@common/Card";
 import {transformBottomY} from "@lib/animations";

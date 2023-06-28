@@ -1,15 +1,15 @@
-import type {FC} from 'react';
+import {type FC, useContext, useEffect} from 'react';
+
+import {Select, SelectContent, SelectItem, SelectTrigger} from "@common/Select";
+import {CreateDeliveryForm} from "@containers/shipping/forms/CreateDeliveryForm";
+import Link from "next/link";
+
+import {OrderCheckoutContext, OrderShippingContext} from "@containers/order/CheckoutScreen";
+import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
+import {getShippingName} from "@lib/csc";
 
 import {useQuery} from "@tanstack/react-query";
 import ShippingService from "@api/services/shipping.service";
-import {Select} from "@radix-ui/react-select";
-import {SelectContent, SelectItem, SelectTrigger} from "@common/Select";
-import {useContext, useEffect} from "react";
-import {OrderCheckoutContext, OrderShippingContext} from "@containers/order/CheckoutScreen";
-import {getShippingName} from "@lib/csc";
-import Link from "next/link";
-import {CreateDeliveryForm} from "@containers/shipping/forms/CreateDeliveryForm";
-import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
 
 import {opacityListAnimation} from "@lib/animations";
 import {MCard} from "@common/Card";

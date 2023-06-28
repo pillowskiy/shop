@@ -1,4 +1,3 @@
-import React from 'react';
 import {useCart} from "@hooks/useCart";
 import {AlertCircle} from "lucide-react";
 import {cn} from "@lib/utils";
@@ -10,7 +9,6 @@ export const OrderInfoCard = () => {
     const {items} = useCart();
     // TEMP
     const isWarning = items.some(item => item.product.id !== items[0].product.id);
-
     if (!isWarning) return null;
 
     return (

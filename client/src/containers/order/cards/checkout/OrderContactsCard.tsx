@@ -1,9 +1,9 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
 import {MapPin, Info} from "lucide-react";
-import Link from "next/link";
-import {useProfile} from "@hooks/useProfile";
 import {HoverInfoCard} from "@components/HoverInfoCard";
+import {useProfile} from "@hooks/useProfile";
+import Link from "next/link";
 
 export const OrderContactsCard: FC = () => {
     const {profile} = useProfile();
@@ -11,7 +11,7 @@ export const OrderContactsCard: FC = () => {
     return (
         <Card className="bg-popover p-4 flex items-center hover:shadow-lg transition-all animate-catalog-mount">
             <MapPin className="w-6 sm:w-8 h-6 sm:h-8 opacity-90 mr-1.5"/>
-            <div>
+            <section>
                 <p className="text-xs opacity-90">Automate form filling!</p>
                 <HoverInfoCard
                     title="Location access"
@@ -22,7 +22,7 @@ export const OrderContactsCard: FC = () => {
                         <Info className="w-4 h-4 ml-1 hidden md:block text-muted-foreground" />
                     </div>
                 </HoverInfoCard>
-            </div>
+            </section>
             {profile && (
                 <Link
                     href={`/profile?tab=shipping`}

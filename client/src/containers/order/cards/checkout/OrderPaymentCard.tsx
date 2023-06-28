@@ -1,16 +1,18 @@
-import type {FC} from 'react';
-import {useContext} from "react";
-import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
+import {type FC, useContext} from 'react';
+
+import {Info} from "lucide-react";
 import {Label} from "@ui/Label";
+import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
 import {MagicCard} from "@containers/payment/MagicCard";
-import {cn} from "@lib/utils";
+import {HoverInfoCard} from "@components/HoverInfoCard";
+import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
+import Link from "next/link";
+
 import {useQuery} from "@tanstack/react-query";
 import PaymentService from "@api/services/payment.service";
-import Link from "next/link";
+
 import {useProfile} from "@hooks/useProfile";
-import {Info} from "lucide-react";
-import {OrderCheckoutContext} from "@containers/order/CheckoutScreen";
-import {HoverInfoCard} from "@components/HoverInfoCard";
+import {cn} from "@lib/utils";
 
 import {opacityListAnimation} from "@lib/animations";
 import {MCard} from "@common/Card";

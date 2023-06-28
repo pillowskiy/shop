@@ -1,20 +1,19 @@
-import type {FC} from 'react';
+import {type FC, useState} from 'react';
 
 import {useQuery} from "@tanstack/react-query";
 import {useAuth} from "@hooks/useAuth";
 
 import OrderService from "@api/services/order.service";
-
 import AuthProvider from "@providers/AuthProvider";
 
 import {EmptyItems} from "@containers/EmptyItems";
 import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 
-import {MOrderOverviewCard} from "@containers/order/cards/overview/OrderOverviewCard";
 import {OrderBreadcrumbCard} from "@containers/order/cards/overview/OrderBreadcrumbCard";
-import {useState} from "react";
 import {orderDateFilter} from "@containers/order/constant";
+
+import {MOrderOverviewCard} from "@containers/order/cards/overview/OrderOverviewCard";
 import {opacityListAnimation} from "@lib/animations";
 
 export const OrdersScreen: FC = () => {

@@ -1,14 +1,17 @@
-import {forwardRef} from 'react';
+import {forwardRef, useState} from 'react';
 import type {Order} from "@/types/order.interface";
+import {OrderStatus} from "@/types/order.interface";
+
+import {ChevronDown, ChevronUp} from "lucide-react";
+import {OrderDetailedInfo} from "@containers/order/layout/OrderDetailedInfo";
+import Image from "next/image";
+
 import {useQuery} from "@tanstack/react-query";
 import OrderService from "@api/services/order.service";
+
 import {priceFormat} from "@lib/formatter";
-import {ChevronDown, ChevronUp} from "lucide-react";
-import {OrderStatus} from "@/types/order.interface";
-import Image from "next/image";
-import {useState} from "react";
-import {OrderDetailedInfo} from "@containers/order/layout/OrderDetailedInfo";
 import {cn} from "@lib/utils";
+
 import {motion} from "framer-motion";
 
 interface OrderOverviewCardProps {
