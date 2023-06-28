@@ -1,14 +1,16 @@
 import {forwardRef} from 'react';
-import React from "react";
 import type {Payment} from "@/types/payment.interface";
 import {PaymentType} from "@/types/payment.interface";
+
 import {CreditCard, Wand} from "lucide-react";
 import {Badge} from "@ui/Badge";
 import {Button} from "@ui/Button";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+
 import PaymentService from "@api/services/payment.service";
-import {isAxiosError} from "axios";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {buildToast, useToast} from "@common/toast/useToast";
+import {isAxiosError} from "axios";
+
 import {motion} from "framer-motion";
 
 interface PaymentMethodProps {
@@ -35,8 +37,8 @@ const PaymentMethod = forwardRef<HTMLDivElement, PaymentMethodProps>(({payment, 
     });
 
     return (
-        <section ref={ref} className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row border">
-            <div>
+        <article ref={ref} className="p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2 sm:flex-row border">
+            <section>
                 <div className="flex gap-1 items-center">
                     {payment.type === PaymentType.MAGIC ?
                         <Wand className="h-5 sm:h-4 w-auto"/>:
@@ -45,9 +47,9 @@ const PaymentMethod = forwardRef<HTMLDivElement, PaymentMethodProps>(({payment, 
                     <p className="text-lg sm:text-base font-medium">Magic (*{payment.cardNumber.slice(16 - 4)})</p>
                 </div>
                 <p className="text-sm sm:text-xs">Expires {new Date(payment.cardExpiresAt).toLocaleDateString()}</p>
-            </div>
+            </section>
 
-            <div className="flex flex-wrap gap-1 sm:max-w-[180px]">
+            <section className="flex flex-wrap gap-1 sm:max-w-[180px]">
                 {badges.map((badge, index) => (
                     <Badge
                         key={index}
@@ -57,7 +59,8 @@ const PaymentMethod = forwardRef<HTMLDivElement, PaymentMethodProps>(({payment, 
                         {badge}
                     </Badge>
                 ))}
-            </div>
+            </section>
+
             <Button
                 className="w-full sm:w-auto ml-auto"
                 variant="secondary"
@@ -65,7 +68,7 @@ const PaymentMethod = forwardRef<HTMLDivElement, PaymentMethodProps>(({payment, 
             >
                 Delete
             </Button>
-        </section>
+        </article>
     );
 });
 

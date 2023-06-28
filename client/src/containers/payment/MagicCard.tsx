@@ -1,10 +1,12 @@
 import type {FC, HTMLAttributes} from 'react';
+import type {Payment} from "@/types/payment.interface";
+
 import {useProfile} from "@hooks/useProfile";
 import {Wifi} from "lucide-react";
 import Image from "next/image";
-import {cn} from "@lib/utils";
-import {Payment} from "@/types/payment.interface";
+
 import {cardNumberFormat} from "@lib/formatter";
+import {cn} from "@lib/utils";
 
 interface MagicCardProps extends HTMLAttributes<HTMLDivElement> {
     payment: Payment;
@@ -17,8 +19,8 @@ export const MagicCard: FC<MagicCardProps> = ({className, payment, ...props}) =>
     return (
         <main
             className={cn(
-                "relative rounded-lg bg-white font-consolas overflow-x-auto",
-                "text-center overflow-hidden min-w-[240px] w-[240px] sm:w-[300px] md:w-[340px] h-fit select-none", className
+                "relative rounded-lg bg-white font-consolas overflow-x-auto h-fit select-none",
+                "text-center overflow-hidden min-w-[240px] w-[240px] sm:w-[300px] md:w-[340px]", className
             )}
             {...props}
         >
@@ -44,13 +46,16 @@ export const MagicCard: FC<MagicCardProps> = ({className, payment, ...props}) =>
                 <h2 className="text-xl sm:text-2xl text-primary my-2">{cardNumberFormat(payment.cardNumber)}</h2>
 
                 <footer className="relative text-left uppercase text-xs sm:text-sm text-primary font-medium">
-                    <p className="lowercase text-[10px] leading-3 opacity-90">valid thru</p>
-                    <h3 className="leading-3">
-                        {expiresEnd.getMonth().toString().padStart(2, '0')}/
-                        {expiresEnd.getFullYear() % 1000}
-                    </h3>
-                    <h3 className="opacity-90 leading-3">{profile?.name}</h3>
-                    <h3 className="opacity-80 leading-3">USD</h3>
+                    <section>
+                        <p className="lowercase text-[10px] leading-3 opacity-90">valid thru</p>
+                        <h3 className="leading-3">
+                            {expiresEnd.getMonth().toString().padStart(2, '0')}/
+                            {expiresEnd.getFullYear() % 1000}
+                        </h3>
+                        <h3 className="opacity-90 leading-3">{profile?.name}</h3>
+                        <h3 className="opacity-80 leading-3">USD</h3>
+                    </section>
+
                     <Image
                         className="absolute top-0 right-0 top-[50%] -translate-y-[50%]"
                         src={"https://altcoinsbox.com/wp-content/uploads/2023/03/magic-logo.png"}
