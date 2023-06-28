@@ -1,16 +1,17 @@
-import type {FC} from 'react';
+import {type FC, useState} from 'react';
+
 import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 import {EmptyItems} from "@containers/EmptyItems";
+import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
+
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
-import {isAxiosError} from "axios";
 import {buildToast, useToast} from "@common/toast/useToast";
-import {useState} from "react";
-import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
-import {NotFoundScreen} from "@containers/NotFoundScreen";
+import {isAxiosError} from "axios";
 
-import {MUserProductCard} from "@containers/product";
+
+import {MUserProductCard} from "./cards/UserProductCard";
 import {opacityListAnimation} from "@lib/animations";
 
 interface UserProductsScreenProps {

@@ -1,10 +1,12 @@
 import type {FC} from 'react';
 import {type Filter, ProductSort} from "@/types/product.interface";
-import {ParsedUrlQuery} from "querystring";
+import type {ParsedUrlQuery} from "querystring";
+
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
+
+import * as Catalog from "@containers/product/cards/catalog";
 import {getStringFromQuery} from "@lib/utils";
-import {Catalog} from "@containers/product";
 
 interface CatalogWithQueryProps {
     query: ParsedUrlQuery;

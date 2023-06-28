@@ -1,17 +1,18 @@
-import type {FC} from 'react';
+import {type FC, useContext, useState} from 'react';
 import type {UpdateProductData} from "@/types/product.interface";
 
 import {FormInput} from "@components/FormInput";
 import {NumberFormInput} from "@components/NumberFormInput";
 
-import {Card} from "@common/Card";
 import {FormSwitchBox} from "@components/FormSwitch";
+import {HoverInfoCard} from "@components/HoverInfoCard";
+import {Card} from "@common/Card";
+
+import {WorkShopContext} from "@containers/product/containers/workshop";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
 import {WorkshopSubmitButton} from "@containers/product/containers/workshop/layout/WorkshopSubmit";
 import {CategorySelect} from "@containers/product/containers/workshop/layout/CategorySelect";
-import {useContext, useState} from "react";
-import {WorkShopContext} from "@containers/product/containers/workshop";
-import {HoverInfoCard} from "@components/HoverInfoCard";
+
 
 interface GeneralCardProps {
     updateProduct: (values: Partial<UpdateProductData>) => void;

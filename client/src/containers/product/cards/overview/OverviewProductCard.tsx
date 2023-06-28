@@ -1,5 +1,6 @@
 import {type FC, createContext} from 'react';
 import type {Product, ProductFullest} from "@/types/product.interface";
+
 import {ProductBreadcrumb} from "@containers/product/layout/ProductBreadcrumb";
 import {AsideProductContainer} from "@containers/product/cards/overview/containers/AsideProductContainer";
 import {AsideProductImages} from "@containers/product/cards/overview/layout/AsideProductImages";

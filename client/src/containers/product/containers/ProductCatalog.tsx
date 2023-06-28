@@ -1,5 +1,5 @@
 import type {FC, PropsWithChildren} from 'react';
-import {Catalog} from "@containers/product";
+import * as Catalog from "@containers/product/cards/catalog";
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 import {Filter} from "@/types/product.interface";

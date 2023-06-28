@@ -1,22 +1,23 @@
 import {type FC, useContext, useState} from 'react';
 import {AsideProductContainer} from "@containers/product/cards/overview/containers/AsideProductContainer";
+import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
 import Image from "next/image";
 import {cn} from "@lib/utils";
-import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
 
 export const AsideProductImages: FC = () => {
     const [mainImageIndex, setMainImageIndex] = useState(0);
     const product = useContext(OverviewProductContext);
-
-    // TEMP
     if (!product) return null;
 
     return (
         <AsideProductContainer>
             <Image
-                className="w-full h-[300px] sm:w-[520px] sm:h-[420px] md:h-[300px] xl:h-[400px] border rounded-lg object-cover object-top cursor-pointer"
+                className={cn(
+                    "w-full h-[300px] sm:w-[520px] sm:h-[420px] md:h-[300px] xl:h-[400px]",
+                    "border rounded-lg object-cover object-top cursor-pointer"
+                )}
                 src={product.images[mainImageIndex]}
-                alt={"product image"}
+                alt="Product Image"
                 width={880}
                 height={880}
             />

@@ -1,7 +1,7 @@
 import type {FC, HTMLAttributes} from 'react';
 import type {Product} from "@/types/product.interface";
-import {cn} from "@lib/utils";
 import {priceFormat} from "@lib/formatter";
+import {cn} from "@lib/utils";
 
 type PriceSize = "sm" | "md" | "lg" | "xl"
 

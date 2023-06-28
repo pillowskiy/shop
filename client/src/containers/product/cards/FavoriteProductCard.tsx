@@ -1,10 +1,10 @@
 import {forwardRef} from 'react';
 import type {Product} from "@/types/product.interface";
-import {cn} from "@lib/utils";
-import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
 import {Card} from "@common/Card";
-import {CartButton} from "@containers/cart/layout/CartButton";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
+import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
+import {CartButton} from "@containers/cart/layout/CartButton";
+import {cn} from "@lib/utils";
 
 import {motion} from "framer-motion";
 

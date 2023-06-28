@@ -1,11 +1,12 @@
-import type {FC, ChangeEvent} from 'react';
+import {type FC, type ChangeEvent, useContext} from 'react';
+
 import {Card} from "@common/Card";
-import Image from "next/image";
 import {Badge} from "@ui/Badge";
-import {cn} from "@lib/utils";
 import {Input} from "@ui/Input";
-import {useContext} from "react";
+import Image from "next/image";
+
 import {WorkShopContext} from "@containers/product/containers/workshop";
+import {cn} from "@lib/utils";
 
 interface ImageUploadCardProps {
     setImages: (files: FileList) => void;

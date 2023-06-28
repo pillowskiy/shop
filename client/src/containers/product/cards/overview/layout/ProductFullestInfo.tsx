@@ -1,13 +1,11 @@
 import {type FC, useContext} from 'react';
+import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
 import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
-import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
 
 export const ProductFullestInfo: FC = () => {
     const product = useContext(OverviewProductContext);
-
-    // TEMP
     if (!product) return null;
 
     return (
@@ -17,9 +15,7 @@ export const ProductFullestInfo: FC = () => {
                 <QuantityBadge className="absolute" quantity={product.quantity} />
             </h2>
 
-            <div className="flex space-x-4">
-                <ProductPrice className="font-medium" size="xl" product={product} />
-            </div>
+            <ProductPrice className="font-medium" size="xl" product={product} />
 
             <Accordion type="single" collapsible className="w-full md:hidden">
                 <AccordionItem value="description">

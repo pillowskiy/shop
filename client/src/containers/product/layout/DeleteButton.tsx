@@ -1,10 +1,11 @@
-import type {FC} from 'react';
+import {type FC, useState} from 'react';
+
 import {Trash2} from "lucide-react";
 import {Button, type ButtonProps} from "@ui/Button";
 import {ConfirmDialog} from "@containers/dialog/ConfirmDialog";
-import {useState} from "react";
-import {useMutation} from "@tanstack/react-query";
+
 import {useRouter} from "next/router";
+import {useMutation} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 
 interface DeleteButtonProps extends ButtonProps {
@@ -31,8 +32,7 @@ export const DeleteButton: FC<DeleteButtonProps> = ({children, productId, ...pro
             isOpen={isDialogOpen}
         >
             <Button {...props} onClick={() => setIsDialogOpen(true)}>
-                <Trash2/>
-                {children && <p className="ml-1">{children}</p>}
+                <Trash2/> {children || null}
             </Button>
         </ConfirmDialog>
     );

@@ -1,9 +1,9 @@
 import type {FC} from 'react';
 
+import * as Catalog from "@containers/product/cards/catalog";
 import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 import {Loader} from "@containers/Loader";
-import {Catalog} from "@containers/product";
 import {NotFoundScreen} from "@containers/NotFoundScreen";
 import {EmptyItems} from "@containers/EmptyItems";
 import {Carousel} from "@containers/swiper/Carousel";

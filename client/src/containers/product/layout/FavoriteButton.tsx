@@ -1,11 +1,14 @@
 import type {FC, HTMLAttributes} from 'react';
 import {Toggle} from "@ui/Toggle";
+
+import {useFavorites} from "@hooks/useFavorites";
+import {useProfile} from "@hooks/useProfile";
+
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
-import {useProfile} from "@hooks/useProfile";
+
 import {Heart} from "lucide-react";
 import {cn} from "@lib/utils";
-import {useFavorites} from "@hooks/useFavorites";
 
 interface FavoriteButtonProps extends HTMLAttributes<HTMLButtonElement> {
     productId: number;

@@ -4,7 +4,6 @@ import {isAxiosError} from "axios";
 
 import {useQuery} from "@tanstack/react-query";
 import {buildToast, useToast} from "@common/toast/useToast";
-import {useRouter} from "next/router";
 
 import ProductService from "@api/services/product.service";
 
@@ -12,7 +11,7 @@ import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 import {Loader} from "@containers/Loader";
 
-import {OverviewProductCard} from "@containers/product";
+import {OverviewProductCard} from "./cards/overview/OverviewProductCard";
 import {ProductReviewCard} from "@containers/review";
 import {SimilarProducts} from "@containers/product/cards/SimilarProducts";
 import {NotFoundScreen} from "@containers/NotFoundScreen";
@@ -22,7 +21,6 @@ interface ProductScreenProps {
 }
 
 export const ProductScreen: FC<ProductScreenProps> = ({slug}) => {
-    const router = useRouter();
     const {toast} = useToast();
 
     const {data: product, isLoading} = useQuery([

@@ -18,8 +18,9 @@ export const StarRating: FC<StarRatingProps> = ({text, rating, className, ...pro
                     key={index}
                 />
             ))}
-
-            <p className="ml-1 text-base font-medium">{text || `${rating.toFixed(1)} out of 5`}</p>
+            <p className="ml-1 text-base font-medium">
+                {text || `${rating.toFixed(1)} out of 5`}
+            </p>
         </div>
     );
 };

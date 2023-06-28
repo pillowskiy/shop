@@ -5,8 +5,6 @@ import {OverviewProductContext} from "@containers/product/cards/overview/Overvie
 
 export const ProductBreadcrumb: FC = () => {
     const product = useContext(OverviewProductContext);
-
-    // TEMP
     if (!product) return null;
 
     return (
@@ -21,7 +19,9 @@ export const ProductBreadcrumb: FC = () => {
                     <ChevronRight className="text-primary opacity-90 w-4 h-4" />
                 </Fragment>
             ))}
-            <span className="font-medium break-words overflow-hidden max-h-6">{product.name.length > 48 ? "Product": product.name}</span>
+            <span className="font-medium break-words overflow-hidden max-h-6">
+                {product.name.length > 48 ? "Product": product.name}
+            </span>
         </section>
     );
 };

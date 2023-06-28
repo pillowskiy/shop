@@ -1,13 +1,17 @@
 import {forwardRef} from 'react';
 import type {Product} from "@/types/product.interface";
-import {Card, CardContent} from "@common/Card";
+
+import {StarRating} from "../../layout/StarRating";
+import {ProductPrice} from "../../layout/ProductPrice";
 import {FavoriteButton} from "../../layout/FavoriteButton";
+import {Card, CardContent} from "@common/Card";
+
 import Image from "next/image";
-import {cn} from "@lib/utils";
 import Link from "next/link";
+
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
-import {StarRating} from "@containers/product/layout/StarRating";
-import {ProductPrice} from "@containers/product/layout/ProductPrice";
+import {cn} from "@lib/utils";
+
 import {motion} from "framer-motion";
 
 interface ProductItemProps {
@@ -35,14 +39,12 @@ const Product = forwardRef<HTMLDivElement, ProductItemProps>(({product}, ref) =>
                     alt={product.name}
                 />
             </Link>
-
             <CardContent className="px-custom md:px-4 py-3 w-full">
                 <Link href={`/products/${product.slug}`}>
-                    <p
-                        className="text-sm text-foreground truncate block capitalize hover:underline transition-all"
-                    >
-                        {product.name}
-                    </p>
+                    <p className={cn(
+                        "text-sm text-foreground truncate block",
+                        "capitalize hover:underline transition-all"
+                    )}>{product.name}</p>
                 </Link>
                 <section className="flex">
                     <ProductPrice size="sm" product={product}/>

@@ -1,8 +1,8 @@
-import type {FC, PropsWithChildren} from 'react';
+import {type FC, type PropsWithChildren, useState} from 'react';
+import * as Catalog from "./catalog";
+
 import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
-import {useState} from "react";
-import {Catalog} from "@containers/product";
 
 import {MCard} from "@common/Card";
 import {opacityListAnimation} from "@lib/animations";
@@ -39,11 +39,9 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
             <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-ful border-lg">
-                {
-                    Array.from({length: 6}, (_, index) => (
-                        <Catalog.Skeleton.Product key={index}/>
-                    ))
-                }
+                {Array.from({length: 6}, (_, index) => (
+                    <Catalog.Skeleton.Product key={index}/>
+                ))}
             </div>
         </SimilarProductsContainer>
     }
@@ -53,17 +51,13 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
             <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-full border">
-                {
-                    products?.length ? (
-                        products.map(product => (
-                            <Catalog.Card.MProduct key={product.id} product={product} />
-                        ))
-                    ): (
-                        <h2 className="m-auto font-medium text-xl">
-                            🙅 There are not similar products yet.
-                        </h2>
-                    )
-                }
+                {products?.length ? products.map(product => (
+                    <Catalog.Card.MProduct key={product.id} product={product} />
+                )): (
+                    <h2 className="m-auto font-medium text-xl">
+                        🙅 There are not similar products yet.
+                    </h2>
+                )}
             </div>
         </SimilarProductsContainer>
     );

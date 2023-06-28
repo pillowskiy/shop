@@ -1,7 +1,7 @@
-import type {FC} from 'react';
+import {type FC, useContext} from 'react';
+
 import {Textarea} from "@ui/Textarea";
 import {Card} from "@common/Card";
-import {useContext} from "react";
 import {WorkShopContext} from "@containers/product/containers/workshop";
 
 interface TextareaCardProps {

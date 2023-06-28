@@ -1,6 +1,5 @@
-import type {FC} from 'react';
+import {FC, useState} from 'react';
 import {ConfirmDialog} from "@containers/dialog/ConfirmDialog";
-import {useState} from "react";
 import {Button} from "@ui/Button";
 
 interface ProductActionConfirmProps {

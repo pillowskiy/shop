@@ -1,13 +1,13 @@
 import type {FC} from 'react';
 
-import AuthProvider from "@providers/AuthProvider";
-
 import {EmptyItems} from "@containers/EmptyItems";
+import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
 import {Main} from "@containers/Main";
 import {Meta} from "@containers/Meta";
 
+import AuthProvider from "@providers/AuthProvider";
 import {useFavorites} from "@hooks/useFavorites";
-import {HorizontalSkeleton} from "@containers/product/cards/HorizontalSkeleton";
+
 import {MFavoriteProductCard} from "@containers/product/cards/FavoriteProductCard";
 import {opacityListAnimation} from "@lib/animations";
 

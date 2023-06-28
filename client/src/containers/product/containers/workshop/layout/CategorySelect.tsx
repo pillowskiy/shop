@@ -1,12 +1,25 @@
 import {type FC, useState} from 'react';
 import {Button} from "@ui/Button"
 import {Check, ChevronDown} from "lucide-react";
+
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+} from "@common/Command";
+
+import {
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+} from "@common/Popover";
+
 import {useQuery} from "@tanstack/react-query";
 import CategoryService from "@api/services/category.service";
+
 import {cn} from "@lib/utils";
-import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem} from "@common/Command";
-import {Popover, PopoverTrigger} from "@radix-ui/react-popover";
-import {PopoverContent} from "@common/Popover";
 
 interface CategorySelectProps {
     selectedCategories: number[];

@@ -1,11 +1,11 @@
 import {type FC, useContext} from 'react';
-import {cn} from "@lib/utils";
 import {Zap} from "lucide-react";
 import {FavoriteButton} from "@containers/product/layout/FavoriteButton";
 import {CartButton} from "@containers/cart/layout/CartButton";
 import {HoverInfoCard} from "@components/HoverInfoCard";
-import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
 import {BuyNowButton} from "@containers/cart/layout/BuyNowButton";
+import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
+import {cn} from "@lib/utils";
 
 export const ProductTradeButtons: FC = () => {
     const product = useContext(OverviewProductContext);
@@ -35,10 +35,10 @@ export const ProductTradeButtons: FC = () => {
                 </div>
             </HoverInfoCard>
 
-            <div className="w-full lg:w-1/2 flex gap-4">
+            <section className="w-full lg:w-1/2 flex gap-4">
                 <CartButton className="flex-1" variant="secondary" product={product} />
                 <FavoriteButton className="w-10 h-10 ml-auto" productId={product.id}/>
-            </div>
+            </section>
         </section>
     );
 };
