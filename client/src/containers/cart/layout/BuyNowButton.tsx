@@ -1,10 +1,13 @@
 import type {FC, PropsWithChildren} from 'react';
 import type {CartItem} from "@/types/cart.interface";
-import {Button, ButtonProps} from "@ui/Button";
-import {useAppDispatch} from "@redux/store";
-import {cn} from "@lib/utils";
-import {CartDialog} from "@containers/cart/dialogs/CartDialog";
+
 import {addToCart} from "@redux/cart/cart.slice";
+import {useAppDispatch} from "@redux/store";
+
+import {Button, type ButtonProps} from "@ui/Button";
+import {CartDialog} from "@containers/cart/dialogs/CartDialog";
+
+import {cn} from "@lib/utils";
 
 interface BuyNowButtonProps extends ButtonProps {
     items: CartItem[];

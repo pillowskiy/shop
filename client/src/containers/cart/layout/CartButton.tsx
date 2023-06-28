@@ -2,11 +2,14 @@ import type {FC} from 'react';
 import type {Product} from "@/types/product.interface";
 import {Button, type ButtonProps} from "@ui/Button";
 import {ShoppingCart} from "lucide-react";
+
 import {useCart} from "@hooks/useCart";
 import {useAppDispatch} from "@redux/store";
 import {addToCart} from "@redux/cart/cart.slice";
-import {cn} from "@lib/utils";
+
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
+
+import {cn} from "@lib/utils";
 
 interface CartButtonProps extends ButtonProps {
     product: Product;

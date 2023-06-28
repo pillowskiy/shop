@@ -1,9 +1,11 @@
 import type {FC} from 'react';
 import type {CartFullestItem} from "@/types/cart.interface";
+
 import {Card} from "@common/Card";
-import {cn} from "@lib/utils";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
+
 import {priceFormat} from "@lib/formatter";
+import {cn} from "@lib/utils";
 
 interface CartReadonlyItemCardProps {
     item: CartFullestItem;
@@ -19,19 +21,19 @@ export const CartReadonlyItemCard: FC<CartReadonlyItemCardProps> = ({item}) => {
             )}
         >
             <ProductHorizontalInfo product={item.product}/>
-            <section className="flex justify-between md:px-2">
-                <div className="py-2 text-center px-2 md:px-4">
+            <section className="flex justify-between md:px-2 w-full text-center">
+                <article className="py-2 px-2 md:px-4">
                     <h2 className="text-lg leading-5">{priceFormat(item.product.finalPrice)}</h2>
                     <p className="text-xs leading-3 m-auto text-primary opacity-90">Price</p>
-                </div>
-                <div className="py-2 text-center px-2 md:px-4">
+                </article>
+                <article className="py-2 px-2 md:px-4">
                     <h2 className="text-lg leading-5">{item.count}</h2>
                     <p className="text-xs leading-3 m-auto text-primary opacity-90">Item(s)</p>
-                </div>
-                <div className="py-2 text-center px-2 md:px-4">
+                </article>
+                <article className="py-2 px-2 md:px-4">
                     <h2 className="text-lg leading-5">{priceFormat(item.count * item.product.finalPrice)}</h2>
                     <p className="text-xs leading-3 m-auto text-primary opacity-90">Amount</p>
-                </div>
+                </article>
             </section>
         </Card>
     );

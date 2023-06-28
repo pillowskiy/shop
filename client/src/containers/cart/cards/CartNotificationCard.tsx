@@ -1,12 +1,16 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
 import {useCart} from "@hooks/useCart";
-import {priceFormat} from "@lib/formatter";
+
 import {Button} from "@ui/Button";
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
+import {Skeleton} from "@ui/Skeleton";
+
 import Link from "next/link";
 import Image from "next/image";
-import {Skeleton} from "@ui/Skeleton";
+
+import {priceFormat} from "@lib/formatter";
+
 
 export const CartNotificationCard: FC = () => {
     const {items, totalCost, isInitialLoading} = useCart();
@@ -55,14 +59,12 @@ export const CartNotificationCard: FC = () => {
                         />
                     ))
                 }
-                {
-                    items.length > 4 && (
-                        <div className="p-2 w-[64px] h-[64px] bg-muted shadow-md rounded-lg flex flex-col items-center justify-center">
-                            <h2 className="text-2xl font-medium leading-5">+{items.length - 4}</h2>
-                            <p className="text-xs text-primary opacity-90 leading-4">products</p>
-                        </div>
-                    )
-                }
+                {items.length > 4 && (
+                    <div className="p-2 w-[64px] h-[64px] bg-muted shadow-md rounded-lg flex flex-col items-center justify-center">
+                        <h2 className="text-2xl font-medium leading-5">+{items.length - 4}</h2>
+                        <p className="text-xs text-primary opacity-90 leading-4">products</p>
+                    </div>
+                )}
             </section>
 
             <section className="flex gap-2 flex-col lg:flex-row w-full md:w-4/12 lg:w-3/12 justify-end items-end">

@@ -1,14 +1,18 @@
 import {useEffect, useState, forwardRef} from "react";
 import type {CartFullestItem} from "@/types/cart.interface";
-import {Card} from "@common/Card";
 import {Trash} from "lucide-react";
-import {NumberFormInput} from "@components/NumberFormInput";
-import {Button} from "@ui/Button";
-import {useAppDispatch} from "@redux/store";
-import {removeFromCart, updateCartItem} from "@redux/cart/cart.slice";
 import {useDebounce} from "@hooks/useDebounce";
+
+import {Button} from "@ui/Button";
+
+import {NumberFormInput} from "@components/NumberFormInput";
+import {Card} from "@common/Card";
+
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 import {ProductPrice} from "@containers/product/layout/ProductPrice";
+import {useAppDispatch} from "@redux/store";
+import {removeFromCart, updateCartItem} from "@redux/cart/cart.slice";
+
 import {motion} from "framer-motion";
 
 interface CartProductCardProps {
@@ -38,7 +42,7 @@ const CartProductCard = forwardRef<HTMLDivElement, CartProductCardProps>(({item}
                     <Trash className="h-4 w-6 md:h-6 md:w-6"/>
                 </Button>
             </section>
-            <section className="-mt-2 flex justify-between items-end">
+            <footer className="-mt-2 flex justify-between items-end">
                 <NumberFormInput
                     type="number"
                     className="w-[72px] md:w-[96px]"
@@ -51,7 +55,7 @@ const CartProductCard = forwardRef<HTMLDivElement, CartProductCardProps>(({item}
                 <div className="p-2 h-10 flex space-x-2 items-center select-none">
                     <ProductPrice size="lg" product={item.product} />
                 </div>
-            </section>
+            </footer>
         </Card>
     );
 });
