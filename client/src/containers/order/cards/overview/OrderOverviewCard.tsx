@@ -54,7 +54,7 @@ const OrderOverviewCard = forwardRef<HTMLDivElement, OrderOverviewCardProps>(({o
                     </div>
                 </div>
 
-                <div className={cn({ "hidden": isOpen } )}>
+                <div className={cn({"hidden": isOpen})}>
                     <p className="text-xs text-primary opacity-90 leading-3">Order amount</p>
                     <p>{priceFormat(price)}</p>
                 </div>
@@ -67,43 +67,39 @@ const OrderOverviewCard = forwardRef<HTMLDivElement, OrderOverviewCardProps>(({o
                             }
                         )}
                     >
-                        {orderItems &&
-                            [...orderItems].slice(0, 3).map(item => (
-                                <div key={item.id}
-                                     className="w-[48px] h-[48px] bg-white rounded-lg gap-2 border">
-                                    <Image
-                                        className="object-cover object-top h-full w-auto rounded-lg m-auto"
-                                        src={item.product.images[0]}
-                                        alt="Product Image"
-                                        width={64}
-                                        height={64}
-                                    />
-                                </div>
-                            ))
-                        }
-                        {
-                            orderItems && orderItems.length > 3 && (
-                                <div className="w-[48px] h-[48px] p-2 bg-muted rounded-lg border text-center">
-                                    <h2 className="text-xl leading-4 mt-0.5">+{orderItems.length - 3}</h2>
-                                    <p className="text-primary text-[10px] opacity-90 leading-3">items</p>
-                                </div>
-                            )
-                        }
+                        {orderItems && [...orderItems].slice(0, 3).map(item => (
+                            <div key={item.id}
+                                 className="w-[48px] h-[48px] bg-white rounded-lg gap-2 border">
+                                <Image
+                                    className="object-cover object-top h-full w-auto rounded-lg m-auto"
+                                    src={item.product.images[0]}
+                                    alt="Product Image"
+                                    width={64}
+                                    height={64}
+                                />
+                            </div>
+                        ))}
+                        {orderItems && orderItems.length > 3 && (
+                            <div className="w-[48px] h-[48px] p-2 bg-muted rounded-lg border text-center">
+                                <h2 className="text-xl leading-4 mt-0.5">+{orderItems.length - 3}</h2>
+                                <p className="text-primary text-[10px] opacity-90 leading-3">items</p>
+                            </div>
+                        )}
                     </div>
 
                     <div className="p-2 w-10 h-10 text-primary opacity-90 ml-2">
                         {isOpen ?
-                            <ChevronUp className="animate-180-rotate" />:
-                            <ChevronDown className="animate-180-rotate" />
+                            <ChevronUp className="animate-180-rotate"/> :
+                            <ChevronDown className="animate-180-rotate"/>
                         }
                     </div>
                 </div>
             </section>
 
-            {isOpen && <OrderDetailedInfo order={order} items={orderItems} />}
+            {isOpen && <OrderDetailedInfo order={order} items={orderItems}/>}
         </main>
     );
 });
 OrderOverviewCard.displayName = "OrderOverviewCard";
 const MOrderOverviewCard = motion<OrderOverviewCardProps>(OrderOverviewCard);
-export { OrderOverviewCard, MOrderOverviewCard };
+export {OrderOverviewCard, MOrderOverviewCard};

@@ -1,13 +1,16 @@
 import type {FC, PropsWithChildren} from 'react';
 import type {Review} from "@/types/review.interface";
 import {Role} from "@/types/user.interface";
-import {useProfile} from "@hooks/useProfile";
+
+import {Trash2} from "lucide-react";
 import {Button, ButtonProps} from "@ui/Button";
+
+import {useProfile} from "@hooks/useProfile";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
-import {Trash2} from "lucide-react";
+
 import {cn} from "@lib/utils";
 
 interface ReviewDeleteButtonProps extends ButtonProps {

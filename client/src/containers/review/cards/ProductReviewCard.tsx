@@ -1,12 +1,14 @@
 import type {FC} from 'react';
+
+import {Skeleton} from "@ui/Skeleton";
 import {StarRating} from "@containers/product/layout/StarRating";
 import {ReviewProgressBar} from "@containers/review/cards/layout/ReviewProgressBar";
 import {ProductReviewForm} from "@containers/review/forms/ProductReviewForm";
-import {useProfile} from "@hooks/useProfile";
 import {ReviewComments} from "@containers/review/layout/ReviewComments";
+
+import {useProfile} from "@hooks/useProfile";
 import {useQuery} from "@tanstack/react-query";
 import ReviewService from "@api/services/review.service";
-import {Skeleton} from "@ui/Skeleton";
 
 import {MCard} from "@common/Card";
 import {opacityListAnimation} from "@lib/animations";
@@ -38,7 +40,7 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                     <h2 className="text-xl md:text-2xl font-medium">Customer reviews</h2>
                     <StarRating rating={reviewStatistic?.avg || 0}/>
                     <hr className="my-4"/>
-                    {   (reviewStatistic && !isLoading) ?
+                    {(reviewStatistic && !isLoading) ?
                         reviewStatistic.intervalCounts.map(({intervalCounts, percentages, rate}) => (
                             <ReviewProgressBar
                                 key={rate}
@@ -58,7 +60,7 @@ export const ProductReviewCard: FC<ProductReviewProps> = ({productId}) => {
                     <ProductReviewForm productId={productId} hasAccess={!!profile}/>
                 </aside>
                 <aside className="w-full md:w-2/3 md:ml-4 mt-2 md:mt-0 relative">
-                    <ReviewComments productId={productId} hasAccess={!!profile} />
+                    <ReviewComments productId={productId} hasAccess={!!profile}/>
                 </aside>
             </section>
         </MCard>

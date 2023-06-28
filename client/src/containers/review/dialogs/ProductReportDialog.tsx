@@ -1,5 +1,9 @@
 import type {FC, PropsWithChildren, FormEvent} from "react";
 
+import {Button} from "@ui/Button";
+import {Textarea} from "@ui/Textarea";
+import {FormCheckbox} from "@components/FormCheckbox";
+
 import {
     Dialog,
     DialogContent,
@@ -9,9 +13,6 @@ import {
     DialogTrigger,
 } from "@common/Dialog";
 
-import {Button} from "@ui/Button";
-import {Textarea} from "@ui/Textarea";
-import {FormCheckbox} from "@components/FormCheckbox";
 import {buildToast, useToast} from "@common/toast/useToast";
 
 export const ProductReportDialog: FC<PropsWithChildren> = ({children}) => {

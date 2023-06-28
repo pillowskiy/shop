@@ -1,5 +1,5 @@
-import {ReviewSort} from "@/types/review.interface";
 import {memo, useState} from "react";
+import {ReviewSort} from "@/types/review.interface";
 import {SortButton} from "@components/SortButton";
 import {HoverInfoCard} from "@components/HoverInfoCard";
 

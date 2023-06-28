@@ -1,15 +1,18 @@
-import type {Review} from "@/types/review.interface";
 import {memo} from "react";
+import type {Review} from "@/types/review.interface";
+
 import {Toggle} from "@ui/Toggle";
 import {Button} from "@ui/Button";
 import {ProductReportDialog} from "../../dialogs/ProductReportDialog";
+import {ReviewDeleteButton} from "@containers/review/layout/ReviewDeleteButton";
 import {StarRating} from "@containers/product/layout/StarRating";
+import {CommentUserHeader} from "@containers/comment/layout/CommentUserHeader";
+import Image from "next/image";
+
+import {useProfile} from "@hooks/useProfile";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
-import {useProfile} from "@hooks/useProfile";
-import {ReviewDeleteButton} from "@containers/review/layout/ReviewDeleteButton";
-import Image from "next/image";
-import {CommentUserHeader} from "@containers/comment/layout/CommentUserHeader";
+
 
 interface ReviewCommentProps {
     hasAccess: boolean;
