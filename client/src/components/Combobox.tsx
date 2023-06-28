@@ -1,21 +1,22 @@
-import type {FC} from "react";
-import {Check, ChevronsUpDown} from "lucide-react"
+"use client";
+import {type FC, useState} from "react";
+import {Check, ChevronsUpDown} from "lucide-react";
+import {Button} from "@/components/ui/Button";
+import {cn} from "@/lib/utils";
 
-import {cn} from "@/lib/utils"
-import {Button} from "@/components/ui/Button"
 import {
     Command,
     CommandEmpty,
     CommandGroup,
     CommandInput,
     CommandItem,
-} from "@common/Command"
+} from "@common/Command";
+
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@common/Popover"
-import {useState} from "react";
+} from "@common/Popover";
 
 interface ComboboxProps {
     items: {
@@ -38,7 +39,7 @@ export const Combobox: FC<ComboboxProps> = ({items, placeholder, onValueChange, 
                 <Button
                     variant="outline"
                     aria-expanded={open}
-                    className={cn("w-full justify-between mt-4 bg-popover", className)}
+                    className={cn("w-full justify-between bg-popover", className)}
                     disabled={disabled || !items.length}
                 >
                     {items.find((item) => item.value === value)?.label || placeholder}

@@ -1,14 +1,16 @@
+"use client";
 import type {FC} from 'react';
-import LibPhoneInput, {PhoneInputProps as LibPhoneInputProps} from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-import {useId, useState} from "react";
+import LibPhoneInput, {PhoneInputProps as LibPhoneInputProps} from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import {cn} from "@lib/utils";
 
-interface PhoneInputProps extends LibPhoneInputProps {}
+interface PhoneInputProps extends LibPhoneInputProps {
+    className?: string;
+}
 
-export const PhoneInput: FC<PhoneInputProps> = ({ ...props }) => {
+export const PhoneInput: FC<PhoneInputProps> = ({ className, ...props }) => {
     return (
-        <div className="flex flex-col space-y-1.5 mt-4">
+        <div className={cn("flex flex-col space-y-1.5", className)}>
             <label className="text-sm font-medium">
                 Phone number
             </label>

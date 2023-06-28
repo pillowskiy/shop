@@ -1,3 +1,4 @@
+"use client";
 import type {FC} from 'react';
 import {Button, ButtonProps} from "@ui/Button";
 import {cn} from "@lib/utils";

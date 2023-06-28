@@ -1,8 +1,9 @@
+"use client";
 import type {FC} from 'react';
-import {cn} from "@lib/utils";
+import Link, {LinkProps} from "next/link";
 import {ChevronRight} from "lucide-react";
 import {Badge} from "@ui/Badge";
-import Link, {LinkProps} from "next/link";
+import {cn} from "@lib/utils";
 
 interface GoodsHeadingProps extends LinkProps {
     href: string;
@@ -19,7 +20,7 @@ export const GoodsHeading: FC<GoodsHeadingProps> = ({href, children, badge, clas
                 "transition-all w-fit hover:px-2 flex gap-1 cursor-pointer", className)}
             {...props}
         >
-            <h1 className="text-xl">{children}</h1>
+            <h3 className="text-xl">{children}</h3>
             <ChevronRight className="w-5 h-5 mt-1.5"/>
             {badge && <Badge className="h-4 px-2 py-2.5" variant="secondary">{badge}</Badge>}
         </Link>

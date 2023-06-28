@@ -84,11 +84,12 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
 
             <hr className="my-2"/>
 
-            <FormSwitchBox label="Item used"/>
-            <FormSwitchBox label="The product is damaged"/>
+            <FormSwitchBox className="mt-2" label="Item used"/>
+            <FormSwitchBox className="mt-2" label="The product is damaged"/>
 
             <hr className="my-2"/>
             <FormSwitchBox
+                className="mt-2"
                 label="Discounted product"
                 onCheckedChange={(checked) => {
                     setIsDiscount(checked);
@@ -125,7 +126,7 @@ export const GeneralCard: FC<GeneralCardProps> = ({updateProduct, onConfirm}) =>
                 description="You cannot publish a product that is out of stock"
                 disabled={!!newProduct.quantity}
             >
-                <div>
+                <div className="mt-2">
                     <FormSwitchBox
                         label="The product is for sale"
                         disabled={!newProduct.quantity}

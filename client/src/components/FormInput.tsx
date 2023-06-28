@@ -1,8 +1,8 @@
-import {cn} from '@lib/utils';
-import {Label} from '@radix-ui/react-label';
+"use client";
+import {type FC, type PropsWithChildren, useId} from 'react';
 import {Input, type InputProps} from '@ui/Input';
-import type {FC, PropsWithChildren} from 'react';
-import {useId} from "react";
+import {Label} from "@ui/Label";
+import {cn} from '@lib/utils';
 
 export interface FormInputProps extends InputProps {
     label?: string;

@@ -1,12 +1,13 @@
+"use client";
 import type {FC, PropsWithChildren} from 'react';
+import type {HoverCardProps} from "@radix-ui/react-hover-card";
+import {cn} from "@lib/utils";
+
 import {
     HoverCard,
     HoverCardContent,
     HoverCardTrigger,
-} from "@common/HoverCard"
-import {HoverCardProps} from "@radix-ui/react-hover-card";
-import {cn} from "@lib/utils";
-
+} from "@common/HoverCard";
 
 interface HoverInfoCardProps extends HoverCardProps {
     title?: string;
@@ -21,7 +22,7 @@ export const HoverInfoCard: FC<PropsWithChildren<HoverInfoCardProps>> = ({descri
                 {children}
             </HoverCardTrigger>
             <HoverCardContent className={cn("w-80", disabled && "hidden")}>
-                <h4 className="text-sm font-semibold">{title}</h4>
+                <h5 className="text-sm font-semibold">{title}</h5>
                 <span className="text-sm text-muted-foreground leading-none">
                     {description}
                 </span>

@@ -1,6 +1,7 @@
+"use client";
 import type {FC} from 'react';
 import {Minus, Plus} from "lucide-react";
-import {FormInput, FormInputProps} from "@components/FormInput";
+import {FormInput, type FormInputProps} from "@components/FormInput";
 import {cn} from "@lib/utils";
 
 interface NumberFormInput extends FormInputProps {

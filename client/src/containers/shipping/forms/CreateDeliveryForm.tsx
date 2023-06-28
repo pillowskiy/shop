@@ -33,7 +33,7 @@ export const CreateDeliveryForm: FC<CreateDeliveryFormProps> = ({data, setData, 
                 <FormInput className="bg-white" label="Surname" {...formInputProps("surname")}/>
             </section>
             <section>
-                <PhoneInput value={data.phone} onChange={(phone) => setData({...data, phone})}/>
+                <PhoneInput className="mt-4" value={data.phone} onChange={(phone) => setData({...data, phone})}/>
                 {errors.phone && <p className="mt-1 text-xs text-destructive">{errors.phone}</p>}
             </section>
 

@@ -1,8 +1,10 @@
+"use client";
 import type {FC} from "react";
 import type {AvatarImageProps} from "@radix-ui/react-avatar";
 import {Skeleton} from "@ui/Skeleton";
-import {Avatar, AvatarFallback, AvatarImage} from "@common/Avatar";
 import {cn} from "@lib/utils";
+
+import {Avatar, AvatarFallback, AvatarImage} from "@common/Avatar";
 
 interface UserAvatarProps extends AvatarImageProps {}
 

@@ -41,35 +41,37 @@ export const DeliveryAddressForm: FC<DeliveryAddressFormProps> = ({data, updateD
     return (
         <form className="border rounded-lg p-2 bg-white">
             <p className="font-consolas text-sm text-primary opacity-90 text-center">Popular countries</p>
-            <div className="flex shrink mt-2 gap-4 justify-center">
+            <section className="flex shrink mt-2 gap-4 justify-center">
                 <UA className="w-8 h-8 object-cover rounded-full border md:hover:scale-[1.05] hover:border-green-400 transition-all cursor-pointer"/>
                 <DE className="w-8 h-8 object-cover rounded-full border md:hover:scale-[1.05] hover:border-green-400 transition-all cursor-pointer"/>
                 <FR className="w-8 h-8 object-cover rounded-full border md:hover:scale-[1.05] hover:border-green-400 transition-all cursor-pointer"/>
                 <PL className="w-8 h-8 object-cover rounded-full border md:hover:scale-[1.05] hover:border-green-400 transition-all cursor-pointer"/>
                 <GB className="w-8 h-8 object-cover rounded-full border md:hover:scale-[1.05] hover:border-green-400 transition-all cursor-pointer"/>
-            </div>
+            </section>
 
-            <Combobox
-                items={updatedCountries}
-                placeholder="Select country"
-                onValueChange={(value) => updateData({country: value})}
-            />
-            <Combobox
-                items={getState(data.country)}
-                placeholder="Select state"
-                onValueChange={(value) => updateData({ state: value })}
-                disabled={!data.country}
-            />
-            <Combobox
-                items={getCity(data.country, data.state)}
-                placeholder="Select city"
-                onValueChange={(value) => updateData({ city: value })}
-                disabled={!data.state}
-            />
+            <section className="flex flex-col space-y-4 mt-4">
+                <Combobox
+                    items={updatedCountries}
+                    placeholder="Select country"
+                    onValueChange={(value) => updateData({country: value})}
+                />
+                <Combobox
+                    items={getState(data.country)}
+                    placeholder="Select state"
+                    onValueChange={(value) => updateData({ state: value })}
+                    disabled={!data.country}
+                />
+                <Combobox
+                    items={getCity(data.country, data.state)}
+                    placeholder="Select city"
+                    onValueChange={(value) => updateData({ city: value })}
+                    disabled={!data.state}
+                />
+            </section>
 
-            <CardDescription className="mt-1 text-xs">
+            <span className="mt-1 text-xs text-muted-foreground">
                 Make sure your city is in a supported country
-            </CardDescription>
+            </span>
         </form>
     );
 };

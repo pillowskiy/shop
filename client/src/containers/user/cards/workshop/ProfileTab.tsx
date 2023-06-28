@@ -78,7 +78,7 @@ export const ProfileTab: FC = () => {
             </CardHeader>
             <CardContent className="md:max-h-[600px] overflow-y-auto rounded-lg">
                 <FormInput className="bg-white" label="Username" {...getInputValues("name")}/>
-                <PhoneInput />
+                <PhoneInput className="mt-4" />
                 <FormInput className="bg-white" label="Email" type="email" {...getInputValues("email")}/>
 
                 <section className="flex gap-2 items-center mt-4">
