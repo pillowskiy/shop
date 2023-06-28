@@ -1,11 +1,11 @@
-import type {FC} from 'react';
+import {type FC, useEffect, useState} from 'react';
+
 import {Swiper} from "@containers/swiper/layout/Swiper";
 import {SwiperItem} from "@containers/swiper/layout/SwiperItem";
-import {useEffect, useState} from "react";
-import Image from "next/image";
-import {cn} from "@lib/utils";
-import {ITEMS} from "@containers/swiper/constants";
 import {SwiperSlick} from "@containers/swiper/layout/SwiperSlick";
+import {ITEMS} from "@containers/swiper/constants";
+
+import Image from "next/image";
 
 const imageSrc = (index: number) => {
     const srcs = [

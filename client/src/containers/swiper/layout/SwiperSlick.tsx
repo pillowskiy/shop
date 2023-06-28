@@ -1,6 +1,6 @@
-import React, {memo} from 'react';
-import {cn} from "@lib/utils";
+import {memo} from 'react';
 import {ITEMS} from "@containers/swiper/constants";
+import {cn} from "@lib/utils";
 
 interface SwiperSlickProps {
     activeIndex: number
