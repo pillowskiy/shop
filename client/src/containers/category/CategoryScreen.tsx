@@ -2,14 +2,13 @@ import type {FC} from 'react';
 
 import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
-
+import {Loader} from "@containers/Loader";
 import {Carousel} from "@containers/swiper/Carousel";
+import * as Catalog from "@containers/category/cards/catalog";
+import {NotFoundScreen} from "@containers/NotFoundScreen";
 
 import {useQuery} from "@tanstack/react-query";
-import {Loader} from "@containers/Loader";
-import {Catalog} from "@containers/category";
 import CategoryService from "@api/services/category.service";
-import {NotFoundScreen} from "@containers/NotFoundScreen";
 
 export const CategoryScreen: FC = () => {
     const {data: categories, isLoading} = useQuery(['get categories'], () => {

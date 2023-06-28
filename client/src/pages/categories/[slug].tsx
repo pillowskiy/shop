@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router';
 import {getStringFromQuery} from "@lib/utils";
 
-import {CategoryProductsScreen} from "@containers/screens/CategoryProductsScreen";
+import {CategoryProductsScreen} from "@containers/category/CategoryProductsScreen";
 
 export default function Page() {
     const router = useRouter();

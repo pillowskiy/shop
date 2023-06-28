@@ -47,18 +47,16 @@ export const CartNotificationCard: FC = () => {
             </section>
 
             <section className="flex gap-2 select-none max-w-full overflow-x-auto">
-                {
-                    items.slice(0, 4).map(item => (
-                        <Image
-                            key={item.product.id}
-                            className="w-[64px] h-[64px] rounded-lg border object-cover"
-                            src={item.product.images[0]}
-                            alt="Product Image"
-                            width={96}
-                            height={96}
-                        />
-                    ))
-                }
+                {items.slice(0, 4).map(item => (
+                    <Image
+                        key={item.product.id}
+                        className="w-[64px] h-[64px] rounded-lg border object-cover"
+                        src={item.product.images[0]}
+                        alt="Product Image"
+                        width={96}
+                        height={96}
+                    />
+                ))}
                 {items.length > 4 && (
                     <div className="p-2 w-[64px] h-[64px] bg-muted shadow-md rounded-lg flex flex-col items-center justify-center">
                         <h2 className="text-2xl font-medium leading-5">+{items.length - 4}</h2>

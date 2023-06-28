@@ -1,1 +1,0 @@
-export * as Catalog from './cards/catalog';

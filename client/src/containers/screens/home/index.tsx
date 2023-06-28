@@ -7,7 +7,7 @@ import {Main} from "@containers/Main";
 import {Carousel} from "@containers/swiper/Carousel";
 import {GoodsHeading} from "@components/GoodsHeading";
 
-import {CategoryCatalog} from "./layout/CategoryCatalog";
+import {CategoryCatalog} from "../../category/CategoryCatalog";
 import {ProductCatalog} from "./layout/ProductCatalog";
 import {CartNotificationCard} from "@containers/cart/cards/CartNotificationCard";
 import {useRouter} from "next/router";

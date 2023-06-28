@@ -1,7 +1,7 @@
 import type {FC} from 'react';
 import {Card} from "@common/Card";
-import {cn} from "@lib/utils";
 import {Skeleton} from "@ui/Skeleton";
+import {cn} from "@lib/utils";
 
 export const CategorySkeleton: FC = () => {
     return (

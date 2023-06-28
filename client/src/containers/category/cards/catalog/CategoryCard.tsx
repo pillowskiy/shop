@@ -1,9 +1,9 @@
 import type {FC} from 'react';
+import type {Category} from "@/types/category.interface";
 import {Card} from "@common/Card";
-import {Category} from "@/types/category.interface";
-import {cn} from "@lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import {cn} from "@lib/utils";
 
 interface CategoryItemProps {
     category: Category;

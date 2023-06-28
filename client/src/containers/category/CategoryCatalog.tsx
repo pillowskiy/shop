@@ -2,7 +2,7 @@ import type {FC, PropsWithChildren} from 'react';
 import type {CategoryFilter} from "@/types/category.interface";
 import {useQuery} from "@tanstack/react-query";
 import CategoryService from "@api/services/category.service";
-import {Catalog} from "@containers/category";
+import * as Catalog from "@containers/category/cards/catalog";
 
 const CategoryContainer: FC<PropsWithChildren> = ({children}) => {
     return (
@@ -13,11 +13,11 @@ const CategoryContainer: FC<PropsWithChildren> = ({children}) => {
 }
 
 export const CategoryCatalog: FC<CategoryFilter> = ({...filterParams}) => {
-    const {data: categories, isLoading} = useQuery(['get categories', ...Object.values(filterParams)], () => {
-        return CategoryService.getAll(filterParams);
-    }, {
-        select: ({data}) => data,
-    });
+    const {data: categories, isLoading} = useQuery(
+        ['get categories', ...Object.values(filterParams)],
+        () => CategoryService.getAll(filterParams),
+        { select: ({data}) => data }
+    );
 
     if (isLoading) {
         return (
@@ -31,11 +31,9 @@ export const CategoryCatalog: FC<CategoryFilter> = ({...filterParams}) => {
 
     return (
         <CategoryContainer>
-            {categories?.length ?
-                categories.map(category => (
-                    <Catalog.CategoryCard key={category.id} category={category}/>
-                )) : null
-            }
+            {!!categories?.length && categories.map(category => (
+                <Catalog.CategoryCard key={category.id} category={category}/>
+            ))}
         </CategoryContainer>
     );
 };

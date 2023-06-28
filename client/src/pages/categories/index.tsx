@@ -1,4 +1,4 @@
-import {CategoryScreen} from "@containers/screens/CategoryScreen";
+import {CategoryScreen} from "@containers/category/CategoryScreen";
 
 export default function Page() {
     return (
