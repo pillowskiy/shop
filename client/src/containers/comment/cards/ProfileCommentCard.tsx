@@ -11,7 +11,7 @@ interface ProfileCommentCardProps {
 
 const ProfileCommentCard = memo<ProfileCommentCardProps>(({comment, userId}) => {
     return (
-        <div className="w-full relative h-fit border p-2 rounded-md mb-4 bg-white animate-catalog-mount">
+        <article className="w-full relative h-fit border p-2 rounded-md mb-4 bg-white animate-catalog-mount">
             <CommentUserHeader user={comment.author} subtitle={comment.author.roles.at(-1)?.toString()}/>
             <p className="text-primary opacity-90 text-xs absolute right-0 mr-4 top-0 mt-5">
                 {new Date(comment.createdAt).toLocaleDateString()}
@@ -34,7 +34,7 @@ const ProfileCommentCard = memo<ProfileCommentCardProps>(({comment, userId}) => 
                     🗑️ <p className="hidden sm:block ml-1"> Delete</p>
                 </CommentDeleteButton>
             </footer>
-        </div>
+        </article>
     );
 });
 

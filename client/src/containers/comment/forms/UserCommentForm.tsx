@@ -1,16 +1,16 @@
-import type {FC} from 'react';
+import {type FC, useState} from 'react';
 import type {CreateCommentData, CreateCommentErrors} from "@/types/comment.interface";
-import {Card} from "@common/Card";
+import {Loader2} from "lucide-react";
+
 import {Textarea} from "@ui/Textarea";
-import {useProfile} from "@hooks/useProfile";
 import {UserAvatar} from "@components/UserAvatar";
 import {Button} from "@ui/Button";
-import {useState} from "react";
+
+import {useProfile} from "@hooks/useProfile";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import CommentService from "@api/services/comment.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
-import {Loader2} from "lucide-react";
 
 interface UserCommentFormProps {
     userId: number;
