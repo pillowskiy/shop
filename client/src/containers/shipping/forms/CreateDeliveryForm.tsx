@@ -1,9 +1,10 @@
 import type {FC} from 'react';
 import type {CreateShippingData} from "@/types/shipping.interface";
-import {FormInput, FormInputProps} from "@components/FormInput";
+import {FormInput, type FormInputProps} from "@components/FormInput";
 import {PhoneInput} from "@components/PhoneInput";
 import {HoverInfoCard} from "@components/HoverInfoCard";
 import {DeliveryAddressForm} from "@containers/shipping/forms/DeliveryAddressForm";
+
 import {useProfile} from "@hooks/useProfile";
 
 interface CreateDeliveryFormProps {
@@ -27,7 +28,7 @@ export const CreateDeliveryForm: FC<CreateDeliveryFormProps> = ({data, setData, 
     }
 
     return (
-        <div>
+        <form>
             <section className="flex gap-4">
                 <FormInput className="bg-white" label="Name" {...formInputProps("name")}/>
                 <FormInput className="bg-white" label="Surname" {...formInputProps("surname")}/>
@@ -48,6 +49,6 @@ export const CreateDeliveryForm: FC<CreateDeliveryFormProps> = ({data, setData, 
 
             <hr className="my-4"/>
             <DeliveryAddressForm data={data} updateData={(values) => setData({...data, ...values})}/>
-        </div>
+        </form>
     );
 };

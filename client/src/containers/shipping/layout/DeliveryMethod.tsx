@@ -1,15 +1,17 @@
-import {forwardRef} from 'react';
+import {forwardRef, useState} from 'react';
 import type {Shipping} from "@/types/shipping.interface";
 import {Package} from "lucide-react";
 import {Button} from "@ui/Button";
-import {getShippingName} from "@lib/csc";
 import {ConfirmDialog} from "@containers/dialog/ConfirmDialog";
-import {useState} from "react";
+
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import ShippingService from "@api/services/shipping.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
+
+import {getShippingName} from "@lib/csc";
 import {cn} from "@lib/utils";
+
 import {motion} from "framer-motion";
 
 interface DeliveryMethodProps {
@@ -37,11 +39,11 @@ const DeliveryMethod = forwardRef<HTMLDivElement, DeliveryMethodProps>(({shippin
     })
 
     return (
-        <section className={cn(
+        <article className={cn(
             "p-2 rounded-lg bg-white shadow-sm flex flex-col gap-2",
             "sm:flex-row border", {"opacity-80": !!shipping.temp},
         )}>
-            <div>
+            <section>
                 <div className="flex gap-1 items-center">
                     <Package className="h-5 sm:h-4 w-auto"/>
                     <p className="text-lg sm:text-base font-medium">
@@ -52,7 +54,7 @@ const DeliveryMethod = forwardRef<HTMLDivElement, DeliveryMethodProps>(({shippin
                     "This method is temporary" :
                     `Created: ${new Date(shipping.createdAt).toLocaleDateString()}`
                 }</p>
-            </div>
+            </section>
             <ConfirmDialog
                 title="Shipping Deletion"
                 description="Are you sure you want to remove the shipping method?"
@@ -72,7 +74,7 @@ const DeliveryMethod = forwardRef<HTMLDivElement, DeliveryMethodProps>(({shippin
                     Delete
                 </Button>
             </ConfirmDialog>
-        </section>
+        </article>
     );
 });
 
