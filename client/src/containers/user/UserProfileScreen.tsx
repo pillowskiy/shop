@@ -1,14 +1,17 @@
 import type {FC} from "react";
+
 import {useQuery} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
+
 import {Meta} from "@containers/Meta";
 import {Main} from "@containers/Main";
 import {Loader} from "@containers/Loader";
+import {NotFoundScreen} from "@containers/NotFoundScreen";
+
 import {UserActionCard} from "@containers/user/cards/profile/UserActionCard";
 import {UserInfoCard} from "@containers/user/cards/profile/UserInfoCard";
 import {UserTabsBreadcrumbCard} from "@containers/user/cards/profile/UserTabsBreadcrumbCard";
 import {UserTabCard} from "@containers/user/cards/profile/UserTabCard";
-import {NotFoundScreen} from "@containers/NotFoundScreen";
 import {UserCommentCard} from "@containers/user/cards/profile/UserCommentCard";
 
 interface ProfileScreenProps {

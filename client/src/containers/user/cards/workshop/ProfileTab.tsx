@@ -1,20 +1,25 @@
 import {useContext, type FC, useState} from 'react';
 import type {UserUpdate} from "@/types/user.interface";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
-import {FormInput, FormInputProps} from "@components/FormInput";
+import {Gender} from "@/types/user.interface";
+
 import {Button} from "@ui/Button";
-import {EditAvatarPopover} from "@containers/user/layout/EditAvatarPopover";
 import {Label} from "@ui/Label";
 import {Textarea} from "@ui/Textarea";
+
+import {FormInput, type FormInputProps} from "@components/FormInput";
+import {PhoneInput} from "@components/PhoneInput";
+
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
 import {RadioGroup, RadioGroupItem} from "@common/RadioGroup";
-import {DialogClose} from "@radix-ui/react-dialog";
-import {Gender} from "@/types/user.interface";
+
+import {EditAvatarPopover} from "@containers/user/layout/EditAvatarPopover";
+import {AccountContext} from "@containers/user/UserWorkshopScreen";
+
 import {useMutation} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
 import {buildToast, useToast} from "@common/toast/useToast";
 import {isAxiosError} from "axios";
-import {PhoneInput} from "@components/PhoneInput";
-import {AccountContext} from "@containers/screens/UserWorkshopScreen";
+
 
 const INITIAL_ERRORS: Record<keyof Omit<UserUpdate, 'id'>, string> = {
     aboutMe: "",

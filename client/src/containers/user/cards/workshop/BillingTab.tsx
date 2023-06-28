@@ -1,13 +1,25 @@
 import type {FC} from 'react';
 import {PaymentType} from "@/types/payment.interface";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
+
 import {Button} from "@ui/Button";
 import {Info, Plus} from "lucide-react";
-import {cn} from "@lib/utils";
-import {useQuery} from "@tanstack/react-query";
-import PaymentService from "@api/services/payment.service";
 import {MagicCardCreation} from "@containers/payment/MagicCardCreation";
 import {HoverInfoCard} from "@components/HoverInfoCard";
+
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@common/Card";
+
+import {useQuery} from "@tanstack/react-query";
+import PaymentService from "@api/services/payment.service";
+
+
+import {cn} from "@lib/utils";
 
 import {MPaymentMethod} from "@containers/payment/layout/PaymentMethod";
 import {opacityListAnimation} from "@lib/animations";

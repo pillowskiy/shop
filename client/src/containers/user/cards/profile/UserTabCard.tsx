@@ -1,11 +1,13 @@
 import type {FC, PropsWithChildren} from 'react';
+import {ProfileCommentCard} from "@containers/comment/cards/ProfileCommentCard";
+
 import {useQuery} from "@tanstack/react-query";
 import CommentService from "@api/services/comment.service";
-import {ProfileCommentCard} from "@containers/comment/cards/ProfileCommentCard";
+
+import {cn} from "@lib/utils";
 
 import {MCard} from "@common/Card";
 import {opacityListAnimation} from "@lib/animations";
-import {cn} from "@lib/utils";
 
 interface UserTabCardProps {
     userId: number;

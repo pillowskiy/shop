@@ -1,4 +1,4 @@
-import {UserWorkshopScreen} from "@containers/screens/UserWorkshopScreen";
+import {UserWorkshopScreen} from "@containers/user/UserWorkshopScreen";
 
 export default function Page() {
     return (

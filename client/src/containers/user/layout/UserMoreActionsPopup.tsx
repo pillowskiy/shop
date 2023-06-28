@@ -1,7 +1,13 @@
 import type {FC, PropsWithChildren} from 'react';
+import type {DropdownMenuProps} from "@radix-ui/react-dropdown-menu";
 import {UserX, Wallet, Flag} from "lucide-react";
-import {DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuItem} from "@common/DropdownMenu";
-import {DropdownMenuProps} from "@radix-ui/react-dropdown-menu";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+} from "@common/DropdownMenu";
 
 interface UserMoreActionsPopupProps extends DropdownMenuProps {}
 

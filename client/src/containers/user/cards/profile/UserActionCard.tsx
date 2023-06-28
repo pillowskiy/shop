@@ -1,12 +1,15 @@
 import type {FC} from 'react';
 import type {User} from "@/types/user.interface";
-import {Avatar, AvatarFallback, AvatarImage} from "@common/Avatar";
+
 import {Skeleton} from "@ui/Skeleton";
-import {UserActionButtons} from "@containers/user/layout/ActionButtons";
-import {useProfile} from "@hooks/useProfile";
 import {Button} from "@ui/Button";
-import {cn} from "@lib/utils";
+
+import {Avatar, AvatarFallback, AvatarImage} from "@common/Avatar";
+import {UserActionButtons} from "@containers/user/layout/ActionButtons";
 import Link from "next/link";
+
+import {useProfile} from "@hooks/useProfile";
+import {cn} from "@lib/utils";
 
 import {MCard} from "@common/Card";
 import {transformBottomY} from "@lib/animations";
@@ -33,12 +36,12 @@ export const UserActionCard: FC<UserActionCardProps> = ({user}) => {
                 </AvatarFallback>
             </Avatar>
 
-            <div className={cn(
+            <button className={cn(
                 "w-full px-1 py-2 h-10 bg-white border shadow-sm rounded-lg",
                 "uppercase font-bold text-center select-none"
-            )}>
+            )} disabled>
                 <p className="drop-shadow-lg text-primary shadow-muted-200">{user.roles.at(-1)}</p>
-            </div>
+            </button>
 
             {
                 user.id === profile?.id ? (

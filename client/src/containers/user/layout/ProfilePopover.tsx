@@ -1,5 +1,6 @@
 import type {FC, PropsWithChildren} from 'react';
 import type {User} from "@/types/user.interface";
+import type {DropdownMenuProps} from "@radix-ui/react-dropdown-menu";
 
 import {
     List,
@@ -22,14 +23,15 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
+
 } from "@common/DropdownMenu";
 
 import {useAppDispatch} from "@redux/store";
 import {logout as logoutAction} from "@redux/user/user.actions";
-import Link from "next/link";
+
 import {useQueryClient} from "@tanstack/react-query";
 import {useRouter} from "next/router";
-import {DropdownMenuProps} from "@radix-ui/react-dropdown-menu";
+import Link from "next/link";
 
 interface ProfilePopoverProps extends DropdownMenuProps {
     profile: User;

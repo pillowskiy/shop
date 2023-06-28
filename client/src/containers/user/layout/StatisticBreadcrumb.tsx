@@ -1,4 +1,5 @@
 import type {FC} from 'react';
+
 import StaticService from '@api/services/statistic.service';
 import {useQuery} from "@tanstack/react-query";
 

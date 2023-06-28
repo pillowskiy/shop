@@ -1,17 +1,27 @@
-import type {FC, PropsWithChildren} from 'react';
-import {Dialog, DialogTrigger} from "@radix-ui/react-dialog";
-import {DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@common/Dialog";
+import {type FC, type PropsWithChildren, type ChangeEvent, useState} from 'react';
+
+import {
+    Dialog,
+    DialogTrigger,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@common/Dialog";
+
 import {Image as ImageIcon} from "lucide-react";
 import {Button} from "@ui/Button";
-import {ChangeEvent, useState} from "react";
+import {HoverInfoCard} from "@components/HoverInfoCard";
 import Image from "next/image";
+
 import {cn} from "@lib/utils";
+
+import {useProfile} from "@hooks/useProfile";
 import {useMutation} from "@tanstack/react-query";
 import UserService from "@api/services/user.service";
 import {isAxiosError} from "axios";
 import {buildToast, useToast} from "@common/toast/useToast";
-import {useProfile} from "@hooks/useProfile";
-import {HoverInfoCard} from "@components/HoverInfoCard";
+
 
 export const EditAvatarPopover: FC<PropsWithChildren> = ({children}) => {
     const [image, setImage] = useState<{ preview: string, file: File } | null>(null);

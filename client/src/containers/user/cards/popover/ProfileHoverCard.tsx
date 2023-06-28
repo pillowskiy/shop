@@ -14,7 +14,6 @@ interface ProfileHoverCardProps {
 }
 
 export const ProfileHoverCard: FC<PropsWithChildren<ProfileHoverCardProps>> = ({children, user}) => {
-    // TEMP
     if (!user) {
         return <>{children}</>;
     }
@@ -25,9 +24,9 @@ export const ProfileHoverCard: FC<PropsWithChildren<ProfileHoverCardProps>> = ({
                 {children}
             </HoverCardTrigger>
             <HoverCardContent className="w-80">
-                <div className="flex justify-between space-x-4">
+                <main className="flex justify-between space-x-4">
                     <UserAvatar src={user.avatarURL} />
-                    <div className="space-y-1">
+                    <section className="space-y-1">
                         <h4 className="text-sm font-semibold">{user.name}</h4>
                         <p className="text-sm">
                             There will be some content here, but I have not figured out what it is yet. :D
@@ -38,8 +37,8 @@ export const ProfileHoverCard: FC<PropsWithChildren<ProfileHoverCardProps>> = ({
                                 Joined {new Date().toLocaleDateString()}
                             </span>
                         </div>
-                    </div>
-                </div>
+                    </section>
+                </main>
             </HoverCardContent>
         </HoverCard>
     );

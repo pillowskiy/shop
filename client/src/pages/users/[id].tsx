@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import {getStringFromQuery} from "@lib/utils";
 
-import {UserProfileScreen} from "@containers/screens/UserProfileScreen";
+import {UserProfileScreen} from "@containers/user/UserProfileScreen";
 
 export default function AuthLogin() {
     const router = useRouter();

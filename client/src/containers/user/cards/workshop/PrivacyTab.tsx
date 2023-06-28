@@ -1,12 +1,13 @@
-import type {FC} from 'react';
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
+import {type FC, useContext} from 'react';
+
 import {Button} from "@ui/Button";
 import {Label} from "@ui/Label";
 import {Checkbox} from "@ui/Checkbox";
-import React, {useContext} from "react";
-import {Select, SelectGroup, SelectValue} from "@radix-ui/react-select";
-import {SelectContent, SelectItem, SelectTrigger} from "@common/Select";
-import {AccountContext} from "@containers/screens/UserWorkshopScreen";
+
+import {Select, SelectGroup, SelectValue, SelectContent, SelectItem, SelectTrigger} from "@common/Select";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@common/Card";
+
+import {AccountContext} from "@containers/user/UserWorkshopScreen";
 import {HoverInfoCard} from "@components/HoverInfoCard";
 
 export const PrivacyTab: FC = () => {

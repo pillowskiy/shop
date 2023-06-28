@@ -1,10 +1,11 @@
 import type {FC} from 'react';
 import type {User} from "@/types/user.interface";
 import {Gender} from "@/types/user.interface";
+
 import {Package} from "lucide-react";
-import Link from "next/link";
 import {StatisticBreadcrumb} from "@containers/user/layout/StatisticBreadcrumb";
 import {InfoRow} from "@components/InfoRow";
+import Link from "next/link";
 
 import {MCard} from "@common/Card";
 import {opacityListAnimation} from "@lib/animations";

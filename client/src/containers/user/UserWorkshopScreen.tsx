@@ -1,11 +1,12 @@
-import type {FC} from 'react';
+import {type FC, createContext} from 'react';
 import type {User} from "@/types/user.interface";
-import {ProfileWorkshopTab} from "@containers/user/cards/workshop";
+
 import {Meta} from "@containers/Meta";
-import AuthProvider from "@providers/AuthProvider";
 import {Main} from "@containers/Main";
+import {ProfileWorkshopTab} from "@containers/user/cards/workshop";
+
 import {useProfile} from "@hooks/useProfile";
-import {createContext} from "react";
+import AuthProvider from "@providers/AuthProvider";
 
 export const AccountContext = createContext<User | undefined>(undefined);
 export const UserWorkshopScreen: FC = () => {

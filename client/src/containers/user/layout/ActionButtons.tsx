@@ -9,14 +9,14 @@ export const UserActionButtons: FC<UserActionButtons> = ({...props}) => {
     return (
         <section {...props}>
             <Button className="w-full mt-2" disabled>Write a message</Button>
-            <div className="flex gap-2 mt-2">
+            <section className="flex gap-2 mt-2">
                 <Button className="w-full" disabled>Subscribe</Button>
                 <UserMoreActionsPopup>
                     <Button className="px-2">
                         <MoreHorizontal/>
                     </Button>
                 </UserMoreActionsPopup>
-            </div>
+            </section>
         </section>
     );
 };
