@@ -1,8 +1,7 @@
-import type {FC, HTMLAttributes, PropsWithChildren} from "react";
-import {cn} from "@lib/utils";
+import {type HTMLAttributes, forwardRef} from "react";
 import {LucideIcon} from "lucide-react";
 import {useRouter} from "next/router";
-import {forwardRef} from "react";
+import {cn} from "@lib/utils";
 
 interface SideBarItemProps extends HTMLAttributes<HTMLLIElement> {
     title?: string;

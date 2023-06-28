@@ -1,13 +1,13 @@
-import {type FC, FormEvent, useRef, useState} from 'react';
-import {cn} from "@lib/utils";
-import {useComponentVisible} from "@hooks/useComponentVisible";
-
+import {type FC, type FormEvent, useRef, useState} from 'react';
 import {SearchInput, List} from "./layout";
 
 import ProductService from "@api/services/product.service";
+import {useComponentVisible} from "@hooks/useComponentVisible";
 import {useDebounce} from "@hooks/useDebounce";
 import {useQuery} from "@tanstack/react-query";
 import {useRouter} from "next/router";
+
+import {cn} from "@lib/utils";
 
 export const SearchBar: FC = () => {
     const [value, setValue] = useState<string>('');

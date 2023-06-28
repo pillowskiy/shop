@@ -1,7 +1,6 @@
 import {forwardRef, type InputHTMLAttributes} from 'react';
 import {Search, X} from "lucide-react";
 import {cn} from "@lib/utils";
-import * as React from "react";
 
 interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
     onClear: () => void;

@@ -1,21 +1,26 @@
 import type {FC} from 'react';
-import {useProfile} from "@hooks/useProfile";
-import {ProfilePopover} from "@containers/user/layout/ProfilePopover";
 import {LogIn} from "lucide-react";
-import {Item} from "@containers/containers/aside/layout/Item";
-import Image from "next/image";
 import {Skeleton} from "@ui/Skeleton";
+
+import {ProfilePopover} from "@containers/user/layout/ProfilePopover";
+import {Item} from "@containers/containers/aside/layout/Item";
+
+import {useProfile} from "@hooks/useProfile";
+import Image from "next/image";
 
 export const Profile: FC = () => {
     const {profile, isInitialLoading} = useProfile();
-    return isInitialLoading ? (
-        <li
-            className="cursor-pointer py-2 rounded-lg text-center w-1/5 h-full md:hidden select-none"
-        >
-            <Skeleton className="w-12 h-12 object-cover object-top m-auto rounded-full"/>
-        </li>
-    ) : profile ?
-        (
+
+    if (isInitialLoading) {
+        return (
+            <li className="cursor-pointer py-2 rounded-lg text-center w-1/5 h-full md:hidden select-none">
+                <Skeleton className="w-12 h-12 object-cover object-top m-auto rounded-full"/>
+            </li>
+        );
+    }
+
+    if (profile) {
+        return (
             <ProfilePopover profile={profile}>
                 <li
                     className="cursor-pointer py-2 rounded-lg text-center w-1/5 h-full md:hidden select-none"
@@ -29,7 +34,8 @@ export const Profile: FC = () => {
                     />
                 </li>
             </ProfilePopover>
-        ) : (
-            <Item className="md:hidden" href="/login" Icon={LogIn} title="Log in"/>
-        );
+        )
+    }
+
+    return <Item className="md:hidden" href="/login" Icon={LogIn} title="Log in"/>;
 };

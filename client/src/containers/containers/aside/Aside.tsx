@@ -1,10 +1,9 @@
 import {memo} from 'react';
 import {ShoppingCart, Heart, List, Home} from "lucide-react";
-import {cn} from "@lib/utils";
-
 import * as SideBar from './layout';
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import {useCart} from "@hooks/useCart";
+import {cn} from "@lib/utils";
 
 const Aside = memo(() => {
     const {totalItems} = useCart();
@@ -27,7 +26,7 @@ const Aside = memo(() => {
                                 }
                             )}
                         >
-                            {totalItems < 99 ? totalItems : "99+"}
+                            {totalItems < 100 ? totalItems : "99+"}
                         </p>
                     </SideBar.Item>
                 </CartDialog>

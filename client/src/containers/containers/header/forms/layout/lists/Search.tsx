@@ -1,8 +1,8 @@
 import type {FC} from 'react';
-import {Product} from "@/types/product.interface";
-import {Suggest, List} from "../";
-import {SearchGroup} from "@containers/containers/header/forms/layout/SearchGroup";
+import type {Product} from "@/types/product.interface";
 import {Search as SearchIcon} from "lucide-react";
+import {SearchGroup} from "@containers/containers/header/forms/layout/SearchGroup";
+import {Suggest, List} from "../";
 import Link from "next/link";
 
 interface SearchListProps {
