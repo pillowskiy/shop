@@ -1,4 +1,3 @@
-import type {CartItem} from './cart.interface';
 import type {Product} from "@/types/product.interface";
 import type {Payment} from "@/types/payment.interface";
 import type {Shipping} from "@/types/shipping.interface";

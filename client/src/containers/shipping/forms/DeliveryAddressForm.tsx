@@ -1,7 +1,8 @@
 import type {FC} from 'react';
 import type {CreateShippingData} from "@/types/shipping.interface";
-import {DE, FR, GB, PL, UA} from "country-flag-icons/react/1x1";
 import {Combobox} from "@components/Combobox";
+
+import {DE, FR, GB, PL, UA} from "country-flag-icons/react/1x1";
 import {Country, State, City} from "country-state-city";
 
 interface AddressValue {

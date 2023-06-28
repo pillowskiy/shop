@@ -1,5 +1,5 @@
 import type {User} from "@/types/user.interface";
-import {WithPaginationResponse} from "@/types/";
+import type {WithPaginationResponse} from "@/types/";
 
 export enum CommentSort {
     Newest = 'NEWEST',

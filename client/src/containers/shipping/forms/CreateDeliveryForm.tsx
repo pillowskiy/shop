@@ -1,10 +1,11 @@
 import type {FC} from 'react';
 import type {CreateShippingData} from "@/types/shipping.interface";
+
 import {FormInput, type FormInputProps} from "@components/FormInput";
 import {PhoneInput} from "@components/PhoneInput";
 import {HoverInfoCard} from "@components/HoverInfoCard";
-import {DeliveryAddressForm} from "@containers/shipping/forms/DeliveryAddressForm";
 
+import {DeliveryAddressForm} from "@containers/shipping/forms/DeliveryAddressForm";
 import {useProfile} from "@hooks/useProfile";
 
 interface CreateDeliveryFormProps {
