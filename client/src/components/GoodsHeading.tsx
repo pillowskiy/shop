@@ -22,7 +22,7 @@ export const GoodsHeading: FC<GoodsHeadingProps> = ({href, children, badge, clas
         >
             <h3 className="text-xl">{children}</h3>
             <ChevronRight className="w-5 h-5 mt-1.5"/>
-            {badge && <Badge className="h-4 px-2 py-2.5" variant="secondary">{badge}</Badge>}
+            {badge && <Badge className="h-4 p-2" variant="secondary">{badge}</Badge>}
         </Link>
     );
 };

@@ -54,8 +54,8 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
                 {products?.length ? products.map(product => (
                     <Catalog.Card.MProduct key={product.id} product={product} />
                 )): (
-                    <h2 className="m-auto font-medium text-xl">
-                        🙅 There are not similar products yet.
+                    <h2 className="m-auto font-medium text-xl text-center">
+                        🙅 There are no similar products yet.
                     </h2>
                 )}
             </div>

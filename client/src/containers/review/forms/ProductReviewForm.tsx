@@ -1,4 +1,4 @@
-import {type FC, type FormEvent, useState} from 'react';
+import {type FC, type FormEvent, useId, useState} from 'react';
 import type {ReviewCreate, ReviewErrors} from "@/types/review.interface";
 
 import {Loader2, Image as ImageIcon, Send, MoreHorizontal} from "lucide-react";
@@ -30,6 +30,7 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
     const [isLoading, setIsLoading] = useState(false);
 
     const {toast} = useToast();
+    const id = useId();
 
     const queryClient = useQueryClient();
     const {mutate} = useMutation(['create review', productId], ({formData}: {formData: FormData}) => {
@@ -80,10 +81,13 @@ export const ProductReviewForm: FC<ProductReviewFormProps> = ({productId, hasAcc
 
     return (
         <form onSubmit={onSubmit} className="pb-4 border-b">
-            <h2 className="text-xl md:text-2xl font-medium">Review this product</h2>
-            <p className="text-primary opacity-90">Share your thoughts with other customers</p>
+            <label htmlFor={id}>
+                <h2 className="text-xl md:text-2xl font-medium">Review this product</h2>
+                <p className="text-primary opacity-90">Share your thoughts with other customers</p>
+            </label>
             <section className="relative">
                 <Textarea
+                    id={id}
                     className={cn("mt-4 bg-white h-[120px]", {
                         'border-destructive': errors.text
                     })}
