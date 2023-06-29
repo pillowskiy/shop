@@ -8,6 +8,7 @@ import {
   IsString,
   Max,
   MaxLength,
+  Min,
 } from 'class-validator';
 import { product } from 'src/config/docs/swagger.entity';
 import { Transform, Type } from 'class-transformer';
@@ -38,7 +39,7 @@ export class ProductDto {
 
   @Type(() => Number)
   @Max(99, { message: 'The discount percentage cannot exceed 99%' })
-  @IsPositive({
+  @Min(0, {
     message: 'The discount percentage should be a positive number',
   })
   @IsNumber({}, { message: 'Number expected' })

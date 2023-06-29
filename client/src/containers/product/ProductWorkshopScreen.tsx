@@ -13,19 +13,19 @@ interface WorkshopScreenProps {
 }
 
 export const ProductWorkshopScreen: FC<WorkshopScreenProps> = ({id}) => {
-    const {data: product, isLoading} = useQuery(['get product by id', id], () => {
+    const {data: product, isInitialLoading} = useQuery(['get product by id', id], () => {
         return ProductService.getByValue("id", +id);
     }, {
         select: ({data}) => data,
         enabled: !!id && id !== "@me",
     });
 
-    if (!product && id !== "@me" && !isLoading) {
-        return <NotFoundScreen />
+    if (!product && isInitialLoading || !id) {
+        return <Loader/>;
     }
 
-    if (!product || !id || isLoading) {
-        return <Loader/>;
+    if (!product && id !== "@me" && !isInitialLoading) {
+        return <NotFoundScreen />
     }
 
     return (
