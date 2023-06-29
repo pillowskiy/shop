@@ -1,14 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import type { AuthResponse, LoginBody, RegisterBody } from '@/types';
+import type {AppDispatch, RootState} from "@redux/store";
+import type {ApiReject, ApiValidationReject} from "@/types";
+
 import AuthService from '@api/services/auth.service';
 import TokenService from '@api/services/token.service';
+
 import {rejectAxios} from "@lib/utils";
-import type {AppDispatch, RootState} from "@redux/store";
-import {ApiReject, ApiValidationReject} from "@/types";
 import {isAxiosError} from "axios";
 
-type AuthThunkConfig<T = any> = {
+type AuthThunkConfig<T = unknown> = {
   state: RootState,
   dispatch: AppDispatch,
   rejectValue: ApiValidationReject<T> | ApiReject;

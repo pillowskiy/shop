@@ -38,7 +38,7 @@ export class OrderService {
       products.map((product) => ({
         quantity: quantities[product.id] || 1,
         productId: product.id,
-        price: product.price,
+        price: product.finalPrice,
       }));
 
     const createData: Prisma.OrderCreateInput = {

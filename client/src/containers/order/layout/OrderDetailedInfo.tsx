@@ -38,7 +38,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                 <h2 className="font-medium text-xl select-none">Order information</h2>
                 <hr className="my-2"/>
 
-                <article className="py-2 border-b">
+                <section className="py-2 border-b">
                     <div className="flex items-center">
                         <Package className="w-5 h-5 mr-1 text-primary opacity-90"/>
                         <p>Courier to your address</p>
@@ -46,7 +46,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                     <p className="text-primary opacity-90 text-sm">
                         {getShippingName(order.shipping)}
                     </p>
-                </article>
+                </section>
 
                 <div className="mt-4">
                     <InfoRow title="Name">
@@ -105,7 +105,9 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                     </InfoRow>
                 )}
                 <InfoRow className="mt-2 text-lg" title="Amount">
-                    {priceFormat(makeDiscount(price, order.promoCode?.discountPercent || 0))}
+                    {priceFormat(
+                        makeDiscount(price, order.promoCode?.discountPercent || 0)
+                    )}
                 </InfoRow>
 
                 <div className="flex gap-2 md:gap-4 flex-col md:flex-row mt-4">
@@ -130,9 +132,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                         </div>
                     </HoverInfoCard>
 
-                    <BuyNowButton
-                        items={order.items.map(item => ({productId: item.id, count: 1}))}
-                    >
+                    <BuyNowButton items={order.items.map(item => ({productId: item.id, count: 1}))}>
                         Repeat the order
                     </BuyNowButton>
                     <CancelOrderButton order={order} />

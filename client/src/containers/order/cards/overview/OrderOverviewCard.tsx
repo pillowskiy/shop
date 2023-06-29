@@ -10,7 +10,7 @@ import {useQuery} from "@tanstack/react-query";
 import OrderService from "@api/services/order.service";
 
 import {priceFormat} from "@lib/formatter";
-import {cn} from "@lib/utils";
+import {cn, makeDiscount} from "@lib/utils";
 
 import {motion} from "framer-motion";
 
@@ -56,7 +56,11 @@ const OrderOverviewCard = forwardRef<HTMLDivElement, OrderOverviewCardProps>(({o
 
                 <div className={cn({"hidden": isOpen})}>
                     <p className="text-xs text-primary opacity-90 leading-3">Order amount</p>
-                    <p>{priceFormat(price)}</p>
+                    <p>
+                        {priceFormat(
+                            makeDiscount(price, order.promoCode?.discountPercent || 0)
+                        )}
+                    </p>
                 </div>
 
                 <div className="flex items-center">
