@@ -14,6 +14,7 @@ import {BuyNowButton} from "@containers/cart/layout/BuyNowButton";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@common/Accordion";
 
 import Link from "next/link";
+import {Routes} from "@config";
 
 import {useProfile} from "@hooks/useProfile";
 
@@ -124,7 +125,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                             >
                                 <Link
                                     className="w-full md:w-auto"
-                                    href={`/users/${order.items[0].product.ownerId}/#feed-back`}
+                                    href={`${Routes.Users}/${order.items[0].product.ownerId}/#feed-back`}
                                 >
                                     Leave a review
                                 </Link>

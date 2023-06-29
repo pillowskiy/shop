@@ -7,6 +7,7 @@ import Image from "next/image";
 import {Button} from "@ui/Button";
 import Link from "next/link";
 import {Skeleton} from "@ui/Skeleton";
+import {Routes} from "@config";
 
 const Header = memo(() => {
     const {profile, isInitialLoading} = useProfile();
@@ -35,7 +36,7 @@ const Header = memo(() => {
                         </ProfilePopover>
                     ) : (
                         <Button asChild>
-                            <Link href="/login">Login</Link>
+                            <Link href={Routes.Login}>Login</Link>
                         </Button>
                     )
                 }

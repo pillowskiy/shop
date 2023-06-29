@@ -1,15 +1,20 @@
 import {type FC, type FormEvent, useState} from 'react';
-import {FormInput} from "@components/FormInput";
-import {Anchor} from "@ui/Anchor";
-import {useAuth} from "@hooks/useAuth";
-import {Button} from "@ui/Button";
-import {useRouter} from "next/router";
 import type {ApiValidationReject, LoginBody} from "@types";
-import {buildToast, useToast} from "@layout/../../components/common/toast/useToast";
+
 import {Loader2} from "lucide-react";
+import {FormInput} from "@components/FormInput";
+import {Button} from "@ui/Button";
+
+import {Anchor} from "@ui/Anchor";
+import {Routes} from "@config";
+
+import {useAuth} from "@hooks/useAuth";
+import {useRouter} from "next/router";
+
 
 import {useAppDispatch} from "@redux/store";
 import {login} from "@redux/user/user.actions";
+import {buildToast, useToast} from "@layout/../../components/common/toast/useToast";
 
 const LOGIN_FIELDS: Record<keyof LoginBody, string> = {
     pseudonym: '',
@@ -74,8 +79,8 @@ export const LoginForm: FC = () => {
                 Submit
             </Button>
             <p className="text-sm text-muted-foreground">
-                Do not have an account yet?&nbsp;
-                <Anchor href="/register">Register</Anchor>
+                Do not have an account yet? {' '}
+                <Anchor href={Routes.Register}>Register</Anchor>
             </p>
         </form>
     );

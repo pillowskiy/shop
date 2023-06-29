@@ -7,6 +7,7 @@ import {EmptyItems} from "@containers/EmptyItems";
 import {Dialog, DialogTrigger, DialogContent, DialogTitle, DialogFooter} from "@common/Dialog";
 import {DialogClose} from "@radix-ui/react-dialog";
 
+import {Routes} from "@config";
 import Link from "next/link";
 
 import {MCartProductCard} from "@containers/cart/cards/CartProductCard";
@@ -54,7 +55,7 @@ export const CartDialog: FC<PropsWithChildren> = ({children}) => {
                             </h2>
                             <DialogClose asChild>
                                 <Button asChild>
-                                    <Link href="/checkout">Place an order</Link>
+                                    <Link href={Routes.OrderCheckout}>Place an order</Link>
                                 </Button>
                             </DialogClose>
                         </div>

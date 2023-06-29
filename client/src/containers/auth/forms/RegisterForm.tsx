@@ -1,17 +1,20 @@
-import type {FC} from 'react';
+import {type FC, type FormEvent, useState} from 'react';
+import type {ApiValidationReject, RegisterBody} from "@types";
+
+import {Loader2} from "lucide-react";
+import {Button} from "@ui/Button";
 import {FormInput} from "@components/FormInput";
 import {FormCheckbox} from "@components/FormCheckbox";
+
 import {Anchor} from "@ui/Anchor";
-import {Button} from "@ui/Button";
+import {Routes} from "@config";
+
 import {useRouter} from "next/router";
-import {buildToast, useToast} from "@layout/../../components/common/toast/useToast";
 import {useAuth} from "@hooks/useAuth";
-import {Loader2} from "lucide-react";
-import {FormEvent, useState} from "react";
-import {ApiValidationReject, RegisterBody} from "@types";
 
 import {useAppDispatch} from "@redux/store";
 import {register} from "@redux/user/user.actions";
+import {buildToast, useToast} from "@layout/../../components/common/toast/useToast";
 
 const REGISTER_FIELDS: Record<keyof RegisterBody, string> = {
     email: '',
@@ -91,7 +94,7 @@ export const RegisterForm: FC = () => {
             </Button>
             <p className="text-sm text-muted-foreground mb-4">
                 Already have an account?&nbsp;
-                <Anchor href="/login">Login</Anchor>
+                <Anchor href={Routes.Login}>Login</Anchor>
             </p>
         </form>
     );

@@ -2,7 +2,9 @@ import {type FC, useContext, useEffect} from 'react';
 
 import {Select, SelectContent, SelectItem, SelectTrigger} from "@common/Select";
 import {CreateDeliveryForm} from "@containers/shipping/forms/CreateDeliveryForm";
+
 import Link from "next/link";
+import {Routes} from "@config";
 
 import {OrderCheckoutContext, OrderShippingContext} from "@containers/order/CheckoutScreen";
 import {INITIAL_SHIPPING_DATA} from "@containers/shipping/constant";
@@ -71,7 +73,7 @@ export const OrderDetailsCard: FC = () => {
                 {!shipping?.length &&
                     <Link
                         className="mt-4 bg-white shadow-sm border border-blue-300 p-2 rounded-lg text-center hidden sm:block"
-                        href="/profile?tab=shipping"
+                        href={`/${Routes.ProfileWorkshop}?tab=shipping`}
                     >
                         Add delivery details to your profile to automate ordering
                     </Link>

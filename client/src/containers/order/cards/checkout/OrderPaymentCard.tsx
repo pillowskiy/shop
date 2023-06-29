@@ -16,6 +16,7 @@ import {cn} from "@lib/utils";
 
 import {opacityListAnimation} from "@lib/animations";
 import {MCard} from "@common/Card";
+import {Routes} from "@config";
 
 export const OrderPaymentCard: FC = () => {
     const {paymentId, updateDetails} = useContext(OrderCheckoutContext);
@@ -69,7 +70,7 @@ export const OrderPaymentCard: FC = () => {
                                 "mt-2 bg-white shadow-sm border border hover:border-warning hover:underline",
                                 "transition-all p-2 rounded-lg text-center hidden sm:flex gap-1 justify-center"
                             )}
-                            href="/profile?tab=billing"
+                            href={`${Routes.ProfileWorkshop}?tab=billing`}
                         >
                             <p>You do not have any payment method, add it to your profile</p>
                             <Info className="w-4 h-4 text-primary opacity-90"/>

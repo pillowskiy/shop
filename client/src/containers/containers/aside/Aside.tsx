@@ -2,6 +2,8 @@ import {memo} from 'react';
 import {ShoppingCart, Heart, List, Home} from "lucide-react";
 import * as SideBar from './layout';
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
+
+import {Routes} from "@config";
 import {useCart} from "@hooks/useCart";
 import {cn} from "@lib/utils";
 
@@ -15,7 +17,7 @@ const Aside = memo(() => {
             )}
         >
             <SideBar.Items>
-                <SideBar.Item href="/" Icon={Home} title="Home"/>
+                <SideBar.Item href={Routes.Home} Icon={Home} title="Home"/>
                 <CartDialog>
                     <SideBar.Item Icon={ShoppingCart} title="Cart">
                         <p
@@ -31,8 +33,8 @@ const Aside = memo(() => {
                     </SideBar.Item>
                 </CartDialog>
                 <SideBar.Profile/>
-                <SideBar.Item href="/favorites" Icon={Heart} title="Favorites"/>
-                <SideBar.Item href="/orders" Icon={List} title="Orders"/>
+                <SideBar.Item href={Routes.Favorites} Icon={Heart} title="Favorites"/>
+                <SideBar.Item href={Routes.Orders} Icon={List} title="Orders"/>
             </SideBar.Items>
         </aside>
     );

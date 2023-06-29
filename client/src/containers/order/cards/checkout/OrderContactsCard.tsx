@@ -3,7 +3,9 @@ import {Card} from "@common/Card";
 import {MapPin, Info} from "lucide-react";
 import {HoverInfoCard} from "@components/HoverInfoCard";
 import {useProfile} from "@hooks/useProfile";
+
 import Link from "next/link";
+import {Routes} from "@config";
 
 export const OrderContactsCard: FC = () => {
     const {profile} = useProfile();
@@ -25,7 +27,7 @@ export const OrderContactsCard: FC = () => {
             </section>
             {profile && (
                 <Link
-                    href={`/profile?tab=shipping`}
+                    href={`${Routes.ProfileWorkshop}?tab=shipping`}
                     className="ml-auto opacity-90 md:hover:underline transition-all text-xs sm:text-sm"
                 >
                     Give access

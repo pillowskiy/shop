@@ -6,7 +6,9 @@ import {Button} from "@ui/Button";
 
 import {Avatar, AvatarFallback, AvatarImage} from "@common/Avatar";
 import {UserActionButtons} from "@containers/user/layout/ActionButtons";
+
 import Link from "next/link";
+import {Routes} from "@config";
 
 import {useProfile} from "@hooks/useProfile";
 import {cn} from "@lib/utils";
@@ -45,7 +47,7 @@ export const UserActionCard: FC<UserActionCardProps> = ({user}) => {
 
             {
                 user.id === profile?.id ? (
-                    <Link className="w-full" href="/profile">
+                    <Link className="w-full" href={Routes.ProfileWorkshop}>
                         <Button className="w-full">Edit profile</Button>
                     </Link>
                 ): (

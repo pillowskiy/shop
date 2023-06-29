@@ -1,6 +1,7 @@
 import type {FC} from 'react';
 import {Button} from "@ui/Button";
 import Link from "next/link";
+import {Routes} from "@config";
 
 interface NotFoundScreenProps {
     errorMessage?: string;
@@ -14,7 +15,7 @@ export const NotFoundScreen: FC<NotFoundScreenProps> = ({errorMessage}) => {
             <p className="text-mute-foreground">
                 {errorMessage || "The address was typed incorrectly or the page no longer exists on the site."}
             </p>
-            <Link href="/">
+            <Link href={Routes.Home}>
                 <Button className="mt-4">Go Home</Button>
             </Link>
         </div>

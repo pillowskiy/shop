@@ -5,8 +5,9 @@ import {Skeleton} from "@ui/Skeleton";
 import {ProfilePopover} from "@containers/user/layout/ProfilePopover";
 import {Item} from "@containers/containers/aside/layout/Item";
 
-import {useProfile} from "@hooks/useProfile";
+import {Routes} from "@config";
 import Image from "next/image";
+import {useProfile} from "@hooks/useProfile";
 
 export const Profile: FC = () => {
     const {profile, isInitialLoading} = useProfile();
@@ -37,5 +38,12 @@ export const Profile: FC = () => {
         )
     }
 
-    return <Item className="md:hidden" href="/login" Icon={LogIn} title="Log in"/>;
+    return (
+        <Item
+            className="md:hidden"
+            href={Routes.Login}
+            Icon={LogIn}
+            title="Log in"
+        />
+    );
 };

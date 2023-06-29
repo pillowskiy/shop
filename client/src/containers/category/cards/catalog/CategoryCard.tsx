@@ -1,8 +1,11 @@
 import type {FC} from 'react';
 import type {Category} from "@/types/category.interface";
 import {Card} from "@common/Card";
+
+import {Routes} from "@config";
 import Image from "next/image";
 import Link from "next/link";
+
 import {cn} from "@lib/utils";
 
 interface CategoryItemProps {
@@ -17,7 +20,7 @@ export const CategoryCard: FC<CategoryItemProps> = ({category}) => {
                 "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border"
             )
         }>
-            <Link className="flex h-[100px]" href={`categories/${category.slug}`}>
+            <Link className="flex h-[100px]" href={`${Routes.Categories}/${category.slug}`}>
                 <Image
                     className="h-full w-auto object-cover object-top rounded-l-lg"
                     src="https://www.ubertheme.com/wp-content/uploads/sites/3/edd/2014/06/jm-category.png"

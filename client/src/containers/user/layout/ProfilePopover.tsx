@@ -31,6 +31,7 @@ import {logout as logoutAction} from "@redux/user/user.actions";
 
 import {useQueryClient} from "@tanstack/react-query";
 import {useRouter} from "next/router";
+import {Routes} from "@config";
 import Link from "next/link";
 
 interface ProfilePopoverProps extends DropdownMenuProps {
@@ -58,7 +59,7 @@ export const ProfilePopover: FC<PropsWithChildren<ProfilePopoverProps>> = ({chil
                 <DropdownMenuLabel>{profile.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                    <Link className="w-full" href={`/users/${profile.id}`}>
+                    <Link className="w-full" href={`${Routes.Users}/${profile.id}`}>
                         <DropdownMenuItem>
                             <UserIcon className="mr-2 h-4 w-4"/>
                             <span>Your Profile</span>
@@ -95,13 +96,13 @@ export const ProfilePopover: FC<PropsWithChildren<ProfilePopoverProps>> = ({chil
 
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                    <Link className="w-full" href={'/products/workshop/@me'}>
+                    <Link className="w-full" href={`${Routes.ProductWorkshop}/@me`}>
                         <DropdownMenuItem>
                             <Plus className="mr-2 h-4 w-4"/>
                             <span>Create Product</span>
                         </DropdownMenuItem>
                     </Link>
-                    <Link className="w-full" href={`/products/users/${profile.id}`}>
+                    <Link className="w-full" href={`${Routes.UserProducts}/${profile.id}`}>
                         <DropdownMenuItem>
                             <Package className="mr-2 h-4 w-4"/>
                             <span>Your Products</span>

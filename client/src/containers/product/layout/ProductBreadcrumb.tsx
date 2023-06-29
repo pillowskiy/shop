@@ -1,7 +1,8 @@
 import {type FC, Fragment, useContext} from 'react';
-import {Anchor} from "@ui/Anchor";
 import {ChevronRight, Home} from 'lucide-react';
 import {OverviewProductContext} from "@containers/product/cards/overview/OverviewProductCard";
+import {Anchor} from "@ui/Anchor";
+import {Routes} from "@config";
 
 export const ProductBreadcrumb: FC = () => {
     const product = useContext(OverviewProductContext);
@@ -9,13 +10,13 @@ export const ProductBreadcrumb: FC = () => {
 
     return (
         <section className="hidden lg:flex gap-2 items-center py-2 px-4 rounded-md w-full bg-muted overflow-x-auto">
-            <Anchor href="/">
+            <Anchor href={Routes.Home}>
                 <Home className="w-5 h-5" />
             </Anchor>
             <ChevronRight className="text-primary w-4 h-4" />
             {product.categories.map(category => (
                 <Fragment key={category.id}>
-                    <Anchor href={`/categories/${category.slug}/`}>{category.name}</Anchor>
+                    <Anchor href={`${Routes.Categories}/${category.slug}/`}>{category.name}</Anchor>
                     <ChevronRight className="text-primary opacity-90 w-4 h-4" />
                 </Fragment>
             ))}

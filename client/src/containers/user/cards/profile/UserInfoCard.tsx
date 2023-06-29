@@ -5,6 +5,8 @@ import {Gender} from "@/types/user.interface";
 import {Package} from "lucide-react";
 import {StatisticBreadcrumb} from "@containers/user/layout/StatisticBreadcrumb";
 import {InfoRow} from "@components/InfoRow";
+
+import {Routes} from "@config";
 import Link from "next/link";
 
 import {MCard} from "@common/Card";
@@ -43,7 +45,7 @@ export const UserInfoCard: FC<UserInfoCardProps> = ({user}) => {
             </section>
             <section className="py-2 border-y mt-2">
                 <Link
-                    href={`/products/users/${user.id}`}
+                    href={`${Routes.UserProducts}/${user.id}`}
                     className="flex items-center md:hover:underline transition-all"
                 >
                     <Package className="w-4 h-4 mr-2"/>

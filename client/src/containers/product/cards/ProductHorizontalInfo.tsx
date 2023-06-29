@@ -4,6 +4,7 @@ import {QuantityBadge} from "@containers/product/layout/QuantityBadge";
 
 import Link from "next/link";
 import Image from "next/image";
+import {Routes} from "@config";
 
 interface ProductHorizontalInfoProps {
     product: Product;
@@ -11,7 +12,7 @@ interface ProductHorizontalInfoProps {
 
 export const ProductHorizontalInfo: FC<ProductHorizontalInfoProps> = ({product}) => {
     return (
-        <Link className="flex w-full md:w-11/12 h-[inherit] items-center" href={`/products/${product.slug}`}>
+        <Link className="flex w-full md:w-11/12 h-[inherit] items-center" href={`${Routes.Products}/${product.slug}`}>
             <section className="h-[72px] w-[72px] md:h-[96px] md:w-[96px] flex justify-center bg-white rounded-lg">
                 <Image
                     className="rounded-[inherit] h-full w-full cursor-pointer object-cover object-top"

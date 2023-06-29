@@ -8,6 +8,7 @@ import {Card, CardContent} from "@common/Card";
 
 import Image from "next/image";
 import Link from "next/link";
+import {Routes} from "@config";
 
 import {useProductRateAvg} from "@hooks/useProductRateAVG";
 import {cn} from "@lib/utils";
@@ -29,7 +30,7 @@ const Product = forwardRef<HTMLDivElement, ProductItemProps>(({product}, ref) =>
                 "hover:scale-[1.01] hover:shadow-xl hover:bg-muted transition-all duration-200 border cursor-pointer"
             )}
         >
-            <Link href={`/products/${product.slug}`}>
+            <Link href={`${Routes.Products}/${product.slug}`}>
                 <Image
                     className="w-full h-auto aspect-square object-cover object-top rounded-t-lg"
                     width={360}
@@ -40,7 +41,7 @@ const Product = forwardRef<HTMLDivElement, ProductItemProps>(({product}, ref) =>
                 />
             </Link>
             <CardContent className="px-custom md:px-4 py-3 w-full">
-                <Link href={`/products/${product.slug}`}>
+                <Link href={`${Routes.Products}/${product.slug}`}>
                     <p className={cn(
                         "text-sm text-foreground truncate block",
                         "capitalize hover:underline transition-all"

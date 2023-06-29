@@ -11,6 +11,7 @@ import {ProductCatalog} from "@containers/product/containers/ProductCatalog";
 import {CatalogWithQuery} from "@containers/product/containers/CatalogWithQuery";
 
 import {useRouter} from "next/router";
+import {Routes} from "@config";
 
 export default function HomePage() {
     const router = useRouter();
@@ -21,16 +22,22 @@ export default function HomePage() {
                 <Main>
                     <CartNotificationCard/>
                     <Carousel/>
-                    <GoodsHeading href="/categories">Categories</GoodsHeading>
+                    <GoodsHeading href={Routes.Categories}>Categories</GoodsHeading>
                     <CategoryCatalog perPage={4} page={1}/>
 
-                    <GoodsHeading href="/" badge="novelties 🔥">Newest</GoodsHeading>
+                    <GoodsHeading href={`${Routes.Home}?sort=${ProductSort.Newest}`} badge="novelties 🔥">
+                        Newest
+                    </GoodsHeading>
                     <ProductCatalog page={1} perPage={8} sort={ProductSort.HighPrice}/>
 
-                    <GoodsHeading href="/">Popular Products</GoodsHeading>
+                    <GoodsHeading href={`${Routes.Home}?sort=${ProductSort.Popular}`}>
+                        Popular Products
+                    </GoodsHeading>
                     <ProductCatalog page={1} perPage={8} sort={ProductSort.Popular}/>
 
-                    <GoodsHeading href="/">Rated Products</GoodsHeading>
+                    <GoodsHeading href={`${Routes.Home}?sort=${ProductSort.Rated}`}>
+                        Rated Products
+                    </GoodsHeading>
                     <ProductCatalog page={1} perPage={8} sort={ProductSort.Rated}/>
                 </Main>
             </Meta>

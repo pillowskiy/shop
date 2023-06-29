@@ -6,11 +6,11 @@ import {Button} from "@ui/Button";
 import {CartDialog} from "@containers/cart/dialogs/CartDialog";
 import {Skeleton} from "@ui/Skeleton";
 
+import {Routes} from "@config";
 import Link from "next/link";
 import Image from "next/image";
 
 import {priceFormat} from "@lib/formatter";
-
 
 export const CartNotificationCard: FC = () => {
     const {items, totalCost, isInitialLoading} = useCart();
@@ -69,7 +69,7 @@ export const CartNotificationCard: FC = () => {
                 <CartDialog>
                     <Button className="w-full md:w-fit" variant="link">Go to cart</Button>
                 </CartDialog>
-                <Link className="w-full md:w-fit" href="/checkout">
+                <Link className="w-full md:w-fit" href={Routes.OrderCheckout}>
                     <Button className="w-full">Place an order</Button>
                 </Link>
             </section>
