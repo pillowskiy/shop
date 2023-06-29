@@ -6,7 +6,7 @@ export enum Routes {
     ProductWorkshop = "/products/workshop",
     Users = "/users",
     OrderCheckout = "/checkout",
-    Favorites = "/products",
+    Favorites = "/favorites",
     Orders = "/orders",
     ProfileWorkshop = "/profile",
     Register = "/register",

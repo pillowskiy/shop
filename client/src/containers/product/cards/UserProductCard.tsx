@@ -8,9 +8,12 @@ import {Card} from "@common/Card";
 import {DeleteButton} from "@containers/product/layout/DeleteButton";
 import {ProductHorizontalInfo} from "@containers/product/cards/ProductHorizontalInfo";
 
-import {useRouter} from "next/router";
+import {Routes} from "@config";
+import Link from "next/link";
+
 import {useProfile} from "@hooks/useProfile";
 import {cn} from "@lib/utils";
+
 import {motion} from "framer-motion";
 
 interface UserProductProps {
@@ -20,7 +23,6 @@ interface UserProductProps {
 
 const UserProductCard = forwardRef<HTMLDivElement, UserProductProps>(({product, ownerId}, ref) => {
     const {profile} = useProfile();
-    const router = useRouter();
 
     return (
         <Card
@@ -39,9 +41,11 @@ const UserProductCard = forwardRef<HTMLDivElement, UserProductProps>(({product, 
                 <>
                     <Button
                         className="ml-auto mt-2 md:mt-0 w-full md:w-fit"
-                        onClick={() => router.push(`/products/workshop/${product.id}`)}
+                        asChild
                     >
-                        <Edit/> Edit
+                        <Link href={`${Routes.ProductWorkshop}/${product.id}`}>
+                            <Edit/> Edit
+                        </Link>
                     </Button>
                     <DeleteButton
                         className="hidden md:block mx-4"

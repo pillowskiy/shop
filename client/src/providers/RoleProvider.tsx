@@ -1,8 +1,11 @@
 import type {FC, PropsWithChildren} from 'react';
 import type {AuthFields} from "@/types/providers/auth-provider";
+
 import {useAuth} from '@hooks/useAuth';
-import {useRouter} from 'next/router';
 import {buildToast, useToast} from "@common/toast/useToast";
+
+import {useRouter} from 'next/router';
+import {Routes} from "@config";
 
 const RoleProvider: FC<PropsWithChildren<AuthFields>> = ({
   children,
@@ -16,7 +19,7 @@ const RoleProvider: FC<PropsWithChildren<AuthFields>> = ({
     return <div>{children}</div>;
   }
 
-  router.pathname !== '/' && router.replace('/').then(() => (
+  router.pathname !== Routes.Home && router.replace(Routes.Home).then(() => (
       toast(buildToast("error", {
         error: `You should be ${forAuth ? "authorized" : "unauthorized"} to see this page!`
       }).toast)

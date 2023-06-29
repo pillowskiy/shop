@@ -1,11 +1,14 @@
 import {type FC, type FormEvent, useRef, useState} from 'react';
 import {SearchInput, List} from "./layout";
 
+import {useQuery} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
+
 import {useComponentVisible} from "@hooks/useComponentVisible";
 import {useDebounce} from "@hooks/useDebounce";
-import {useQuery} from "@tanstack/react-query";
+
 import {useRouter} from "next/router";
+import {Routes} from "@config";
 
 import {cn} from "@lib/utils";
 
@@ -37,7 +40,7 @@ export const SearchBar: FC = () => {
         if (!debounce) return;
         setIsComponentVisible(false);
         inputRef.current?.blur();
-        return router.replace(`/?term=${debounce}`);
+        return router.replace(`${Routes.Home}?term=${debounce}`);
     }
 
     return (

@@ -5,6 +5,8 @@ import {Button, type ButtonProps} from "@ui/Button";
 import {ConfirmDialog} from "@containers/dialog/ConfirmDialog";
 
 import {useRouter} from "next/router";
+import {Routes} from "@config";
+
 import {useMutation} from "@tanstack/react-query";
 import ProductService from "@api/services/product.service";
 
@@ -20,7 +22,7 @@ export const DeleteButton: FC<DeleteButtonProps> = ({children, productId, ...pro
     const {mutate} = useMutation(['delete product', productId], () => {
         return ProductService.delete(productId);
     }, {
-        onSuccess: () => router.push('/'),
+        onSuccess: () => router.push(Routes.Home),
     });
 
     return (

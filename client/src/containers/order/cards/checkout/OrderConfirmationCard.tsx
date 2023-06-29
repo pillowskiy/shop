@@ -23,7 +23,9 @@ import {isAxiosError} from "axios";
 
 import {useContext} from "react";
 import {useCart} from "@hooks/useCart";
+
 import {useRouter} from "next/router";
+import {Routes} from "@config";
 
 import {useAppDispatch} from "@redux/store";
 import {clearCart} from "@redux/cart/cart.slice";
@@ -65,7 +67,7 @@ export const OrderConfirmationCard: FC<OrderConfirmationCardProps> = ({promo}) =
         });
     }, {
         onSuccess: async () => {
-            await router.push('/');
+            await router.push(Routes.Home);
             toast(buildToast("order.creation.success").toast);
             dispatch(clearCart())
         },
