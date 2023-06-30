@@ -2,6 +2,8 @@
 
 # 🛍️ E-Commerce Shop
 
+https://github.com/PillowPowa/shop/assets/97808006/186c61ea-8553-40e5-ae9d-ba22bd6891c7
+
 ## 🧑‍💻 Tech Stack
 
 ### Frontend:
