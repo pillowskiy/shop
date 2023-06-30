@@ -133,7 +133,7 @@ export const OrderDetailedInfo: FC<OrderDetailedInfoProps> = ({order, items}) =>
                         </div>
                     </HoverInfoCard>
 
-                    <BuyNowButton items={order.items.map(item => ({productId: item.id, count: 1}))}>
+                    <BuyNowButton items={order.items.map(item => ({productId: item.id, count: item.quantity}))}>
                         Repeat the order
                     </BuyNowButton>
                     <CancelOrderButton order={order} />

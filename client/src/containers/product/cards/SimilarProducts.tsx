@@ -38,11 +38,11 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
         return <SimilarProductsContainer>
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
-            <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-ful border-lg">
+            <section className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-ful border-lg">
                 {Array.from({length: 6}, (_, index) => (
                     <Catalog.Skeleton.Product key={index}/>
                 ))}
-            </div>
+            </section>
         </SimilarProductsContainer>
     }
 
@@ -50,7 +50,7 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
         <SimilarProductsContainer>
             <h2 className="text-2xl md:text-3xl font-bold">Similar products</h2>
             <hr className="mt-2 mb-4" />
-            <div className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-full border">
+            <section className="flex gap-4 overflow-x-auto p-4 bg-white rounded-lg w-full border">
                 {products?.length ? products.map(product => (
                     <Catalog.Card.MProduct key={product.id} product={product} />
                 )): (
@@ -58,7 +58,7 @@ export const SimilarProducts: FC<SimilarProductsProps> = ({productId}) => {
                         🙅 There are no similar products yet.
                     </h2>
                 )}
-            </div>
+            </section>
         </SimilarProductsContainer>
     );
 };
