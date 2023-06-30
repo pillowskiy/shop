@@ -14,8 +14,10 @@ import { CommentDto } from './dto/comment.dto';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
 import { User as PrismaUser } from '@prisma/client';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('comments')
+@ApiTags('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 

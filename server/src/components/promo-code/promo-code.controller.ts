@@ -11,7 +11,9 @@ import { PromoCodeService } from './promo-code.service';
 import { PromoCodeDto } from './dto/promo-code.dto';
 import { Auth } from '../../decorators/auth.decorator';
 import { Role, Roles } from '../../decorators/roles.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('payments')
 @Controller('promo-codes')
 export class PromoCodeController {
   constructor(private readonly promoCodesService: PromoCodeService) {}

@@ -1,87 +1,168 @@
+// TEMP: automate
+
 import {
   Category,
+  Comment,
   Order,
   OrderItem,
   OrderStatus,
   Product,
   Review,
   Role,
+  Payment,
+  PaymentType,
   User,
   Gender,
+  PromoCode,
+  Shipping,
 } from '@prisma/client';
 
-type OmitKeys =
-  | 'updatedAt'
-  | 'userId'
-  | 'productId'
-  | 'orderId'
-  | 'helpfulId'
-  | 'paymentId';
+type OmitKeys = 'productId' | 'helpfulId' | 'paymentId';
 type SwaggerSchema<T, K extends keyof T = null> = Omit<T, OmitKeys | K>;
 
-export const user: SwaggerSchema<User, 'password'> = {
+export const shipping: SwaggerSchema<Shipping, 'updatedAt'> = {
   id: 1,
+  city: 'Lviv',
+  state: 'Lvivska',
+  country: 'UA',
+  temp: true,
+  name: 'Shop',
+  surname: 'User',
+  phone: '+380500000000',
+  userId: 1,
+  createdAt: new Date(),
+};
+
+export const user: SwaggerSchema<User, 'password' | 'updatedAt'> = {
+  createdAt: new Date(),
+  id: 1,
+
   email: 'shop_user@gmail.com',
-  name: 'User',
-  avatarURL: 'https://somewhere.png/',
-  phone: '0123456789' || null,
-  roles: [Role.User],
+  name: 'ShopUser',
+  avatarURL: 'http://localhost:8080/api/uploads/some_image.png',
+  phone: '+380500000000',
 
-  aboutMe: 'Some text',
+  birthDate: new Date(1970, 1, 1),
+  aboutMe: 'Hi there',
+
   gender: Gender.Male,
-  birthDate: new Date(1970, 0, 1),
-
-  createdAt: new Date(),
+  roles: [Role.User],
 };
 
-export const product: SwaggerSchema<Product> = {
+export const payment: SwaggerSchema<Payment, 'updatedAt'> = {
   id: 1,
-  name: 'Car',
-  slug: 'car',
-  description: 'Beautiful car',
-  price: 1020,
-  discountPercent: 0,
-  finalPrice: 1020,
-  images: ['https://somewhere.png/cars/1', 'https://somewhere.png/cars/1'],
-  quantity: 5,
-  sold: 10235,
+  cardNumber: '12341111111111',
+  cardExpiresAt: new Date(),
+  cardCvv: '000',
+  type: PaymentType.MAGIC,
+  userId: user.id,
 
-  ownerId: 1,
+  temp: false,
 
   createdAt: new Date(),
 };
 
-export const category: SwaggerSchema<Category> = {
+export const category: SwaggerSchema<Category, 'createdAt' | 'updatedAt'> = {
   id: 1,
   name: 'Toys',
   slug: 'toys',
-
-  createdAt: new Date(),
 };
 
-export const review: SwaggerSchema<Review> = {
+type ProductEntity = SwaggerSchema<Product, 'updatedAt'> & {
+  categories: (typeof category)[];
+};
+export const product: ProductEntity = {
   id: 1,
-  rating: 4.2,
+  ownerId: user.id,
+  images: [
+    'http://localhost:8080/api/uploads/0ee9ce7b404d5202554d4c9ea5e9f166.png',
+  ],
+  quantity: 100,
+  name: 'Product Name',
+  price: 1000,
+  discountPercent: 10,
+  finalPrice: 900,
+  description: 'The best product',
+  createdAt: new Date(),
+  slug: 'product-name',
+  sold: 300,
+  categories: [category],
+};
+
+export const comment: SwaggerSchema<Comment, 'userId'> & {
+  author: typeof user;
+} = {
+  id: 1,
+  author: user,
+  authorId: user.id,
+  text: 'This sellet is really good',
+  rating: 4,
+
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+type ReviewEntity = SwaggerSchema<Review, 'updatedAt' | 'userId'> & {
+  helpful: Pick<typeof user, 'id' | 'name'>[];
+  user: typeof user;
+};
+export const review: ReviewEntity = {
+  id: 1,
   text: 'Beautiful product!',
+  rating: 5,
   attachments: ['https://somewhere.png/cars/1'],
+  user,
+  helpful: [
+    {
+      id: user.id,
+      name: user.name,
+    },
+  ],
 
   createdAt: new Date(),
 };
 
-export const order: SwaggerSchema<Order> = {
+export const promoCode: SwaggerSchema<PromoCode, 'updatedAt'> = {
   id: 1,
+  name: 'SUMMER2023',
+  activationLimit: 100,
+  discountPercent: 10,
+  ownerId: user.id,
+
+  expiresAt: new Date(2050, 1, 1),
+  createdAt: new Date(),
+};
+
+type OrderItemEntity = SwaggerSchema<OrderItem, 'createdAt' | 'updatedAt'> & {
+  product: typeof product;
+};
+export const orderItem: OrderItemEntity = {
+  id: 1,
+  orderId: 1,
+  product,
+  price: product.finalPrice,
+  quantity: 1,
+};
+
+type OrderEntity = SwaggerSchema<Order, 'shippingId' | 'promoCodeId'> & {
+  payment: typeof payment;
+  items: (typeof orderItem)[];
+  promoCode: typeof promoCode;
+  shipping: typeof shipping;
+};
+export const order: OrderEntity = {
+  id: 1,
+
+  payment,
+  items: [orderItem],
+  shipping,
+  promoCode,
+
   status: OrderStatus.PENDING,
-  promoCodeId: 1,
-  createdAt: new Date(),
-  shippingId: 1,
-};
-
-export const orderItem: SwaggerSchema<OrderItem> = {
-  id: 1,
-  quantity: 2,
-  price: 1020,
+  userId: user.id,
 
   createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 export const jwt = {
