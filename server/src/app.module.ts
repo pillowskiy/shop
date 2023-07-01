@@ -13,6 +13,8 @@ import { UploadModule } from './components/upload/upload.module';
 import { PromoCodeModule } from './components/promo-code/promo-code.module';
 import { PaymentModule } from './components/payment/payment.module';
 import { ShippingModule } from './components/shipping/shipping.module';
+import { CommentsModule } from './components/comment/comment.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -29,6 +31,11 @@ import { ShippingModule } from './components/shipping/shipping.module';
     PromoCodeModule,
     PaymentModule,
     ShippingModule,
+    CommentsModule,
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 100,
+    }),
   ],
   providers: [PrismaService],
 })
