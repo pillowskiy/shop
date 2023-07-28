@@ -13,9 +13,9 @@ const AuthProvider: FC<PropsWithChildren<AuthFields>> = ({
   forAuth,
   children,
 }) => {
-  const {isLoaded} = useAuthChecker();
+  const {isLoading} = useAuthChecker();
 
-  if (!isLoaded) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <RoleProvider forAuth={forAuth}>

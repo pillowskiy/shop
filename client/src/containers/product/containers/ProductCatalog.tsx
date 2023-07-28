@@ -49,7 +49,7 @@ export const ProductCatalog: FC<Filter> = ({...filterParams}) => {
 
     return (
         <MProductContainer>
-            {data?.length ?
+            {data?.products?.length ?
                 data.products.map((product, index) => (
                     <Catalog.Card.MProduct custom={index} variants={mountAnimation} key={product.id} product={product}/>
                 )) :

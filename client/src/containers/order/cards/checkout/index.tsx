@@ -5,4 +5,3 @@ export {OrderDetailsCard} from "./OrderDetailsCard";
 export {OrderPaymentCard} from "./OrderPaymentCard";
 export {OrderProductsCard} from "./OrderProductsCard";
 export {OrderPromoCodeCard} from "./OrderPromoCodeCard";
-export {OrderInfoCard} from "./OrderInfoCard";
