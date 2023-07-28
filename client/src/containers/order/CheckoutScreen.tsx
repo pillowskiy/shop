@@ -89,6 +89,7 @@ export const CheckoutScreen: FC = () => {
                     <section
                         className="w-full md:w-full lg:w-[920px] xl:w-[1080px] sm:p-4 flex-col sm:flex-row flex gap-4">
                         <section className="w-full sm:w-8/12 lg:w-9/12">
+                            <Checkout.OrderInfoCard/>
                             <Checkout.OrderContactsCard/>
                             <Checkout.OrderProductsCard/>
                             <Checkout.OrderDeliveryCard/>

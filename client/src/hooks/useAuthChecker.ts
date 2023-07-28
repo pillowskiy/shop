@@ -5,16 +5,20 @@ import TokenService from "@api/services/token.service";
 import {useAuth} from "@hooks/useAuth";
 
 export const useAuthChecker = () => {
-    const {user, isLoading} = useAuth();
+    const [isLoaded, setIsLoaded] = useState(false);
+    const {user} = useAuth();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         const dispatchAuth = async () => {
             await dispatch(checkAuth());
+            setTimeout(() => setIsLoaded(true), 200);
         }
 
-        (TokenService.getToken() && !user) && dispatchAuth();
+        TokenService.getToken() && !user ? dispatchAuth() : setTimeout(() => setIsLoaded(true), 200);
+
+        return () => setIsLoaded(true);
     }, [dispatch]);
 
-    return {isLoading, user};
+    return {isLoaded, user};
 }

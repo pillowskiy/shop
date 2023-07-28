@@ -1,7 +1,7 @@
 "use client";
 import {type FC, useState} from "react";
 import {Check, ChevronsUpDown} from "lucide-react";
-import {Button} from "@ui/Button";
+import {Button} from "@/components/ui/Button";
 import {cn} from "@/lib/utils";
 
 import {
