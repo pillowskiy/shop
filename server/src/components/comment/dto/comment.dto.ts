@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
-import { comment } from 'src/config/docs/swagger.entity';
+import { comment } from '@src/config/docs/swagger.entity';
 
 export class CommentDto {
   @ApiProperty({

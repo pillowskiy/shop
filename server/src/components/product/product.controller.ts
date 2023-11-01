@@ -13,9 +13,9 @@ import {
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { FilterDto } from './dto/filter.dto';
-import { Auth } from 'src/decorators/auth.decorator';
+import { Auth } from '@src/decorators/auth.decorator';
 import { ProductDto } from './dto/product.dto';
-import { User } from 'src/decorators/user.decorator';
+import { User } from '@src/decorators/user.decorator';
 import type { User as PrismaUser } from '@prisma/client';
 import {
   ApiBody,
@@ -25,9 +25,9 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { product } from 'src/config/docs';
+import { product } from '@src/config/docs';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { ServerUrl } from 'src/decorators/server-url.decorator';
+import { ServerUrl } from '@src/decorators/server-url.decorator';
 
 @ApiTags('products')
 @Controller('products')

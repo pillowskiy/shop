@@ -8,7 +8,7 @@ import {
   MaxLength,
   IsNotEmpty,
 } from 'class-validator';
-import { review } from 'src/config/docs/swagger.entity';
+import { review } from '@src/config/docs/swagger.entity';
 
 export class ReviewDto {
   @ApiProperty({

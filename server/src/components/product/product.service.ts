@@ -5,23 +5,21 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import type { Prisma, User as PrismaUser } from '@prisma/client';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '@src/prisma.service';
 import { productFullestSelect, productSelect } from './prisma.partials';
 import { ProductDto } from './dto/product.dto';
-import slugify from 'src/utils/slugify';
+import slugify from '@src/utils/slugify';
 import { FilterDto, ProductSort } from './dto/filter.dto';
-import { PaginationService } from 'src/components/pagination/pagination.service';
-import { CategoryService } from 'src/components/category/category.service';
-import { matchRoles } from 'src/utils/Util';
+import { PaginationService } from '@src/components/pagination/pagination.service';
+import { matchRoles } from '@src/utils/Util';
 import { UploadService } from '../upload/upload.service';
-import { calculatePrice } from 'src/utils/productPrice';
+import { calculatePrice } from '@src/utils/productPrice';
 
 @Injectable()
 export class ProductService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly pagination: PaginationService,
-    private readonly categoryService: CategoryService,
     private readonly uploadService: UploadService,
   ) {}
 

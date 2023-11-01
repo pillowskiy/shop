@@ -8,14 +8,14 @@ import {
   Patch,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
-import { Auth } from 'src/decorators/auth.decorator';
+import { Auth } from '@src/decorators/auth.decorator';
 import {
   ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { order } from 'src/config/docs';
+import { order } from '@src/config/docs';
 import { User } from '../../decorators/user.decorator';
 import { OrderDto } from './dto/order.dto';
 

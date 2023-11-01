@@ -12,7 +12,7 @@ import {
   MinDate,
   MinLength,
 } from 'class-validator';
-import { user } from 'src/config/docs/swagger.entity';
+import { user } from '@src/config/docs/swagger.entity';
 import { Gender } from '@prisma/client';
 
 export class UserDto {

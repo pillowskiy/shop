@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '@src/prisma.service';
 import { OrderDto } from './dto/order.dto';
 import { OrderStatus, Prisma } from '@prisma/client';
 import { orderItemSelect, orderSelect } from './prisma.partials';

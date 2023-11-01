@@ -4,13 +4,13 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '@src/prisma.service';
 import { PaginationService } from '../pagination/pagination.service';
 import { CommentSort, FilterDto } from './dto/filter.dto';
 import { Prisma, User as PrismaUser } from '@prisma/client';
 import { commentSelect } from './prisma.partials';
 import { CommentDto } from './dto/comment.dto';
-import { matchRoles } from 'src/utils/Util';
+import { matchRoles } from '@src/utils/Util';
 
 @Injectable()
 export class CommentsService {

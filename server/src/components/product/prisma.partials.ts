@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { categorySelect } from 'src/components/category/prisma.partials';
+import { categorySelect } from '@src/components/category/prisma.partials';
 import { userSelect } from '../user/prisma.partials';
 
 export const productSelect: Prisma.ProductSelect = {

@@ -10,7 +10,7 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
-import { product } from 'src/config/docs/swagger.entity';
+import { product } from '@src/config/docs/swagger.entity';
 import { Transform, Type } from 'class-transformer';
 
 export class ProductDto {

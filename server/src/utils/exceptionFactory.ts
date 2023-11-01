@@ -1,10 +1,13 @@
-import { BadRequestException, ValidationError } from '@nestjs/common';
+import { BadRequestException, type ValidationError } from '@nestjs/common';
 
 export const exceptionFactory = (errors: ValidationError[]) => {
-  const validationErrors = {};
-  errors.forEach((error) => {
-    const { property, constraints } = error;
-    validationErrors[property] = Object.values(constraints)[0];
+  const validationErrors: Record<string, string> = {};
+  errors.forEach(({ property, constraints }) => {
+    if (!constraints) return;
+    const [errorMessage] = Object.values(constraints);
+    if (errorMessage) {
+      validationErrors[property] = errorMessage;
+    }
   });
   return new BadRequestException({ errors: validationErrors });
 };

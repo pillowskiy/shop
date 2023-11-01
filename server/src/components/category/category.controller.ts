@@ -10,10 +10,10 @@ import {
   Put, Query,
   UsePipes,
 } from '@nestjs/common';
-import { Auth } from 'src/decorators/auth.decorator';
+import { Auth } from '@src/decorators/auth.decorator';
 import { CategoryService } from './category.service';
 import { CategoryDto } from './dto/category.dto';
-import { Roles, Role } from 'src/decorators/roles.decorator';
+import { Roles, Role } from '@src/decorators/roles.decorator';
 import {
   ApiBody,
   ApiOkResponse,
@@ -21,7 +21,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { category } from 'src/config/docs';
+import { category } from '@src/config/docs';
 import { PaginationDto } from '../../dto/pagination.dto';
 
 @ApiTags('categories')

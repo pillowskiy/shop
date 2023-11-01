@@ -11,8 +11,8 @@ import {
 import { CommentsService } from './comment.service';
 import { FilterDto } from './dto/filter.dto';
 import { CommentDto } from './dto/comment.dto';
-import { Auth } from 'src/decorators/auth.decorator';
-import { User } from 'src/decorators/user.decorator';
+import { Auth } from '@src/decorators/auth.decorator';
+import { User } from '@src/decorators/user.decorator';
 import { User as PrismaUser } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
 

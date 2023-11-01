@@ -1,8 +1,8 @@
 import { NotFoundException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '@src/prisma.service';
 import { CategoryDto } from './dto/category.dto';
 import { categorySelect } from './prisma.partials';
-import slugify from 'src/utils/slugify';
+import slugify from '@src/utils/slugify';
 import type { Prisma } from '@prisma/client';
 import type { PaginationDto } from '../../dto/pagination.dto';
 import { PaginationService } from '../pagination/pagination.service';

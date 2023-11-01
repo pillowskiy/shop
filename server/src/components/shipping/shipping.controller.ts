@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Delete, Param, Get } from '@nestjs/common';
 import { ShippingService } from './shipping.service';
 import { ShippingDto } from './dto/shipping.dto';
-import { User } from 'src/decorators/user.decorator';
-import { Auth } from 'src/decorators/auth.decorator';
+import { User } from '@src/decorators/user.decorator';
+import { Auth } from '@src/decorators/auth.decorator';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('payments')

@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '@src/prisma.service';
 import { ReviewDto } from './dto/review.dto';
 import { reviewSelect } from './prisma.partials';
 import {

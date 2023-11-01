@@ -1,7 +1,7 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { StatisticService } from './statistic.service';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { statistic } from 'src/config/docs';
+import { statistic } from '@src/config/docs';
 
 @ApiTags('statistics')
 @Controller('statistics')

@@ -11,8 +11,8 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { Auth } from 'src/decorators/auth.decorator';
-import { User } from 'src/decorators/user.decorator';
+import { Auth } from '@src/decorators/auth.decorator';
+import { User } from '@src/decorators/user.decorator';
 import { ReviewDto } from './dto/review.dto';
 import { ReviewService } from './review.service';
 import {
@@ -22,11 +22,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { review } from 'src/config/docs';
+import { review } from '@src/config/docs';
 import { FilterDto } from './dto/filter.dto';
 import { User as PrismaUser } from '@prisma/client';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { ServerUrl } from 'src/decorators/server-url.decorator';
+import { ServerUrl } from '@src/decorators/server-url.decorator';
 
 @ApiTags('reviews')
 @Controller('reviews')

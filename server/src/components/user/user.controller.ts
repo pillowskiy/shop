@@ -10,8 +10,8 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { Auth } from 'src/decorators/auth.decorator';
-import { User } from 'src/decorators/user.decorator';
+import { Auth } from '@src/decorators/auth.decorator';
+import { User } from '@src/decorators/user.decorator';
 import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 import type { User as PrismaUser } from '@prisma/client';
@@ -22,9 +22,9 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { user } from 'src/config/docs';
+import { user } from '@src/config/docs';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ServerUrl } from 'src/decorators/server-url.decorator';
+import { ServerUrl } from '@src/decorators/server-url.decorator';
 
 @ApiTags('users')
 @Controller('users')

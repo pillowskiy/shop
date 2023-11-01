@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { StatisticService } from './statistic.service';
 import { StatisticController } from './statistic.controller';
-import { UserModule } from 'src/components/user/user.module';
+import { UserModule } from '@src/components/user/user.module';
 
 @Module({
   controllers: [StatisticController],

@@ -8,7 +8,7 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
-import { PaginationDto } from '../../../dto/pagination.dto';
+import { PaginationDto } from '@src/dto/pagination.dto';
 import { Transform } from 'class-transformer';
 
 export enum ProductSort {

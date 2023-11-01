@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '@src/prisma.service';
 import { PaymentDto } from './dto/payment.dto';
 import { hash } from 'argon2';
 import { paymentSelect } from './prisma.partials';

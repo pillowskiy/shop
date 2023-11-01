@@ -8,11 +8,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { auth } from 'src/config/docs';
-import { CookieEmptyPipe, Cookies } from 'src/decorators/cookies.decorator';
+import { auth } from '@src/config/docs';
+import { CookieEmptyPipe, Cookies } from '@src/decorators/cookies.decorator';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { Auth } from 'src/decorators/auth.decorator';
+import { Auth } from '@src/decorators/auth.decorator';
 
 @ApiBearerAuth()
 @ApiTags('auth')
@@ -78,7 +78,7 @@ export class AuthController {
   private updateCookie(res: Response, refreshToken: string) {
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      maxAge: this.configService.get<number>('REFRESH_EXPIRES'),
+      maxAge: +this.configService.getOrThrow<string>('REFRESH_EXPIRES'),
     });
   }
 }
