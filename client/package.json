@@ -30,6 +30,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
     "axios": "^1.3.6",
+    "caniuse-lite": "^1.0.30001559",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
@@ -43,9 +44,9 @@
     "react-phone-input-2": "^2.15.1",
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
-    "sharp": "^0.32.1",
-    "tailwind-merge": "^1.12.0",
-    "tailwindcss-animate": "^1.0.5",
+    "sharp": "^0.32.6",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "5.0.4"
   },
   "devDependencies": {
