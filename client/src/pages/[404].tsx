@@ -1,7 +1,5 @@
-import {NotFoundScreen} from "@containers/NotFoundScreen";
+import { NotFoundScreen } from '@containers/NotFoundScreen'
 
 export default function Page() {
-    return (
-        <NotFoundScreen />
-    )
+	return <NotFoundScreen />
 }

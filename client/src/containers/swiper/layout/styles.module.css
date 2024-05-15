@@ -1,41 +1,41 @@
 @media (max-width: 1080px) {
-    .item {
-        padding: 0;
-        width: 0;
-        transition: all .5s;
-    }
-    .item:last-child {
-        width: 100%;
-    }
+	.item {
+		padding: 0;
+		width: 0;
+		transition: all 0.5s;
+	}
+	.item:last-child {
+		width: 100%;
+	}
 }
 
 @media (min-width: 1080px) {
-    .item {
-        flex: 0;
-        padding: 0;
-        transition: all .5s;
-    }
-    .item:first-child {
-        animation: flex-to-lower .5s ease-out;
-    }
-    .item:nth-child(2) {
-        padding-right: 1rem;
-        flex: 2;
-    }
-    .item:nth-child(3) {
-        padding-right: 1rem;
-        flex: 1;
-    }
-    .item:nth-child(4) {
-        flex: 1;
-    }
+	.item {
+		flex: 0;
+		padding: 0;
+		transition: all 0.5s;
+	}
+	.item:first-child {
+		animation: flex-to-lower 0.5s ease-out;
+	}
+	.item:nth-child(2) {
+		padding-right: 1rem;
+		flex: 2;
+	}
+	.item:nth-child(3) {
+		padding-right: 1rem;
+		flex: 1;
+	}
+	.item:nth-child(4) {
+		flex: 1;
+	}
 }
 
 @keyframes flex-to-lower {
-    from {
-        flex: 2;
-    }
-    to {
-        flex: 0;
-    }
+	from {
+		flex: 2;
+	}
+	to {
+		flex: 0;
+	}
 }

@@ -1,2 +1,2 @@
-export {Search} from './Search';
-export {SearchSkeleton} from './SearchSkeleton';
+export { Search } from './Search'
+export { SearchSkeleton } from './SearchSkeleton'

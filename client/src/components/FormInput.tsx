@@ -1,8 +1,10 @@
 'use client'
+
+import { cn } from '@lib/utils'
 import { type FC, type PropsWithChildren, useId } from 'react'
+
 import { Input, type InputProps } from '@ui/Input'
 import { Label } from '@ui/Label'
-import { cn } from '@lib/utils'
 
 export interface FormInputProps extends InputProps {
 	label?: string

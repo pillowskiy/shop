@@ -1,14 +1,14 @@
-import type {Product} from "@/types/product.interface";
+import type { Product } from '@/types/product.interface'
 
 export interface CartItem {
-  productId: number;
-  count: number
+	productId: number
+	count: number
 }
 
-export interface CartFullestItem extends  CartItem {
-  product: Product;
+export interface CartFullestItem extends CartItem {
+	product: Product
 }
 
 export interface CartInitialState {
-  items: CartItem[];
+	items: CartItem[]
 }

@@ -1,27 +1,25 @@
-import type {FC, PropsWithChildren} from 'react';
-import type {AuthFields} from '@/types/providers/auth-provider';
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
+import type { FC, PropsWithChildren } from 'react'
 
-import {Loader} from "@containers/Loader";
-import {useAuthChecker} from "@hooks/useAuthChecker";
+import { Loader } from '@containers/Loader'
+
+import { useAuthChecker } from '@hooks/useAuthChecker'
+
+import type { AuthFields } from '@/types/providers/auth-provider'
 
 const RoleProvider = dynamic(() => import('./RoleProvider'), {
-  ssr: false,
-});
+	ssr: false
+})
 
 const AuthProvider: FC<PropsWithChildren<AuthFields>> = ({
-  forAuth,
-  children,
+	forAuth,
+	children
 }) => {
-  const {isLoaded} = useAuthChecker();
+	const { isLoaded } = useAuthChecker()
 
-  if (!isLoaded) return <Loader />;
+	if (!isLoaded) return <Loader />
 
-  return (
-    <RoleProvider forAuth={forAuth}>
-      {children}
-    </RoleProvider>
-  );
-};
+	return <RoleProvider forAuth={forAuth}>{children}</RoleProvider>
+}
 
-export default AuthProvider;
+export default AuthProvider

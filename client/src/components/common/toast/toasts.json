@@ -1,67 +1,67 @@
 {
-  "error": {
-    "variant": "destructive",
-    "title": "❌ Uh oh! Something went wrong.",
-    "description": "{ error }"
-  },
-  "order.creation.success": {
-    "title": "✅ Order creation",
-    "description": "You have successfully placed an order."
-  },
-  "order.cancellation.success": {
-    "title": "✅ You have successfully cancelled an order",
-    "description": "If you have any complaints about your order, please contact our administrators"
-  },
-  "promoCode.success": {
-    "title": "✅ Promo-Code",
-    "description": "Promo-Code { promoName } has been successfully activated."
-  },
-  "magic.creation.success": {
-    "title": "💎 Yay, now you are rich!",
-    "description": "You successfully opened magic card."
-  },
-  "product.workshop.success": {
-    "title": "✅ Product updating",
-    "description": "You successfully { action } a product"
-  },
-  "review.report.success": {
-    "title": "✅ Your complaint has been sent!",
-    "description": "Thank you for helping to improve the quality of our resource."
-  },
-  "review.post.success": {
-    "title": "✅ Your review has been sent!",
-    "description": "Thank you for helping to improve the quality of our resource."
-  },
-  "review.delete.success": {
-    "title": "🗑️ Review deletion",
-    "description": "You have successfully deleted a review"
-  },
-  "payment.delete.success": {
-    "title": "🗑️ Payment deletion",
-    "description": "You have successfully deleted a payment method"
-  },
-  "comment.post.success": {
-    "title": "✅ Your comment has been sent!",
-    "description": "Thank you for helping to improve the quality of our resource."
-  },
-  "comment.delete.success": {
-    "title": "🗑️ Comment deletion",
-    "description": "You have successfully deleted a comment"
-  },
-  "users.profile.update.success": {
-    "title": "👤 Profile updating",
-    "description": "You have successfully updated your profile"
-  },
-  "users.profile.update.avatar.success": {
-    "title": "👤 Profile updating",
-    "description": "You have successfully changed avatar"
-  },
-  "users.delivery.creation.success": {
-    "title": "🚩 Creating a delivery",
-    "description": "You have successfully added a new delivery address"
-  },
-  "users.delivery.delete.success": {
-    "title": "🚩 Deletion a delivery",
-    "description": "You have successfully deleted the delivery address"
-  }
+	"error": {
+		"variant": "destructive",
+		"title": "❌ Uh oh! Something went wrong.",
+		"description": "{ error }"
+	},
+	"order.creation.success": {
+		"title": "✅ Order creation",
+		"description": "You have successfully placed an order."
+	},
+	"order.cancellation.success": {
+		"title": "✅ You have successfully cancelled an order",
+		"description": "If you have any complaints about your order, please contact our administrators"
+	},
+	"promoCode.success": {
+		"title": "✅ Promo-Code",
+		"description": "Promo-Code { promoName } has been successfully activated."
+	},
+	"magic.creation.success": {
+		"title": "💎 Yay, now you are rich!",
+		"description": "You successfully opened magic card."
+	},
+	"product.workshop.success": {
+		"title": "✅ Product updating",
+		"description": "You successfully { action } a product"
+	},
+	"review.report.success": {
+		"title": "✅ Your complaint has been sent!",
+		"description": "Thank you for helping to improve the quality of our resource."
+	},
+	"review.post.success": {
+		"title": "✅ Your review has been sent!",
+		"description": "Thank you for helping to improve the quality of our resource."
+	},
+	"review.delete.success": {
+		"title": "🗑️ Review deletion",
+		"description": "You have successfully deleted a review"
+	},
+	"payment.delete.success": {
+		"title": "🗑️ Payment deletion",
+		"description": "You have successfully deleted a payment method"
+	},
+	"comment.post.success": {
+		"title": "✅ Your comment has been sent!",
+		"description": "Thank you for helping to improve the quality of our resource."
+	},
+	"comment.delete.success": {
+		"title": "🗑️ Comment deletion",
+		"description": "You have successfully deleted a comment"
+	},
+	"users.profile.update.success": {
+		"title": "👤 Profile updating",
+		"description": "You have successfully updated your profile"
+	},
+	"users.profile.update.avatar.success": {
+		"title": "👤 Profile updating",
+		"description": "You have successfully changed avatar"
+	},
+	"users.delivery.creation.success": {
+		"title": "🚩 Creating a delivery",
+		"description": "You have successfully added a new delivery address"
+	},
+	"users.delivery.delete.success": {
+		"title": "🚩 Deletion a delivery",
+		"description": "You have successfully deleted the delivery address"
+	}
 }

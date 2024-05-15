@@ -1,49 +1,49 @@
-import type {User} from './user.interface';
+import type { User } from './user.interface'
 
 export interface Tokens {
-    accessToken: string;
-    refreshToken: string;
+	accessToken: string
+	refreshToken: string
 }
 
 export interface UserInitialState {
-    user: User | null;
-    isLoading: boolean;
+	user: User | null
+	isLoading: boolean
 }
 
 export interface AuthResponse extends Tokens {
-    user: User;
+	user: User
 }
 
 export interface RegisterBody {
-    name: string;
-    email: string;
-    password: string;
+	name: string
+	email: string
+	password: string
 }
 
-export type LoginBody = (Pick<RegisterBody, 'password'>) & {
-    pseudonym: string;
+export type LoginBody = Pick<RegisterBody, 'password'> & {
+	pseudonym: string
 }
 
 export interface StatisticValue {
-    name: string;
-    value: string | number;
+	name: string
+	value: string | number
 }
 
 export type ApiValidationReject<T> = {
-    errors: {
-        [Key in keyof T]: string;
-    }
+	errors: {
+		[Key in keyof T]: string
+	}
 }
 
 export type ApiReject = {
-    message: string;
+	message: string
 }
 
 export interface Pagination {
-    page?: number;
-    perPage?: number;
+	page?: number
+	perPage?: number
 }
 
 export interface WithPaginationResponse {
-    length: number;
+	length: number
 }

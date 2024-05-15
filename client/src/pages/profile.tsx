@@ -1,7 +1,5 @@
-import {UserWorkshopScreen} from "@containers/user/UserWorkshopScreen";
+import { UserWorkshopScreen } from '@containers/user/UserWorkshopScreen'
 
 export default function Page() {
-    return (
-        <UserWorkshopScreen/>
-    );
-};
+	return <UserWorkshopScreen />
+}

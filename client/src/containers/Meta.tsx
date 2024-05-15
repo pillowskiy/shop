@@ -1,6 +1,6 @@
-import type { FC, PropsWithChildren } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import type { FC, PropsWithChildren } from 'react'
 
 export const toAppTitle = (title: string) => `${title} | Shop`
 

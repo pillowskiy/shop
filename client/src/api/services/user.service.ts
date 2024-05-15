@@ -1,27 +1,29 @@
-import type { AxiosResponse } from 'axios';
-import type { User } from '@/types/user.interface';
-import { $api } from '../api.interceptor';
+import type { AxiosResponse } from 'axios'
+
+import { $api } from '../api.interceptor'
+
+import type { User } from '@/types/user.interface'
 
 export default class UserService {
-  private static controller = 'users';
+	private static controller = 'users'
 
-  static async getProfile(): Promise<AxiosResponse<User>> {
-    return $api.get<User>(`/${UserService.controller}/profile`);
-  }
-  static async getById(userId: number): Promise<AxiosResponse<User>> {
-    return $api.get<User>(`/${UserService.controller}/profile/${userId}`);
-  }
-  static async toggleFavorite(productId: number): Promise<AxiosResponse<User>> {
-    return $api.patch<User>(
-      `/${UserService.controller}/profile/products/favorite/${productId}`
-    );
-  }
-  static async toggleHelpful(reviewId: number): Promise<AxiosResponse<User>> {
-    return $api.patch<User>(
-        `/${UserService.controller}/profile/reviews/helpful/${reviewId}`
-    );
-  }
-  static async update(data: FormData): Promise<AxiosResponse<User>> {
-    return $api.put<User>(`/${UserService.controller}/profile`, data);
-  }
+	static async getProfile(): Promise<AxiosResponse<User>> {
+		return $api.get<User>(`/${UserService.controller}/profile`)
+	}
+	static async getById(userId: number): Promise<AxiosResponse<User>> {
+		return $api.get<User>(`/${UserService.controller}/profile/${userId}`)
+	}
+	static async toggleFavorite(productId: number): Promise<AxiosResponse<User>> {
+		return $api.patch<User>(
+			`/${UserService.controller}/profile/products/favorite/${productId}`
+		)
+	}
+	static async toggleHelpful(reviewId: number): Promise<AxiosResponse<User>> {
+		return $api.patch<User>(
+			`/${UserService.controller}/profile/reviews/helpful/${reviewId}`
+		)
+	}
+	static async update(data: FormData): Promise<AxiosResponse<User>> {
+		return $api.put<User>(`/${UserService.controller}/profile`, data)
+	}
 }

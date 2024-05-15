@@ -1,7 +1,5 @@
-import {OrdersScreen} from "@containers/order/OrdersScreen";
+import { OrdersScreen } from '@containers/order/OrdersScreen'
 
 export default function Page() {
-    return (
-        <OrdersScreen/>
-    );
-};
+	return <OrdersScreen />
+}

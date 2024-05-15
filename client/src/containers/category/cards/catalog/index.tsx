@@ -1,2 +1,2 @@
-export {CategoryCard} from './CategoryCard';
-export {CategorySkeleton} from './CategorySkeleton';
+export { CategoryCard } from './CategoryCard'
+export { CategorySkeleton } from './CategorySkeleton'

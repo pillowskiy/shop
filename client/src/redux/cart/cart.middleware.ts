@@ -1,12 +1,14 @@
-import type {RootState} from "@redux/store";
-import type {Middleware, AnyAction} from 'redux';
-import {setLocalStorage} from "@lib/utils";
+import { setLocalStorage } from '@lib/utils'
+import type { AnyAction, Middleware } from 'redux'
 
-export const cartMiddleware: Middleware<{}, RootState> = store => next => (action: AnyAction) => {
-    const result = next(action);
-    const state = store.getState();
+import type { RootState } from '@redux/store'
 
-    setLocalStorage('cart', JSON.stringify(state.cart.items));
+export const cartMiddleware: Middleware<{}, RootState> =
+	store => next => (action: AnyAction) => {
+		const result = next(action)
+		const state = store.getState()
 
-    return result;
-};
+		setLocalStorage('cart', JSON.stringify(state.cart.items))
+
+		return result
+	}

@@ -1,7 +1,5 @@
-import {LoginScreen} from "@containers/auth/LoginScreen";
+import { LoginScreen } from '@containers/auth/LoginScreen'
 
 export default function AuthLogin() {
-    return (
-        <LoginScreen/>
-    );
+	return <LoginScreen />
 }

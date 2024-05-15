@@ -1,17 +1,15 @@
 {
-  "extends": [
-    "next/core-web-vitals"
-  ],
-  "env": {
-    "browser": true,
-    "jest": true
-  },
-  "rules": {
-    "react-hooks/exhaustive-deps": "off"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  }
+	"extends": ["next/core-web-vitals"],
+	"env": {
+		"browser": true,
+		"jest": true
+	},
+	"rules": {
+		"react-hooks/exhaustive-deps": "off"
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	}
 }
