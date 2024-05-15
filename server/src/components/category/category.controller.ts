@@ -7,7 +7,8 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Put, Query,
+  Put,
+  Query,
   UsePipes,
 } from '@nestjs/common';
 import { Auth } from '@src/decorators/auth.decorator';
