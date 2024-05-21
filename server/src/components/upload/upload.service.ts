@@ -17,7 +17,7 @@ export class UploadService {
   }
 
   public async unlinkFiles(fileNames: string[]) {
-    const allowFiles = fileNames.filter(this.isFileExist);
+    const allowFiles = fileNames.filter((f) => this.isFileExist(f));
     return Promise.all(allowFiles.map((file) => this.unlinkFile(file)));
   }
 
@@ -45,7 +45,7 @@ export class UploadService {
   private async uploadFile(file: Express.Multer.File) {
     const fileExtension = file.originalname.match(FILE_TYPE_REGEX)[0];
     const fileName = randomBytes(16).toString('hex');
-    const filePath = this.getPath(fileName, fileExtension);
+    const filePath = this.getPath(fileName + fileExtension);
     await writeFile(filePath, file.buffer, 'utf8');
     return { fileName, filePath, fileExtension };
   }
